@@ -2,6 +2,8 @@
 
 Contract design version 1, 2026-11-03. These are specifications for future code. Step 2 implements only the MVP interfaces marked below; Step 3 implements video-event, fusion, and evaluation behavior.
 
+Step 2 implementation note: the IMU baseline deliberately emits **`gyro_peak_v1` measured signal events**, not `swing_apex_v1` predictions. Any relationship to a human swing reference is an unvalidated proxy hypothesis that Step 3 must test explicitly. The implemented API is documented in [API.md](API.md); the tables below otherwise retain the approved target design.
+
 ## Clocks, units, and coordinates
 
 - API and persisted movement timestamps are signed integer microseconds (`*_us`). Restrict JSON integers to JavaScript's safe integer range. Internal numerical arrays may convert to float64 seconds after subtracting a local origin.
@@ -63,7 +65,7 @@ Run fingerprint: SHA-256 of canonicalized request fields plus source hashes, syn
 
 | Algorithm | Required inputs | Output / hypothesis | Stage |
 | --- | --- | --- | --- |
-| `imu_gyro_peak@1.0.0` | Known-placement gyro xyz in rad/s, timestamps, quality masks, sync revision | `swing_apex_v1` candidate at filtered angular-speed peak; timing may systematically differ from human extension reference | 2 |
+| `imu_gyro_peak@1.0.0` | Gyro xyz in rad/s, timestamps, quality masks, placement metadata, sync revision | `gyro_peak_v1` measured angular-speed peak; unvalidated movement proxy, no confirmed tennis event | 2 |
 | `video_wrist_speed@1.0.0` | Dominant wrist, shoulder/hip landmarks, visibility, actual times, camera geometry metadata | Same target estimated from torso-relative image wrist-speed peaks; perspective-dependent proxy | 3 |
 | `late_event_fusion@1.0.0` | Compatible IMU/video candidate runs, source quality, same sync and event definition | Matched multimodal candidate events with explicit timing combination and disagreement | 3 |
 

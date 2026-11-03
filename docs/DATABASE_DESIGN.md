@@ -2,6 +2,8 @@
 
 Proposed schema, not migrations. PostgreSQL 17 is the conservative target major; select the supported patched minor and image digest at implementation time. All IDs are UUIDs, all administrative timestamps are UTC `timestamptz`, and all movement times are signed `bigint` microseconds. UTC timestamps never substitute for movement clocks.
 
+Step 2 note: the target design below is retained for future stages. The actual [frozen initial migration](../apps/api/migrations/versions/0001_mvp.py) and [models](../apps/api/src/rallysense/models.py) implement the MVP subset on PostgreSQL 17.11. UUID values are represented as validated 36-character strings; same-session composite foreign keys enforce ownership. Manual offset mappings are stored directly on synchronization revisions. Experiment/evaluation tables and frozen annotation snapshots remain Step 3. Temporary bounded pose batches use JSONB and are removed after Parquet finalization. See STEP2_REPORT for the implementation mapping.
+
 ## Relational entities
 
 Unless stated otherwise, every session-owned table carries `session_id`, `created_at`, and an ID. Composite foreign keys `(session_id, referenced_id)` enforce same-session references, backed by corresponding unique constraints. JSONB is for versioned small configurations, not dense time series. Finite-number validation is enforced at the API/worker boundary as well as applicable database checks.

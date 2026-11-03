@@ -1,0 +1,9 @@
+services:
+  api:
+    volumes:
+      - ./apps/api/src:/app/src:ro
+      - ./apps/api/tests:/app/tests:ro
+      - ./apps/api/migrations:/app/migrations:ro
+  worker:
+    volumes:
+      - ./apps/api/src:/app/src:ro

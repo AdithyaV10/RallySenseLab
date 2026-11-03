@@ -1,6 +1,6 @@
 # Implementation plan and stage gates
 
-Only Step 1 is authorized at this checkpoint. The full [original project brief](PROJECT_BRIEF.md) remains the authoritative user specification. Never infer permission for the next stage from available time or context.
+This is the approved Step 1 plan. The user subsequently authorized Step 2; see [current project status](PROJECT_STATUS.md) for the implemented checkpoint and authorization boundary. The full [original project brief](PROJECT_BRIEF.md) remains authoritative. Never infer permission for the next stage from available time or context.
 
 ## Stage ownership
 

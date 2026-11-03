@@ -2,6 +2,8 @@
 
 This is a proposed protocol, not a completed study. No recordings, human labels, performance measurements, or validation results exist in this repository at Step 1.
 
+Step 2 adds deterministic software fixtures and an optional official MediaPipe demonstration clip for integration verification. Neither provides independent tennis labels or real-world tennis accuracy evidence. Gyro events remain `gyro_peak_v1` observations; the research protocol below is reserved for the explicitly authorized Step 3.
+
 ## Question, hypotheses, and evidence levels
 
 Question: how reliably can sparse inertial observations detect swing-like activity and estimate event time when compared with independently annotated video observations?

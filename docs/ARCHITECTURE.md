@@ -1,6 +1,6 @@
 # Architecture
 
-Design checkpoint: 2026-11-03. Everything below is proposed behavior, not implemented functionality. See [technical validation](TECHNICAL_VALIDATION.md) for evidence and unresolved runtime checks.
+Design checkpoint: 2026-11-03. The approved target architecture is retained below. Step 2 now implements its local Next.js/FastAPI/PostgreSQL foundation; see [implementation report](STEP2_REPORT.md) and [project status](PROJECT_STATUS.md) for actual scope and evidence. Future research/deployment capabilities described below remain planned. See [technical validation](TECHNICAL_VALIDATION.md) for the original environment research.
 
 ## Scope and boundaries
 

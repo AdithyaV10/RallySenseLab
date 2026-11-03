@@ -22,7 +22,19 @@ Accepted for planning on 2026-11-03. None implies implemented or benchmarked fun
 
 The Sites skill was inspected for applicability; its implementation/publishing workflow was not invoked because the authorized stage is documentation-only. No Site was created, registered, synchronized, or published.
 
-## Decision invariants
+## Step 2 implementation decisions
+
+- **ADR-016 — measured event semantics:** per the user's explicit Step 2 instruction, the baseline emits `gyro_peak_v1`, described as filtered angular-speed maxima and unvalidated movement proxies. It never assigns a confirmed swing/impact label. Human `swing_apex_v1` annotations remain separate.
+- **ADR-017 — verified classic worker:** inspected installed `@mediapipe/tasks-vision` 1.2.0 type signatures and its `Vision` IIFE bundle. A classic worker uses `importScripts`, local WASM, the pinned Lite model, and CPU execution. Initialization failure explicitly selects a main-thread CPU fallback. No tracker states are spliced mid-extraction.
+- **ADR-018 — direct confirmed import:** the UI previews headers/column/unit/provenance mapping before one import submission. Full parsing/normalization is a durable worker job. The proposed separate server preview/commit resource is deferred; validation failures are visible jobs, not successful imports.
+- **ADR-019 — runtime local proxy:** a Next.js route handler injects the server-held local credential, forwards streaming media/Range requests, and rejects foreign Host/Origin values. FastAPI also checks credentials/origins and resource ownership. This is single-user local access, not public authentication.
+- **ADR-020 — staged pose batches:** bounded, hashed, idempotent JSONB batches provide upload staging; completion validates ordered times, derives image-space features, writes compressed Parquet, and deletes staging rows. Abandoned tracks expire after a 24-hour grace period during maintenance.
+- **ADR-021 — concrete source provenance:** sessions expose recorded/synthetic/mixed types; sensor mappings retain recorded/synthetic origin. Generated fixture references are immutable and visibly distinct from editable human observations. User declarations are recorded, not independently authenticated.
+- **ADR-022 — implementation fingerprints:** inference identities include source artifact hash, alignment revision, expanded configuration, signal implementation hash, dependency-lock hash, and numerical library versions. Old completed runs retain their manifests.
+
+The earlier decision table describes the accepted architecture; source-level details and known limits are recorded in STEP2_REPORT. No advanced event classifier, fusion, or evaluation engine has been implemented.
+
+## Invariants retained at the Step 2 checkpoint
 
 - Positive IMU offset moves sensor events later relative to video; inverse mapping subtracts the offset.
 - Changing alignment/configuration/labels creates a new revision and never silently changes old experimental results.

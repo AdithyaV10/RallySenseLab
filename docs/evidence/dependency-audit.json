@@ -1,0 +1,19 @@
+{
+  "runtime": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "full": {
+    "info": 0,
+    "low": 0,
+    "moderate": 17,
+    "high": 0,
+    "critical": 0,
+    "total": 17
+  },
+  "scope": "npm dependency advisory scan; not a container or security audit"
+}

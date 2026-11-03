@@ -1,0 +1,44 @@
+{
+  "runtime_mode": "production standalone in local Docker Compose",
+  "stats": {
+    "startTime": "2026-11-03T08:40:22.711Z",
+    "duration": 37636.875,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    {
+      "test": "synthetic session: computed events, seek, label edits, saved sync and reload",
+      "status": "expected",
+      "annotations": []
+    },
+    {
+      "test": "session creation, CSV mapping import, inference and deletion through the UI",
+      "status": "expected",
+      "annotations": []
+    },
+    {
+      "test": "real MediaPipe package processes uploaded official demonstration video",
+      "status": "expected",
+      "annotations": [
+        {
+          "type": "actual-pose-execution",
+          "description": "Complete \u00c2\u00b7 48 sampled frames \u00c2\u00b7 worker"
+        },
+        {
+          "type": "actual-fallback-execution",
+          "description": "Complete \u00c2\u00b7 48 sampled frames \u00c2\u00b7 main_thread_fallback"
+        }
+      ]
+    }
+  ],
+  "retained_pose_session_id": "a55c1396-6952-4583-930e-da806358d15e",
+  "verification_media": {
+    "source": "official MediaPipe documentation clip",
+    "upstream_sha256": "e06e2ec9a2c1e6e15de0de1bf68740b3dd5f216adb416a9015865d0c4cd164ca",
+    "seekable_derivative_sha256": "f1aaf7e00a7300fa4d93a3268db73cf93e850e7eb9f89e5d83a2d1d28900fe33",
+    "scientific_validation": false
+  }
+}

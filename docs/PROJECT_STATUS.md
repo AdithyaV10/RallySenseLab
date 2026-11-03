@@ -4,73 +4,85 @@ Updated: 2026-11-03, America/New_York.
 
 ## Authorization and checkpoint
 
-- Current stage: **Step 1 — architecture and technical blueprint**.
-- Stage state: **complete; stopped at the mandatory Step 1 review gate**.
-- Last completed stage: **Step 1**.
-- Authorized work: Step 1 only, as explicitly requested by the master prompt.
-- Next authorized stage: **none**. Step 2 requires `CONTINUE TO STEP 2`.
+- Current stage: **Step 2 ? full-stack foundation and functional MVP**.
+- Stage state: **complete; stopped at the mandatory Step 2 review gate**.
+- Last completed stage: **Step 2**.
+- Authorized work completed: the user's explicit `CONTINUE TO STEP 2` instruction and implementation priorities.
+- Next authorized stage: **none**. Step 3 requires `CONTINUE TO STEP 3`.
 - User authorization required to advance: **yes**.
-- No application code, dependency installation, deployment, remote repository, push, or cloud provisioning has occurred.
+- No deployment, publication, Git remote, push, or cloud provisioning occurred.
+- Step 1 checkpoint: `7316393`. Step 2 checkpoint message: `feat: complete Step 2 local movement analysis MVP`; obtain its ID with `git log -1 --format=%h` after the local commit.
 
-## Delivered design
+## Implemented and verified
 
-The blueprint defines a Next.js browser application, MediaPipe pose worker, modular FastAPI backend, durable PostgreSQL-backed processing jobs, PostgreSQL metadata, immutable local/Parquet artifacts, and a future storage adapter boundary. It specifies source clocks/units, ingestion and inference contracts, an IMU-first MVP, replay state, annotation provenance, event matching, evaluation methodology, and subsequent stage gates.
+The local application connects Next.js 16.4.4/React 19.3.1/TypeScript to FastAPI 0.162.0 and real PostgreSQL 17.11. It implements session creation/loading/deletion, declared source provenance, actual video validation/streaming, CSV mapping and SI normalization, compressed raw/derived storage, durable jobs, gyro signal processing, immutable offset revisions, replay, independent annotation editing, and the synthetic demonstration.
 
-Implemented application features: **none; this stage is architecture only**. No scientific findings, model accuracy, throughput, or real-world device/video validation are claimed.
+Browser MediaPipe 1.2.0 processes actual video using the pinned Pose Landmarker Lite model in a classic CPU worker. The explicitly forced initialization-failure path also processed video using the main-thread CPU fallback. Final production browser evidence recorded 48 sampled frames in the worker and 48 in the fallback. Stored pose includes no-person observations, visibility, quality/coverage, actual presentation times, and real image-space feature primitives. Frame counts are scheduling-dependent and do not establish tennis accuracy.
 
-## Verification evidence
+`gyro_peak_v1` denotes filtered angular-speed maxima. These measured signal events are explicitly unvalidated proxies, never automatically confirmed swings or ball impacts. Human annotations, generated references, raw measurements, pose estimates, and computed events remain separate.
 
-Environment probes and 23 public package metadata checks completed; see [technical validation](TECHNICAL_VALIDATION.md) for commands, actual versions, failures, and primary sources.
+See [STEP2_REPORT.md](STEP2_REPORT.md) for the full inventory, implementation decisions, problems resolved and known limitations.
 
-Actual documentation verification used an inline Python script (`@' ... '@ | python -`) checking file presence/size, Markdown local targets, code-fence pairing, schema entity names, stage commands, source-file hashes, and the project file inventory. Results:
+## Actual verification results
 
-- **PASS:** 8/8 required documents have substantive content; 11 Markdown files inspected.
-- **PASS:** 25 local Markdown links resolve; code fences balanced.
-- **PASS:** 14/14 required database entity names documented; all four later authorization commands present.
-- **PASS:** preserved PROJECT_BRIEF is byte-identical to the supplied attachment (SHA-256 comparison).
-- **PASS:** 12 project files comprise documentation and `.gitignore` only; no application scaffold.
-- **PASS:** repository initialized on `main`; `git remote -v` returns no remote.
-- **PASS:** `git -c safe.directory=C:/RallySenseLab diff --cached --check` found no whitespace errors; staged inventory contains exactly the 12 intended files. Git emitted expected Windows line-ending conversion notices.
-
-Manual design review mapped all Step 1 acceptance criteria to their deliverables: component/data-flow coherence (ARCHITECTURE), justified stack (DECISIONS and TECHNICAL_VALIDATION), relationships (DATABASE_DESIGN), common interfaces (INFERENCE_CONTRACTS), defensible evaluation (RESEARCH_DESIGN), actionable MVP ordering (IMPLEMENTATION_PLAN), and clear nonimplementation status (all design documents and README).
-
-Local checkpoint message: `docs: complete Step 1 architecture and technical blueprint`. Resolve the checkpoint ID with `git log -1 --format=%h`; the final user report includes the actual ID after commit. No remote or push is part of this checkpoint.
-
-Application unit/integration/E2E tests, typecheck, lint, production build, database migrations, Docker startup, and real-video/device inference: **not run, because application code does not exist at this stage**. Mermaid syntax/visual rendering is not yet verified with a renderer.
-
-## Known defects, limits, and blocked requirements
-
-No application defect assessment is possible before implementation. The following are observed setup limitations or design risks:
-
-- Docker CLI/Compose exist, but the engine named pipe is unavailable; Docker config reads also warn access denied. Database/container startup remains unverified.
-- FFprobe, FFmpeg, and psql were not found on PATH. FFprobe documentation timed out twice; exact invocation remains a Step 2 check.
-- PowerShell blocks npm.ps1; use the successfully verified `npm.cmd`. The `py` launcher does not discover Python; `python` works.
-- Registry network reads required an elevated read-only tool call; that retry succeeded. Dependency resolution, native wheels, browser binaries, model assets, and compatibility builds remain untested.
-- After repository initialization, sandboxed shell creation failed with `setup refresh had errors`; read-only verification succeeded using elevated execution. Git then detected the sandbox/elevated user ownership difference. A per-command `-c safe.directory=C:/RallySenseLab` exception was used for this known newly created repository; no global trust configuration changed.
-- No real recordings, independent annotations, tested phones, or pose model artifact exist in this workspace.
-- Browser sampling coverage, unknown sensor placement, ambiguous manual event times, and small datasets limit eventual scientific conclusions.
-
-These do not block architecture completion. They may block Step 2 runtime acceptance until resolved. Public access remains out of scope and requires authentication/isolation review plus explicit authorization.
-
-## Handoff files
-
-| File | Purpose |
+| Check / command | Result |
 | --- | --- |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Components, data flows, worker/storage lifecycle, security, testing |
-| [DATABASE_DESIGN.md](DATABASE_DESIGN.md) | All required entities, constraints, artifacts, indexes, retention |
-| [INFERENCE_CONTRACTS.md](INFERENCE_CONTRACTS.md) | Clocks/units, import/pose contracts, algorithms, failures, API |
-| [RESEARCH_DESIGN.md](RESEARCH_DESIGN.md) | Collection, reference labels, matching, metrics, leakage prevention, challenge |
-| [UX_SPECIFICATION.md](UX_SPECIFICATION.md) | Routes, interaction design, replay clock and states |
-| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Exact stage boundaries, Step 2 sequence, acceptance fixtures |
-| [DECISIONS.md](DECISIONS.md) | Accepted decisions and tradeoffs |
-| [TECHNICAL_VALIDATION.md](TECHNICAL_VALIDATION.md) | Environment and primary-source evidence |
-| [PROJECT_BRIEF.md](PROJECT_BRIEF.md) | Unmodified full user specification and stage reports/gates |
-| [README.md](../README.md) | Entry point and honest current state |
+| `docker compose build api web` plus final cached image rebuilds | PASS: pinned API/FFprobe image and production Next.js standalone image built |
+| `docker compose up -d --no-build` | PASS: actual packaged API/web/worker/PostgreSQL; API mount inspection confirmed no source bind mounts |
+| `docker compose exec api pytest -q --tb=short --basetemp=/tmp/rallysense-pytest` | PASS: **17 tests**, including real PostgreSQL, FFprobe, Range, pose persistence and lifecycle checks |
+| Native `uv run pytest ... --basetemp=../../storage/pytest-native` from apps/api | **16 pass, 1 expected skip** for absent native FFmpeg; equivalent test passes in the API container |
+| `uv run ruff check src tests migrations` from apps/api | PASS |
+| `docker compose exec api alembic check` | PASS: no new upgrade operations detected |
+| `npm.cmd --prefix apps/web run typecheck` | PASS: strict TypeScript |
+| `npm.cmd --prefix apps/web run lint` | PASS |
+| `npm.cmd --prefix apps/web test` | PASS: **6 tests** across 2 files |
+| `node scripts/check-contracts.mjs` | PASS: generated types match Pydantic OpenAPI |
+| `npm.cmd --prefix apps/web run test:e2e` against production containers | PASS: **3 tests**, 0 skips, 37.6 seconds; synthetic workflow, fresh CSV flow, real pose/combined-source flow and forced fallback |
+| `uv run --project apps/api python scripts/verify-local.py` | PASS: web pages HTTP 200, proxied API ready, stored 1,801-sample synthetic session accessible |
+| Full `docker compose restart` followed by smoke verification | PASS: same demo UUID and persisted observations survived; all services recovered |
+| `npm audit --omit=dev --json` | 0 runtime advisories in that dependency scan |
+| Full npm advisory scan | 17 moderate development-tooling advisories; no high/critical advisories reported |
 
-## Next action after authorization
+Raw local evidence: [browser summary](evidence/browser-verification.json), [readiness/persistence summary](evidence/local-verification.json), and [scoped dependency audit](evidence/dependency-audit.json). Screenshots in `docs/evidence` show the landing page, desktop/mobile replay, and real pose overlay. Browser traces/report remain under `apps/web/test-results`; screenshots/traces are local artifacts, not committed private recordings.
 
-Step 2 should resolve runtime prerequisites, lock compatible dependencies, implement persistence/ingestion and the IMU vertical slice, then add actual video/pose, synchronized replay, annotation workflows, and a clearly labeled synthetic demo. Run all MVP checks, document actual startup commands and remaining limitations, create a local checkpoint, and stop before Step 3.
+[TESTING.md](TESTING.md) explains commands, meaningful coverage, corrected failures and warning details. Git whitespace/document checks and the final clean checkpoint are recorded in the user-facing completion report. No remote CI execution is claimed; only the CI definition exists.
 
-Local execution at this checkpoint: read the documents; there is no application startup command. Planned future commands are explicitly marked as unexecuted in IMPLEMENTATION_PLAN.
+## Known defects, verification limits, and blocked requirements
 
-**STEP 1 COMPLETE - AWAITING USER AUTHORIZATION FOR STEP 2.**
+No unresolved failure blocks the Step 2 MVP acceptance paths. Remaining limits are explicit:
+
+- No independent tennis recordings/labels or real-world accuracy study. The external official video's seekable derivative is an integration input, and the combined sensor/video test uses explicitly mixed, unrelated sources.
+- Browser pose extraction samples frames at a target 10 Hz and can be throttled or interrupted. It does not guarantee every decoded frame. Main-thread fallback can reduce responsiveness.
+- Physical iOS/Android capture and non-Chromium browsers remain unverified. Live browser recording belongs to Step 4; CSV import is functional.
+- Real rotated/portrait, variable-frame-rate/nonzero-origin and maximum-size recordings were not directly exercised. Contained-image geometry has a mathematical test. Large-study performance and full accessibility review remain Step 4.
+- Offset only; no drift fit or automatic cue alignment. Unknown placement/frame/gravity handling must be declared rather than inferred.
+- No video event classifier, fusion, evaluation metrics, frozen experimental label sets or challenge. Those are Step 3, currently unauthorized.
+- FFprobe metadata validation does not guarantee random-access decodability. The original upstream verification clip had bad H.264 seek references; its preserved, explicitly re-encoded test derivative passes post-seek playback checks. Automatic transcoding is not an application feature.
+- UTF-8 explicit-column CSV with decimal-point numerics; no ZIP import, automatic locale repair or automatic transcoding. Library listing is capped at 100 latest sessions.
+- General job-retry UI is not implemented. Failed sources remain private until session deletion. Orphans/abandoned tracks use a 24-hour grace period, reconciled at startup/hourly.
+- Single-user loopback access only. Public identity, isolation, quotas and deployment hardening are incomplete and deployment remains prohibited.
+- Development dependency advisories, indirect lint peer warnings, Starlette's httpx TestClient deprecation and the future Vite config-loader advisory remain documented maintenance items. Current checks/builds pass.
+- The shell sandbox setup error required elevated local execution. Git operations use a per-command safe.directory setting for this known project; global trust settings were not changed.
+
+## Files relevant to continuation
+
+- [Implementation report](STEP2_REPORT.md), [local startup](LOCAL_DEVELOPMENT.md), [API contract](API.md), [testing](TESTING.md), [decisions](DECISIONS.md), [research protocol](RESEARCH_DESIGN.md), and the [original master brief](PROJECT_BRIEF.md).
+- `apps/api/src/rallysense/{api,models.py,schemas.py,signals.py,pose_features.py,provenance.py,jobs.py,worker.py,storage.py,maintenance.py}`.
+- `apps/api/migrations/versions/0001_mvp.py` and `apps/api/tests`.
+- `apps/web/src/features/{ingestion,replay}`, `src/lib`, `src/app`, `tests/workflow.spec.ts`, and the generated contract.
+- `docker-compose.yml`, `infrastructure`, `scripts`, `data/fixtures`, `data/assets.lock.json`, and both dependency lockfiles.
+
+## Local execution and next stage
+
+Services are stopped after final verification; named database/artifact volumes and all source/evidence files are preserved. Restart from PowerShell:
+
+```powershell
+Set-Location C:\RallySenseLab
+docker compose up -d --build
+```
+
+Open `http://127.0.0.1:3000` and choose Explore the demo. Exact instructions are in LOCAL_DEVELOPMENT.
+
+After explicit Step 3 authorization, audit the real timing/filtering/placement assumptions, define any proxy-to-reference comparison explicitly, then implement video-event inference, improved baselines, fusion, leakage-safe evaluation, reproducible experiments and the corruption challenge. Preserve the functioning MVP and stop at the next stage gate.
+
+**STEP 2 COMPLETE - AWAITING USER AUTHORIZATION FOR STEP 3.**

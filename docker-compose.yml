@@ -1,0 +1,53 @@
+name: rallysense
+services:
+  db:
+    restart: unless-stopped
+    image: postgres:17.11@sha256:3b0cda93be7c8dba2ed484d19393d93845dc3dafb88973e248ba8e6d99d784e1
+    environment:
+      POSTGRES_USER: rallysense
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rallysense_local_only}
+      POSTGRES_DB: rallysense
+    ports: ["127.0.0.1:5433:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rallysense -d rallysense"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  api:
+    restart: unless-stopped
+    image: rallysense-api:local
+    build: {context: ., dockerfile: infrastructure/api.Dockerfile}
+    environment: &api_env
+      DATABASE_URL: postgresql+psycopg://rallysense:${POSTGRES_PASSWORD:-rallysense_local_only}@db:5432/rallysense
+      STORAGE_ROOT: /data/storage
+      LOCAL_TOKEN: ${LOCAL_TOKEN:-rallysense-local-development}
+      ALLOWED_ORIGINS: http://127.0.0.1:3000,http://localhost:3000
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: ["artifact_data:/data/storage"]
+    depends_on: {db: {condition: service_healthy}}
+    command: ["sh", "-c", "alembic upgrade head && uvicorn rallysense.main:app --host 0.0.0.0 --port 8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready')"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  worker:
+    restart: unless-stopped
+    image: rallysense-api:local
+    pull_policy: never
+    environment: *api_env
+    volumes: ["artifact_data:/data/storage"]
+    depends_on: {api: {condition: service_healthy}}
+    command: ["python", "-m", "rallysense.worker"]
+  web:
+    restart: unless-stopped
+    build: {context: ., dockerfile: infrastructure/web.Dockerfile}
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      LOCAL_TOKEN: ${LOCAL_TOKEN:-rallysense-local-development}
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on: {api: {condition: service_healthy}}
+volumes:
+  postgres_data:
+  artifact_data:
