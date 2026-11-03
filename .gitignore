@@ -1,0 +1,19 @@
+# Local secrets, recordings, generated artifacts, and developer state
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+node_modules/
+.next/
+coverage/
+playwright-report/
+test-results/
+storage/
+data/private/
+*.log
+.DS_Store
+Thumbs.db
