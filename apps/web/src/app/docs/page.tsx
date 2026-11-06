@@ -64,12 +64,12 @@ export default function Docs() {
           <p>
             Uploaded video can be processed with the locally hosted MediaPipe
             Pose Landmarker Lite model. Extraction samples presented frames,
-            targets 10 Hz, and stores actual media timestamps and missing
-            detections. A classic worker keeps inference off the UI thread where
-            compatible; an explicit CPU main-thread fallback is used if
-            initialization fails. Visibility, occlusion, camera perspective,
-            decoding, and browser scheduling limit coverage. World landmarks are
-            model estimates, not calibrated motion capture.
+            targets 10 Hz or 30 Hz with slower playback, and stores actual media
+            timestamps and missing detections. A classic worker keeps inference
+            off the UI thread where compatible; an explicit CPU main-thread
+            fallback is used if initialization fails. Visibility, occlusion,
+            camera perspective, decoding, and browser scheduling limit coverage.
+            World landmarks are model estimates, not calibrated motion capture.
           </p>
           <h2>Prepare your recording</h2>
           <p>

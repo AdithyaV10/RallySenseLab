@@ -166,6 +166,27 @@ class DataQualityReport(Owned, Base):
     summary: Mapped[dict] = mapped_column(JSONB)
 
 
+class ReferenceSnapshot(Owned, Base):
+    __tablename__ = "reference_snapshots"
+    set_id: Mapped[str] = mapped_column(ForeignKey("annotation_sets.id"))
+    revision: Mapped[int] = mapped_column(Integer)
+    manifest: Mapped[dict] = mapped_column(JSONB)
+    events: Mapped[list] = mapped_column(JSONB)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+
+
+class Experiment(Owned, Base):
+    __tablename__ = "experiments"
+    name: Mapped[str] = mapped_column(String(160))
+    status: Mapped[str] = mapped_column(String(20), default="queued")
+    fingerprint: Mapped[str] = mapped_column(String(64), index=True)
+    reference_id: Mapped[str | None] = mapped_column(ForeignKey("reference_snapshots.id"))
+    manifest: Mapped[dict] = mapped_column(JSONB)
+    result: Mapped[dict] = mapped_column(JSONB, default=dict)
+    error: Mapped[str | None] = mapped_column(String(400))
+    reused_from_id: Mapped[str | None] = mapped_column(String(36))
+
+
 # Enforce ownership in PostgreSQL as well as at the API boundary.
 for _table in list(Base.metadata.tables.values()):
     if "session_id" in _table.c:
@@ -179,6 +200,8 @@ for _model, _references in [
     (EventAnnotation, {"set_id": "annotation_sets"}),
     (InferenceRun, {"sensor_id": "sensor_recordings", "sync_id": "sync_configurations"}),
     (Prediction, {"run_id": "inference_runs"}),
+    (ReferenceSnapshot, {"set_id": "annotation_sets"}),
+    (Experiment, {"reference_id": "reference_snapshots"}),
 ]:
     for _column, _target in _references.items():
         _model.__table__.append_constraint(

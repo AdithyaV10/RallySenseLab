@@ -253,6 +253,24 @@
         }
       }
     },
+    "/api/v1/research-demo-sessions": {
+      "post": {
+        "summary": "Seed Research Demo",
+        "operationId": "seed_research_demo_api_v1_research_demo_sessions_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/jobs/{job_id}/cancel": {
       "post": {
         "summary": "Cancel Job",
@@ -637,6 +655,23 @@
               "format": "uuid",
               "title": "Session Id"
             }
+          },
+          {
+            "name": "set_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Set Id"
+            }
           }
         ],
         "requestBody": {
@@ -1012,6 +1047,485 @@
           }
         }
       }
+    },
+    "/api/v1/sessions/{session_id}/annotation-sets": {
+      "get": {
+        "summary": "Sets",
+        "operationId": "sets_api_v1_sessions__session_id__annotation_sets_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnnotationSetOut"
+                  },
+                  "title": "Response Sets Api V1 Sessions  Session Id  Annotation Sets Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Set",
+        "operationId": "create_set_api_v1_sessions__session_id__annotation_sets_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnnotationSetCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnotationSetOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/annotation-sets/{set_id}/freeze": {
+      "post": {
+        "summary": "Freeze",
+        "operationId": "freeze_api_v1_annotation_sets__set_id__freeze_post",
+        "parameters": [
+          {
+            "name": "set_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Set Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FreezeCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/references": {
+      "get": {
+        "summary": "References",
+        "operationId": "references_api_v1_sessions__session_id__references_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReferenceOut"
+                  },
+                  "title": "Response References Api V1 Sessions  Session Id  References Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/experiments": {
+      "post": {
+        "summary": "Create Experiment",
+        "operationId": "create_experiment_api_v1_sessions__session_id__experiments_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExperimentCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperimentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Experiments",
+        "operationId": "experiments_api_v1_sessions__session_id__experiments_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExperimentOut"
+                  },
+                  "title": "Response Experiments Api V1 Sessions  Session Id  Experiments Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{experiment_id}": {
+      "get": {
+        "summary": "Experiment",
+        "operationId": "experiment_api_v1_experiments__experiment_id__get",
+        "parameters": [
+          {
+            "name": "experiment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Experiment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperimentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{experiment_id}/report": {
+      "get": {
+        "summary": "Report",
+        "operationId": "report_api_v1_experiments__experiment_id__report_get",
+        "parameters": [
+          {
+            "name": "experiment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Experiment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/experiments/{experiment_id}/evaluate": {
+      "post": {
+        "summary": "Evaluate Revision",
+        "operationId": "evaluate_revision_api_v1_experiments__experiment_id__evaluate_post",
+        "parameters": [
+          {
+            "name": "experiment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Experiment Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperimentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/experiment-comparison": {
+      "get": {
+        "summary": "Compare",
+        "operationId": "compare_api_v1_sessions__session_id__experiment_comparison_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "minItems": 1,
+              "maxItems": 3,
+              "title": "Ids"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExperimentOut"
+                  },
+                  "title": "Response Compare Api V1 Sessions  Session Id  Experiment Comparison Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1030,7 +1544,10 @@
               "swing_apex_v1",
               "movement_reference",
               "sync_cue",
-              "synthetic_reference"
+              "synthetic_reference",
+              "gyro_peak_v1",
+              "wrist_speed_peak_v1",
+              "multimodal_association_v1"
             ],
             "title": "Event Type",
             "default": "movement_reference"
@@ -1062,7 +1579,10 @@
               "swing_apex_v1",
               "movement_reference",
               "sync_cue",
-              "synthetic_reference"
+              "synthetic_reference",
+              "gyro_peak_v1",
+              "wrist_speed_peak_v1",
+              "multimodal_association_v1"
             ],
             "title": "Event Type",
             "default": "movement_reference"
@@ -1095,6 +1615,49 @@
         ],
         "title": "AnnotationOut"
       },
+      "AnnotationSetCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "AnnotationSetCreate"
+      },
+      "AnnotationSetOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "provenance": {
+            "type": "string",
+            "title": "Provenance"
+          },
+          "revision": {
+            "type": "integer",
+            "title": "Revision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "provenance",
+          "revision"
+        ],
+        "title": "AnnotationSetOut"
+      },
       "AnnotationUpdate": {
         "properties": {
           "t_session_us": {
@@ -1109,7 +1672,10 @@
               "swing_apex_v1",
               "movement_reference",
               "sync_cue",
-              "synthetic_reference"
+              "synthetic_reference",
+              "gyro_peak_v1",
+              "wrist_speed_peak_v1",
+              "multimodal_association_v1"
             ],
             "title": "Event Type",
             "default": "movement_reference"
@@ -1166,6 +1732,135 @@
         ],
         "title": "Body_upload_video_api_v1_sessions__session_id__videos_post"
       },
+      "ComponentResult": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "signal": {
+            "items": {
+              "$ref": "#/components/schemas/SignalPoint"
+            },
+            "type": "array",
+            "title": "Signal"
+          },
+          "quality": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Quality"
+          },
+          "eligible_intervals": {
+            "items": {
+              "$ref": "#/components/schemas/Interval"
+            },
+            "type": "array",
+            "title": "Eligible Intervals"
+          },
+          "score_kind": {
+            "type": "string",
+            "title": "Score Kind",
+            "default": ""
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ComponentResult"
+      },
+      "Corruption": {
+        "properties": {
+          "seed": {
+            "type": "integer",
+            "maximum": 4294967295.0,
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 42
+          },
+          "dropout_fraction": {
+            "type": "number",
+            "maximum": 0.95,
+            "minimum": 0.0,
+            "title": "Dropout Fraction",
+            "default": 0
+          },
+          "gyro_noise_sd": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Gyro Noise Sd",
+            "default": 0
+          },
+          "acceleration_noise_sd": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Acceleration Noise Sd",
+            "default": 0
+          },
+          "timestamp_jitter_fraction": {
+            "type": "number",
+            "maximum": 0.45,
+            "minimum": 0.0,
+            "title": "Timestamp Jitter Fraction",
+            "default": 0
+          },
+          "imu_gap_start_s": {
+            "type": "number",
+            "maximum": 1200.0,
+            "minimum": 0.0,
+            "title": "Imu Gap Start S",
+            "default": 0
+          },
+          "imu_gap_duration_s": {
+            "type": "number",
+            "maximum": 1200.0,
+            "minimum": 0.0,
+            "title": "Imu Gap Duration S",
+            "default": 0
+          },
+          "occlusion_start_s": {
+            "type": "number",
+            "maximum": 600.0,
+            "minimum": 0.0,
+            "title": "Occlusion Start S",
+            "default": 0
+          },
+          "occlusion_duration_s": {
+            "type": "number",
+            "maximum": 600.0,
+            "minimum": 0.0,
+            "title": "Occlusion Duration S",
+            "default": 0
+          },
+          "occluded_landmarks": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 33,
+            "title": "Occluded Landmarks"
+          },
+          "sync_error_us": {
+            "type": "integer",
+            "maximum": 10000000.0,
+            "minimum": -10000000.0,
+            "title": "Sync Error Us",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "Corruption"
+      },
       "DetectorConfig": {
         "properties": {
           "cutoff_hz": {
@@ -1207,6 +1902,571 @@
         "type": "object",
         "title": "DetectorConfig"
       },
+      "Evaluation": {
+        "properties": {
+          "evaluator": {
+            "type": "string",
+            "title": "Evaluator"
+          },
+          "tolerance_us": {
+            "type": "integer",
+            "title": "Tolerance Us"
+          },
+          "tp": {
+            "type": "integer",
+            "title": "Tp"
+          },
+          "fp": {
+            "type": "integer",
+            "title": "Fp"
+          },
+          "fn": {
+            "type": "integer",
+            "title": "Fn"
+          },
+          "precision": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Precision"
+          },
+          "recall": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recall"
+          },
+          "f1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "F1"
+          },
+          "mean_absolute_error_us": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Absolute Error Us"
+          },
+          "median_absolute_error_us": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Median Absolute Error Us"
+          },
+          "mean_signed_error_us": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Signed Error Us"
+          },
+          "false_positives_per_minute": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "False Positives Per Minute"
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/TimingMatch"
+            },
+            "type": "array",
+            "title": "Matches"
+          },
+          "unmatched_predictions": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Unmatched Predictions"
+          },
+          "missed_references": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Missed References"
+          },
+          "undefined_rule": {
+            "type": "string",
+            "title": "Undefined Rule"
+          }
+        },
+        "type": "object",
+        "required": [
+          "evaluator",
+          "tolerance_us",
+          "tp",
+          "fp",
+          "fn",
+          "precision",
+          "recall",
+          "f1",
+          "mean_absolute_error_us",
+          "median_absolute_error_us",
+          "mean_signed_error_us",
+          "false_positives_per_minute",
+          "matches",
+          "unmatched_predictions",
+          "missed_references",
+          "undefined_rule"
+        ],
+        "title": "Evaluation"
+      },
+      "EvaluationCreate": {
+        "properties": {
+          "reference_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Reference Id"
+          },
+          "tolerance_us": {
+            "type": "integer",
+            "maximum": 2000000.0,
+            "minimum": 0.0,
+            "title": "Tolerance Us",
+            "default": 150000
+          },
+          "comparison": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "proxy_hypothesis",
+              "synthetic_fixture"
+            ],
+            "title": "Comparison",
+            "default": "exact"
+          },
+          "hypothesis": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Hypothesis",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "reference_id"
+        ],
+        "title": "EvaluationCreate"
+      },
+      "ExperimentCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Name",
+            "default": "Motion experiment"
+          },
+          "research_question": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Research Question",
+            "default": "How do observations support movement-event detection?"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "imu",
+              "video",
+              "fusion"
+            ],
+            "title": "Mode"
+          },
+          "sensor_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sensor Id"
+          },
+          "pose_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pose Id"
+          },
+          "sync_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sync Id"
+          },
+          "reference_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Id"
+          },
+          "imu": {
+            "$ref": "#/components/schemas/DetectorConfig"
+          },
+          "video": {
+            "$ref": "#/components/schemas/VideoConfig"
+          },
+          "association_tolerance_us": {
+            "type": "integer",
+            "maximum": 2000000.0,
+            "minimum": 0.0,
+            "title": "Association Tolerance Us",
+            "default": 150000
+          },
+          "tolerance_us": {
+            "type": "integer",
+            "maximum": 2000000.0,
+            "minimum": 0.0,
+            "title": "Tolerance Us",
+            "default": 150000
+          },
+          "start_us": {
+            "type": "integer",
+            "maximum": 1200000000.0,
+            "minimum": 0.0,
+            "title": "Start Us",
+            "default": 0
+          },
+          "end_us": {
+            "type": "integer",
+            "maximum": 1800000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "End Us",
+            "default": 18000000
+          },
+          "pairing": {
+            "type": "string",
+            "enum": [
+              "unpaired",
+              "same_recording",
+              "synthetic_fixture"
+            ],
+            "title": "Pairing",
+            "default": "unpaired"
+          },
+          "alignment_note": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Alignment Note",
+            "default": ""
+          },
+          "comparison": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "proxy_hypothesis",
+              "synthetic_fixture"
+            ],
+            "title": "Comparison",
+            "default": "exact"
+          },
+          "hypothesis": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Hypothesis",
+            "default": ""
+          },
+          "corruption": {
+            "$ref": "#/components/schemas/Corruption"
+          },
+          "force_rerun": {
+            "type": "boolean",
+            "title": "Force Rerun",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode"
+        ],
+        "title": "ExperimentCreate"
+      },
+      "ExperimentOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "fingerprint": {
+            "type": "string",
+            "title": "Fingerprint"
+          },
+          "manifest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Manifest"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ExperimentResult"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "reused_from_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reused From Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "session_id",
+          "created_at",
+          "name",
+          "status",
+          "fingerprint",
+          "manifest",
+          "result",
+          "error",
+          "reused_from_id"
+        ],
+        "title": "ExperimentOut"
+      },
+      "ExperimentResult": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ResearchEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "signal": {
+            "items": {
+              "$ref": "#/components/schemas/SignalPoint"
+            },
+            "type": "array",
+            "title": "Signal"
+          },
+          "quality": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Quality"
+          },
+          "eligible_intervals": {
+            "items": {
+              "$ref": "#/components/schemas/Interval"
+            },
+            "type": "array",
+            "title": "Eligible Intervals"
+          },
+          "score_kind": {
+            "type": "string",
+            "title": "Score Kind",
+            "default": ""
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          },
+          "components": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ComponentResult"
+            },
+            "type": "object",
+            "title": "Components"
+          },
+          "evaluation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Evaluation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evaluation_note": {
+            "type": "string",
+            "title": "Evaluation Note",
+            "default": "Not evaluated"
+          },
+          "references": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "References"
+          },
+          "corruption": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Corruption"
+          },
+          "processing_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Processing Ms"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ExperimentResult"
+      },
+      "FreezeCreate": {
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Revision"
+          },
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "swing_apex_v1",
+              "movement_reference",
+              "synthetic_reference",
+              "gyro_peak_v1",
+              "wrist_speed_peak_v1",
+              "multimodal_association_v1"
+            ],
+            "title": "Event Type"
+          },
+          "definition": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 12,
+            "title": "Definition"
+          },
+          "labeler": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Labeler"
+          },
+          "procedure": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 12,
+            "title": "Procedure"
+          },
+          "independent": {
+            "type": "boolean",
+            "title": "Independent",
+            "default": false
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "revision",
+          "event_type",
+          "definition",
+          "labeler",
+          "procedure"
+        ],
+        "title": "FreezeCreate"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -1236,6 +2496,24 @@
           "sensor_id"
         ],
         "title": "InferenceCreate"
+      },
+      "Interval": {
+        "properties": {
+          "start_us": {
+            "type": "integer",
+            "title": "Start Us"
+          },
+          "end_us": {
+            "type": "integer",
+            "title": "End Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_us",
+          "end_us"
+        ],
+        "title": "Interval"
       },
       "JobOut": {
         "properties": {
@@ -1476,6 +2754,24 @@
               "main_thread_fallback"
             ],
             "title": "Executor"
+          },
+          "sample_target_hz": {
+            "type": "integer",
+            "enum": [
+              10,
+              30
+            ],
+            "title": "Sample Target Hz",
+            "default": 10
+          },
+          "playback_rate": {
+            "type": "number",
+            "enum": [
+              0.5,
+              1.0
+            ],
+            "title": "Playback Rate",
+            "default": 1.0
           }
         },
         "type": "object",
@@ -1523,6 +2819,215 @@
           "prominence"
         ],
         "title": "PredictionOut"
+      },
+      "ReferenceOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "set_id": {
+            "type": "string",
+            "title": "Set Id"
+          },
+          "revision": {
+            "type": "integer",
+            "title": "Revision"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "manifest": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Manifest"
+          },
+          "events": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "fingerprint": {
+            "type": "string",
+            "title": "Fingerprint"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "set_id",
+          "revision",
+          "created_at",
+          "manifest",
+          "events",
+          "fingerprint"
+        ],
+        "title": "ReferenceOut"
+      },
+      "ResearchEvent": {
+        "properties": {
+          "t_session_us": {
+            "type": "integer",
+            "title": "T Session Us"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "magnitude": {
+            "type": "number",
+            "title": "Magnitude"
+          },
+          "prominence": {
+            "type": "number",
+            "title": "Prominence",
+            "default": 0
+          },
+          "window_start_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window Start Us"
+          },
+          "window_end_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window End Us"
+          },
+          "sampling_interval_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sampling Interval Us"
+          },
+          "duration_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Us"
+          },
+          "acceleration_peak_m_s2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Acceleration Peak M S2"
+          },
+          "imu_event_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imu Event Index"
+          },
+          "video_event_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Event Index"
+          },
+          "imu_time_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imu Time Us"
+          },
+          "video_time_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Time Us"
+          },
+          "disagreement_us": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disagreement Us"
+          },
+          "video_strength": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Strength"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "t_session_us",
+          "event_type",
+          "magnitude"
+        ],
+        "title": "ResearchEvent"
       },
       "RunOut": {
         "properties": {
@@ -2060,6 +3565,31 @@
         ],
         "title": "SessionOut"
       },
+      "SignalPoint": {
+        "properties": {
+          "t_session_us": {
+            "type": "integer",
+            "title": "T Session Us"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "t_session_us",
+          "value"
+        ],
+        "title": "SignalPoint"
+      },
       "SyncCreate": {
         "properties": {
           "sensor_id": {
@@ -2109,6 +3639,44 @@
         ],
         "title": "SyncOut"
       },
+      "TimingMatch": {
+        "properties": {
+          "prediction_index": {
+            "type": "integer",
+            "title": "Prediction Index"
+          },
+          "reference_index": {
+            "type": "integer",
+            "title": "Reference Index"
+          },
+          "prediction_us": {
+            "type": "integer",
+            "title": "Prediction Us"
+          },
+          "reference_us": {
+            "type": "integer",
+            "title": "Reference Us"
+          },
+          "signed_error_us": {
+            "type": "integer",
+            "title": "Signed Error Us"
+          },
+          "absolute_error_us": {
+            "type": "integer",
+            "title": "Absolute Error Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "prediction_index",
+          "reference_index",
+          "prediction_us",
+          "reference_us",
+          "signed_error_us",
+          "absolute_error_us"
+        ],
+        "title": "TimingMatch"
+      },
       "ValidationError": {
         "properties": {
           "loc": {
@@ -2148,6 +3716,61 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "VideoConfig": {
+        "properties": {
+          "visibility": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Visibility",
+            "default": 0.5
+          },
+          "max_gap_s": {
+            "type": "number",
+            "maximum": 0.5,
+            "minimum": 0.03,
+            "title": "Max Gap S",
+            "default": 0.15
+          },
+          "threshold": {
+            "type": "number",
+            "maximum": 1000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Threshold",
+            "default": 1
+          },
+          "prominence": {
+            "type": "number",
+            "maximum": 1000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Prominence",
+            "default": 0.5
+          },
+          "adaptive_k": {
+            "type": "number",
+            "maximum": 20.0,
+            "minimum": 0.0,
+            "title": "Adaptive K",
+            "default": 3
+          },
+          "min_separation_s": {
+            "type": "number",
+            "maximum": 10.0,
+            "minimum": 0.05,
+            "title": "Min Separation S",
+            "default": 0.3
+          },
+          "smooth_window_s": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Smooth Window S",
+            "default": 0.15
+          }
+        },
+        "type": "object",
+        "title": "VideoConfig"
       },
       "VideoOut": {
         "properties": {

@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get("/sessions", response_model=list[s.SessionOut])
-def sessions(limit: int = 100, db: Session = Depends(get_db)):
+def sessions(limit: int = 100, db: Session = Depends(get_db, scope="function")):
     return list(
         db.scalars(
             select(m.RecordingSession)
@@ -26,7 +26,7 @@ def sessions(limit: int = 100, db: Session = Depends(get_db)):
 
 
 @router.post("/sessions", response_model=s.SessionOut, status_code=201)
-def create_session(payload: s.SessionCreate, db: Session = Depends(get_db)):
+def create_session(payload: s.SessionCreate, db: Session = Depends(get_db, scope="function")):
     session = m.RecordingSession(**payload.model_dump())
     db.add(session)
     db.flush()
@@ -35,7 +35,7 @@ def create_session(payload: s.SessionCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/sessions/{session_id}", response_model=s.SessionDetail)
-def detail(session_id: UUID, db: Session = Depends(get_db)):
+def detail(session_id: UUID, db: Session = Depends(get_db, scope="function")):
     session = active_session(db, session_id)
     result = s.SessionOut.model_validate(session).model_dump()
     for key, model in [
@@ -53,7 +53,7 @@ def detail(session_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.delete("/sessions/{session_id}", response_model=s.JobOut, status_code=202)
-def delete_session(session_id: UUID, db: Session = Depends(get_db)):
+def delete_session(session_id: UUID, db: Session = Depends(get_db, scope="function")):
     session = active_session(db, session_id)
     session = db.get(m.RecordingSession, session.id, with_for_update=True)
     session.deleted_at, session.demo_key = m.now(), None
@@ -65,7 +65,7 @@ def delete_session(session_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/demo-sessions", response_model=s.SessionOut)
-def seed_demo(db: Session = Depends(get_db)):
+def seed_demo(db: Session = Depends(get_db, scope="function")):
     # Transaction advisory lock makes concurrent clicks/import retries idempotent.
     from sqlalchemy import text
 
@@ -116,19 +116,43 @@ def seed_demo(db: Session = Depends(get_db)):
 
 
 @router.get("/jobs/{job_id}", response_model=s.JobOut)
-def job_status(job_id: UUID, db: Session = Depends(get_db)):
+def job_status(job_id: UUID, db: Session = Depends(get_db, scope="function")):
     job = db.get(m.ProcessingJob, str(job_id))
     if not job:
         raise DomainError("Job not found", "NOT_FOUND", 404)
     return job
 
 
+@router.post("/research-demo-sessions", response_model=s.SessionOut)
+def seed_research_demo(db: Session = Depends(get_db, scope="function")):
+    from sqlalchemy import text
+
+    db.execute(text("SELECT pg_advisory_xact_lock(7316394)"))
+    existing = db.scalars(
+        select(m.RecordingSession).where(m.RecordingSession.demo_key == "paired-research-v1")
+    ).first()
+    if existing:
+        return existing
+    session = m.RecordingSession(
+        title="Paired motion / synthetic research",
+        dataset_kind="synthetic",
+        demo_key="paired-research-v1",
+        notes="Generated stick figure, analytical landmarks and Gaussian IMU pulses on a shared clock. NOT MediaPipe extraction, athlete footage, or real-world tennis evidence.",
+    )
+    db.add(session)
+    db.flush()
+    enqueue(db, session.id, "research_fixture", session.id)
+    return session
+
+
 @router.post("/jobs/{job_id}/cancel", response_model=s.JobOut)
-def cancel_job(job_id: UUID, db: Session = Depends(get_db)):
+def cancel_job(job_id: UUID, db: Session = Depends(get_db, scope="function")):
     job = db.get(m.ProcessingJob, str(job_id))
     if not job or job.kind == "delete_session":
         raise DomainError("Job cannot be cancelled", "INVALID_STATE", 409)
     job.cancel_requested = True
     if job.state == "queued":
         job.state = "cancelled"
+        if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
+            target.status = "cancelled"
     return job

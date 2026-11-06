@@ -1,0 +1,85 @@
+{
+  "recorded_at_utc": "2026-11-06T04:49:48.676534+00:00",
+  "scope": "Final production stack on local Windows Chromium; no source bind mounts",
+  "stats": {
+    "startTime": "2026-11-06T04:47:17.488Z",
+    "duration": 60304.186,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "name": "paired synthetic research: freeze labels, three modes, corruption, comparison, export and replay",
+      "status": "expected",
+      "duration_ms": 19959,
+      "annotations": [
+        {
+          "type": "actual-research-results",
+          "description": "{\"session\":\"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\"imu\":\"2b8cf5e6-bb9c-44c3-a922-6c1ba7044c81\",\"video\":\"dfba3530-d509-4d9b-8853-2e4cbfb53163\",\"fusion\":\"97480bc9-7ea7-46cc-a68f-b268b0200f0b\",\"degraded\":\"42d0a4c1-c78f-4074-a977-0d2b8da07804\",\"clean_fusion_events\":2,\"degraded_fusion_events\":0,\"evidence\":\"synthetic software verification only\"}"
+        }
+      ]
+    },
+    {
+      "name": "human reference set revisions and inference eligibility are exposed in the UI",
+      "status": "expected",
+      "duration_ms": 1370,
+      "annotations": []
+    },
+    {
+      "name": "synthetic session: computed events, seek, label edits, saved sync and reload",
+      "status": "expected",
+      "duration_ms": 5312,
+      "annotations": []
+    },
+    {
+      "name": "session creation, CSV mapping import, inference and deletion through the UI",
+      "status": "expected",
+      "duration_ms": 4930,
+      "annotations": []
+    },
+    {
+      "name": "real MediaPipe package processes uploaded official demonstration video",
+      "status": "expected",
+      "duration_ms": 25517,
+      "annotations": [
+        {
+          "type": "measured-dense-pose-cadence",
+          "description": "{\"track_id\":\"b8429752-4a5e-4c7c-a12f-feeeb196f623\",\"target_hz\":30,\"quality\":{\"end_us\":6000000,\"start_us\":80000,\"max_gap_us\":400000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":80000,\"detected_frames\":87,\"processed_frames\":87,\"detection_fraction\":1,\"observed_sample_hz\":14.527027027027026}}"
+        },
+        {
+          "type": "actual-pose-execution",
+          "description": "Complete · 87 sampled frames · worker"
+        },
+        {
+          "type": "actual-fallback-execution",
+          "description": "Complete · 48 sampled frames · main_thread_fallback"
+        },
+        {
+          "type": "actual-stored-pose-inference",
+          "description": "{\"id\":\"5a440bbf-cde1-4fc2-8653-7b51448501db\",\"events\":9,\"evaluation\":null,\"evidence\":\"Official video integration input; no independent tennis ground truth\"}"
+        }
+      ]
+    }
+  ],
+  "mediapipe_package": "1.2.0",
+  "model": {
+    "runtime_version": "1.2.0",
+    "model_sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+    "model_url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task"
+  },
+  "verification_clip_sha256": "f1aaf7e00a7300fa4d93a3268db73cf93e850e7eb9f89e5d83a2d1d28900fe33",
+  "evidence_limits": [
+    "Paired fixture is synthetic and uses analytical landmarks, not MediaPipe output.",
+    "Official clip has no independent tennis references; no accuracy is reported.",
+    "Observed frame cadence varies; target is not guaranteed."
+  ],
+  "backend_summary_from_observed_tool_output": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 6,
+    "duration_s": 18.99
+  }
+}

@@ -16,7 +16,9 @@ router = APIRouter()
 
 
 @router.post("/sessions/{session_id}/videos", response_model=s.JobOut, status_code=202)
-async def upload_video(session_id: UUID, file: UploadFile = File(), db: Session = Depends(get_db)):
+async def upload_video(
+    session_id: UUID, file: UploadFile = File(), db: Session = Depends(get_db, scope="function")
+):
     session = active_session(db, session_id)
     if not file.filename or not file.filename.lower().endswith((".mp4", ".webm")):
         raise DomainError("Upload .mp4 (H.264) or .webm (VP8/VP9)", "UNSUPPORTED_MEDIA", 415)
@@ -52,7 +54,7 @@ async def upload_video(session_id: UUID, file: UploadFile = File(), db: Session 
 
 
 @router.get("/videos/{video_id}/content")
-def content(video_id: UUID, db: Session = Depends(get_db)):
+def content(video_id: UUID, db: Session = Depends(get_db, scope="function")):
     video = owned(db, m.VideoAsset, video_id)
     if video.status != "ready":
         raise DomainError("Video not ready", "INVALID_STATE", 409)

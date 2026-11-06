@@ -12,6 +12,7 @@ export async function extractPose(
   videoId: string,
   onProgress: (message: string) => void,
   signal: AbortSignal,
+  targetHz: 10 | 30 = 10,
 ): Promise<Pose> {
   const info = await fetch("/model-info.json").then((r) => {
     if (!r.ok) throw new Error("Run the asset setup script first");
@@ -25,6 +26,7 @@ export async function extractPose(
   video.muted = true;
   video.playsInline = true;
   video.preload = "auto";
+  video.playbackRate = targetHz === 30 ? 0.5 : 1;
   video.style.cssText =
     "position:fixed;width:2px;height:2px;opacity:0;pointer-events:none;bottom:0";
   document.body.appendChild(video);
@@ -92,7 +94,12 @@ export async function extractPose(
     }
     track = await api<Pose>(`/videos/${videoId}/pose-tracks`, {
       method: "POST",
-      body: JSON.stringify({ ...info, executor }),
+      body: JSON.stringify({
+        ...info,
+        executor,
+        sample_target_hz: targetHz,
+        playback_rate: video.playbackRate,
+      }),
     });
     const frames: PoseFrame[] = [];
     let nextSample = 0,
@@ -128,7 +135,7 @@ export async function extractPose(
         if (signal.aborted) return;
         if (meta.mediaTime >= nextSample) {
           const timeUs = Math.round(meta.mediaTime * 1e6);
-          nextSample = meta.mediaTime + 0.095;
+          nextSample = meta.mediaTime + 0.95 / targetHz;
           processing = (async () => {
             let result: Pick<PoseFrame, "landmarks" | "world_landmarks">;
             if (worker) {

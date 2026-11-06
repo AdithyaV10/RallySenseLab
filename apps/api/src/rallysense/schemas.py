@@ -65,9 +65,15 @@ class SyncCreate(DTO):
 
 class AnnotationCreate(DTO):
     t_session_us: int = Field(ge=0, le=1_200_000_000)
-    event_type: Literal["swing_apex_v1", "movement_reference", "sync_cue", "synthetic_reference"] = (
-        "movement_reference"
-    )
+    event_type: Literal[
+        "swing_apex_v1",
+        "movement_reference",
+        "sync_cue",
+        "synthetic_reference",
+        "gyro_peak_v1",
+        "wrist_speed_peak_v1",
+        "multimodal_association_v1",
+    ] = "movement_reference"
     note: str = Field(default="", max_length=1000)
 
 
@@ -205,6 +211,8 @@ class PoseStart(DTO):
     runtime_version: str = Field(max_length=40)
     model_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
     executor: Literal["worker", "main_thread_fallback"]
+    sample_target_hz: Literal[10, 30] = 10
+    playback_rate: Literal[0.5, 1.0] = 1.0
 
 
 class PoseFramesOut(DTO):

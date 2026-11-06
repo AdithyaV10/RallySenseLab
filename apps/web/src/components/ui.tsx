@@ -59,7 +59,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <br />
             Evidence follows.
           </p>
-          <span className="version">FOUNDATION / V0.2</span>
+          <span className="version">RESEARCH / V0.3</span>
         </div>
       </aside>
       <div className="main-shell">

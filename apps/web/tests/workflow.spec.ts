@@ -156,6 +156,7 @@ test("real MediaPipe package processes uploaded official demonstration video", a
   await page.getByRole("button", { name: "Import and normalize" }).click();
   await expect(page.getByText("ready", { exact: true })).toHaveCount(2);
   await page.getByRole("button", { name: "Synchronized replay" }).click();
+  await page.getByLabel("Pose sampling target").selectOption("30");
   await page.getByRole("button", { name: "Extract pose", exact: true }).click();
   await expect(page.getByRole("status")).toContainText("Complete", {
     timeout: 110000,
@@ -194,12 +195,34 @@ test("real MediaPipe package processes uploaded official demonstration video", a
     .click();
   // Next.js also owns an empty route-announcer alert; assert actual media state.
   await expect(page.locator(".media-stage .error-box")).toHaveCount(0);
-  await expect.poll(()=>replayVideo.evaluate((v:HTMLVideoElement)=>v.error?.message||null)).toBeNull();
+  await expect
+    .poll(() =>
+      replayVideo.evaluate((v: HTMLVideoElement) => v.error?.message || null),
+    )
+    .toBeNull();
   await page.screenshot({
     path: "../../docs/evidence/pose-extraction.png",
     fullPage: true,
   });
   const info = await page.getByRole("status").textContent();
+  const sampledSessionId = new URL(page.url()).pathname.split("/").at(-1)!;
+  const sampledSession = await (
+    await page.request.get(`/api/v1/sessions/${sampledSessionId}`)
+  ).json();
+  const denseTrack = sampledSession.poses.find(
+    (p: { status: string; config: { sample_target_hz: number } }) =>
+      p.status === "ready" && p.config.sample_target_hz === 30,
+  );
+  expect(denseTrack.config.playback_rate).toBe(0.5);
+  expect(denseTrack.quality.observed_sample_hz).toBeGreaterThan(0);
+  test.info().annotations.push({
+    type: "measured-dense-pose-cadence",
+    description: JSON.stringify({
+      track_id: denseTrack.id,
+      target_hz: 30,
+      quality: denseTrack.quality,
+    }),
+  });
   test.info().annotations.push({
     type: "actual-pose-execution",
     description: info || "",
@@ -210,6 +233,7 @@ test("real MediaPipe package processes uploaded official demonstration video", a
       body: "throw new Error('Forced worker failure for fallback verification')",
     }),
   );
+  await page.getByLabel("Pose sampling target").selectOption("10");
   await page
     .getByRole("button", { name: "Extract new track", exact: true })
     .click();
@@ -221,6 +245,57 @@ test("real MediaPipe package processes uploaded official demonstration video", a
     type: "actual-fallback-execution",
     description: (await page.getByRole("status").textContent()) || "",
   });
+  await page
+    .getByRole("button", { name: "Sensor Fusion Challenge", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: /C \/ ASSOCIATION.*Multimodal fusion/ }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: /A \/ VISUAL.*Video only/ }).click();
+  await page
+    .getByText("Inputs, timing & algorithm parameters", { exact: true })
+    .click();
+  await page.getByLabel("Video speed (torso/s)", { exact: true }).fill("0.1");
+  await page.getByLabel("Peak prominence", { exact: true }).fill("0.05");
+  await page.getByLabel("Adaptive threshold k", { exact: true }).fill("1");
+  const experimentResponse = page.waitForResponse(
+    (r) =>
+      r.url().endsWith("/experiments") &&
+      r.request().method() === "POST" &&
+      r.status() === 202,
+  );
+  await page
+    .getByRole("button", { name: "Run experiment", exact: true })
+    .click();
+  const experiment = await (await experimentResponse).json();
+  await expect
+    .poll(
+      async () =>
+        (
+          await (
+            await page.request.get(`/api/v1/experiments/${experiment.id}`)
+          ).json()
+        ).status,
+    )
+    .toBe("succeeded");
+  const actual = await (
+    await page.request.get(`/api/v1/experiments/${experiment.id}`)
+  ).json();
+  expect(actual.result.events.length).toBeGreaterThan(0);
+  expect(actual.result.evaluation).toBeNull();
+  test.info().annotations.push({
+    type: "actual-stored-pose-inference",
+    description: JSON.stringify({
+      id: actual.id,
+      events: actual.result.events.length,
+      evaluation: actual.result.evaluation,
+      evidence:
+        "Official video integration input; no independent tennis ground truth",
+    }),
+  });
+  await expect(
+    page.getByText("Accuracy unavailable", { exact: true }),
+  ).toBeVisible();
   expect(
     logs.filter((l) => l.includes("Unhandled") || l.includes("TypeError")),
   ).toEqual([]);

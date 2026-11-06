@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.post("/videos/{video_id}/pose-tracks", response_model=s.PoseOut, status_code=201)
-def start_pose(video_id: UUID, payload: s.PoseStart, db: Session = Depends(get_db)):
+def start_pose(video_id: UUID, payload: s.PoseStart, db: Session = Depends(get_db, scope="function")):
     video = owned(db, m.VideoAsset, video_id)
     if video.status != "ready":
         raise DomainError("Video not ready", "INVALID_STATE", 409)
@@ -29,7 +29,6 @@ def start_pose(video_id: UUID, payload: s.PoseStart, db: Session = Depends(get_d
             "video_sha256": raw.sha256,
             "running_mode": "VIDEO",
             "delegate": "CPU",
-            "sample_target_hz": 10,
         },
     )
     db.add(track)
@@ -38,7 +37,9 @@ def start_pose(video_id: UUID, payload: s.PoseStart, db: Session = Depends(get_d
 
 
 @router.put("/pose-tracks/{track_id}/batches/{index}")
-def pose_batch(track_id: UUID, index: int, payload: s.PoseBatchIn, db: Session = Depends(get_db)):
+def pose_batch(
+    track_id: UUID, index: int, payload: s.PoseBatchIn, db: Session = Depends(get_db, scope="function")
+):
     track = owned(db, m.PoseTrack, track_id)
     track = db.get(m.PoseTrack, track.id, with_for_update=True)
     if track.status != "processing" or not 0 <= index < 100:
@@ -57,7 +58,7 @@ def pose_batch(track_id: UUID, index: int, payload: s.PoseBatchIn, db: Session =
 
 
 @router.post("/pose-tracks/{track_id}/complete", response_model=s.PoseOut)
-def complete_pose(track_id: UUID, db: Session = Depends(get_db)):
+def complete_pose(track_id: UUID, db: Session = Depends(get_db, scope="function")):
     track = owned(db, m.PoseTrack, track_id)
     track = db.get(m.PoseTrack, track.id, with_for_update=True)
     if track.status == "ready":
@@ -77,7 +78,7 @@ def complete_pose(track_id: UUID, db: Session = Depends(get_db)):
 
 
 @router.post("/pose-tracks/{track_id}/fail", response_model=s.PoseOut)
-def fail_pose(track_id: UUID, db: Session = Depends(get_db)):
+def fail_pose(track_id: UUID, db: Session = Depends(get_db, scope="function")):
     track = owned(db, m.PoseTrack, track_id)
     if track.status == "processing":
         track.status = "failed"
@@ -90,7 +91,7 @@ def pose_frames(
     track_id: UUID,
     start_us: int = Query(0, ge=0),
     end_us: int = Query(600_000_000, ge=0),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_db, scope="function"),
 ):
     track = owned(db, m.PoseTrack, track_id)
     if track.status != "ready":

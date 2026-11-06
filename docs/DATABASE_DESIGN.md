@@ -1,5 +1,15 @@
 # Database and artifact design
 
+## Step 3 implemented extension
+
+The additive migration `a496e751b8a9` preserves all MVP tables/data and adds `reference_snapshots` and `experiments`. The actual upgrade path, downgrade/re-upgrade and model consistency are tested against a uniquely isolated real PostgreSQL schema with a pre-existing MVP session row.
+
+`reference_snapshots` stores source set ID/revision, definition/procedure/labeler/provenance/source-video metadata, copied small event records and a stable fingerprint. `experiments` stores session ownership, name/state, manifest fingerprint, optional reference snapshot ID, frozen manifest, typed result JSON, error and timestamps. Composite same-session foreign keys constrain snapshot/set and experiment/reference ownership. Sensor/pose artifact identities and sync revision are frozen inside the manifest and validated by the API/worker; they are not dense data copies or independent sample tables.
+
+Reference snapshots and completed experiments have no mutation endpoints. Draft event changes advance the source set revision but leave snapshots unchanged. Re-evaluation/rerun produces a new experiment rather than overwriting metrics. Exact repeated requests can reuse queued/running/succeeded work. Deleting a session removes dependent experiment/snapshot records before its original annotation/source rows and artifact files; ordinary experiment processing never mutates sources.
+
+The remaining sections retain the original blueprint. Concrete ORM definitions and migration files, rather than planned later-stage entity names, define the implemented schema.
+
 Proposed schema, not migrations. PostgreSQL 17 is the conservative target major; select the supported patched minor and image digest at implementation time. All IDs are UUIDs, all administrative timestamps are UTC `timestamptz`, and all movement times are signed `bigint` microseconds. UTC timestamps never substitute for movement clocks.
 
 Step 2 note: the target design below is retained for future stages. The actual [frozen initial migration](../apps/api/migrations/versions/0001_mvp.py) and [models](../apps/api/src/rallysense/models.py) implement the MVP subset on PostgreSQL 17.11. UUID values are represented as validated 36-character strings; same-session composite foreign keys enforce ownership. Manual offset mappings are stored directly on synchronization revisions. Experiment/evaluation tables and frozen annotation snapshots remain Step 3. Temporary bounded pose batches use JSONB and are removed after Parquet finalization. See STEP2_REPORT for the implementation mapping.

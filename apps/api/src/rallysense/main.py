@@ -9,7 +9,7 @@ from sqlalchemy import text
 from .config import LOCAL_TOKEN, ALLOWED_ORIGINS, STORAGE_ROOT
 from .db import engine
 from .errors import DomainError
-from .api import sessions, sensors, videos, annotations, pose
+from .api import sessions, sensors, videos, annotations, pose, research
 
 
 async def authorize(request: Request):
@@ -117,5 +117,12 @@ def ready():
     return {"status": "ready"}
 
 
-for router in [sessions.router, sensors.router, videos.router, annotations.router, pose.router]:
+for router in [
+    sessions.router,
+    sensors.router,
+    videos.router,
+    annotations.router,
+    pose.router,
+    research.router,
+]:
     app.include_router(router, prefix="/api/v1", dependencies=[Depends(authorize)])

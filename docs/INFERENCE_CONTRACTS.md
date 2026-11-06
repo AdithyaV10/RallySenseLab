@@ -1,6 +1,18 @@
 # Development and inference contracts
 
-Contract design version 1, 2026-11-03. These are specifications for future code. Step 2 implements only the MVP interfaces marked below; Step 3 implements video-event, fusion, and evaluation behavior.
+Contract implementation update, 2026-11-05. The generated OpenAPI and [API.md](API.md) define implemented request/response fields. The original target design below remains historical wherever it differs from the concrete Step 3 contract in this section.
+
+## Implemented Step 3 contract
+
+`ExperimentCreate.mode` selects `imu_motion_window@1.0.0`, `video_wrist_speed@1.0.0`, or `multimodal_temporal_association@1.0.0`. Inputs are same-session ready sensor/pose IDs with explicit sync revision for IMU/fusion. Fusion additionally requires paired-source declaration and alignment evidence; mixed unrelated sources are rejected. Detector defaults expand into the manifest. Each recipe records the seed and SI perturbation units. Corruption settings requiring an absent modality are rejected.
+
+The manifest freezes source IDs/hashes and provenance, pose model/runtime config, algorithm/configuration, implementation and lock hashes, numerical library versions, alignment ID/offset, reference ID/hash/revision, research question, declared inclusive `[start_us,end_us]` interval, matching tolerance and hypothesis. Repeating an identical request reuses its queued/running/succeeded experiment; `force_rerun` creates a new immutable result. This concrete API replaces the earlier conceptual field table. Status and predictions/quality/metrics are read from `GET /experiments/{id}`.
+
+Outputs preserve measured-event types: `gyro_peak_v1`, `wrist_speed_peak_v1`, and `multimodal_association_v1`. Signal strength has explicit units, never calibrated confidence. Visual finite differences use actual frame-interval midpoints; derivatives never cross visibility failures or configured gaps. Fusion matches only within a continuous common eligible interval, retains both timestamps and disagreement, and uses the IMU anchor. Unlike event definitions require explicit proxy hypothesis for supported human references. Generated fixture scoring requires synthetic provenance; no reference gives null evaluation.
+
+`ReferenceSnapshot` copies only one source annotation-set revision/event type plus labeling metadata. Existing human annotation edits require event revision; freezing requires current set revision, otherwise 409. A completed experiment never changes when drafts change. Visual references with a specified source video cannot score a different video. `POST /experiments/{id}/evaluate` creates a new experiment; comparisons and Markdown/JSON reports reflect actual stored results. See [RESEARCH.md](RESEARCH.md) for equations, edge behavior, guards, limits and methodology.
+
+The implemented alignment remains offset-only. Cue-based affine drift fitting, categorical stroke classification, trained fusion, aggregate cohort metrics and exhaustive video decoding are not implemented.
 
 Step 2 implementation note: the IMU baseline deliberately emits **`gyro_peak_v1` measured signal events**, not `swing_apex_v1` predictions. Any relationship to a human swing reference is an unvalidated proxy hypothesis that Step 3 must test explicitly. The implemented API is documented in [API.md](API.md); the tables below otherwise retain the approved target design.
 

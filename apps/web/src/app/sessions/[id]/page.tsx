@@ -12,7 +12,7 @@ export default async function SessionPage({
     <Workbench
       key={id}
       id={id}
-      initialTab={tab === "data" ? "data" : "replay"}
+      initialTab={tab === "data" || tab === "research" ? tab : "replay"}
     />
   );
 }

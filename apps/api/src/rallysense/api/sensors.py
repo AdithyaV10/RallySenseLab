@@ -23,7 +23,10 @@ def mapping_contract():
 
 @router.post("/sessions/{session_id}/sensor-imports", response_model=s.JobOut, status_code=202)
 async def import_sensor(
-    session_id: UUID, file: UploadFile = File(), mapping: str = Form("{}"), db: Session = Depends(get_db)
+    session_id: UUID,
+    file: UploadFile = File(),
+    mapping: str = Form("{}"),
+    db: Session = Depends(get_db, scope="function"),
 ):
     session = active_session(db, session_id)
     try:
@@ -66,7 +69,7 @@ def samples(
     start_us: int = Query(0, ge=0),
     end_us: int = Query(1_200_000_000, ge=0),
     max_points: int = Query(1600, ge=20, le=5000),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_db, scope="function"),
 ):
     sensor = owned(db, m.SensorRecording, sensor_id)
     if sensor.status != "ready":
@@ -108,7 +111,7 @@ def samples(
 
 
 @router.post("/sessions/{session_id}/sync-configurations", response_model=s.SyncOut, status_code=201)
-def save_sync(session_id: UUID, payload: s.SyncCreate, db: Session = Depends(get_db)):
+def save_sync(session_id: UUID, payload: s.SyncCreate, db: Session = Depends(get_db, scope="function")):
     session = active_session(db, session_id)
     db.get(m.RecordingSession, session.id, with_for_update=True)
     sensor = owned(db, m.SensorRecording, payload.sensor_id)
@@ -131,7 +134,7 @@ def save_sync(session_id: UUID, payload: s.SyncCreate, db: Session = Depends(get
 
 
 @router.post("/sessions/{session_id}/inference-runs", response_model=s.RunOut, status_code=202)
-def infer(session_id: UUID, payload: s.InferenceCreate, db: Session = Depends(get_db)):
+def infer(session_id: UUID, payload: s.InferenceCreate, db: Session = Depends(get_db, scope="function")):
     session = active_session(db, session_id)
     sensor = owned(db, m.SensorRecording, payload.sensor_id)
     if sensor.session_id != session.id or sensor.status != "ready":

@@ -1,12 +1,24 @@
 # Architecture
 
-Design checkpoint: 2026-11-03. The approved target architecture is retained below. Step 2 now implements its local Next.js/FastAPI/PostgreSQL foundation; see [implementation report](STEP2_REPORT.md) and [project status](PROJECT_STATUS.md) for actual scope and evidence. Future research/deployment capabilities described below remain planned. See [technical validation](TECHNICAL_VALIDATION.md) for the original environment research.
+Updated for Step 3 on 2026-11-05. The local Next.js/FastAPI/PostgreSQL foundation is preserved. Research inference, event evaluation and experiments extend the same API, worker and storage. See [research implementation](RESEARCH.md), [experiment guide](EXPERIMENTS.md), and [project status](PROJECT_STATUS.md). The approved original design is retained below where it describes future extensions.
+
+## Implemented research extension
+
+`research.py` contains pure video/IMU observation processing, interval-aware temporal association, seeded corruption and deterministic event matching. `experiments.py` resolves immutable sensor/pose Parquet, verifies SHA-256 identities, executes those functions and produces stored results/reports. `api/research.py` provides typed creation/history/evaluation/comparison/export and frozen annotation snapshots. The ordinary PostgreSQL job worker executes research jobs with the existing lease, heartbeat, cancellation and publication fencing; no new service or broker is introduced.
+
+The additive `a496e751b8a9` migration adds `reference_snapshots` and `experiments`, including same-session foreign keys. Reference events and experiment manifests/results are small JSONB records; sensor/pose datasets are referenced by stable artifact ID/hash rather than duplicated. Completed results and snapshots have no update API. Draft annotation-set revision advances on create/edit/delete. Re-evaluation creates a new experiment, preserving the original snapshot and metrics. Session deletion removes dependent research metadata before its sources.
+
+All database dependencies use FastAPI function scope so transaction commit/rollback finishes before HTTP response headers. This fixes a directly observed create-then-GET race and prevents reporting success when persistence fails. A real PostgreSQL/ASGI test queries a separate connection at `http.response.start` and verifies commit visibility; an injected transaction failure produces an error response and no persisted row. This follows [FastAPI's documented dependency scopes](https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/#early-exit-and-scope).
+
+The replay workbench includes a Sensor Fusion Challenge tab. It polls actual experiments and renders stored component signals, prediction/reference timelines, measured latency, quality, eligible coverage, metrics, errors, configurations and report downloads. Markers seek the existing replay clock. Missing gyro/pose inputs and unrelated mixed-source fusion are disabled. The generated paired fixture is a separate synthetic session with explicitly analytical landmarks, not a substitute for actual MediaPipe integration.
+
+MediaPipe extraction supports the original 10 Hz target and an optional 30 Hz target at half-speed playback. Both retain actual presentation times, measured cadence/gaps and explicit worker/fallback executor metadata. These remain sampling targets, not exhaustive-decoding guarantees. Offset-only synchronization is retained; drift estimation is not implemented. The association method preserves both event times and keeps the IMU anchor rather than averaging different event definitions.
 
 ## Scope and boundaries
 
 Build one local monorepo with a Next.js web application and a modular FastAPI backend. A worker process imports the same Python application modules and claims durable jobs from PostgreSQL; it is not a separate service domain. Browser MediaPipe handles pose extraction. Python handles sensor normalization, numerical inference, and later evaluation. No Redis, cloud service, trained movement model, or GPU is necessary for the MVP.
 
-Step 2 implements ingestion, real pose processing, an IMU baseline, manual alignment, replay, annotations, and a synthetic demonstration. Video event detection, fusion, experiments, and scientific evaluation are Step 3. Phone recording completion and product hardening are Step 4. Step 5 independently audits the result. These boundaries prohibit implementation during this architecture stage.
+Step 2 implements ingestion, real pose processing, an IMU baseline, manual alignment, replay, annotations, and a synthetic demonstration. Step 3 adds video event detection, temporal association, experiments and evaluation. Phone recording completion and product hardening remain Step 4. Step 5 independently audits the result. The user must authorize each subsequent stage.
 
 ```mermaid
 flowchart LR

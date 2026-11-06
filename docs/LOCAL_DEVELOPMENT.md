@@ -41,6 +41,20 @@ docker compose stop
 7. In **Data & processing**, inspect real jobs or upload your own sources. A gyro-only recording works with explicit column mapping; an accelerometer-only recording can be viewed but cannot run the gyro detector.
 8. For a real video, upload a supported file, wait for validation, return to replay and select **Extract pose**. Keep the tab open. The UI reports actual sampled frames/media position. After completion, inspect skeleton overlay, detection coverage and image-space features. Retry creates a new track.
 
+## Step 3 research walkthrough
+
+Open any session and choose **Sensor Fusion Challenge**. Choose **Open paired synthetic lab** for a hardware-free path through all three modes. This creates a separate generated stick-figure/landmark/IMU fixture; it is visibly labeled synthetic and its landmarks are not MediaPipe output. Freeze its generated reference set, choose that snapshot, then run IMU, video and multimodal association. Compare actual results and try a deliberate synchronization error. See [EXPERIMENTS.md](EXPERIMENTS.md) for the full guide and a practical paired-recording collection protocol.
+
+For actual video, extraction now offers a 10 Hz target and a 30 Hz target with half-speed processing playback. Inspect achieved cadence and gaps in the quality report. Keep the tab visible; neither target guarantees exhaustive decoding. The existing verified worker and initialization-failure fallback remain available.
+
+Optional reproducible local research smoke check (host Python/uv dependencies installed):
+
+```powershell
+uv run --project apps/api python scripts/verify-research.py
+```
+
+This runs the real algorithms for clean and corrupted synthetic conditions, preserves original observations, and writes `docs/evidence/step3-local-verification.json`. It establishes software behavior only. Full container/browser/test commands and actual outcomes are recorded in [TESTING.md](TESTING.md).
+
 ## Native frontend with container API/database/worker
 
 Node 24 and npm are required for this workflow. PowerShell's npm.ps1 is blocked in the inspected environment; use `npm.cmd`.

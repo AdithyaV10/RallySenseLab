@@ -33,6 +33,7 @@ export function ReplayMedia({
   onEnded,
   synthetic,
   seekToken,
+  generatedLandmarks = false,
 }: {
   video?: Video;
   frames: PoseFrame[];
@@ -43,6 +44,7 @@ export function ReplayMedia({
   onEnded: () => void;
   synthetic: boolean;
   seekToken: number;
+  generatedLandmarks?: boolean;
 }) {
   const element = useRef<HTMLVideoElement>(null),
     container = useRef<HTMLDivElement>(null);
@@ -177,7 +179,11 @@ export function ReplayMedia({
                 className="pose-overlay"
                 viewBox="0 0 1000 1000"
                 preserveAspectRatio="none"
-                aria-label="MediaPipe pose overlay"
+                aria-label={
+                  generatedLandmarks
+                    ? "Generated fixture landmark overlay"
+                    : "MediaPipe pose overlay"
+                }
               >
                 <g stroke="#56e1b9" strokeWidth="3" fill="none">
                   {connections.map(([a, b]) => {

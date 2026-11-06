@@ -37,6 +37,7 @@ import { ReplayMedia } from "./replay-media";
 import { SignalsChart } from "./signals-chart";
 import { EventPanel } from "./event-panel";
 import { extractPose } from "./pose-extraction";
+import { Challenge } from "@/features/research/challenge";
 
 const defaultConfig: DetectorConfig = {
   cutoff_hz: 8,
@@ -69,6 +70,7 @@ export function Workbench({
     [config, setConfig] = useState<DetectorConfig>(defaultConfig),
     [showConfig, setShowConfig] = useState(false);
   const abort = useRef<AbortController | null>(null);
+  const [poseTarget, setPoseTarget] = useState<10 | 30>(10);
   const cursor = useRef(0);
   useEffect(() => {
     cursor.current = timeUs;
@@ -255,6 +257,15 @@ export function Workbench({
               ? "Processing observations"
               : "Workspace synchronized"}
           </div>
+          <button
+            className={tab === "research" ? "active" : ""}
+            onClick={() => {
+              setPlaying(false);
+              setTab("research");
+            }}
+          >
+            <Activity size={15} /> Sensor Fusion Challenge
+          </button>
         </div>
         <ErrorBox error={error || samples.error || frames.error} />
         {data.jobs
@@ -263,7 +274,17 @@ export function Workbench({
           .map((j) => (
             <ErrorBox key={j.id} error={`${j.kind}: ${j.error}`} />
           ))}
-        {tab === "data" ? (
+        {tab === "research" ? (
+          <Challenge
+            session={data}
+            refreshSession={refresh}
+            onSeek={(t) => {
+              setTab("replay");
+              setPlaying(false);
+              seek(t);
+            }}
+          />
+        ) : tab === "data" ? (
           <DataManager session={data} refresh={refresh} />
         ) : (
           <>
@@ -374,6 +395,9 @@ export function Workbench({
                   onEnded={() => setPlaying(false)}
                   synthetic={data.dataset_kind === "synthetic"}
                   seekToken={seekToken}
+                  generatedLandmarks={
+                    pose?.config.provenance === "generated_analytical_landmarks"
+                  }
                 />
                 <div className="transport">
                   <button
@@ -499,10 +523,21 @@ export function Workbench({
                       <ScanLine size={16} />
                       <span>
                         {pose
-                          ? `MediaPipe · ${numeric(pose.quality.processed_frames)} sampled frames · ${(numeric(pose.quality.detection_fraction) * 100).toFixed(0)}% with detection`
+                          ? `${pose.config.provenance === "generated_analytical_landmarks" ? "Generated fixture landmarks (not MediaPipe)" : "MediaPipe"} · ${numeric(pose.quality.processed_frames)} sampled frames · ${(numeric(pose.quality.detection_fraction) * 100).toFixed(0)}% with detection`
                           : "Extract timestamped pose landmarks from this video."}
                       </span>
                     </div>
+                    <select
+                      aria-label="Pose sampling target"
+                      value={poseTarget}
+                      disabled={!!busy}
+                      onChange={(e) =>
+                        setPoseTarget(Number(e.target.value) as 10 | 30)
+                      }
+                    >
+                      <option value={10}>10 Hz / standard</option>
+                      <option value={30}>30 Hz / slow extraction</option>
+                    </select>
                     {busy === "pose" ? (
                       <button
                         className="button secondary small"
@@ -522,6 +557,7 @@ export function Workbench({
                               video.id,
                               setPoseMessage,
                               abort.current.signal,
+                              poseTarget,
                             );
                           })
                         }

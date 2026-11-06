@@ -1,4 +1,4 @@
-name: Verify local MVP
+name: Verify local research application
 on: [push, pull_request]
 jobs:
   verify:
@@ -17,6 +17,7 @@ jobs:
       - run: npm --prefix apps/web run lint && npm --prefix apps/web run typecheck && npm --prefix apps/web test
       - run: docker compose up -d --build
       - run: docker compose exec -T api pytest -q
+      - run: docker compose exec -T api alembic check
       - run: python scripts/fetch-verification-video.py
       - run: npx --prefix apps/web playwright install --with-deps chromium
       - run: npm --prefix apps/web run test:e2e
@@ -25,7 +26,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mvp-verification
+          name: research-verification
           path: |
             compose.log
             apps/web/test-results

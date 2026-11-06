@@ -13,16 +13,30 @@ import {
   useXAxisInverseScale,
 } from "recharts";
 import { Sample } from "@/lib/api";
-function SeekSurface({onSeek}:{onSeek:(t:number)=>void}){
-  const plot=usePlotArea(),invert=useXAxisInverseScale();
-  if(!plot||!invert)return null;
-  return <rect x={plot.x} y={plot.y} width={plot.width} height={plot.height} fill="transparent" data-testid="plot-seek-surface" onClick={event=>{
-    const svg=event.currentTarget.ownerSVGElement,matrix=svg?.getScreenCTM();
-    if(!svg||!matrix)return;
-    const point=svg.createSVGPoint();point.x=event.clientX;point.y=event.clientY;
-    const t=Number(invert(point.matrixTransform(matrix.inverse()).x));
-    if(Number.isFinite(t))onSeek(Math.round(t*1e6));
-  }}/>;
+function SeekSurface({ onSeek }: { onSeek: (t: number) => void }) {
+  const plot = usePlotArea(),
+    invert = useXAxisInverseScale();
+  if (!plot || !invert) return null;
+  return (
+    <rect
+      x={plot.x}
+      y={plot.y}
+      width={plot.width}
+      height={plot.height}
+      fill="transparent"
+      data-testid="plot-seek-surface"
+      onClick={(event) => {
+        const svg = event.currentTarget.ownerSVGElement,
+          matrix = svg?.getScreenCTM();
+        if (!svg || !matrix) return;
+        const point = svg.createSVGPoint();
+        point.x = event.clientX;
+        point.y = event.clientY;
+        const t = Number(invert(point.matrixTransform(matrix.inverse()).x));
+        if (Number.isFinite(t)) onSeek(Math.round(t * 1e6));
+      }}
+    />
+  );
 }
 export function SignalsChart({
   samples,
@@ -146,7 +160,7 @@ export function SignalsChart({
               connectNulls={false}
             />
           )}
-          <SeekSurface onSeek={onSeek}/>
+          <SeekSurface onSeek={onSeek} />
         </LineChart>
       </ResponsiveContainer>
     </div>

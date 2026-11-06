@@ -1,6 +1,42 @@
-# Step 2 verification
+# Verification
 
-All results below refer to local software checks, not a tennis accuracy study. The repository has no evaluated real-world classifier, fusion model, F1 score, or coaching validation.
+All results refer to local software checks, not a tennis accuracy study. Synthetic fixture scores are explicitly software verification. No independent paired tennis or coaching validation is claimed.
+
+## Step 3 final acceptance, 2026-11-05
+
+| Actual command / scope | Result |
+| --- | --- |
+| `docker compose build api web`, followed by final `docker compose build api` / `docker compose build web` after fixes | PASS: production API/worker and standalone Next.js images |
+| `docker compose up -d --no-build` and final API/worker recreation | PASS: retained real PostgreSQL and artifact volumes; production API has only its artifact-volume mount, no source bind mounts |
+| `docker compose exec api pytest -q --tb=short --basetemp=/tmp/rallysense-step3-acceptance-final` | **36 passed, 0 failed, 0 skipped**, 18.99 s; six deprecation warnings |
+| From `apps/api`: `uv run pytest -q --tb=short --basetemp=../../storage/pytest-step3-final-native` | **34 passed, 2 skipped**, 18.19 s; native FFmpeg absent; both equivalent tests pass in the container |
+| `uv run --project apps/api ruff check apps/api/src apps/api/tests apps/api/migrations` | PASS |
+| `npm.cmd --prefix apps/web run typecheck` | PASS: installed Next route generation plus strict TypeScript |
+| `npm.cmd --prefix apps/web run lint` | PASS |
+| `npm.cmd --prefix apps/web test` | **9 passed**, 3 files |
+| `node scripts/check-contracts.mjs` | PASS: generated OpenAPI/TypeScript match Pydantic |
+| `docker compose exec api alembic current` / `alembic check` | `a496e751b8a9` head; no new upgrade operations |
+| `npm.cmd --prefix apps/web run test:e2e` | **5 passed, 0 failed, 0 skipped, 0 flaky**, 60.3 s, production Chromium |
+| `uv run --project apps/api python scripts/verify-local.py` | PASS: HTTP 200, ready API and preserved original 1,801-row demo |
+| `uv run --project apps/api python scripts/verify-research.py` | PASS: 11 actual synthetic conditions, strict read-after-create, source preservation and actual report export |
+
+Machine-readable final evidence: [browser verification](evidence/step3-browser-verification.json), [research conditions](evidence/step3-local-verification.json), and [ordinary readiness](evidence/local-verification.json). The browser run's timestamp is UTC; the user-facing verification date above is America/New_York. Remote CI is configured but has not been run or claimed.
+
+New numerical checks independently verify analytical wrist speed/event times, no derivatives or association across missing intervals, stronger filter guards, measured windows/quality, deterministic noise/dropout/jitter/occlusion, source preservation, empty/duplicate/tolerance matching, timing and undefined metrics. Exhaustive small-list brute-force enumeration checks both matching objectives rather than copying implementation results.
+
+Real PostgreSQL integration exercises frozen source revisions after edits, stale freeze/edit rejection, forced reruns/immutability, incompatible event/video references, cross-session rejection, failure/cancellation/expired-lease publication, actual evaluation/comparison/report endpoints, and safe cleanup. A separate Alembic test upgrades an actual MVP schema with a preserved row, checks model consistency and performs downgrade/re-upgrade. A real ASGI test reads through a separate database connection when HTTP headers are sent, proving commit visibility; injected persistence failure returns an error and leaves no row.
+
+Browser flows cover all original Step 2 paths plus paired synthetic mode execution/scoring/comparison, generated/human snapshot eligibility, artificial synchronization failure, exported results, responsive containment and prediction-to-replay seeking. The real-video test uses actual installed MediaPipe in a CPU worker, forces initialization failure to verify actual main-thread fallback, validates seeking/playback, and runs real stored-pose event processing. No successful analysis response is mocked.
+
+Final measured real-clip evidence: **87 worker frames** at a 30 Hz target, achieved average **14.53 Hz**, maximum sampled gap **400 ms**; **48 fallback frames** at the 10 Hz target. These counts vary with scheduling. With recorded exploratory `k=1`, height 0.1 torso/s and prominence 0.05 torso/s, stored-pose processing produced **nine wrist-speed events**, with evaluation null. The conservative `k=3` configuration previously returned a valid empty result; neither outcome measures tennis accuracy.
+
+The paired software fixture recovers two generated events in clean modes. A missing IMU window or wrist occlusion leaves one event/reference miss; +1 s synchronization error leaves zero associations and two misses; full occlusion explicitly fails without metrics. The retained JSON records every actual result and latency. Those expected scientific failures are not failed automated tests.
+
+Recovery corrected genuine mobile tab overflow, annotation refresh/freeze racing, legacy generated-source wording, two encoding-damaged strings and a transient create/read transaction race. The last race was fixed by database dependency function scope, not by relaxing the strict smoke assertions or adding retries for 404 responses. The test locator was made exact after adding an accessible reference timeline.
+
+Warnings: one Starlette httpx TestClient deprecation and five Alembic legacy `prepend_sys_path` splitting warnings in the backend run; the existing future Vite native-config-loader advisory; Playwright's NO_COLOR/FORCE_COLOR warning. They do not fail the checks. No Step 3 dependency was added. The Step 2 dependency-advisory scan remains historical evidence (17 moderate development-tool advisories, zero runtime advisories at that scan); a new dependency security audit is not claimed.
+
+## Step 2 verification history
 
 ## Commands
 

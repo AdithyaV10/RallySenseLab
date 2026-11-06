@@ -4,7 +4,7 @@
 
 An experimental tennis movement analysis platform investigating what sparse inertial measurements can reveal when compared with synchronized video observations and human annotations.
 
-**Status: Step 2 local MVP implemented.** Next.js, FastAPI, PostgreSQL, actual browser MediaPipe, sensor ingestion, signal event detection, synchronized replay, alignment, annotations, and a labeled synthetic demonstration are integrated. See [implementation report](docs/STEP2_REPORT.md) and [project status](docs/PROJECT_STATUS.md) for verification and limits. Step 3 requires explicit authorization.
+**Status: Step 3 research implementation.** The Next.js/FastAPI/PostgreSQL MVP now includes stored-pose video inference, enhanced IMU observations, explicit multimodal association, frozen references, event evaluation, reproducible experiments, controlled corruption and the Sensor Fusion Challenge. See [project status](docs/PROJECT_STATUS.md), [research methods](docs/RESEARCH.md) and [experiment walkthrough](docs/EXPERIMENTS.md) for verified scope and limits. No real-world tennis accuracy is claimed.
 
 ## Start locally
 
@@ -33,8 +33,11 @@ Host frontend tests need `npm.cmd ci --prefix apps/web`; browser tests also need
 - Extract actual timestamped MediaPipe landmarks, retain no-person frames and coverage, and derive image-space feature primitives.
 - Replay video, pose and signals together; scrub plots/timeline, change playback speed, save alignment revisions, and add/edit independent human references.
 - Explore a deterministic synthetic fixture with computed events and a clearly labeled programmatic animation.
+- Compare video, IMU and temporal-association experiments using actual stored predictions, frozen labels, quality, timing errors and processing latency.
+- Run seeded missing-data, noise, timestamp, occlusion and synchronization experiments; export stored Markdown/JSON reports.
+- Open the separate paired synthetic lab to exercise all three modes without claiming its generated landmarks are MediaPipe output.
 
-The foundation is loopback-only and single-user. Browser capture, video-event classification, fusion, scientific evaluation and public deployment remain later stages. No real-world accuracy is claimed.
+The application is loopback-only and single-user. Physical phone capture and broader product hardening remain later-stage work requiring authorization. Independent paired tennis recordings, impact validation and cross-player generalization evidence are unavailable. Deployment and remote publication are prohibited.
 
 ## Blueprint
 

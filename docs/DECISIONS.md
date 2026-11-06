@@ -1,5 +1,19 @@
 # Architecture decision record
 
+## Step 3 accepted implementation decisions (2026-11-05)
+
+- **ADR-023 - preserve observation semantics:** gyro magnitude and image wrist-speed maxima are distinct observable events. Video inference recomputes interval-midpoint wrist velocity using actual stored landmarks and a fixed median torso scale. Legacy Step 2 primitives/results remain available.
+- **ADR-024 - association with an IMU anchor:** replace the planned timestamp midpoint fusion with explicitly named temporal association. Pair one-to-one inside continuous common eligible intervals; keep both timestamps, source indices, disagreement and unmatched candidates. Agreement does not establish a common physical apex or impact.
+- **ADR-025 - frozen small research records:** use additive PostgreSQL snapshot/experiment tables and immutable JSONB manifests/results while referencing dense input artifacts by ID/hash. Use the existing durable worker; no extra infrastructure. Draft edits advance set revision, and frozen references remain unchanged.
+- **ADR-026 - explicit evaluation eligibility:** identical definitions for exact scoring, declared proxy hypothesis for supported human movement references, and separately labeled synthetic fixture verification. Missing references never produce accuracy metrics. Pairing/independence declarations are attestations; source-video mismatch is refused.
+- **ADR-027 - deterministic matching:** implement ordered maximum-cardinality, minimum-absolute-error dynamic programming with stable tie handling and inclusive tolerance. Cap each list at 2,000 events. Full declared intervals retain misses caused by unavailable observations; report eligible coverage separately.
+- **ADR-028 - derived perturbations:** apply seeded dropout, SI noise, bounded timestamp jitter, missing windows, landmark visibility masks and sync error to in-memory copies. Persist recipe and rerun actual algorithms. Inapplicable modality settings are rejected.
+- **ADR-029 - actual browser cadence:** retain the verified 10 Hz path and offer a 30 Hz target with half-speed playback, recording achieved cadence and gaps. Neither promises exhaustive decoding or impact timing.
+- **ADR-030 - separate paired software fixture:** add a generated stick-figure clip, analytical landmarks and paired Gaussian IMU pulses on a shared clock. Explicit provenance prevents confusing these landmarks with MediaPipe output. The unrelated official clip/synthetic IMU test remains mixed and ineligible for fusion.
+- **ADR-031 - commit before acknowledgement:** set database dependency lifetime to FastAPI function scope. A local smoke run directly exposed a transient 404 after successful experiment creation because request-scope teardown could commit after response delivery. The corrected boundary commits before response headers and surfaces commit failures as errors. PostgreSQL/ASGI regression coverage verifies the actual ordering, not only immediate reads after a test client returns.
+
+The following earlier planning and Step 2 records are retained as history. Where they describe planned averaging or unavailable Step 3 features, the decisions above and [RESEARCH.md](RESEARCH.md) supersede them.
+
 Accepted for planning on 2026-11-03. None implies implemented or benchmarked functionality. Change decisions explicitly when implementation evidence warrants it.
 
 | ID | Decision | Reason and tradeoff | Revisit when |

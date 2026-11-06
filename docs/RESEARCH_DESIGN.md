@@ -2,7 +2,11 @@
 
 This is a proposed protocol, not a completed study. No recordings, human labels, performance measurements, or validation results exist in this repository at Step 1.
 
-Step 2 adds deterministic software fixtures and an optional official MediaPipe demonstration clip for integration verification. Neither provides independent tennis labels or real-world tennis accuracy evidence. Gyro events remain `gyro_peak_v1` observations; the research protocol below is reserved for the explicitly authorized Step 3.
+Step 3 now implements the per-session processing/evaluation framework described in [RESEARCH.md](RESEARCH.md), with a practical [experiment and collection guide](EXPERIMENTS.md). Deterministic fixtures and the official MediaPipe clip support software verification. They provide no independent tennis labels or real-world accuracy evidence. The protocol below remains the planned real-recording study; no participant-separated study has been performed.
+
+Implementation decisions: preserve `gyro_peak_v1`, add `wrist_speed_peak_v1`, and output `multimodal_association_v1` for temporal co-occurrence. The visual and inertial maxima are different observations, so association retains the IMU anchor and both source timestamps instead of averaging them. Exact scoring requires identical event definitions; a proxy-to-human-reference comparison requires an explicit stored hypothesis. Generated fixture scoring is a separately labeled software check. Association never crosses a missing common-coverage interval. The implemented evaluation interval is inclusive at both endpoints; full-task missed references remain in the denominator when modality coverage is lost.
+
+Frozen snapshots retain event-definition metadata, labeler/procedure, source-video identity where supplied, set revision, original events and provenance. Completed experiments keep this snapshot even if a draft changes. Pairing and independent labeling are user attestations, not automatically established scientific facts. Grouped held-out evaluation, participant summaries, bootstrap intervals, automatic drift estimation and a separate common-coverage score remain unimplemented research extensions, not claimed findings.
 
 ## Question, hypotheses, and evidence levels
 

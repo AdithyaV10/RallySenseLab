@@ -50,10 +50,14 @@ def claim_job():
             return None
         if job.attempt >= 3:
             job.state, job.error = "failed", "Retry limit reached"
+            if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
+                target.status, target.error = "failed", job.error
             return None
         job.state, job.lease_token = "running", m.uid()
         job.attempt += 1
         job.lease_expires_at = m.now() + timedelta(seconds=120)
+        if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
+            target.status = "running"
         return job.id, job.lease_token
 
 
@@ -65,6 +69,15 @@ def heartbeat(job_id, token):
 
 
 def compute(db, job):
+    if job.kind == "research_fixture":
+        from .research_fixture import fixture_inputs, render_fixture_video
+
+        csv, frames = fixture_inputs()
+        return csv, frames, render_fixture_video(frames)
+    if job.kind == "experiment":
+        from .experiments import compute_experiment
+
+        return compute_experiment(db, db.get(m.Experiment, job.target_id))
     if job.kind == "normalize":
         sensor = db.get(m.SensorRecording, job.target_id)
         table, quality = normalize_csv(
@@ -87,6 +100,83 @@ def compute(db, job):
 
 
 def publish(db, job, output, elapsed_ms):
+    if job.kind == "research_fixture":
+        csv, frames, video_bytes = output
+        raw = put_bytes(db, job.session_id, csv, "raw_csv")
+        mapping = SensorMapping(
+            provenance="synthetic", placement="generated_fixture", acceleration_kind="including_gravity"
+        )
+        table, quality = normalize_csv(csv, mapping)
+        normalized = put_bytes(db, job.session_id, parquet_bytes(table), "sensor_parquet_v1")
+        sensor = m.SensorRecording(
+            session_id=job.session_id,
+            raw_artifact_id=raw.id,
+            normalized_artifact_id=normalized.id,
+            name="Generated paired pulses / 100 Hz",
+            status="ready",
+            mapping=mapping.model_dump(),
+            quality=quality,
+            duration_us=8_000_000,
+            samples=len(table),
+            placement="generated_fixture",
+        )
+        db.add(sensor)
+        db.flush()
+        db.add(
+            m.SyncConfiguration(
+                session_id=job.session_id,
+                sensor_id=sensor.id,
+                revision=1,
+                offset_us=0,
+                method="generated_shared_clock",
+            )
+        )
+        artifact = put_bytes(db, job.session_id, video_bytes, "video_mp4")
+        video = m.VideoAsset(
+            session_id=job.session_id,
+            artifact_id=artifact.id,
+            name="Generated stick figure / NOT athlete footage.mp4",
+            status="ready",
+            duration_us=8_000_000,
+            width=320,
+            height=240,
+            metadata_json={"provenance": "synthetic", "media_type": "video/mp4", "rotation": 0},
+        )
+        db.add(video)
+        db.flush()
+        track = m.PoseTrack(
+            session_id=job.session_id,
+            video_id=video.id,
+            config={
+                "provenance": "generated_analytical_landmarks",
+                "generator": "paired_motion_fixture@1.0.0",
+                "sample_target_hz": 30,
+            },
+        )
+        db.add(track)
+        db.flush()
+        finalize_pose(db, track, frames)
+        labels = m.AnnotationSet(
+            session_id=job.session_id, name="Generated paired pulse centers", provenance="synthetic"
+        )
+        db.add(labels)
+        db.flush()
+        for t in [2_000_000, 5_000_000]:
+            db.add(
+                m.EventAnnotation(
+                    session_id=job.session_id,
+                    set_id=labels.id,
+                    t_session_us=t,
+                    event_type="synthetic_reference",
+                    note="Analytical generator center, not independent human ground truth",
+                )
+            )
+        return
+    if job.kind == "experiment":
+        experiment = db.get(m.Experiment, job.target_id)
+        experiment.result = {**output, "processing_ms": elapsed_ms, "completed_at": m.now().isoformat()}
+        experiment.status = "succeeded"
+        return
     if job.kind == "normalize":
         sensor = db.get(m.SensorRecording, job.target_id)
         table, quality = output
@@ -157,6 +247,8 @@ def cleanup_session(db, session_id):
     track_ids = select(m.PoseTrack.id).where(m.PoseTrack.session_id == session_id)
     db.execute(delete(m.PoseBatch).where(m.PoseBatch.track_id.in_(track_ids)))
     for model in [
+        m.Experiment,
+        m.ReferenceSnapshot,
         m.Prediction,
         m.EventAnnotation,
         m.AnnotationSet,
@@ -181,6 +273,8 @@ def execute_job(job_id, token):
             session = db.get(m.RecordingSession, job.session_id)
             if job.cancel_requested or (session.deleted_at and job.kind != "delete_session"):
                 job.state = "cancelled"
+                if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
+                    target.status = "cancelled"
                 db.commit()
                 return
             output = compute(db, job)
@@ -193,6 +287,8 @@ def execute_job(job_id, token):
                 return
             if job.cancel_requested or (session.deleted_at and job.kind != "delete_session"):
                 job.state = "cancelled"
+                if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
+                    target.status = "cancelled"
                 return
             if job.kind == "delete_session":
                 cleanup_session(db, job.session_id)
@@ -202,7 +298,7 @@ def execute_job(job_id, token):
     except Exception as exc:
         with Session(engine) as db, db.begin():
             job = db.get(m.ProcessingJob, job_id, with_for_update=True)
-            if job and job.lease_token == token:
+            if job and job.lease_token == token and job.state == "running" and job.lease_expires_at > m.now():
                 job.state = "failed"
                 job.error = (
                     exc.message[:400]
@@ -213,9 +309,16 @@ def execute_job(job_id, token):
                     "normalize": m.SensorRecording,
                     "video_probe": m.VideoAsset,
                     "inference": m.InferenceRun,
+                    "experiment": m.Experiment,
                 }.get(job.kind)
                 if model and (target := db.get(model, job.target_id)):
                     target.status = "failed"
+                    if job.kind == "experiment":
+                        target.error = job.error
+                        target.result = {
+                            "processing_ms": round((time.perf_counter() - start) * 1000),
+                            "failure_code": exc.code if isinstance(exc, DomainError) else "PROCESSING_FAILED",
+                        }
         if not isinstance(exc, DomainError):
             import logging
 
@@ -246,9 +349,13 @@ def finalize_pose(db, track, frames):
         "detected_frames": detected,
         "detection_fraction": detected / len(frames),
         "max_gap_us": max(gaps, default=0),
+        "median_gap_us": sorted(gaps)[len(gaps) // 2] if gaps else None,
+        "observed_sample_hz": (len(times) - 1) * 1e6 / (times[-1] - times[0]) if len(times) > 1 else None,
         "start_us": times[0],
         "end_us": times[-1],
-        "coverage_note": "Sampled browser frames; not exhaustive video decoding",
+        "coverage_note": "Generated analytical fixture observations; not MediaPipe output"
+        if track.config.get("provenance") == "generated_analytical_landmarks"
+        else "Sampled browser frames; not exhaustive video decoding",
     }
     db.add(
         m.DataQualityReport(
