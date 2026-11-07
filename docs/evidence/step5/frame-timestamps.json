@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-07T22:34:43.096130+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "exec",
+    "-T",
+    "api",
+    "python",
+    "/tmp/audit-presentation-times.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 3.144,
+  "output": "{\n  \"scope\": \"One actual permitted constant-rate clip; timing-grid correspondence, not pixel identity or frame-perfect generality\",\n  \"tracks\": [\n    {\n      \"track_id\": \"c10c8a57-4352-4e6c-967b-fc1299e4818e\",\n      \"method\": \"playback\",\n      \"executor\": \"worker\",\n      \"source_frames\": 149,\n      \"observations\": 117,\n      \"max_distance_to_decoded_pts_us\": 0,\n      \"quality\": {\n        \"end_us\": 6000000,\n        \"start_us\": 80000,\n        \"max_gap_us\": 240000,\n        \"coverage_note\": \"Sampled browser frames; not exhaustive video decoding\",\n        \"median_gap_us\": 40000,\n        \"detected_frames\": 117,\n        \"processed_frames\": 117,\n        \"detection_fraction\": 1.0,\n        \"observed_sample_hz\": 19.594594594594593\n      }\n    },\n    {\n      \"track_id\": \"bb521594-e5e5-4380-a952-f16c126066f1\",\n      \"method\": \"seek_backpressure\",\n      \"executor\": \"worker\",\n      \"source_frames\": 149,\n      \"observations\": 149,\n      \"max_distance_to_decoded_pts_us\": 0,\n      \"quality\": {\n        \"end_us\": 6000000,\n        \"start_us\": 0,\n        \"max_gap_us\": 80000,\n        \"coverage_note\": \"Sampled browser frames; not exhaustive video decoding\",\n        \"median_gap_us\": 40000,\n        \"detected_frames\": 149,\n        \"processed_frames\": 149,\n        \"detection_fraction\": 1.0,\n        \"observed_sample_hz\": 24.666666666666668\n      }\n    },\n    {\n      \"track_id\": \"0b7e3518-231e-442c-8888-3ecf87872be3\",\n      \"method\": \"playback\",\n      \"executor\": \"main_thread_fallback\",\n      \"source_frames\": 149,\n      \"observations\": 49,\n      \"max_distance_to_decoded_pts_us\": 0,\n      \"quality\": {\n        \"end_us\": 5920000,\n        \"start_us\": 80000,\n        \"max_gap_us\": 200000,\n        \"coverage_note\": \"Sampled browser frames; not exhaustive video decoding\",\n        \"median_gap_us\": 120000,\n        \"detected_frames\": 49,\n        \"processed_frames\": 49,\n        \"detection_fraction\": 1.0,\n        \"observed_sample_hz\": 8.219178082191782\n      }\n    }\n  ]\n}\n"
+}

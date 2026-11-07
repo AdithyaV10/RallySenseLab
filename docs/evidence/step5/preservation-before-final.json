@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-07T22:29:24.391873+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-preservation.py",
+    "verify",
+    "--baseline",
+    "storage/step5-preservation.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.678,
+  "output": "{\"action\": \"verify\", \"baseline_counts\": {\"experiments\": 113, \"reference_snapshots\": 16, \"artifacts\": 93, \"sessions\": 35}, \"preserved\": true}\r\n"
+}

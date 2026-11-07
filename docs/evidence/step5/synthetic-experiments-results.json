@@ -1,0 +1,631 @@
+{
+  "verified_at_utc": "2026-11-07T22:33:05.563216+00:00",
+  "base_url": "http://127.0.0.1:3000",
+  "evidence_level": "synthetic software verification only; no real-world accuracy study",
+  "session_id": "d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472",
+  "reference_id": "1c362d3e-8ba7-46b1-88f4-edfccc6bc921",
+  "original_step2_demo_id": "3a29c800-519d-437e-85b0-5c7d712253f0",
+  "original_step2_samples": 1801,
+  "sources_unchanged": true,
+  "report_http": 200,
+  "experiments": [
+    {
+      "name": "IMU clean",
+      "mode": "imu",
+      "id": "29822d73-0508-43dc-beb4-7a348c2e613f",
+      "fingerprint": "d5165b28d6d644354e3d7fe0a10bf845b1b95b6f56808d4a5f82250ddf73a085",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 2000000,
+            "reference_us": 2000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 12.0,
+      "recipe": {},
+      "error": null,
+      "quality": {
+        "gap_count": 0,
+        "input_samples": 801,
+        "jitter_p95_us": 0.0,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 10000.0,
+        "valid_gyro_samples": 801,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.9375,
+        "eligible_us": 7500000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "Video clean",
+      "mode": "video",
+      "id": "cdd9e1d0-0281-40b0-8b7b-4f7ad4410a8a",
+      "fingerprint": "0150d30498cf9083b87a9785f8b01414efdaa9fe5ae7d05a7058fe78c260aac3",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 16666.5,
+        "median_absolute_error_us": 16666.5,
+        "mean_signed_error_us": -0.5,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 2016666,
+            "reference_us": 2000000,
+            "signed_error_us": 16666,
+            "absolute_error_us": 16666
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 4983333,
+            "reference_us": 5000000,
+            "signed_error_us": -16667,
+            "absolute_error_us": 16667
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 40.0,
+      "recipe": {},
+      "error": null,
+      "quality": {
+        "total_frames": 241,
+        "visible_frames": 241,
+        "max_frame_gap_us": 33334,
+        "visible_fraction": 1.0,
+        "median_torso_scale": 0.4,
+        "median_frame_interval_us": 33333.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.977083375,
+        "eligible_us": 7816667,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "Fusion clean",
+      "mode": "fusion",
+      "id": "b86011ab-257f-4fe8-a413-02f30705119f",
+      "fingerprint": "6a65980cba90fc9fb025a4242aa0f005650df03c5b852dfd133e042294272dc4",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 2000000,
+            "reference_us": 2000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 48.0,
+      "recipe": {},
+      "error": null,
+      "quality": {
+        "matched_pairs": 2,
+        "unmatched_imu": [],
+        "imu_candidates": 2,
+        "unmatched_video": [],
+        "video_candidates": 2
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.9375,
+        "eligible_us": 7500000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "IMU dropout 20%",
+      "mode": "imu",
+      "id": "3887323f-f810-4db3-9b59-40250d82b6dc",
+      "fingerprint": "da61a4a5aae641fb0fd1ea3967b9ad9489af322afdc55e7301c243075df2509a",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 2000000,
+            "reference_us": 2000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 13.0,
+      "recipe": {
+        "dropout_fraction": 0.2
+      },
+      "error": null,
+      "quality": {
+        "gap_count": 3,
+        "input_samples": 662,
+        "jitter_p95_us": 10000.0,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 10000.0,
+        "valid_gyro_samples": 662,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.73875,
+        "eligible_us": 5910000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "IMU gyro noise 0.3 rad/s",
+      "mode": "imu",
+      "id": "28351a3e-d2e1-4aa7-86d8-e9bdb8fe3971",
+      "fingerprint": "eca396936cd3708dc836c23c5c49f887628d6fc28209aaa32a7992a268712c49",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 5000.0,
+        "median_absolute_error_us": 5000.0,
+        "mean_signed_error_us": -5000.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 1990000,
+            "reference_us": 2000000,
+            "signed_error_us": -10000,
+            "absolute_error_us": 10000
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 13.0,
+      "recipe": {
+        "gyro_noise_sd": 0.3
+      },
+      "error": null,
+      "quality": {
+        "gap_count": 0,
+        "input_samples": 801,
+        "jitter_p95_us": 0.0,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 10000.0,
+        "valid_gyro_samples": 801,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.9375,
+        "eligible_us": 7500000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "IMU acceleration noise 1 m/s2",
+      "mode": "imu",
+      "id": "d284b1e8-f6de-4f62-800c-07f6c702bdce",
+      "fingerprint": "f02a894f45a21660e06abb729a9647b8673fea44e8e3ffb6557252af6331ccc1",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 2000000,
+            "reference_us": 2000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 11.0,
+      "recipe": {
+        "acceleration_noise_sd": 1
+      },
+      "error": null,
+      "quality": {
+        "gap_count": 0,
+        "input_samples": 801,
+        "jitter_p95_us": 0.0,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 10000.0,
+        "valid_gyro_samples": 801,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.9375,
+        "eligible_us": 7500000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "IMU timestamp jitter 40%",
+      "mode": "imu",
+      "id": "0484c5c0-a031-4f70-a166-8a3a639c6c11",
+      "fingerprint": "466f8cb3ad2eb1b73ec02c0146ae80731dc30d6251bc6613d44f4a44a68259d1",
+      "status": "succeeded",
+      "events": 2,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "mean_absolute_error_us": 1472.0,
+        "median_absolute_error_us": 1472.0,
+        "mean_signed_error_us": -1472.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 0,
+            "prediction_us": 1997739,
+            "reference_us": 2000000,
+            "signed_error_us": -2261,
+            "absolute_error_us": 2261
+          },
+          {
+            "prediction_index": 1,
+            "reference_index": 1,
+            "prediction_us": 4999317,
+            "reference_us": 5000000,
+            "signed_error_us": -683,
+            "absolute_error_us": 683
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 15.0,
+      "recipe": {
+        "timestamp_jitter_fraction": 0.4
+      },
+      "error": null,
+      "quality": {
+        "gap_count": 0,
+        "input_samples": 801,
+        "jitter_p95_us": 6234.0999999999985,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 9939.0,
+        "valid_gyro_samples": 801,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.9375,
+        "eligible_us": 7500000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "IMU missing window",
+      "mode": "imu",
+      "id": "0e2b4a63-fe85-4693-9659-a36353482a3b",
+      "fingerprint": "e3026f4cac20c52b237abd3980c87fb947370e626f5bd07519663e7c1a9477f9",
+      "status": "succeeded",
+      "events": 1,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 1,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [
+          0
+        ],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 19.0,
+      "recipe": {
+        "imu_gap_start_s": 1.5,
+        "imu_gap_duration_s": 1
+      },
+      "error": null,
+      "quality": {
+        "gap_count": 1,
+        "input_samples": 701,
+        "jitter_p95_us": 0.0,
+        "boundary_guard_us": 250000,
+        "sample_interval_us": 10000.0,
+        "valid_gyro_samples": 701,
+        "availability_fraction": 1.0
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.74875,
+        "eligible_us": 5990000,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "Fusion wrist occlusion",
+      "mode": "fusion",
+      "id": "2ed155b6-838f-460d-a794-0653273bb567",
+      "fingerprint": "993bc5bcc8412c58f6675101d0e06eaee89c0c73bb640f732ba5383f3a119032",
+      "status": "succeeded",
+      "events": 1,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 1,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "mean_signed_error_us": 0.0,
+        "false_positives_per_minute": 0.0,
+        "matches": [
+          {
+            "prediction_index": 0,
+            "reference_index": 1,
+            "prediction_us": 5000000,
+            "reference_us": 5000000,
+            "signed_error_us": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "unmatched_predictions": [],
+        "missed_references": [
+          0
+        ],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 47.0,
+      "recipe": {
+        "occlusion_start_s": 1.5,
+        "occlusion_duration_s": 1
+      },
+      "error": null,
+      "quality": {
+        "matched_pairs": 1,
+        "unmatched_imu": [
+          0
+        ],
+        "imu_candidates": 2,
+        "unmatched_video": [],
+        "video_candidates": 1
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.78541675,
+        "eligible_us": 6283334,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "Fusion offset +1 second",
+      "mode": "fusion",
+      "id": "238808b9-958c-462b-a3e6-0eb6d6ae2d55",
+      "fingerprint": "ccd5cb6c36831aae1399b87dc2702497d9efd9cccf8f2f0e9dd77013c434197b",
+      "status": "succeeded",
+      "events": 0,
+      "metrics": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "tolerance_us": 150000,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mean_absolute_error_us": null,
+        "median_absolute_error_us": null,
+        "mean_signed_error_us": null,
+        "false_positives_per_minute": 0.0,
+        "matches": [],
+        "unmatched_predictions": [],
+        "missed_references": [
+          0,
+          1
+        ],
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches."
+      },
+      "processing_ms": 42.0,
+      "recipe": {
+        "sync_error_us": 1000000
+      },
+      "error": null,
+      "quality": {
+        "matched_pairs": 0,
+        "unmatched_imu": [
+          0,
+          1
+        ],
+        "imu_candidates": 2,
+        "unmatched_video": [
+          0,
+          1
+        ],
+        "video_candidates": 2
+      },
+      "coverage": {
+        "rule": "Full declared interval is scored; unobserved reference events remain misses.",
+        "fraction": 0.832291625,
+        "eligible_us": 6658333,
+        "declared_interval_us": 8000000
+      }
+    },
+    {
+      "name": "Video full occlusion",
+      "mode": "video",
+      "id": "c91bb76f-b0ef-47e8-9568-9fea0e2dd17e",
+      "fingerprint": "6a372fbdbad62df1f815d1c78f7f17b7381defdc7dd67483a0f7176d6bcc5d99",
+      "status": "failed",
+      "events": 0,
+      "metrics": null,
+      "processing_ms": 32.0,
+      "recipe": {
+        "occlusion_duration_s": 8
+      },
+      "error": "Insufficient visible torso and dominant wrist observations",
+      "quality": {},
+      "coverage": null
+    }
+  ],
+  "original_step2_parquet_samples_read": 1801
+}

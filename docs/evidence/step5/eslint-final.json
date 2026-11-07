@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-07T22:45:43.862072+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/web",
+    "run",
+    "lint"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 9.481,
+  "output": "\n> rallysense-web@0.2.0 lint\n> eslint .\n\n"
+}

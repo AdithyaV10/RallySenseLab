@@ -1,0 +1,14 @@
+{
+  "before": [
+    "http://127.0.0.1:3000/api/v1/sensor-recordings/59378e2a-f227-474c-a205-661f233281d5/samples?start_us=0&end_us=1200000000",
+    "http://127.0.0.1:3000/api/v1/sensor-recordings/59378e2a-f227-474c-a205-661f233281d5/samples?start_us=0&end_us=2000000",
+    "http://127.0.0.1:3000/api/v1/sensor-recordings/59378e2a-f227-474c-a205-661f233281d5/samples?start_us=4000000&end_us=6000000"
+  ],
+  "afterSave": [],
+  "afterReload": [
+    "http://127.0.0.1:3000/api/v1/sensor-recordings/59378e2a-f227-474c-a205-661f233281d5/samples?start_us=0&end_us=1000000",
+    "http://127.0.0.1:3000/api/v1/sensor-recordings/59378e2a-f227-474c-a205-661f233281d5/samples?start_us=3000000&end_us=5000000"
+  ],
+  "expected": "Changing offset from 0 to +1s at session [4,6]s must refetch sensor [3,5]s",
+  "observed": "No sample refetch after save; reload fetches corrected source window"
+}

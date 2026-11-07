@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-07T22:26:59.924261+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "pytest",
+    "apps/api/tests/test_audit.py",
+    "-k",
+    "metrics or matcher or aspect or fusion_boundary or corruption_channels",
+    "-q"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 15.98,
+  "output": ".....                                                                    [100%]\r\n============================== warnings summary ===============================\r\napps\\api\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1\r\n  C:\\RallySenseLab\\apps\\api\\.venv\\Lib\\site-packages\\fastapi\\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\r\n    from starlette.testclient import TestClient as TestClient  # noqa\r\n\r\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\r\n5 passed, 4 deselected, 1 warning in 13.72s\r\n"
+}

@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-07T22:29:29.454443+00:00",
+  "command": [
+    "uvx",
+    "--cache-dir",
+    "storage/uv-audit-cache",
+    "--from",
+    "pip-audit",
+    "pip-audit",
+    "--no-deps",
+    "--disable-pip",
+    "-r",
+    "storage/step4-python-requirements.txt",
+    "-f",
+    "json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 4.905,
+  "output": "{\"dependencies\": [{\"name\": \"alembic\", \"version\": \"1.20.1\", \"vulns\": []}, {\"name\": \"annotated-doc\", \"version\": \"0.0.5\", \"vulns\": []}, {\"name\": \"annotated-types\", \"version\": \"0.8.0\", \"vulns\": []}, {\"name\": \"anyio\", \"version\": \"4.16.0\", \"vulns\": []}, {\"name\": \"certifi\", \"version\": \"2026.10.23\", \"vulns\": []}, {\"name\": \"click\", \"version\": \"8.5.0\", \"vulns\": []}, {\"name\": \"colorama\", \"version\": \"0.4.6\", \"vulns\": []}, {\"name\": \"fastapi\", \"version\": \"0.162.0\", \"vulns\": []}, {\"name\": \"h11\", \"version\": \"0.16.0\", \"vulns\": []}, {\"name\": \"httpcore\", \"version\": \"1.0.9\", \"vulns\": []}, {\"name\": \"httpx\", \"version\": \"0.28.1\", \"vulns\": []}, {\"name\": \"idna\", \"version\": \"3.20\", \"vulns\": []}, {\"name\": \"iniconfig\", \"version\": \"2.3.1\", \"vulns\": []}, {\"name\": \"mako\", \"version\": \"1.4.3\", \"vulns\": []}, {\"name\": \"markupsafe\", \"version\": \"3.0.4\", \"vulns\": []}, {\"name\": \"numpy\", \"version\": \"2.5.4\", \"vulns\": []}, {\"name\": \"opentelemetry-api\", \"version\": \"1.45.2\", \"vulns\": []}, {\"name\": \"packaging\", \"version\": \"26.3\", \"vulns\": []}, {\"name\": \"pluggy\", \"version\": \"1.7.0\", \"vulns\": []}, {\"name\": \"psycopg\", \"version\": \"3.3.7\", \"vulns\": []}, {\"name\": \"psycopg-binary\", \"version\": \"3.3.7\", \"vulns\": []}, {\"name\": \"pyarrow\", \"version\": \"26.0.0\", \"vulns\": []}, {\"name\": \"pydantic\", \"version\": \"2.14.2\", \"vulns\": []}, {\"name\": \"pydantic-core\", \"version\": \"2.50.2\", \"vulns\": []}, {\"name\": \"pygments\", \"version\": \"2.21.0\", \"vulns\": []}, {\"name\": \"pytest\", \"version\": \"9.2.0\", \"vulns\": []}, {\"name\": \"python-multipart\", \"version\": \"0.0.33\", \"vulns\": []}, {\"name\": \"ruff\", \"version\": \"0.17.3\", \"vulns\": []}, {\"name\": \"scipy\", \"version\": \"1.18.1\", \"vulns\": []}, {\"name\": \"sqlalchemy\", \"version\": \"2.1.6\", \"vulns\": []}, {\"name\": \"starlette\", \"version\": \"1.10.0\", \"vulns\": []}, {\"name\": \"typing-extensions\", \"version\": \"4.16.0\", \"vulns\": []}, {\"name\": \"typing-inspection\", \"version\": \"0.4.4\", \"vulns\": []}, {\"name\": \"tzdata\", \"version\": \"2026.6\", \"vulns\": []}, {\"name\": \"uvicorn\", \"version\": \"0.54.0\", \"vulns\": []}], \"fixes\": []}\r\nWARNING:pip_audit._cli:--no-deps is supported, but users are encouraged to fully hash their pinned dependencies\r\nWARNING:pip_audit._cli:Consider using a tool like `pip-compile`: https://pip-tools.readthedocs.io/en/latest/#using-hashes\r\nNo known vulnerabilities found\r\n"
+}

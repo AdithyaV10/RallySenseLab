@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from ..db import get_db
 from .. import models as m, schemas as s
 from ..errors import DomainError
-from ..jobs import enqueue
+from ..jobs import enqueue, mark_target_terminal
 from ..storage import put_bytes
 from ..signals import demo_csv
 from .common import active_session, query_owned
@@ -207,12 +207,13 @@ def seed_research_demo(db: Session = Depends(get_db, scope="function")):
 
 @router.post("/jobs/{job_id}/cancel", response_model=s.JobOut)
 def cancel_job(job_id: UUID, db: Session = Depends(get_db, scope="function")):
-    job = db.get(m.ProcessingJob, str(job_id))
+    job = db.get(m.ProcessingJob, str(job_id), with_for_update=True)
     if not job or job.kind == "delete_session":
         raise DomainError("Job cannot be cancelled", "INVALID_STATE", 409)
+    if job.state in {"succeeded", "failed", "cancelled"}:
+        return job
     job.cancel_requested = True
     if job.state == "queued":
         job.state = "cancelled"
-        if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
-            target.status = "cancelled"
+        mark_target_terminal(db, job, "cancelled")
     return job

@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-07T22:31:23.052568+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/audit-access.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 4.378,
+  "output": "Traceback (most recent call last):\r\n  File \"C:\\RallySenseLab\\scripts\\audit-access.py\", line 46, in <module>\r\n    assert {s[\"id\"] for s in visible} == {s[\"id\"] for s in demos}\r\n            ~^^^^^^\r\nTypeError: string indices must be integers, not 'str'\r\n"
+}

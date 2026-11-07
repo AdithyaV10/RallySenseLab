@@ -12,6 +12,7 @@ node_modules/
 coverage/
 playwright-report/
 test-results/
+audit-results/
 storage/
 data/private/
 *.log

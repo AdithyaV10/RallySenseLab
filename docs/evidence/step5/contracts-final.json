@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-07T22:45:31.340347+00:00",
+  "command": [
+    "node",
+    "scripts/check-contracts.mjs"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 6.34,
+  "output": "C:\\RallySenseLab\\packages\\shared-contracts\\openapi.json\r\n\u2728 openapi-typescript 7.13.0\n\ud83d\ude80 packages/shared-contracts/openapi.json \u2192 apps/web/src/lib/schema.d.ts [107.4ms]\napps/web/src/lib/schema.d.ts 190ms\nAPI contract matches Pydantic OpenAPI.\n"
+}

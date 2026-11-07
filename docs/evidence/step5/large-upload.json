@@ -1,0 +1,33 @@
+[
+  {
+    "path": "next_proxy",
+    "bytes": 11590089,
+    "sha256": "cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545",
+    "status": 422,
+    "elapsed_s": 0.45408639998640865,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Invalid request fields",
+        "fields": [
+          "file"
+        ]
+      }
+    }
+  },
+  {
+    "path": "direct_api",
+    "bytes": 11590089,
+    "sha256": "cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545",
+    "status": 202,
+    "elapsed_s": 0.21628940000664443,
+    "response": {
+      "id": "5049379b-d83c-4c13-bf15-8b669365af75",
+      "kind": "normalize",
+      "target_id": "b8086918-54ba-4f09-b35f-3c6adba6e96a",
+      "state": "queued",
+      "attempt": 0,
+      "error": null
+    }
+  }
+]

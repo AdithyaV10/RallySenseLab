@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-07T22:33:05.609127+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-research.py",
+    "--output",
+    "docs/evidence/step5/synthetic-experiments-results.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 24.686,
+  "output": "{\r\n  \"evidence_file\": \"C:\\\\RallySenseLab\\\\docs\\\\evidence\\\\step5\\\\synthetic-experiments-results.json\",\r\n  \"session_id\": \"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\r\n  \"original_step2_samples\": 1801,\r\n  \"sources_unchanged\": true,\r\n  \"experiments\": [\r\n    {\r\n      \"name\": \"IMU clean\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 12.0\r\n    },\r\n    {\r\n      \"name\": \"Video clean\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 40.0\r\n    },\r\n    {\r\n      \"name\": \"Fusion clean\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 48.0\r\n    },\r\n    {\r\n      \"name\": \"IMU dropout 20%\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 13.0\r\n    },\r\n    {\r\n      \"name\": \"IMU gyro noise 0.3 rad/s\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 13.0\r\n    },\r\n    {\r\n      \"name\": \"IMU acceleration noise 1 m/s2\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 11.0\r\n    },\r\n    {\r\n      \"name\": \"IMU timestamp jitter 40%\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 2,\r\n      \"processing_ms\": 15.0\r\n    },\r\n    {\r\n      \"name\": \"IMU missing window\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 1,\r\n      \"processing_ms\": 19.0\r\n    },\r\n    {\r\n      \"name\": \"Fusion wrist occlusion\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 1,\r\n      \"processing_ms\": 47.0\r\n    },\r\n    {\r\n      \"name\": \"Fusion offset +1 second\",\r\n      \"status\": \"succeeded\",\r\n      \"events\": 0,\r\n      \"processing_ms\": 42.0\r\n    },\r\n    {\r\n      \"name\": \"Video full occlusion\",\r\n      \"status\": \"failed\",\r\n      \"events\": 0,\r\n      \"processing_ms\": 32.0\r\n    }\r\n  ]\r\n}\r\n"
+}

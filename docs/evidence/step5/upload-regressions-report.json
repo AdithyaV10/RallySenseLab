@@ -1,0 +1,284 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "audit.config.ts"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\web\\audit.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/web/audit",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/apps/web/audit-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/RallySenseLab/apps/web/audit",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\RallySenseLab\\apps\\web\\audit-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "C:\\RallySenseLab\\apps\\web\\audit",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\web\\audit",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://127.0.0.1:3000",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "audit-results/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "uploads.spec.ts",
+      "file": "uploads.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "advertised csv upload accepts an intact body above 10 MiB",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "actual-upload-comparison",
+                  "description": "{\"bytes\":11590089,\"sha256\":\"cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":422}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6009,
+                  "error": {
+                    "message": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m",
+                    "stack": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m\n    at C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts:47:56",
+                    "location": {
+                      "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                      "column": 56,
+                      "line": 47
+                    },
+                    "snippet": "  45 |         direct_status: direct.status(), direct_job: \"succeeded\", proxy_status: response.status(),\n  46 |       }) });\n> 47 |       expect(response.status(), await response.text()).toBe(202);\n     |                                                        ^\n  48 |       const job = await response.json();\n  49 |       await expect.poll(async () => (await (await request.get(`/api/v1/jobs/${job.id}`)).json()).state,\n  50 |         { timeout: 90000 }).toBe(\"succeeded\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                        "column": 56,
+                        "line": 47
+                      },
+                      "message": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m\n\n  45 |         direct_status: direct.status(), direct_job: \"succeeded\", proxy_status: response.status(),\n  46 |       }) });\n> 47 |       expect(response.status(), await response.text()).toBe(202);\n     |                                                        ^\n  48 |       const job = await response.json();\n  49 |       await expect.poll(async () => (await (await request.get(`/api/v1/jobs/${job.id}`)).json()).state,\n  50 |         { timeout: 90000 }).toBe(\"succeeded\");\n    at C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts:47:56"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:33:54.761Z",
+                  "annotations": [
+                    {
+                      "type": "actual-upload-comparison",
+                      "description": "{\"bytes\":11590089,\"sha256\":\"cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":422}"
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\RallySenseLab\\apps\\web\\audit-results\\uploads-advertised-csv-upl-81a71-an-intact-body-above-10-MiB-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\RallySenseLab\\apps\\web\\audit-results\\uploads-advertised-csv-upl-81a71-an-intact-body-above-10-MiB-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                    "column": 56,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff8464a04b8fdee8ce18-1a1fe5d8b5dfd6c7ecca",
+          "file": "uploads.spec.ts",
+          "line": 8,
+          "column": 7
+        },
+        {
+          "title": "advertised video upload accepts an intact body above 10 MiB",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "actual-upload-comparison",
+                  "description": "{\"bytes\":12585195,\"sha256\":\"915909ec29d498071d9f3f259f5ed5e089da64beb82cdfaa6618f23df87841ab\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":422}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1481,
+                  "error": {
+                    "message": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m",
+                    "stack": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m\n    at C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts:47:56",
+                    "location": {
+                      "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                      "column": 56,
+                      "line": 47
+                    },
+                    "snippet": "  45 |         direct_status: direct.status(), direct_job: \"succeeded\", proxy_status: response.status(),\n  46 |       }) });\n> 47 |       expect(response.status(), await response.text()).toBe(202);\n     |                                                        ^\n  48 |       const job = await response.json();\n  49 |       await expect.poll(async () => (await (await request.get(`/api/v1/jobs/${job.id}`)).json()).state,\n  50 |         { timeout: 90000 }).toBe(\"succeeded\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                        "column": 56,
+                        "line": 47
+                      },
+                      "message": "Error: {\"error\":{\"code\":\"VALIDATION_ERROR\",\"message\":\"Invalid request fields\",\"fields\":[\"file\"]}}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m202\u001b[39m\nReceived: \u001b[31m422\u001b[39m\n\n  45 |         direct_status: direct.status(), direct_job: \"succeeded\", proxy_status: response.status(),\n  46 |       }) });\n> 47 |       expect(response.status(), await response.text()).toBe(202);\n     |                                                        ^\n  48 |       const job = await response.json();\n  49 |       await expect.poll(async () => (await (await request.get(`/api/v1/jobs/${job.id}`)).json()).state,\n  50 |         { timeout: 90000 }).toBe(\"succeeded\");\n    at C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts:47:56"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:34:01.571Z",
+                  "annotations": [
+                    {
+                      "type": "actual-upload-comparison",
+                      "description": "{\"bytes\":12585195,\"sha256\":\"915909ec29d498071d9f3f259f5ed5e089da64beb82cdfaa6618f23df87841ab\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":422}"
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\RallySenseLab\\apps\\web\\audit-results\\uploads-advertised-video-u-f549a-an-intact-body-above-10-MiB-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\RallySenseLab\\apps\\web\\audit-results\\uploads-advertised-video-u-f549a-an-intact-body-above-10-MiB-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\RallySenseLab\\apps\\web\\audit\\uploads.spec.ts",
+                    "column": 56,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "ff8464a04b8fdee8ce18-c31989e6d501d5d2a2c1",
+          "file": "uploads.spec.ts",
+          "line": 8,
+          "column": 7
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T22:33:54.165Z",
+    "duration": 9127.357,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

@@ -1,5 +1,7 @@
 # Verification
 
+**Current Step 5 acceptance:** 52 backend tests, 15 frontend units and eight standard production browser tests pass. Four additional audit cases fail: large CSV/video proxy uploads and frozen worker dependency/runtime mismatch. Run both ordinary and audit gates before release. Exact commands, evidence and remaining verification are in [FINAL_TEST_REPORT](FINAL_TEST_REPORT.md). Prior stage counts below are historical.
+
 All results refer to local software checks, not a tennis accuracy study. Synthetic fixture scores are explicitly software verification. No independent paired tennis or coaching validation is claimed.
 
 ## Step 3 final acceptance, 2026-11-05

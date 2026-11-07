@@ -33,6 +33,21 @@ def fingerprint(value):
     ).hexdigest()
 
 
+def mark_target_terminal(db, job, state):
+    """Keep source/run status consistent with a terminal job, preserving published work."""
+    model = {
+        "normalize": m.SensorRecording,
+        "video_probe": m.VideoAsset,
+        "inference": m.InferenceRun,
+        "experiment": m.Experiment,
+    }.get(job.kind)
+    if model and (target := db.get(model, job.target_id)):
+        if target.status not in {"ready", "succeeded"}:
+            target.status = state
+            if job.kind == "experiment":
+                target.error = job.error
+
+
 def claim_job():
     with Session(engine) as db, db.begin():
         job = db.scalars(
@@ -50,8 +65,7 @@ def claim_job():
             return None
         if job.attempt >= 3:
             job.state, job.error = "failed", "Retry limit reached"
-            if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
-                target.status, target.error = "failed", job.error
+            mark_target_terminal(db, job, "failed")
             return None
         job.state, job.lease_token = "running", m.uid()
         job.attempt += 1
@@ -282,8 +296,7 @@ def execute_job(job_id, token):
             session = db.get(m.RecordingSession, job.session_id)
             if job.cancel_requested or (session.deleted_at and job.kind != "delete_session"):
                 job.state = "cancelled"
-                if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
-                    target.status = "cancelled"
+                mark_target_terminal(db, job, "cancelled")
                 db.commit()
                 return
             output = compute(db, job)
@@ -296,8 +309,7 @@ def execute_job(job_id, token):
                 return
             if job.cancel_requested or (session.deleted_at and job.kind != "delete_session"):
                 job.state = "cancelled"
-                if job.kind == "experiment" and (target := db.get(m.Experiment, job.target_id)):
-                    target.status = "cancelled"
+                mark_target_terminal(db, job, "cancelled")
                 return
             if job.kind == "delete_session":
                 cleanup_session(db, job.session_id)

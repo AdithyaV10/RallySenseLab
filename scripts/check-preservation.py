@@ -11,8 +11,9 @@ from sqlalchemy.orm import Session
 
 parser = argparse.ArgumentParser()
 parser.add_argument("action", choices=["snapshot", "verify"])
+parser.add_argument("--baseline", default="storage/step4-preservation.json")
 args = parser.parse_args()
-target = Path(__file__).resolve().parents[1] / "storage/step4-preservation.json"
+target = Path(__file__).resolve().parents[1] / args.baseline
 def digest(value):
     return hashlib.sha256(json.dumps(value,sort_keys=True,default=str).encode()).hexdigest()
 with Session(engine) as db:

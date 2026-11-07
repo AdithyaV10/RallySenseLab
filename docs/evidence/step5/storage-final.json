@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-07T22:46:18.241546+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "exec",
+    "-T",
+    "api",
+    "python",
+    "/tmp/audit-storage-readiness.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 7.044,
+  "output": "{\"artifact_files_checked\": 116, \"missing\": [], \"mismatched\": [], \"readonly_directory_write_succeeds\": false, \"readiness_response\": {\"status\": \"ready\"}, \"finding\": \"Readiness checks mkdir(exist_ok=True), not artifact writability\"}\n"
+}

@@ -1,0 +1,474 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\web\\playwright.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/web/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/apps/web/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/RallySenseLab/apps/web/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\RallySenseLab\\apps\\web\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "C:\\RallySenseLab\\apps\\web\\tests",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\web\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://127.0.0.1:3000",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "capture.spec.ts",
+      "file": "capture.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "browser motion: synthetic event transport, real normalization and metadata",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "capture-verification-scope",
+                  "description": "Injected synthetic DeviceMotion events; actual UI, CSV transport, PostgreSQL, worker normalization and detector. No physical hardware."
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7482,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:31:51.175Z",
+                  "annotations": [
+                    {
+                      "type": "capture-verification-scope",
+                      "description": "Injected synthetic DeviceMotion events; actual UI, CSV transport, PostgreSQL, worker normalization and detector. No physical hardware."
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a0260cabe6bbf638b217-a55e1afd004d60e50d24",
+          "file": "capture.spec.ts",
+          "line": 19,
+          "column": 5
+        },
+        {
+          "title": "motion permission denied and unsupported API expose actionable fallback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 905,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:31:58.866Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a0260cabe6bbf638b217-6385a3ad4fc3d9a11787",
+          "file": "capture.spec.ts",
+          "line": 119,
+          "column": 5
+        },
+        {
+          "title": "browser camera encodes a synthetic device clip and real worker validates it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9759,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:31:59.782Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a0260cabe6bbf638b217-14821fa8962c9b375001",
+          "file": "capture.spec.ts",
+          "line": 148,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "research.spec.ts",
+      "file": "research.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "paired synthetic research: freeze labels, three modes, corruption, comparison, export and replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "actual-research-results",
+                  "description": "{\"session\":\"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\"imu\":\"e718053f-3a35-4fee-9941-828e5fed604d\",\"video\":\"00f423fd-a7ca-43a3-84b7-fa422ec18e3d\",\"fusion\":\"38eac562-120d-4384-80fb-c77161d88336\",\"degraded\":\"849d6f6e-84d1-423d-8d60-f3e4d723835d\",\"clean_fusion_events\":2,\"degraded_fusion_events\":0,\"evidence\":\"synthetic software verification only\"}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:32:09.555Z",
+                  "annotations": [
+                    {
+                      "type": "actual-research-results",
+                      "description": "{\"session\":\"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\"imu\":\"e718053f-3a35-4fee-9941-828e5fed604d\",\"video\":\"00f423fd-a7ca-43a3-84b7-fa422ec18e3d\",\"fusion\":\"38eac562-120d-4384-80fb-c77161d88336\",\"degraded\":\"849d6f6e-84d1-423d-8d60-f3e4d723835d\",\"clean_fusion_events\":2,\"degraded_fusion_events\":0,\"evidence\":\"synthetic software verification only\"}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cdcdb9c009151254af97-795eda0f3c47d3de56d3",
+          "file": "research.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "human reference set revisions and inference eligibility are exposed in the UI",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 895,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:32:22.377Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cdcdb9c009151254af97-2ca6af8d78ddacc543f0",
+          "file": "research.spec.ts",
+          "line": 188,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "workflow.spec.ts",
+      "file": "workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "synthetic session: computed events, seek, label edits, saved sync and reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5192,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:32:23.308Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-07ab9c85762598230fbb",
+          "file": "workflow.spec.ts",
+          "line": 5,
+          "column": 5
+        },
+        {
+          "title": "session creation, CSV mapping import, inference and deletion through the UI",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:32:28.508Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-22fa37da41a123c876ba",
+          "file": "workflow.spec.ts",
+          "line": 94,
+          "column": 5
+        },
+        {
+          "title": "real MediaPipe package processes uploaded official demonstration video",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "measured-dense-pose-cadence",
+                  "description": "{\"track_id\":\"c10c8a57-4352-4e6c-967b-fc1299e4818e\",\"target_hz\":30,\"quality\":{\"end_us\":6000000,\"start_us\":80000,\"max_gap_us\":240000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":40000,\"detected_frames\":117,\"processed_frames\":117,\"detection_fraction\":1,\"observed_sample_hz\":19.594594594594593}}"
+                },
+                {
+                  "type": "actual-pose-execution",
+                  "description": "Complete · 117 sampled frames · worker"
+                },
+                {
+                  "type": "measured-seek-pose-cadence",
+                  "description": "{\"track_id\":\"bb521594-e5e5-4380-a952-f16c126066f1\",\"quality\":{\"end_us\":6000000,\"start_us\":0,\"max_gap_us\":80000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":40000,\"detected_frames\":149,\"processed_frames\":149,\"detection_fraction\":1,\"observed_sample_hz\":24.666666666666668},\"scope\":\"Actual permitted sample clip; software integration only\"}"
+                },
+                {
+                  "type": "actual-fallback-execution",
+                  "description": "Complete · 49 sampled frames · main_thread_fallback"
+                },
+                {
+                  "type": "actual-stored-pose-inference",
+                  "description": "{\"id\":\"7b1d9901-c354-4a40-a183-673ff53b014b\",\"events\":5,\"evaluation\":null,\"evidence\":\"Official video integration input; no independent tennis ground truth\"}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 33036,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T22:32:34.863Z",
+                  "annotations": [
+                    {
+                      "type": "measured-dense-pose-cadence",
+                      "description": "{\"track_id\":\"c10c8a57-4352-4e6c-967b-fc1299e4818e\",\"target_hz\":30,\"quality\":{\"end_us\":6000000,\"start_us\":80000,\"max_gap_us\":240000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":40000,\"detected_frames\":117,\"processed_frames\":117,\"detection_fraction\":1,\"observed_sample_hz\":19.594594594594593}}"
+                    },
+                    {
+                      "type": "actual-pose-execution",
+                      "description": "Complete · 117 sampled frames · worker"
+                    },
+                    {
+                      "type": "measured-seek-pose-cadence",
+                      "description": "{\"track_id\":\"bb521594-e5e5-4380-a952-f16c126066f1\",\"quality\":{\"end_us\":6000000,\"start_us\":0,\"max_gap_us\":80000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":40000,\"detected_frames\":149,\"processed_frames\":149,\"detection_fraction\":1,\"observed_sample_hz\":24.666666666666668},\"scope\":\"Actual permitted sample clip; software integration only\"}"
+                    },
+                    {
+                      "type": "actual-fallback-execution",
+                      "description": "Complete · 49 sampled frames · main_thread_fallback"
+                    },
+                    {
+                      "type": "actual-stored-pose-inference",
+                      "description": "{\"id\":\"7b1d9901-c354-4a40-a183-673ff53b014b\",\"events\":5,\"evaluation\":null,\"evidence\":\"Official video integration input; no independent tennis ground truth\"}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-078b77200fad845b69c7",
+          "file": "workflow.spec.ts",
+          "line": 122,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T22:31:50.622Z",
+    "duration": 78734.02399999999,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

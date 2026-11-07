@@ -67,3 +67,10 @@ The earlier decision table describes the accepted architecture; source-level det
 - Load cursor-local pose windows and summary experiment history; full scientific artifacts/results remain available. Use deterministic stored-result explanations, not an external LLM.
 - Public preparation uses fail-closed builtin synthetic allowlists and requires fresh isolated volumes. A shared local token/workspace password is not multiuser security. Prepare private trusted phone HTTPS without actually opening a LAN listener.
 - Recommend the implemented filesystem-compatible container topology for an initial demonstration. Split serverless/object-store architecture needs adapters and upload changes. No deployment, paid service or push in Step 4.
+
+## Step 5 audit decisions, 2026-11-07
+
+- Preserve numerical algorithms, scientific event semantics, frozen results and user data. The only application repair during this audit propagates terminal source/run status on cancellation or exhausted retries and makes terminal cancellation a no-op under a job lock. No schema migration or historical-row rewrite was added.
+- Retain four explicit failing audit regressions: valid large CSV/video uploads and mismatched frozen worker lock/runtime. Ordinary suites passing does not override these release failures. Separate runnable audit gates are described in FINAL_TEST_REPORT and must remain part of remediation acceptance.
+- Do not raise Next's 10 MiB clone limit to 501 MiB without a bounded-memory ingress design. Prefer authenticated streaming through the existing single-host topology; architectural implementation is deferred to separate authorization.
+- Distinguish a fresh fixture-only precomputed read-only demonstration from upload-enabled research and open multiuser service. The audit verdict is SIGNIFICANT FIXES REQUIRED. Deployment remains unauthorized. See FINAL_AUDIT, DEPLOYMENT_READINESS and REMEDIATION_PLAN.
