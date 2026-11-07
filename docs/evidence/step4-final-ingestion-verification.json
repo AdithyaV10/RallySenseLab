@@ -1,0 +1,12 @@
+{
+  "scope": "Final production image after bounded job-history and readonly upload controls; real motion/camera/CSV pipelines and session lifecycle",
+  "stats": {
+    "startTime": "2026-11-07T03:46:35.642Z",
+    "duration": 33485.638,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": []
+}

@@ -1,9 +1,15 @@
 """Readiness, ordinary demo pipeline, and persistence smoke check against local services."""
+import argparse
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+
 import httpx
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--output", default="docs/evidence/local-verification.json")
+args = parser.parse_args()
 
 base = "http://127.0.0.1:3000"
 with httpx.Client(base_url=base, headers={"x-lab-client":"rallysense"}, timeout=10) as client:
@@ -32,12 +38,12 @@ with httpx.Client(base_url=base, headers={"x-lab-client":"rallysense"}, timeout=
     assert detail["sensors"][0]["samples"] == 1801
     assert len(detail["predictions"]) >= 5
     assert all(p["event_type"] == "gyro_peak_v1" for p in detail["predictions"])
-    evidence = {"verified_at_utc":datetime.now(timezone.utc).isoformat(),"base_url":base,
+    evidence = {"verified_at_utc":datetime.now(UTC).isoformat(),"base_url":base,
                 "health":"ready","landing_http":200,"sessions_http":200,
                 "demo_id":session_id,"dataset_kind":"synthetic","samples":1801,
                 "successful_runs":sum(r["status"]=="succeeded" for r in detail["runs"]),
                 "event_type":"gyro_peak_v1","scientific_accuracy_evaluated":False}
-    target=Path(__file__).resolve().parents[1]/"docs/evidence/local-verification.json"
+    target=Path(__file__).resolve().parents[1]/args.output
     target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(json.dumps(evidence,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(evidence,indent=2))

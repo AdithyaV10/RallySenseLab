@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Plus, Trash2, Pencil, Check, X, LocateFixed } from "lucide-react";
 import { api, Annotation, SessionDetail, clock } from "@/lib/api";
 import { Badge } from "@/components/ui";
+import type { LabelSet } from "@/features/research/types";
 export function EventPanel({
   session,
   timeUs,
@@ -11,6 +12,8 @@ export function EventPanel({
   runId,
   onError,
   blind = false,
+  sets = [],
+  readonly = false,
 }: {
   session: SessionDetail;
   timeUs: number;
@@ -19,11 +22,15 @@ export function EventPanel({
   runId?: string;
   onError: (e: unknown) => void;
   blind?: boolean;
+  sets?: LabelSet[];
+  readonly?: boolean;
 }) {
   const [type, setType] = useState("movement_reference"),
     [note, setNote] = useState(""),
     [editing, setEditing] = useState<Annotation | null>(null),
     [editTime, setEditTime] = useState(""),
+    [editNote, setEditNote] = useState(""),
+    [setId, setSetId] = useState(""),
     [busy, setBusy] = useState(false),
     [tab, setTab] = useState<"events" | "labels">("events");
   const events = session.predictions
@@ -31,6 +38,7 @@ export function EventPanel({
     .sort((a, b) => a.t_session_us - b.t_session_us);
   const activeTab = blind ? "labels" : tab;
   async function action(fn: () => Promise<unknown>) {
+    if (readonly) return;
     setBusy(true);
     try {
       await fn();
@@ -59,6 +67,23 @@ export function EventPanel({
           References <span>{session.annotations.length}</span>
         </button>
       </div>
+      {sets.length > 0 && (
+        <label className="field annotation-set-field">
+          Reference set
+          <select
+            aria-label="Replay reference set"
+            value={setId}
+            onChange={(e) => setSetId(e.target.value)}
+          >
+            <option value="">All sets / default human set</option>
+            {sets.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name} · {s.provenance} · r{s.revision}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       {activeTab === "events" ? (
         <>
           <div className="event-explainer">
@@ -99,6 +124,7 @@ export function EventPanel({
       ) : (
         <div className="annotation-list">
           {session.annotations
+            .filter((a) => !setId || a.set_id === setId)
             .slice()
             .sort((a, b) => a.t_session_us - b.t_session_us)
             .map((a) => (
@@ -113,6 +139,12 @@ export function EventPanel({
                       value={editTime}
                       onChange={(e) => setEditTime(e.target.value)}
                     />
+                    <input
+                      aria-label="Edit reference note"
+                      value={editNote}
+                      maxLength={1000}
+                      onChange={(e) => setEditNote(e.target.value)}
+                    />
                     <button
                       className="icon-button"
                       aria-label="Save reference edit"
@@ -125,6 +157,7 @@ export function EventPanel({
                               ...a,
                               t_session_us: Math.round(Number(editTime) * 1e6),
                               revision: a.revision,
+                              note: editNote,
                             }),
                           });
                           setEditing(null);
@@ -158,8 +191,10 @@ export function EventPanel({
                         <button
                           className="icon-button"
                           aria-label="Edit reference"
+                          disabled={readonly}
                           onClick={() => {
                             setEditing(a);
+                            setEditNote(a.note);
                             setEditTime((a.t_session_us / 1e6).toFixed(3));
                           }}
                         >
@@ -168,7 +203,7 @@ export function EventPanel({
                         <button
                           className="icon-button"
                           aria-label="Delete reference"
-                          disabled={busy}
+                          disabled={readonly || busy}
                           onClick={() =>
                             action(() =>
                               api(
@@ -212,24 +247,31 @@ export function EventPanel({
         </label>
         <input
           aria-label="Reference note"
-          placeholder="Observation note (optional)"
+          placeholder="Observation, ambiguity and timing uncertainty"
           value={note}
           maxLength={1000}
           onChange={(e) => setNote(e.target.value)}
         />
         <button
           className="button secondary full"
-          disabled={busy}
+          disabled={
+            readonly ||
+            busy ||
+            sets.find((s) => s.id === setId)?.provenance === "synthetic"
+          }
           onClick={() =>
             action(async () => {
-              await api(`/sessions/${session.id}/annotations`, {
-                method: "POST",
-                body: JSON.stringify({
-                  t_session_us: Math.round(timeUs),
-                  event_type: type,
-                  note,
-                }),
-              });
+              await api(
+                `/sessions/${session.id}/annotations${setId ? `?set_id=${setId}` : ""}`,
+                {
+                  method: "POST",
+                  body: JSON.stringify({
+                    t_session_us: Math.round(timeUs),
+                    event_type: type,
+                    note,
+                  }),
+                },
+              );
               setNote("");
               setTab("labels");
             })

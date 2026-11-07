@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { api, SessionDetail, SensorMapping } from "@/lib/api";
 import { Badge, ErrorBox, Modal } from "@/components/ui";
+import { useCapabilities } from "@/lib/capabilities";
 
 export function DataManager({
   session,
@@ -18,12 +19,17 @@ export function DataManager({
   session: SessionDetail;
   refresh: () => void;
 }) {
+  const readonly = useCapabilities().data?.mode === "demo_readonly";
+  const [allJobs, setAllJobs] = useState(false);
   const videoInput = useRef<HTMLInputElement>(null),
     sensorInput = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false),
     [error, setError] = useState<unknown>(null),
     [csv, setCsv] = useState<File | null>(null),
     [headers, setHeaders] = useState<string[]>([]);
+  const [videoProvenance, setVideoProvenance] = useState<
+    "recorded" | "synthetic"
+  >("recorded");
   const [timestamp, setTimestamp] = useState("timestamp_s"),
     [acc, setAcc] = useState("ax_m_s2,ay_m_s2,az_m_s2"),
     [gyro, setGyro] = useState("gx_rad_s,gy_rad_s,gz_rad_s"),
@@ -39,7 +45,7 @@ export function DataManager({
     >("unknown"),
     [delimiter, setDelimiter] = useState<"," | ";" | "\t">(",");
   async function uploadVideo(file?: File) {
-    if (!file) return;
+    if (!file || readonly) return;
     setBusy(true);
     setError(null);
     try {
@@ -47,6 +53,7 @@ export function DataManager({
         throw new Error("Video exceeds 500 MiB");
       const form = new FormData();
       form.set("file", file);
+      form.set("metadata", JSON.stringify({ provenance: videoProvenance }));
       await api(`/sessions/${session.id}/videos`, {
         method: "POST",
         body: form,
@@ -60,7 +67,7 @@ export function DataManager({
     }
   }
   async function selectCsv(file?: File) {
-    if (!file) return;
+    if (!file || readonly) return;
     setError(null);
     if (file.size > 50 * 1024 * 1024) {
       setError(new Error("CSV exceeds 50 MiB"));
@@ -87,7 +94,7 @@ export function DataManager({
   }
   async function importCsv(e: React.FormEvent) {
     e.preventDefault();
-    if (!csv) return;
+    if (!csv || readonly) return;
     setBusy(true);
     setError(null);
     try {
@@ -120,6 +127,19 @@ export function DataManager({
   }
   return (
     <div className="data-manager">
+      <label className="field">
+        Video source provenance
+        <select
+          aria-label="Video source provenance"
+          value={videoProvenance}
+          onChange={(e) =>
+            setVideoProvenance(e.target.value as typeof videoProvenance)
+          }
+        >
+          <option value="recorded">Recorded video</option>
+          <option value="synthetic">Generated software fixture</option>
+        </select>
+      </label>
       <div className="data-intro">
         <h2>Build your observation set.</h2>
         <p>
@@ -131,7 +151,7 @@ export function DataManager({
       <div className="upload-grid">
         <button
           className="upload-zone"
-          disabled={busy}
+          disabled={readonly || busy}
           onClick={() => videoInput.current?.click()}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
@@ -152,7 +172,7 @@ export function DataManager({
         </button>
         <button
           className="upload-zone"
-          disabled={busy}
+          disabled={readonly || busy}
           onClick={() => sensorInput.current?.click()}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => {
@@ -253,6 +273,7 @@ export function DataManager({
         {session.jobs
           .slice()
           .reverse()
+          .slice(0, allJobs ? session.jobs.length : 8)
           .map((job) => (
             <div className="job-row" key={job.id}>
               <div>
@@ -275,6 +296,16 @@ export function DataManager({
               </Badge>
             </div>
           ))}
+        {session.jobs.length > 8 && (
+          <button
+            className="button ghost small"
+            onClick={() => setAllJobs(!allJobs)}
+          >
+            {allJobs
+              ? "Show recent jobs"
+              : `Show all ${session.jobs.length} jobs`}
+          </button>
+        )}
         {!session.jobs.length && (
           <p className="empty-text">No processing jobs yet.</p>
         )}
@@ -381,7 +412,7 @@ export function DataManager({
             exports individually; rows are never joined by index.
           </p>
           <ErrorBox error={error} />
-          <button className="button primary" disabled={busy}>
+          <button className="button primary" disabled={readonly || busy}>
             {busy ? "Importing…" : "Import and normalize"}
             <ArrowUpRight size={15} />
           </button>

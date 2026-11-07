@@ -227,6 +227,35 @@ test("real MediaPipe package processes uploaded official demonstration video", a
     type: "actual-pose-execution",
     description: info || "",
   });
+  await page
+    .getByLabel("Pose sampling method")
+    .selectOption("seek_backpressure");
+  await page
+    .getByRole("button", { name: "Extract new track", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toContainText("Complete", {
+    timeout: 110000,
+  });
+  const seekSession = await (
+    await page.request.get(`/api/v1/sessions/${sampledSessionId}`)
+  ).json();
+  const seekTrack = seekSession.poses.find(
+    (p: { status: string; config: { sampling_method: string } }) =>
+      p.status === "ready" && p.config.sampling_method === "seek_backpressure",
+  );
+  expect(seekTrack.quality.processed_frames).toBeGreaterThan(100);
+  expect(seekTrack.quality.max_gap_us).toBeLessThanOrEqual(160000);
+  test
+    .info()
+    .annotations.push({
+      type: "measured-seek-pose-cadence",
+      description: JSON.stringify({
+        track_id: seekTrack.id,
+        quality: seekTrack.quality,
+        scope: "Actual permitted sample clip; software integration only",
+      }),
+    });
+  await page.getByLabel("Pose sampling method").selectOption("playback");
   await page.route("**/pose-worker.js", (route) =>
     route.fulfill({
       contentType: "application/javascript",

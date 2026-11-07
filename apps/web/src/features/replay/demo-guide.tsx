@@ -1,0 +1,10 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { Badge } from "@/components/ui";
+const steps=[{title:"Follow one clock",text:"Play the synthetic observation, scrub its timeline, then click a measured signal event. The generated figure and IMU traces illustrate software behavior.",tab:"replay"},{title:"Compute a baseline",text:"Choose Run baseline below. The durable worker filters actual stored fixture samples and finds angular-speed maxima; these are not confirmed tennis swings.",tab:"replay"},{title:"Compare modalities",text:"Open Sensor Fusion Challenge. In the paired synthetic lab, freeze generated references and run IMU, video and temporal association. All results come from the worker.",tab:"research"},{title:"Stress the observations",text:"Choose a missing window, wrist occlusion or sync error, run again, and select runs to compare. Use Failure explorer to jump to missed references and unavailable observations.",tab:"research"},{title:"Inspect the method",text:"Open the frozen configuration and print-ready report. Fixture scores test algorithms; independently labeled physical recordings are still required for tennis accuracy.",tab:"research"}];
+export function DemoGuide({onTab}:{onTab:(tab:string)=>void}){
+  const [step,setStep]=useState(0),[dismissed,setDismissed]=useState(false);
+  const s=steps[step];
+  return dismissed ? <button className="button ghost small" onClick={()=>setDismissed(false)}>Show demo guidance</button> : <aside className="guided-demo"><div><Badge tone="amber">SYNTHETIC WALKTHROUGH · {step+1}/{steps.length}</Badge><h3>{s.title}</h3><p>{s.text}</p></div><div className="capture-actions"><button className="button secondary" onClick={()=>onTab(s.tab)}>Open {s.tab==="research"?"Challenge":"replay"}</button>{step<steps.length-1?<button className="button primary" onClick={()=>{setStep(step+1);onTab(steps[step+1].tab);}}>Next</button>:<Link className="button primary" href="/docs">Read methodology</Link>}<button className="button ghost" onClick={()=>setDismissed(true)}>Dismiss guidance</button></div></aside>;
+}

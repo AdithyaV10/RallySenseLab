@@ -17,8 +17,11 @@ import {
 } from "lucide-react";
 import { api, LabSession, provenanceLabel } from "@/lib/api";
 import { Shell, Badge, ErrorBox, Loading, Modal } from "@/components/ui";
+import { openDemonstration, useCapabilities } from "@/lib/capabilities";
 import { Court } from "@/components/court";
 export default function Sessions() {
+  const capabilities = useCapabilities();
+  const readonly = capabilities.data?.mode === "demo_readonly";
   const router = useRouter(),
     query = useQueryClient();
   const [search, setSearch] = useState(""),
@@ -43,7 +46,7 @@ export default function Sessions() {
     },
   });
   const demo = useMutation({
-    mutationFn: () => api<LabSession>("/demo-sessions", { method: "POST" }),
+    mutationFn: () => openDemonstration(),
     onSuccess: (s) => router.push(`/sessions/${s.id}`),
   });
   const remove = useMutation({
@@ -68,7 +71,11 @@ export default function Sessions() {
             </h1>
             <p>Collect observations. Connect timelines. Stay curious.</p>
           </div>
-          <button className="button primary" onClick={() => setOpen(true)}>
+          <button
+            className="button primary"
+            disabled={readonly}
+            onClick={() => setOpen(true)}
+          >
             <Plus size={17} />
             New session
           </button>

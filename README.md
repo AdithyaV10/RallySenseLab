@@ -4,7 +4,7 @@
 
 An experimental tennis movement analysis platform investigating what sparse inertial measurements can reveal when compared with synchronized video observations and human annotations.
 
-**Status: Step 3 research implementation.** The Next.js/FastAPI/PostgreSQL MVP now includes stored-pose video inference, enhanced IMU observations, explicit multimodal association, frozen references, event evaluation, reproducible experiments, controlled corruption and the Sensor Fusion Challenge. See [project status](docs/PROJECT_STATUS.md), [research methods](docs/RESEARCH.md) and [experiment walkthrough](docs/EXPERIMENTS.md) for verified scope and limits. No real-world tennis accuracy is claimed.
+**Status: Step 4 collection and research product.** The Next.js/FastAPI/PostgreSQL MVP now includes stored-pose video inference, enhanced IMU observations, explicit multimodal association, frozen references, event evaluation, reproducible experiments, controlled corruption and the Sensor Fusion Challenge. See [project status](docs/PROJECT_STATUS.md), [research methods](docs/RESEARCH.md) and [experiment walkthrough](docs/EXPERIMENTS.md) for verified scope and limits. No real-world tennis accuracy is claimed.
 
 ## Start locally
 
@@ -54,3 +54,11 @@ The application is loopback-only and single-user. Physical phone capture and bro
 The implemented stack is Next.js/React/TypeScript, browser MediaPipe, FastAPI/Python, PostgreSQL, and local artifact storage. Analytical event detectors precede any optional trained movement classifier. Synthetic fixtures verify software behavior; they do not establish real-world accuracy. Pose estimates are observations, not ground-truth biomechanics. No affiliation with another sports technology product is claimed.
 
 No publishing, pushing, cloud provisioning, or deployment is authorized. The project remains local until a separate human review and explicit authorization.
+
+## Step 4 collection and review experience
+
+Open **Collection studio** at `/record` for pseudonymous session metadata, actual browser motion/camera capture, CSV/video import, quality inspection and start/end cue alignment. Browser measurements keep missing channels, raw device axes and explicit acceleration type; physical iOS/Android validation remains unperformed. Synthetic software inputs require explicit source provenance.
+
+Replay supports bounded pose windows, signal zoom, clock readouts, time stepping and view preferences. The paired synthetic Challenge computes real stored results, failure navigation and print-ready reports. System readiness shows database, worker heartbeat and source-validation retries. `APP_MODE=demo_readonly` is a fail-closed fixture allowlist, not multiuser authentication. Default services remain loopback. No deployment or public push occurred.
+
+See [Step 4 report](docs/STEP4_REPORT.md), [collection conventions](docs/DATA_COLLECTION.md), [physical pilot playbook](docs/REAL_WORLD_PILOT.md), [deployment preparation](docs/DEPLOYMENT.md), [handoff](docs/PROJECT_HANDOFF.md) and [interview walkthrough](docs/INTERVIEW_WALKTHROUGH.md). Final status/checks are recorded in the report; no physical-study metrics are claimed.

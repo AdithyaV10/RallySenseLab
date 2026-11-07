@@ -10,13 +10,19 @@ import {
   ScanLine,
   MoveUpRight,
 } from "lucide-react";
-import { api, LabSession } from "@/lib/api";
+
 import { Brand, Badge, ErrorBox } from "@/components/ui";
+import { openDemonstration, useCapabilities } from "@/lib/capabilities";
 import { Court } from "@/components/court";
 export default function Landing() {
   const router = useRouter();
+  const capabilities = useCapabilities();
+  const paired = useMutation({
+    mutationFn: () => openDemonstration(true),
+    onSuccess: (s) => router.push(`/sessions/${s.id}?tab=research`),
+  });
   const demo = useMutation({
-    mutationFn: () => api<LabSession>("/demo-sessions", { method: "POST" }),
+    mutationFn: () => openDemonstration(),
     onSuccess: (s) => router.push(`/sessions/${s.id}`),
   });
   return (
@@ -60,10 +66,17 @@ export default function Landing() {
               Enter the lab <ArrowUpRight size={16} />
             </Link>
           </div>
-          <ErrorBox error={demo.error} />
+          <button
+            className="text-link"
+            disabled={paired.isPending || !capabilities.data}
+            onClick={() => paired.mutate()}
+          >
+            Explore the paired research demo <ArrowUpRight size={16} />
+          </button>
+          <ErrorBox error={demo.error || paired.error} />
           <div className="hero-footnote">
             <span className="dot" />
-            Local-first research platform <span>01 / FOUNDATION</span>
+            Local-first research platform <span>04 / RESEARCH & CAPTURE</span>
           </div>
         </div>
         <div className="hero-visual">

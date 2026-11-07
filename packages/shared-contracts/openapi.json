@@ -117,6 +117,56 @@
         }
       }
     },
+    "/api/v1/sessions/{session_id}/collection": {
+      "patch": {
+        "summary": "Save Collection",
+        "operationId": "save_collection_api_v1_sessions__session_id__collection_patch",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/sessions/{session_id}": {
       "get": {
         "summary": "Detail",
@@ -231,6 +281,68 @@
         ],
         "responses": {
           "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demonstrations": {
+      "get": {
+        "summary": "Demonstrations",
+        "operationId": "demonstrations_api_v1_demonstrations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SessionOut"
+                  },
+                  "type": "array",
+                  "title": "Response Demonstrations Api V1 Demonstrations Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{job_id}/retry": {
+      "post": {
+        "summary": "Retry Source Job",
+        "operationId": "retry_source_job_api_v1_jobs__job_id__retry_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
             "description": "Successful Response",
             "content": {
               "application/json": {
@@ -1022,6 +1134,18 @@
               "default": 600000000,
               "title": "End Us"
             }
+          },
+          {
+            "name": "max_frames",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 5000,
+              "minimum": 1,
+              "default": 2000,
+              "title": "Max Frames"
+            }
           }
         ],
         "responses": {
@@ -1308,6 +1432,16 @@
               "default": 50,
               "title": "Limit"
             }
+          },
+          {
+            "name": "summaries",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Summaries"
+            }
           }
         ],
         "responses": {
@@ -1526,6 +1660,42 @@
           }
         }
       }
+    },
+    "/api/v1/capabilities": {
+      "get": {
+        "summary": "Capabilities",
+        "operationId": "capabilities_api_v1_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics": {
+      "get": {
+        "summary": "Diagnostics",
+        "operationId": "diagnostics_api_v1_diagnostics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticsOut"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1724,6 +1894,11 @@
             "type": "string",
             "contentMediaType": "application/octet-stream",
             "title": "File"
+          },
+          "metadata": {
+            "type": "string",
+            "title": "Metadata",
+            "default": "{}"
           }
         },
         "type": "object",
@@ -1731,6 +1906,249 @@
           "file"
         ],
         "title": "Body_upload_video_api_v1_sessions__session_id__videos_post"
+      },
+      "CapabilitiesOut": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "local",
+              "demo_readonly"
+            ],
+            "title": "Mode"
+          },
+          "mutations_allowed": {
+            "type": "boolean",
+            "title": "Mutations Allowed"
+          },
+          "build_id": {
+            "type": "string",
+            "title": "Build Id"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "mutations_allowed",
+          "build_id",
+          "environment"
+        ],
+        "title": "CapabilitiesOut"
+      },
+      "CaptureMetadata": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": [
+              "browser_devicemotion",
+              "browser_camera",
+              "csv_external"
+            ],
+            "title": "Source"
+          },
+          "device_model": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Device Model",
+            "default": "unknown"
+          },
+          "started_at_utc": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Started At Utc",
+            "default": "unknown"
+          },
+          "timestamp_basis": {
+            "type": "string",
+            "maxLength": 240,
+            "title": "Timestamp Basis",
+            "default": "unknown"
+          },
+          "time_origin_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time Origin Ms"
+          },
+          "original_first_timestamp_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original First Timestamp Ms"
+          },
+          "coordinate_frame": {
+            "type": "string",
+            "maxLength": 240,
+            "title": "Coordinate Frame",
+            "default": "device frame; no world-frame transformation"
+          },
+          "axis_mapping": {
+            "type": "string",
+            "maxLength": 240,
+            "title": "Axis Mapping",
+            "default": "unknown"
+          },
+          "acceleration_kind": {
+            "type": "string",
+            "enum": [
+              "linear",
+              "including_gravity",
+              "unknown"
+            ],
+            "title": "Acceleration Kind",
+            "default": "unknown"
+          },
+          "source_rotation_unit": {
+            "type": "string",
+            "enum": [
+              "deg/s",
+              "unknown"
+            ],
+            "title": "Source Rotation Unit",
+            "default": "unknown"
+          },
+          "orientation_angle_deg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orientation Angle Deg"
+          },
+          "browser": {
+            "type": "string",
+            "maxLength": 400,
+            "title": "Browser",
+            "default": "unknown"
+          },
+          "stop_reason": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Stop Reason",
+            "default": "user"
+          },
+          "discarded_timestamps": {
+            "type": "integer",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Discarded Timestamps",
+            "default": 0
+          },
+          "sample_count": {
+            "type": "integer",
+            "maximum": 1000000.0,
+            "minimum": 0.0,
+            "title": "Sample Count",
+            "default": 0
+          },
+          "operator_cues_us": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Operator Cues Us"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source"
+        ],
+        "title": "CaptureMetadata"
+      },
+      "CollectionProfile": {
+        "properties": {
+          "participant_pseudonym": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Participant Pseudonym",
+            "default": "unknown"
+          },
+          "movement": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Movement",
+            "default": "unknown"
+          },
+          "camera_view": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Camera View",
+            "default": "unknown"
+          },
+          "sensor_placement": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Sensor Placement",
+            "default": "unknown"
+          },
+          "attachment": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Attachment",
+            "default": "unknown"
+          },
+          "device_model": {
+            "type": "string",
+            "maxLength": 160,
+            "title": "Device Model",
+            "default": "unknown"
+          },
+          "conditions": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Conditions",
+            "default": "unknown"
+          },
+          "consent_confirmed": {
+            "type": "boolean",
+            "title": "Consent Confirmed",
+            "default": false
+          },
+          "pairing_note": {
+            "type": "string",
+            "maxLength": 1500,
+            "title": "Pairing Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "CollectionProfile"
+      },
+      "CollectionUpdate": {
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Revision"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/CollectionProfile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "revision",
+          "profile"
+        ],
+        "title": "CollectionUpdate"
       },
       "ComponentResult": {
         "properties": {
@@ -1901,6 +2319,121 @@
         },
         "type": "object",
         "title": "DetectorConfig"
+      },
+      "DiagnosticsOut": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "local",
+              "demo_readonly"
+            ],
+            "title": "Mode"
+          },
+          "mutations_allowed": {
+            "type": "boolean",
+            "title": "Mutations Allowed"
+          },
+          "build_id": {
+            "type": "string",
+            "title": "Build Id"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "database": {
+            "type": "string",
+            "const": "reachable",
+            "title": "Database"
+          },
+          "worker": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "stale",
+              "unknown"
+            ],
+            "title": "Worker"
+          },
+          "worker_age_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Worker Age S"
+          },
+          "worker_state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Worker State"
+          },
+          "python_version": {
+            "type": "string",
+            "title": "Python Version"
+          },
+          "ffprobe_available": {
+            "type": "boolean",
+            "title": "Ffprobe Available"
+          },
+          "storage_free_bytes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storage Free Bytes"
+          },
+          "migration": {
+            "type": "string",
+            "title": "Migration"
+          },
+          "job_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Job Counts"
+          },
+          "recent_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/JobOut"
+            },
+            "type": "array",
+            "title": "Recent Jobs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "mutations_allowed",
+          "build_id",
+          "environment",
+          "database",
+          "worker",
+          "worker_age_s",
+          "worker_state",
+          "python_version",
+          "ffprobe_available",
+          "storage_free_bytes",
+          "migration",
+          "job_counts",
+          "recent_jobs"
+        ],
+        "title": "DiagnosticsOut"
       },
       "Evaluation": {
         "properties": {
@@ -2688,6 +3221,16 @@
             },
             "type": "array",
             "title": "Frames"
+          },
+          "source_count": {
+            "type": "integer",
+            "title": "Source Count",
+            "default": 0
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "default": false
           }
         },
         "type": "object",
@@ -2772,6 +3315,15 @@
             ],
             "title": "Playback Rate",
             "default": 1.0
+          },
+          "sampling_method": {
+            "type": "string",
+            "enum": [
+              "playback",
+              "seek_backpressure"
+            ],
+            "title": "Sampling Method",
+            "default": "playback"
           }
         },
         "type": "object",
@@ -3310,6 +3862,16 @@
             "maxLength": 80,
             "title": "Placement",
             "default": "unknown"
+          },
+          "capture": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CaptureMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -3401,6 +3963,9 @@
             "maxLength": 2000,
             "title": "Notes",
             "default": ""
+          },
+          "collection_profile": {
+            "$ref": "#/components/schemas/CollectionProfile"
           }
         },
         "type": "object",
@@ -3436,6 +4001,13 @@
             "title": "Notes",
             "default": ""
           },
+          "collection_profile": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Collection Profile"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -3444,6 +4016,10 @@
             "type": "string",
             "format": "date-time",
             "title": "Created At"
+          },
+          "collection_revision": {
+            "type": "integer",
+            "title": "Collection Revision"
           },
           "sensors": {
             "items": {
@@ -3506,8 +4082,10 @@
         "required": [
           "title",
           "dataset_kind",
+          "collection_profile",
           "id",
           "created_at",
+          "collection_revision",
           "sensors",
           "videos",
           "poses",
@@ -3546,6 +4124,13 @@
             "title": "Notes",
             "default": ""
           },
+          "collection_profile": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Collection Profile"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -3554,14 +4139,20 @@
             "type": "string",
             "format": "date-time",
             "title": "Created At"
+          },
+          "collection_revision": {
+            "type": "integer",
+            "title": "Collection Revision"
           }
         },
         "type": "object",
         "required": [
           "title",
           "dataset_kind",
+          "collection_profile",
           "id",
-          "created_at"
+          "created_at",
+          "collection_revision"
         ],
         "title": "SessionOut"
       },
@@ -3602,6 +4193,21 @@
             "maximum": 600000000.0,
             "minimum": -600000000.0,
             "title": "Offset Us"
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/SyncEvidence"
           }
         },
         "type": "object",
@@ -3610,6 +4216,60 @@
           "offset_us"
         ],
         "title": "SyncCreate"
+      },
+      "SyncCue": {
+        "properties": {
+          "sensor_us": {
+            "type": "integer",
+            "maximum": 1200000000.0,
+            "minimum": 0.0,
+            "title": "Sensor Us"
+          },
+          "video_us": {
+            "type": "integer",
+            "maximum": 600000000.0,
+            "minimum": 0.0,
+            "title": "Video Us"
+          },
+          "uncertainty_us": {
+            "type": "integer",
+            "maximum": 2000000.0,
+            "minimum": 0.0,
+            "title": "Uncertainty Us",
+            "default": 40000
+          }
+        },
+        "type": "object",
+        "required": [
+          "sensor_us",
+          "video_us"
+        ],
+        "title": "SyncCue"
+      },
+      "SyncEvidence": {
+        "properties": {
+          "note": {
+            "type": "string",
+            "maxLength": 1500,
+            "title": "Note",
+            "default": ""
+          },
+          "paired": {
+            "type": "boolean",
+            "title": "Paired",
+            "default": false
+          },
+          "cues": {
+            "items": {
+              "$ref": "#/components/schemas/SyncCue"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "title": "Cues"
+          }
+        },
+        "type": "object",
+        "title": "SyncEvidence"
       },
       "SyncOut": {
         "properties": {
@@ -3628,6 +4288,24 @@
           "offset_us": {
             "type": "integer",
             "title": "Offset Us"
+          },
+          "video_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Id"
+          },
+          "evidence": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/JsonValue"
+            },
+            "type": "object",
+            "title": "Evidence"
           }
         },
         "type": "object",
@@ -3635,7 +4313,9 @@
           "id",
           "revision",
           "sensor_id",
-          "offset_us"
+          "offset_us",
+          "video_id",
+          "evidence"
         ],
         "title": "SyncOut"
       },

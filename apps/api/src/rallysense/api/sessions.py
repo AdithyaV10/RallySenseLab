@@ -9,19 +9,23 @@ from ..jobs import enqueue
 from ..storage import put_bytes
 from ..signals import demo_csv
 from .common import active_session, query_owned
+from .. import config
+from ..policy import DEMO_KEYS, visible
 
 router = APIRouter()
 
 
 @router.get("/sessions", response_model=list[s.SessionOut])
 def sessions(limit: int = 100, db: Session = Depends(get_db, scope="function")):
-    return list(
-        db.scalars(
-            select(m.RecordingSession)
-            .where(m.RecordingSession.deleted_at.is_(None))
-            .order_by(m.RecordingSession.created_at.desc())
-            .limit(max(1, min(limit, 100)))
+    statement = select(m.RecordingSession).where(m.RecordingSession.deleted_at.is_(None))
+    if config.APP_MODE == "demo_readonly":
+        statement = statement.where(
+            m.RecordingSession.id.in_(config.DEMO_SESSION_IDS),
+            m.RecordingSession.demo_key.in_(DEMO_KEYS),
+            m.RecordingSession.dataset_kind == "synthetic",
         )
+    return list(
+        db.scalars(statement.order_by(m.RecordingSession.created_at.desc()).limit(max(1, min(limit, 100))))
     )
 
 
@@ -31,6 +35,19 @@ def create_session(payload: s.SessionCreate, db: Session = Depends(get_db, scope
     db.add(session)
     db.flush()
     db.add(m.AnnotationSet(session_id=session.id, name="Manual observations", provenance="human"))
+    return session
+
+
+@router.patch("/sessions/{session_id}/collection", response_model=s.SessionOut)
+def save_collection(
+    session_id: UUID, payload: s.CollectionUpdate, db: Session = Depends(get_db, scope="function")
+):
+    session = active_session(db, session_id)
+    session = db.get(m.RecordingSession, session.id, with_for_update=True, populate_existing=True)
+    if session.collection_revision != payload.revision:
+        raise DomainError("Collection metadata changed; reload before saving", "REVISION_CONFLICT", 409)
+    session.collection_profile = payload.profile.model_dump()
+    session.collection_revision += 1
     return session
 
 
@@ -120,7 +137,50 @@ def job_status(job_id: UUID, db: Session = Depends(get_db, scope="function")):
     job = db.get(m.ProcessingJob, str(job_id))
     if not job:
         raise DomainError("Job not found", "NOT_FOUND", 404)
+    if config.APP_MODE == "demo_readonly":
+        active_session(db, job.session_id)
     return job
+
+
+@router.get("/demonstrations", response_model=list[s.SessionOut])
+def demonstrations(db: Session = Depends(get_db, scope="function")):
+    return [
+        row
+        for row in db.scalars(
+            select(m.RecordingSession).where(
+                m.RecordingSession.demo_key.in_(DEMO_KEYS), m.RecordingSession.deleted_at.is_(None)
+            )
+        )
+        if visible(row)
+    ]
+
+
+@router.post("/jobs/{job_id}/retry", response_model=s.JobOut, status_code=202)
+def retry_source_job(job_id: UUID, db: Session = Depends(get_db, scope="function")):
+    job = db.get(m.ProcessingJob, str(job_id))
+    if not job:
+        raise DomainError("Job not found", "NOT_FOUND", 404)
+    session = active_session(db, job.session_id)
+    db.get(m.RecordingSession, session.id, with_for_update=True)
+    job = db.get(m.ProcessingJob, job.id, with_for_update=True, populate_existing=True)
+    if job.kind not in {"normalize", "video_probe"} or job.state not in {"failed", "cancelled"}:
+        raise DomainError(
+            "Only failed source validation can be retried; rerun experiments as new runs",
+            "INVALID_STATE",
+            409,
+        )
+    pending = db.scalars(
+        select(m.ProcessingJob).where(
+            m.ProcessingJob.target_id == job.target_id, m.ProcessingJob.state.in_(["queued", "running"])
+        )
+    ).first()
+    if pending:
+        return pending
+    target = db.get(m.SensorRecording if job.kind == "normalize" else m.VideoAsset, job.target_id)
+    if not target or target.status == "ready":
+        raise DomainError("Source is missing or already ready", "INVALID_STATE", 409)
+    target.status = "queued"
+    return enqueue(db, session.id, job.kind, job.target_id)
 
 
 @router.post("/research-demo-sessions", response_model=s.SessionOut)

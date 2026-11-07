@@ -47,6 +47,7 @@ export function SignalsChart({
   markers,
   onSeek,
   axes,
+  startUs = 0,
 }: {
   samples: Sample[];
   timeUs: number;
@@ -56,6 +57,7 @@ export function SignalsChart({
   markers: number[];
   onSeek: (time: number) => void;
   axes: boolean;
+  startUs?: number;
 }) {
   const data = useMemo(() => {
     const output: Array<Record<string, number | null>> = [];
@@ -102,7 +104,7 @@ export function SignalsChart({
           <XAxis
             dataKey="t"
             type="number"
-            domain={[0, durationUs / 1e6]}
+            domain={[startUs / 1e6, durationUs / 1e6]}
             allowDataOverflow
             tick={{ fill: "#738681", fontSize: 10 }}
             tickFormatter={(v) => `${v}s`}

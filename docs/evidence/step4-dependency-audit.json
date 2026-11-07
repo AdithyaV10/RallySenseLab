@@ -1,0 +1,34 @@
+{
+  "checked_on": "2026-11-06",
+  "npm_runtime": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "npm_all": {
+    "info": 0,
+    "low": 0,
+    "moderate": 10,
+    "high": 0,
+    "critical": 0,
+    "total": 10
+  },
+  "npm_development_packages": [
+    "@eslint/config-array",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/type-utils",
+    "@typescript-eslint/typescript-estree",
+    "@typescript-eslint/utils",
+    "eslint",
+    "eslint-config-next",
+    "minimatch",
+    "typescript-eslint"
+  ],
+  "python_packages_checked": 35,
+  "python_vulnerabilities": 0,
+  "scope": "Package advisory services at scan time; not an independent security audit or container OS scan"
+}

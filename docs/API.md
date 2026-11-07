@@ -77,3 +77,17 @@ node scripts/check-contracts.mjs
 ```
 
 The script exports Pydantic OpenAPI, generates and formats TypeScript, and exits nonzero when it finds drift. Review and commit intentional changes, then rerun it. Do not maintain a second handwritten copy of the API DTOs.
+
+## Step 4 endpoints and additions
+
+- `GET /capabilities`: local/read-only mode, mutation availability, build and environment.
+- `GET /diagnostics`: real DB check, worker heartbeat age/state, Python/FFprobe/storage/migration and latest visible job counts/records; no credentials or paths.
+- `GET /demonstrations`: visible builtin synthetic sessions.
+- `PATCH /sessions/{id}/collection`: `{revision, profile}` optimistic revision update (409 on stale input). Session creation also accepts collection_profile.
+- Sensor multipart mapping optionally includes typed capture metadata; video multipart `metadata` carries explicit provenance/capture. Original uploads are retained; a streamed browser WebM repair records derived-container provenance.
+- `POST /sessions/{id}/sync-configurations`: optional video_id/evidence with pairing note, paired attestation, up to two ordered source-clock cue pairs and timing uncertainty. Offset stays explicit; end residual is computed without drift fitting.
+- `POST /jobs/{id}/retry`: failed/cancelled source normalize/video_probe only; creates/reuses a pending new validation job and retains the failed record. Experiments rerun as new immutable runs.
+- Pose frames accept bounded `start_us`, `end_us`, `max_frames` (1..5000, default2000), returning filtered source_count and truncated. PoseStart adds sampling_method playback/seek_backpressure.
+- Experiment list optional `summaries=true` omits dense results in a response-only projection. Full detail/report endpoints preserve stored results.
+
+In demo_readonly mode all API mutation methods are rejected; session-owned GETs require explicit approved builtin synthetic IDs. Empty allowlist fails closed. Full generated OpenAPI remains the exact schema contract. Web `/experiments/{id}/report` is an actual-result print view, not a separate scientific computation.

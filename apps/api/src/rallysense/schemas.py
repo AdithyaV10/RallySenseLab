@@ -8,17 +8,77 @@ class DTO(BaseModel):
     model_config = ConfigDict(from_attributes=True, allow_inf_nan=False)
 
 
+class CollectionProfile(DTO):
+    participant_pseudonym: str = Field("unknown", max_length=80)
+    movement: str = Field("unknown", max_length=160)
+    camera_view: str = Field("unknown", max_length=160)
+    sensor_placement: str = Field("unknown", max_length=160)
+    attachment: str = Field("unknown", max_length=160)
+    device_model: str = Field("unknown", max_length=160)
+    conditions: str = Field("unknown", max_length=1000)
+    consent_confirmed: bool = False
+    pairing_note: str = Field("", max_length=1500)
+
+    @model_validator(mode="after")
+    def explicit_unknowns(self):
+        for name in (
+            "participant_pseudonym",
+            "movement",
+            "camera_view",
+            "sensor_placement",
+            "attachment",
+            "device_model",
+            "conditions",
+        ):
+            if not getattr(self, name).strip():
+                setattr(self, name, "unknown")
+        return self
+
+
+class CollectionUpdate(DTO):
+    revision: int = Field(ge=1)
+    profile: CollectionProfile
+
+
+class CaptureMetadata(DTO):
+    source: Literal["browser_devicemotion", "browser_camera", "csv_external"]
+    device_model: str = Field("unknown", max_length=160)
+    started_at_utc: str = Field("unknown", max_length=80)
+    timestamp_basis: str = Field("unknown", max_length=240)
+    time_origin_ms: float | None = None
+    original_first_timestamp_ms: float | None = None
+    coordinate_frame: str = Field("device frame; no world-frame transformation", max_length=240)
+    axis_mapping: str = Field("unknown", max_length=240)
+    acceleration_kind: Literal["linear", "including_gravity", "unknown"] = "unknown"
+    source_rotation_unit: Literal["deg/s", "unknown"] = "unknown"
+    orientation_angle_deg: float | None = None
+    browser: str = Field("unknown", max_length=400)
+    stop_reason: str = Field("user", max_length=200)
+    discarded_timestamps: int = Field(0, ge=0, le=1_000_000)
+    sample_count: int = Field(0, ge=0, le=1_000_000)
+    operator_cues_us: list[int] = Field(default_factory=list, max_length=10)
+
+    @model_validator(mode="after")
+    def explicit_device_unknown(self):
+        if not self.device_model.strip():
+            self.device_model = "unknown"
+        return self
+
+
 class SessionCreate(DTO):
     title: str = Field(min_length=1, max_length=160)
     dataset_kind: Literal["recorded", "synthetic", "mixed"] = "recorded"
     handedness: Literal["left", "right"] = "right"
     notes: str = Field(default="", max_length=2000)
+    collection_profile: CollectionProfile = Field(default_factory=CollectionProfile)
 
 
 class SessionOut(SessionCreate):
     id: str
     dataset_kind: str
     created_at: datetime
+    collection_profile: dict[str, JsonValue]
+    collection_revision: int
 
 
 class SensorMapping(DTO):
@@ -32,6 +92,7 @@ class SensorMapping(DTO):
     acceleration_kind: Literal["linear", "including_gravity", "unknown"] = "unknown"
     delimiter: Literal[",", ";", "\t"] = ","
     placement: str = Field(default="unknown", max_length=80)
+    capture: CaptureMetadata | None = None
 
     @model_validator(mode="after")
     def columns(self):
@@ -58,9 +119,23 @@ class InferenceCreate(DTO):
     config: DetectorConfig = Field(default_factory=DetectorConfig)
 
 
+class SyncCue(DTO):
+    sensor_us: int = Field(ge=0, le=1_200_000_000)
+    video_us: int = Field(ge=0, le=600_000_000)
+    uncertainty_us: int = Field(40_000, ge=0, le=2_000_000)
+
+
+class SyncEvidence(DTO):
+    note: str = Field("", max_length=1500)
+    paired: bool = False
+    cues: list[SyncCue] = Field(default_factory=list, max_length=2)
+
+
 class SyncCreate(DTO):
     sensor_id: UUID
     offset_us: int = Field(ge=-600_000_000, le=600_000_000)
+    video_id: UUID | None = None
+    evidence: SyncEvidence = Field(default_factory=SyncEvidence)
 
 
 class AnnotationCreate(DTO):
@@ -144,6 +219,8 @@ class SyncOut(DTO):
     revision: int
     sensor_id: str
     offset_us: int
+    video_id: str | None
+    evidence: dict[str, JsonValue]
 
 
 class AnnotationOut(AnnotationCreate):
@@ -213,7 +290,35 @@ class PoseStart(DTO):
     executor: Literal["worker", "main_thread_fallback"]
     sample_target_hz: Literal[10, 30] = 10
     playback_rate: Literal[0.5, 1.0] = 1.0
+    sampling_method: Literal["playback", "seek_backpressure"] = "playback"
 
 
 class PoseFramesOut(DTO):
     frames: list[PoseFrame]
+    source_count: int = 0
+    truncated: bool = False
+
+
+class VideoUploadMetadata(DTO):
+    provenance: Literal["recorded", "synthetic"] = "recorded"
+    capture: CaptureMetadata | None = None
+
+
+class CapabilitiesOut(DTO):
+    mode: Literal["local", "demo_readonly"]
+    mutations_allowed: bool
+    build_id: str
+    environment: str
+
+
+class DiagnosticsOut(CapabilitiesOut):
+    database: Literal["reachable"]
+    worker: Literal["ready", "stale", "unknown"]
+    worker_age_s: float | None
+    worker_state: str | None
+    python_version: str
+    ffprobe_available: bool
+    storage_free_bytes: int | None
+    migration: str
+    job_counts: dict[str, int]
+    recent_jobs: list[JobOut]

@@ -1,0 +1,173 @@
+{
+  "scope": "Local Chromium navigation through networkidle; screenshots excluded from load timing; no isolated throughput guarantee. Existing synthetic sessions and current experiment history, not identical fixture counts across audits.",
+  "results": [
+    {
+      "route": "landing",
+      "viewport": "desktop",
+      "load_ms": 950.8046000000002,
+      "overflow": false,
+      "resources": 195287
+    },
+    {
+      "route": "landing",
+      "viewport": "tablet",
+      "load_ms": 610.2482,
+      "overflow": false,
+      "resources": 195287
+    },
+    {
+      "route": "landing",
+      "viewport": "mobile",
+      "load_ms": 589.1662000000001,
+      "overflow": false,
+      "resources": 190600
+    },
+    {
+      "route": "library",
+      "viewport": "desktop",
+      "load_ms": 722.7502000000004,
+      "overflow": false,
+      "resources": 231808
+    },
+    {
+      "route": "library",
+      "viewport": "tablet",
+      "load_ms": 697.1306000000004,
+      "overflow": false,
+      "resources": 230330
+    },
+    {
+      "route": "library",
+      "viewport": "mobile",
+      "load_ms": 661.5005999999994,
+      "overflow": false,
+      "resources": 227408
+    },
+    {
+      "route": "capture",
+      "viewport": "desktop",
+      "load_ms": 641.8834000000006,
+      "overflow": false,
+      "resources": 226435
+    },
+    {
+      "route": "capture",
+      "viewport": "tablet",
+      "load_ms": 628.2009999999991,
+      "overflow": false,
+      "resources": 226435
+    },
+    {
+      "route": "capture",
+      "viewport": "mobile",
+      "load_ms": 608.3827999999994,
+      "overflow": false,
+      "resources": 226435
+    },
+    {
+      "route": "replay",
+      "viewport": "desktop",
+      "load_ms": 821.9094999999998,
+      "overflow": false,
+      "resources": 748074
+    },
+    {
+      "route": "replay",
+      "viewport": "tablet",
+      "load_ms": 741.3468000000012,
+      "overflow": false,
+      "resources": 748074
+    },
+    {
+      "route": "replay",
+      "viewport": "mobile",
+      "load_ms": 701.1271000000015,
+      "overflow": false,
+      "resources": 748074
+    },
+    {
+      "route": "research",
+      "viewport": "desktop",
+      "load_ms": 1571.6358,
+      "overflow": false,
+      "resources": 1032183
+    },
+    {
+      "route": "research",
+      "viewport": "tablet",
+      "load_ms": 958.4554000000007,
+      "overflow": false,
+      "resources": 1032183
+    },
+    {
+      "route": "research",
+      "viewport": "mobile",
+      "load_ms": 1070.7111000000004,
+      "overflow": false,
+      "resources": 1032183
+    },
+    {
+      "route": "method",
+      "viewport": "desktop",
+      "load_ms": 598.7450000000026,
+      "overflow": false,
+      "resources": 211764
+    },
+    {
+      "route": "method",
+      "viewport": "tablet",
+      "load_ms": 607.0159999999996,
+      "overflow": false,
+      "resources": 211764
+    },
+    {
+      "route": "method",
+      "viewport": "mobile",
+      "load_ms": 610.720699999998,
+      "overflow": false,
+      "resources": 211764
+    },
+    {
+      "route": "diagnostics",
+      "viewport": "desktop",
+      "load_ms": 619.6764000000003,
+      "overflow": false,
+      "resources": 215372
+    },
+    {
+      "route": "diagnostics",
+      "viewport": "tablet",
+      "load_ms": 611.668999999998,
+      "overflow": false,
+      "resources": 215372
+    },
+    {
+      "route": "diagnostics",
+      "viewport": "mobile",
+      "load_ms": 609.5737000000008,
+      "overflow": false,
+      "resources": 215372
+    },
+    {
+      "route": "report",
+      "viewport": "desktop",
+      "load_ms": 655.7223999999987,
+      "overflow": false,
+      "resources": 244873
+    },
+    {
+      "route": "report",
+      "viewport": "tablet",
+      "load_ms": 597.8717999999972,
+      "overflow": false,
+      "resources": 244875
+    },
+    {
+      "route": "report",
+      "viewport": "mobile",
+      "load_ms": 606.3495000000003,
+      "overflow": false,
+      "resources": 244874
+    }
+  ]
+}

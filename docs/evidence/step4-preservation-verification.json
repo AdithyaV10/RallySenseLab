@@ -1,0 +1,11 @@
+{
+  "action": "verify",
+  "baseline_counts": {
+    "experiments": 82,
+    "reference_snapshots": 11,
+    "artifacts": 41,
+    "sessions": 10
+  },
+  "preserved": true,
+  "scope": "Original baseline identities and selected immutable scientific/source fields; additions allowed; hashes kept in ignored local baseline"
+}

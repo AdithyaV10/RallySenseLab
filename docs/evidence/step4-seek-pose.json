@@ -1,0 +1,31 @@
+{
+  "session_id": "d842060e-f870-4c4c-bca6-efccbc41d230",
+  "track": {
+    "id": "01017cb9-bdfc-4c5c-95ed-1cb1e1305641",
+    "video_id": "c6e5d802-9771-4e5c-b723-7284a38972a3",
+    "status": "ready",
+    "quality": {
+      "end_us": 6000000,
+      "start_us": 0,
+      "max_gap_us": 80000,
+      "coverage_note": "Sampled browser frames; not exhaustive video decoding",
+      "median_gap_us": 40000,
+      "detected_frames": 149,
+      "processed_frames": 149,
+      "detection_fraction": 1,
+      "observed_sample_hz": 24.666666666666668
+    },
+    "config": {
+      "delegate": "CPU",
+      "executor": "worker",
+      "model_sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+      "running_mode": "VIDEO",
+      "video_sha256": "f1aaf7e00a7300fa4d93a3268db73cf93e850e7eb9f89e5d83a2d1d28900fe33",
+      "playback_rate": 0.5,
+      "runtime_version": "1.2.0",
+      "sampling_method": "seek_backpressure",
+      "sample_target_hz": 30
+    }
+  },
+  "software_integration_only": true
+}

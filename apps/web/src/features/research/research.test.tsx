@@ -3,6 +3,8 @@ import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { afterEach } from "vitest";
 import { modeUnavailable, percent, Experiment } from "./types";
 import { ResultComparison } from "./results";
+import { comparisonCompatible, comparisonInsight } from "./insights";
+import { FailureExplorer } from "./failure-explorer";
 afterEach(cleanup);
 
 const experiment = (id: string, scored = false): Experiment => ({
@@ -65,6 +67,43 @@ const experiment = (id: string, scored = false): Experiment => ({
         }
       : null,
   },
+});
+
+it("compares stored deltas only under compatible contracts and shared sources", () => {
+  const a = experiment("a", true),
+    b = experiment("b", true);
+  b.result.events = [];
+  b.result.evaluation!.f1 = 0;
+  expect(comparisonInsight(a, b)).toContain("-1 events");
+  expect(comparisonInsight(a, b)).toContain("-66.7 percentage points");
+  b.session_id = "another-session";
+  expect(comparisonCompatible([a, b])).toBe(false);
+  expect(comparisonInsight(a, b)).toContain("do not isolate");
+  b.session_id = a.session_id;
+  a.manifest.inputs = { sensor: { id: "one" } };
+  b.manifest.inputs = { sensor: { id: "two" } };
+  expect(comparisonCompatible([a, b])).toBe(false);
+});
+it("seeks missed references and unavailable intervals from actual result fields", () => {
+  const run = experiment("missing", true),
+    seek = vi.fn();
+  run.result.evaluation!.missed_references = [0];
+  run.result.references = [{ t_session_us: 3e6 }];
+  run.result.components = {
+    imu: {
+      score_kind: "rad/s",
+      eligible_intervals: [
+        { start_us: 0, end_us: 2e6 },
+        { start_us: 4e6, end_us: 8e6 },
+      ],
+    },
+  };
+  render(<FailureExplorer run={run} onSeek={seek} />);
+  fireEvent.click(screen.getByText(/Failure explorer/));
+  fireEvent.click(screen.getByRole("button", { name: /Missed reference #1/ }));
+  expect(seek).toHaveBeenLastCalledWith(3e6);
+  fireEvent.click(screen.getByRole("button", { name: /imu unavailable 2.00/ }));
+  expect(seek).toHaveBeenLastCalledWith(3e6);
 });
 
 describe("research evidence presentation", () => {

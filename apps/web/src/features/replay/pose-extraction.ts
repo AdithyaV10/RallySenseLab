@@ -13,6 +13,7 @@ export async function extractPose(
   onProgress: (message: string) => void,
   signal: AbortSignal,
   targetHz: 10 | 30 = 10,
+  samplingMethod: "playback" | "seek_backpressure" = "playback",
 ): Promise<Pose> {
   const info = await fetch("/model-info.json").then((r) => {
     if (!r.ok) throw new Error("Run the asset setup script first");
@@ -99,6 +100,7 @@ export async function extractPose(
         executor,
         sample_target_hz: targetHz,
         playback_rate: video.playbackRate,
+        sampling_method: samplingMethod,
       }),
     });
     const frames: PoseFrame[] = [];
@@ -115,68 +117,130 @@ export async function extractPose(
         body: JSON.stringify({ frames: payload }),
       });
     }
-    await new Promise<void>((resolve, reject) => {
-      const abort = () => {
-        video.pause();
-        reject(new Error("Pose extraction cancelled"));
+    async function observe(timeUs: number) {
+      if (signal.aborted) throw new Error("Pose extraction cancelled");
+      if (frames.length && timeUs <= frames[frames.length - 1].t_video_us)
+        return;
+      let result: Pick<PoseFrame, "landmarks" | "world_landmarks">;
+      if (worker) {
+        const bitmap = await createImageBitmap(video);
+        result = await call("frame", { bitmap, timestampMs: timeUs / 1000 }, [
+          bitmap,
+        ]);
+      } else {
+        const r = fallback!.detectForVideo(video, timeUs / 1000);
+        result = {
+          landmarks: r.landmarks[0] || [],
+          world_landmarks: r.worldLandmarks[0] || [],
+        };
+      }
+      const frame = {
+        t_video_us: timeUs,
+        landmarks: result.landmarks,
+        world_landmarks: result.world_landmarks,
       };
-      signal.addEventListener("abort", abort, { once: true });
-      video.onerror = () => {
-        signal.removeEventListener("abort", abort);
-        reject(
-          new Error("Browser cannot decode this video. Use MP4 H.264 or WebM."),
+      frames.push(frame);
+      buffer.push(frame);
+      onProgress(
+        `${samplingMethod} · ${executor} · ${frames.length} frames · ${(timeUs / 1e6).toFixed(2)} / ${video.duration.toFixed(2)} s`,
+      );
+      if (buffer.length >= 100) await flush();
+    }
+    if (samplingMethod === "seek_backpressure") {
+      await new Promise<void>((resolve, reject) => {
+        const timer = setTimeout(
+          () => reject(new Error("Video loading timed out")),
+          20000,
         );
-      };
-      video.onended = () => {
-        signal.removeEventListener("abort", abort);
-        processing.then(resolve, reject);
-      };
-      const callback: VideoFrameRequestCallback = (_now, meta) => {
-        if (signal.aborted) return;
-        if (meta.mediaTime >= nextSample) {
-          const timeUs = Math.round(meta.mediaTime * 1e6);
-          nextSample = meta.mediaTime + 0.95 / targetHz;
-          processing = (async () => {
-            let result: Pick<PoseFrame, "landmarks" | "world_landmarks">;
-            if (worker) {
-              const bitmap = await createImageBitmap(video);
-              result = await call(
-                "frame",
-                { bitmap, timestampMs: timeUs / 1000 },
-                [bitmap],
-              );
-            } else {
-              const r = fallback!.detectForVideo(video, timeUs / 1000);
-              result = {
-                landmarks: r.landmarks[0] || [],
-                world_landmarks: r.worldLandmarks[0] || [],
-              };
-            }
-            const frame = {
-              t_video_us: timeUs,
-              landmarks: result.landmarks,
-              world_landmarks: result.world_landmarks,
-            };
-            frames.push(frame);
-            buffer.push(frame);
-            onProgress(
-              `${executor === "worker" ? "Worker" : "Main-thread fallback"} · ${frames.length} frames · ${meta.mediaTime.toFixed(1)} / ${video.duration.toFixed(1)} s`,
+        video.onloadeddata = () => {
+          clearTimeout(timer);
+          resolve();
+        };
+        video.onerror = () => {
+          clearTimeout(timer);
+          reject(new Error("Browser cannot decode this video"));
+        };
+        video.src = `/api/v1/videos/${videoId}/content`;
+        video.load();
+      });
+      video.pause();
+      for (
+        let target = 0;
+        target < video.duration - 0.001;
+        target += 1 / targetHz
+      ) {
+        if (signal.aborted) throw new Error("Pose extraction cancelled");
+        if (document.hidden)
+          throw new Error(
+            "Keep the extraction tab visible; hidden pages cannot guarantee frame callbacks",
+          );
+        const timeUs = await new Promise<number>((resolve, reject) => {
+          let callback = 0;
+          const cleanup = () => {
+            clearTimeout(timer);
+            signal.removeEventListener("abort", abort);
+            if (callback) video.cancelVideoFrameCallback(callback);
+          };
+          const abort = () => {
+            cleanup();
+            reject(new Error("Pose extraction cancelled"));
+          };
+          const timer = setTimeout(() => {
+            cleanup();
+            reject(
+              new Error(
+                "Seek frame callback timed out. Retry using playback sampling in this browser.",
+              ),
             );
-            if (buffer.length >= 100) await flush();
-          })();
-          processing.then(() => {
-            if (!video.ended && !signal.aborted)
-              video.requestVideoFrameCallback(callback);
-          }, reject);
-        } else video.requestVideoFrameCallback(callback);
-      };
-      video.onloadeddata = () => {
-        video.requestVideoFrameCallback(callback);
-        video.play().catch(reject);
-      };
-      video.src = `/api/v1/videos/${videoId}/content`;
-      video.load();
-    });
+          }, 15000);
+          signal.addEventListener("abort", abort, { once: true });
+          callback = video.requestVideoFrameCallback((_now, meta) => {
+            cleanup();
+            resolve(Math.round(meta.mediaTime * 1e6));
+          });
+          video.currentTime = Math.max(0.001, target);
+        });
+        // Use the presented frame timestamp, never the requested seek target.
+        await observe(timeUs);
+      }
+    } else
+      await new Promise<void>((resolve, reject) => {
+        const abort = () => {
+          video.pause();
+          reject(new Error("Pose extraction cancelled"));
+        };
+        signal.addEventListener("abort", abort, { once: true });
+        video.onerror = () => {
+          signal.removeEventListener("abort", abort);
+          reject(
+            new Error(
+              "Browser cannot decode this video. Use MP4 H.264 or WebM.",
+            ),
+          );
+        };
+        video.onended = () => {
+          signal.removeEventListener("abort", abort);
+          processing.then(resolve, reject);
+        };
+        const callback: VideoFrameRequestCallback = (_now, meta) => {
+          if (signal.aborted) return;
+          if (meta.mediaTime >= nextSample) {
+            const timeUs = Math.round(meta.mediaTime * 1e6);
+            nextSample = meta.mediaTime + 0.95 / targetHz;
+            processing = observe(timeUs);
+            processing.then(() => {
+              if (!video.ended && !signal.aborted)
+                video.requestVideoFrameCallback(callback);
+            }, reject);
+          } else video.requestVideoFrameCallback(callback);
+        };
+        video.onloadeddata = () => {
+          video.requestVideoFrameCallback(callback);
+          video.play().catch(reject);
+        };
+        video.src = `/api/v1/videos/${videoId}/content`;
+        video.load();
+      });
     if (signal.aborted) throw new Error("Pose extraction cancelled");
     await flush();
     const result = await api<Pose>(`/pose-tracks/${track.id}/complete`, {

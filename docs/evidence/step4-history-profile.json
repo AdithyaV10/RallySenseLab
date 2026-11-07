@@ -1,0 +1,15 @@
+{
+  "full_history": {
+    "bytes": 3335773,
+    "rows": 50,
+    "median_request_ms": 302.28310002712533
+  },
+  "summary_history": {
+    "bytes": 217542,
+    "rows": 50,
+    "median_request_ms": 170.90640001697466
+  },
+  "selected_detail_bytes": 63707,
+  "summary_plus_one_detail_bytes": 281249,
+  "scope": "Same stored history, three local requests per representation; client/network/serialization included, no isolated DB throughput claim. Existing full endpoint is unchanged."
+}

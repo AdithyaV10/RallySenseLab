@@ -91,13 +91,20 @@ def pose_frames(
     track_id: UUID,
     start_us: int = Query(0, ge=0),
     end_us: int = Query(600_000_000, ge=0),
+    max_frames: int = Query(2000, ge=1, le=5000),
     db: Session = Depends(get_db, scope="function"),
 ):
     track = owned(db, m.PoseTrack, track_id)
     if track.status != "ready":
         raise DomainError("Pose track not ready", "INVALID_STATE", 409)
+    if end_us < start_us:
+        raise DomainError("Pose window end must follow start")
     table = pq.read_table(
         path_for(db, track.artifact_id, track.session_id),
         filters=[("t_video_us", ">=", start_us), ("t_video_us", "<=", end_us)],
     )
-    return {"frames": table.slice(0, 10000).to_pylist()}
+    return {
+        "frames": table.slice(0, max_frames).to_pylist(),
+        "source_count": len(table),
+        "truncated": len(table) > max_frames,
+    }

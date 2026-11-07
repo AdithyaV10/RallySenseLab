@@ -12,6 +12,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useCapabilities } from "@/lib/capabilities";
 
 export function Brand() {
   return (
@@ -27,12 +28,20 @@ export function Brand() {
 }
 export function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
+  const capabilities = useCapabilities();
   return (
     <div className="app-shell">
       <aside className="sidebar">
         <Brand />
         <div className="nav-caption">WORKSPACE</div>
         <nav>
+          <Link
+            className={path === "/diagnostics" ? "active" : ""}
+            href="/diagnostics"
+          >
+            <Activity size={17} />
+            System readiness
+          </Link>
           <Link
             className={path.startsWith("/sessions") ? "active" : ""}
             href="/sessions"
@@ -43,7 +52,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           </Link>
           <Link className={path === "/record" ? "active" : ""} href="/record">
             <Radio size={17} />
-            Recording guide
+            Collection studio
           </Link>
           <Link className={path === "/docs" ? "active" : ""} href="/docs">
             <BookOpen size={17} />
@@ -52,14 +61,17 @@ export function Shell({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="sidebar-bottom">
           <div className="local-status">
-            <i /> LOCAL WORKSPACE
+            <i />{" "}
+            {capabilities.data?.mode === "demo_readonly"
+              ? "READ-ONLY DEMO"
+              : "LOCAL WORKSPACE"}
           </div>
           <p>
             Observations first.
             <br />
             Evidence follows.
           </p>
-          <span className="version">RESEARCH / V0.3</span>
+          <span className="version">RESEARCH / V0.4</span>
         </div>
       </aside>
       <div className="main-shell">

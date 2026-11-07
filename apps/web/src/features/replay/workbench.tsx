@@ -37,6 +37,9 @@ import { ReplayMedia } from "./replay-media";
 import { SignalsChart } from "./signals-chart";
 import { EventPanel } from "./event-panel";
 import { extractPose } from "./pose-extraction";
+import { DemoGuide } from "./demo-guide";
+import { useCapabilities } from "@/lib/capabilities";
+import type { LabelSet } from "@/features/research/types";
 import { Challenge } from "@/features/research/challenge";
 
 const defaultConfig: DetectorConfig = {
@@ -54,6 +57,8 @@ export function Workbench({
   initialTab?: string;
 }) {
   const query = useQueryClient();
+  const capabilities = useCapabilities();
+  const readonly = capabilities.data?.mode === "demo_readonly";
   const [tab, setTab] = useState(initialTab),
     [timeUs, setTimeUs] = useState(0),
     [playing, setPlaying] = useState(false),
@@ -71,7 +76,13 @@ export function Workbench({
     [showConfig, setShowConfig] = useState(false);
   const abort = useRef<AbortController | null>(null);
   const [poseTarget, setPoseTarget] = useState<10 | 30>(10);
+  const [samplingMethod, setSamplingMethod] = useState<
+    "playback" | "seek_backpressure"
+  >("playback");
+  const [zoomUs, setZoomUs] = useState(0),
+    [markers, setMarkers] = useState(true);
   const cursor = useRef(0);
+  const playbackEnd = useRef<number | null>(null);
   useEffect(() => {
     cursor.current = timeUs;
   }, [timeUs]);
@@ -82,6 +93,10 @@ export function Workbench({
       q.state.data?.jobs.some((j) => ["queued", "running"].includes(j.state))
         ? 1000
         : 5000,
+  });
+  const labelSets = useQuery({
+    queryKey: ["label-sets", id],
+    queryFn: () => api<LabelSet[]>(`/sessions/${id}/annotation-sets`),
   });
   const data = session.data,
     sensors = data?.sensors.filter((s) => s.status === "ready") || [],
@@ -97,17 +112,28 @@ export function Workbench({
     .filter((p) => p.video_id === video?.id && p.status === "ready")
     .at(-1);
   const samples = useQuery({
-    queryKey: ["samples", sensor?.id],
-    queryFn: () => api<Samples>(`/sensor-recordings/${sensor!.id}/samples`),
+    queryKey: [
+      "samples",
+      sensor?.id,
+      zoomUs,
+      zoomUs ? Math.floor(timeUs / zoomUs) : 0,
+    ],
+    queryFn: () =>
+      api<Samples>(
+        `/sensor-recordings/${sensor!.id}/samples?start_us=${Math.max(0, Math.floor(timeUs / Math.max(1, zoomUs)) * zoomUs - offsetUs)}&end_us=${zoomUs ? Math.max(1, (Math.floor(timeUs / zoomUs) + 1) * zoomUs - offsetUs) : 1_200_000_000}`,
+      ),
     enabled: !!sensor,
     staleTime: Infinity,
   });
   const frames = useQuery({
-    queryKey: ["pose", pose?.id],
+    queryKey: ["pose", pose?.id, Math.floor(timeUs / 2e6)],
     queryFn: () =>
-      api<{ frames: PoseFrame[] }>(`/pose-tracks/${pose!.id}/frames`),
+      api<{ frames: PoseFrame[]; truncated: boolean }>(
+        `/pose-tracks/${pose!.id}/frames?start_us=${Math.max(0, Math.floor(timeUs / 2e6) * 2e6 - 2e6)}&end_us=${Math.floor(timeUs / 2e6) * 2e6 + 4e6}&max_frames=2000`,
+      ),
     enabled: !!pose,
     staleTime: Infinity,
+    gcTime: 60_000,
   });
   const durationUs = Number(
     video?.duration_us ||
@@ -116,9 +142,11 @@ export function Workbench({
   );
   const refresh = useCallback(() => {
     query.invalidateQueries({ queryKey: ["session", id] });
+    query.invalidateQueries({ queryKey: ["label-sets", id] });
   }, [query, id]);
   const seek = useCallback(
     (t: number) => {
+      playbackEnd.current = null;
       setTimeUs(Math.max(0, Math.min(t, durationUs)));
       setSeekToken((v) => v + 1);
     },
@@ -136,6 +164,10 @@ export function Workbench({
         const next = Math.min(cursor.current + delta, durationUs);
         cursor.current = next;
         setTimeUs(next);
+        if (playbackEnd.current !== null && next >= playbackEnd.current) {
+          playbackEnd.current = null;
+          setPlaying(false);
+        }
         if (next >= durationUs) setPlaying(false);
       }
       frame = requestAnimationFrame(tick);
@@ -168,6 +200,10 @@ export function Workbench({
     setBusy(label);
     setError(null);
     try {
+      if (readonly)
+        throw new Error(
+          "This demonstration is read-only. Inspect existing results or use a private local workspace to run new experiments.",
+        );
       await fn();
       refresh();
     } catch (e) {
@@ -188,6 +224,32 @@ export function Workbench({
   function togglePlay() {
     if (timeUs >= durationUs) seek(0);
     setPlaying((p) => !p);
+  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        const prefs = JSON.parse(
+          localStorage.getItem(`rallysense-view-${id}`) || "{}",
+        );
+        if (typeof prefs.axes === "boolean") setAxes(prefs.axes);
+        if (typeof prefs.markers === "boolean") setMarkers(prefs.markers);
+        if ([0.25, 0.5, 1, 1.5, 2].includes(prefs.rate)) setRate(prefs.rate);
+        if ([0, 2e6, 5e6, 10e6].includes(prefs.zoomUs)) setZoomUs(prefs.zoomUs);
+      } catch {
+        /* A corrupt preference never blocks replay. */
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [id]);
+  function remember(update: Record<string, number | boolean>) {
+    try {
+      localStorage.setItem(
+        `rallysense-view-${id}`,
+        JSON.stringify({ axes, markers, rate, zoomUs, ...update }),
+      );
+    } catch {
+      /* Storage can be disabled. */
+    }
   }
   if (session.isLoading)
     return (
@@ -267,9 +329,16 @@ export function Workbench({
             <Activity size={15} /> Sensor Fusion Challenge
           </button>
         </div>
+        {data.dataset_kind === "synthetic" && <DemoGuide onTab={setTab} />}
+        {readonly && (
+          <p className="research-notice">
+            Read-only demonstration: replay, stored experiments and exports are
+            available. Mutations are disabled.
+          </p>
+        )}
         <ErrorBox error={error || samples.error || frames.error} />
         {data.jobs
-          .filter((j) => j.state === "failed")
+          .filter((j) => j.state === "failed" && j.kind !== "experiment")
           .slice(-1)
           .map((j) => (
             <ErrorBox key={j.id} error={`${j.kind}: ${j.error}`} />
@@ -391,7 +460,16 @@ export function Workbench({
                   timeUs={timeUs}
                   playing={playing}
                   rate={rate}
-                  onTime={setTimeUs}
+                  onTime={(t) => {
+                    setTimeUs(t);
+                    if (
+                      playbackEnd.current !== null &&
+                      t >= playbackEnd.current
+                    ) {
+                      playbackEnd.current = null;
+                      setPlaying(false);
+                    }
+                  }}
                   onEnded={() => setPlaying(false)}
                   synthetic={data.dataset_kind === "synthetic"}
                   seekToken={seekToken}
@@ -460,7 +538,10 @@ export function Workbench({
                     <select
                       aria-label="Playback speed"
                       value={rate}
-                      onChange={(e) => setRate(Number(e.target.value))}
+                      onChange={(e) => {
+                        setRate(Number(e.target.value));
+                        remember({ rate: Number(e.target.value) });
+                      }}
                     >
                       {[0.25, 0.5, 1, 1.5, 2].map((r) => (
                         <option key={r} value={r}>
@@ -482,6 +563,7 @@ export function Workbench({
                   />
                   <div className="timeline-event-lane">
                     {!blind &&
+                      markers &&
                       predictions.map((p) => (
                         <button
                           key={p.id}
@@ -517,6 +599,122 @@ export function Workbench({
                     <span>{clock(durationUs)}</span>
                   </div>
                 </div>
+                <div className="replay-tools">
+                  <button
+                    className="button ghost small"
+                    onClick={() => {
+                      const center = timeUs;
+                      seek(Math.max(0, center - 1e6));
+                      playbackEnd.current = Math.min(durationUs, center + 1e6);
+                      setPlaying(true);
+                    }}
+                  >
+                    Replay 2 s around cursor
+                  </button>
+                  {pose && (
+                    <>
+                      <button
+                        className="button ghost small"
+                        disabled={
+                          !frames.data?.frames.some(
+                            (f) => f.t_video_us < timeUs - 1000,
+                          )
+                        }
+                        onClick={() => {
+                          setPlaying(false);
+                          const f = frames.data?.frames
+                            .filter((f) => f.t_video_us < timeUs - 1000)
+                            .at(-1);
+                          if (f) seek(f.t_video_us);
+                        }}
+                      >
+                        Previous observed pose frame
+                      </button>
+                      <button
+                        className="button ghost small"
+                        disabled={
+                          !frames.data?.frames.some(
+                            (f) => f.t_video_us > timeUs + 1000,
+                          )
+                        }
+                        onClick={() => {
+                          setPlaying(false);
+                          const f = frames.data?.frames.find(
+                            (f) => f.t_video_us > timeUs + 1000,
+                          );
+                          if (f) seek(f.t_video_us);
+                        }}
+                      >
+                        Next observed pose frame
+                      </button>
+                    </>
+                  )}
+                  <button
+                    className="button ghost small"
+                    onClick={() => {
+                      setPlaying(false);
+                      seek(timeUs - 100_000);
+                    }}
+                    aria-label="Step backward 100 milliseconds"
+                  >
+                    −100 ms
+                  </button>
+                  <button
+                    className="button ghost small"
+                    onClick={() => {
+                      setPlaying(false);
+                      seek(timeUs + 100_000);
+                    }}
+                    aria-label="Step forward 100 milliseconds"
+                  >
+                    +100 ms
+                  </button>
+                  <label>
+                    Signal window
+                    <select
+                      aria-label="Signal zoom window"
+                      value={zoomUs}
+                      onChange={(e) => {
+                        setZoomUs(Number(e.target.value));
+                        remember({ zoomUs: Number(e.target.value) });
+                      }}
+                    >
+                      <option value={0}>Full session</option>
+                      <option value={2e6}>2 seconds</option>
+                      <option value={5e6}>5 seconds</option>
+                      <option value={10e6}>10 seconds</option>
+                    </select>
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={markers}
+                      onChange={(e) => {
+                        setMarkers(e.target.checked);
+                        remember({ markers: e.target.checked });
+                      }}
+                    />
+                    Prediction markers
+                  </label>
+                  <span>
+                    Space: play / pause · ← / →: 100 ms · Steps are time seeks,
+                    not exact decoded frames.
+                  </span>
+                </div>
+                <div className="clock-readout">
+                  <span>SESSION / VIDEO {(timeUs / 1e6).toFixed(3)} s</span>
+                  <span>SENSOR {((timeUs - offsetUs) / 1e6).toFixed(3)} s</span>
+                  <span>
+                    OFFSET {(offsetUs / 1e6).toFixed(3)} s · R
+                    {sync?.revision ?? "—"}
+                  </span>
+                </div>
+                {frames.data?.truncated && (
+                  <p className="amber-text">
+                    The local pose window exceeds the display limit. Inference
+                    still reads the full track.
+                  </p>
+                )}
                 {video && (
                   <div className="pose-action">
                     <div>
@@ -530,13 +728,28 @@ export function Workbench({
                     <select
                       aria-label="Pose sampling target"
                       value={poseTarget}
-                      disabled={!!busy}
+                      disabled={readonly || !!busy}
                       onChange={(e) =>
                         setPoseTarget(Number(e.target.value) as 10 | 30)
                       }
                     >
                       <option value={10}>10 Hz / standard</option>
                       <option value={30}>30 Hz / slow extraction</option>
+                    </select>
+                    <select
+                      aria-label="Pose sampling method"
+                      value={samplingMethod}
+                      disabled={readonly || !!busy}
+                      onChange={(e) =>
+                        setSamplingMethod(
+                          e.target.value as typeof samplingMethod,
+                        )
+                      }
+                    >
+                      <option value="playback">Playback sampling</option>
+                      <option value="seek_backpressure">
+                        Seek + processing backpressure
+                      </option>
                     </select>
                     {busy === "pose" ? (
                       <button
@@ -548,7 +761,7 @@ export function Workbench({
                     ) : (
                       <button
                         className="button secondary small"
-                        disabled={!!busy}
+                        disabled={readonly || !!busy}
                         onClick={() =>
                           action("pose", async () => {
                             setPlaying(false);
@@ -558,6 +771,7 @@ export function Workbench({
                               setPoseMessage,
                               abort.current.signal,
                               poseTarget,
+                              samplingMethod,
                             );
                           })
                         }
@@ -573,8 +787,22 @@ export function Workbench({
                     {poseMessage}
                   </p>
                 )}
+                {pose && (
+                  <p className="processing-message">
+                    Stored track reused for replay and inference. Achieved
+                    cadence{" "}
+                    {numeric(pose.quality.observed_sample_hz).toFixed(2)} Hz ·
+                    largest gap{" "}
+                    {(numeric(pose.quality.max_gap_us) / 1000).toFixed(1)} ms.{" "}
+                    {numeric(pose.quality.max_gap_us) > 150000
+                      ? "Sparse observations limit event timing."
+                      : "Cadence does not establish landmark accuracy."}
+                  </p>
+                )}
               </div>
               <EventPanel
+                sets={labelSets.data}
+                readonly={readonly}
                 session={data}
                 timeUs={timeUs}
                 onSeek={seek}
@@ -594,7 +822,10 @@ export function Workbench({
                   <input
                     type="checkbox"
                     checked={axes}
-                    onChange={(e) => setAxes(e.target.checked)}
+                    onChange={(e) => {
+                      setAxes(e.target.checked);
+                      remember({ axes: e.target.checked });
+                    }}
                   />
                   Show xyz
                 </label>
@@ -641,10 +872,22 @@ export function Workbench({
                         samples={samples.data.data}
                         timeUs={timeUs}
                         offsetUs={offsetUs}
-                        durationUs={durationUs}
+                        durationUs={
+                          zoomUs
+                            ? Math.min(
+                                durationUs,
+                                (Math.floor(timeUs / zoomUs) + 1) * zoomUs,
+                              )
+                            : durationUs
+                        }
+                        startUs={
+                          zoomUs ? Math.floor(timeUs / zoomUs) * zoomUs : 0
+                        }
                         kind={p.kind}
                         axes={axes}
-                        markers={predictions.map((e) => e.t_session_us)}
+                        markers={
+                          markers ? predictions.map((e) => e.t_session_us) : []
+                        }
                         onSeek={seek}
                       />
                     </div>
@@ -714,7 +957,7 @@ export function Workbench({
                   </label>
                   <button
                     className="button secondary"
-                    disabled={!sensor || !!busy}
+                    disabled={readonly || !sensor || !!busy}
                   >
                     Save alignment
                   </button>
@@ -725,7 +968,19 @@ export function Workbench({
                     baseline again to apply this revision.
                   </p>
                 )}
-                <small>Existing results retain their original alignment.</small>
+                <small>
+                  Existing results retain their original alignment. Offset
+                  alignment does not correct drift.
+                </small>
+                <p>
+                  Pairing evidence:{" "}
+                  {String(sync?.evidence.note || "Not recorded")}.{" "}
+                  {sync?.evidence.end_residual_us !== undefined &&
+                    `End cue residual: ${Number(sync.evidence.end_residual_us) / 1e6} s.`}{" "}
+                  <Link href="/record">
+                    Record start/end cues in Collection studio.
+                  </Link>
+                </p>
               </section>
               <section className="panel baseline-panel">
                 <div className="panel-heading">
@@ -791,7 +1046,9 @@ export function Workbench({
                   <span className="mono">imu_gyro_peak / v1.0.0</span>
                   <button
                     className="button primary"
-                    disabled={!sensor || !!busy || run?.status === "queued"}
+                    disabled={
+                      readonly || !sensor || !!busy || run?.status === "queued"
+                    }
                     onClick={analyze}
                   >
                     <Play size={13} />

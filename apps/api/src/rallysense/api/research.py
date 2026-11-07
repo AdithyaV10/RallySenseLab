@@ -131,6 +131,8 @@ def create_experiment(
             "revision": sync.revision,
             "offset_us": sync.offset_us,
             "method": sync.method,
+            "video_id": sync.video_id,
+            "evidence": sync.evidence,
         }
     if payload.mode in ("video", "fusion"):
         pose = owned(db, m.PoseTrack, payload.pose_id)
@@ -151,6 +153,8 @@ def create_experiment(
             "aspect": aspect,
         }
     if payload.mode == "fusion":
+        if sync.video_id and sync.video_id != pose.video_id:
+            raise DomainError("Alignment evidence belongs to another video", "INVALID_REFERENCE", 409)
         if session.dataset_kind == "mixed":
             raise DomainError(
                 "Mixed unrelated inputs are not eligible for paired fusion. Import genuinely paired recordings into a new session.",
@@ -181,6 +185,7 @@ def create_experiment(
             "title": session.title,
             "notes": session.notes,
             "handedness": session.handedness,
+            "collection_profile": session.collection_profile,
         },
         "inputs": inputs,
         "sync": sync_info,
@@ -224,10 +229,13 @@ def create_experiment(
 
 @router.get("/sessions/{session_id}/experiments", response_model=list[s.ExperimentOut])
 def experiments(
-    session_id: UUID, limit: int = Query(50, ge=1, le=200), db: Session = Depends(get_db, scope="function")
+    session_id: UUID,
+    limit: int = Query(50, ge=1, le=200),
+    summaries: bool = False,
+    db: Session = Depends(get_db, scope="function"),
 ):
     session = active_session(db, session_id)
-    return list(
+    rows = list(
         db.scalars(
             select(m.Experiment)
             .where(m.Experiment.session_id == session.id)
@@ -235,6 +243,15 @@ def experiments(
             .limit(limit)
         )
     )
+    if not summaries:
+        return rows
+    # Response-only projection; immutable stored results and full detail/export remain intact.
+    output = []
+    for row in rows:
+        value = s.ExperimentOut.model_validate(row).model_dump()
+        value["result"] = {"evaluation_note": "History summary; open the full experiment for observations"}
+        output.append(value)
+    return output
 
 
 @router.get("/experiments/{experiment_id}", response_model=s.ExperimentOut)

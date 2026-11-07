@@ -1,7 +1,7 @@
 import hashlib
 import os
 from uuid import UUID, uuid4
-from fastapi import APIRouter, Depends, UploadFile, File
+from fastapi import APIRouter, Depends, UploadFile, File, Form
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 from ..db import get_db
@@ -17,9 +17,16 @@ router = APIRouter()
 
 @router.post("/sessions/{session_id}/videos", response_model=s.JobOut, status_code=202)
 async def upload_video(
-    session_id: UUID, file: UploadFile = File(), db: Session = Depends(get_db, scope="function")
+    session_id: UUID,
+    file: UploadFile = File(),
+    metadata: str = Form("{}"),
+    db: Session = Depends(get_db, scope="function"),
 ):
     session = active_session(db, session_id)
+    try:
+        context = s.VideoUploadMetadata.model_validate_json(metadata)
+    except ValueError as exc:
+        raise DomainError("Invalid video provenance/capture metadata") from exc
     if not file.filename or not file.filename.lower().endswith((".mp4", ".webm")):
         raise DomainError("Upload .mp4 (H.264) or .webm (VP8/VP9)", "UNSUPPORTED_MEDIA", 415)
     key = f"{session.id}/{uuid4()}"
@@ -45,7 +52,12 @@ async def upload_video(
             session_id=session.id,
             artifact_id=artifact.id,
             name=file.filename.replace("\\", "/").split("/")[-1][:160],
+            metadata_json=context.model_dump(),
         )
+        if context.provenance == "recorded" and session.dataset_kind == "synthetic":
+            session.dataset_kind = "mixed"
+        elif context.provenance == "synthetic" and session.dataset_kind == "recorded":
+            session.dataset_kind = "mixed"
         db.add(video)
         db.flush()
         return enqueue(db, session.id, "video_probe", video.id)

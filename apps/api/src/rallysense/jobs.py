@@ -15,7 +15,7 @@ from .errors import DomainError
 from .schemas import SensorMapping, DetectorConfig
 from .signals import normalize_csv, parquet_bytes, detect_gyro
 from .storage import put_bytes, path_for, resolve
-from .media import probe_video
+from .media import prepare_video
 from .provenance import input_manifest
 from .pose_features import derive_features
 
@@ -87,7 +87,10 @@ def compute(db, job):
         return table, quality
     if job.kind == "video_probe":
         video = db.get(m.VideoAsset, job.target_id)
-        return probe_video(path_for(db, video.artifact_id, job.session_id))
+        return prepare_video(
+            path_for(db, video.artifact_id, job.session_id),
+            (video.metadata_json.get("capture") or {}).get("source") == "browser_camera",
+        )
     if job.kind == "inference":
         run = db.get(m.InferenceRun, job.target_id)
         sensor = db.get(m.SensorRecording, run.sensor_id)
@@ -225,12 +228,18 @@ def publish(db, job, output, elapsed_ms):
             enqueue(db, session.id, "inference", run.id)
     elif job.kind == "video_probe":
         video = db.get(m.VideoAsset, job.target_id)
+        output, remuxed = output
+        if remuxed is not None:
+            original = db.get(m.Artifact, video.artifact_id)
+            output["original_artifact_id"], output["original_sha256"] = original.id, original.sha256
+            derived = put_bytes(db, job.session_id, remuxed, "video_webm_remux_v1")
+            video.artifact_id = derived.id
         video.duration_us, video.width, video.height = (
             output["duration_us"],
             output["width"],
             output["height"],
         )
-        video.metadata_json, video.status = output, "ready"
+        video.metadata_json, video.status = {**video.metadata_json, **output}, "ready"
     elif job.kind == "inference":
         run = db.get(m.InferenceRun, job.target_id)
         for event in output.pop("events"):
@@ -323,6 +332,15 @@ def execute_job(job_id, token):
             import logging
 
             logging.exception("Job %s failed", job_id)
+
+
+def worker_pulse(state):
+    with Session(engine) as db, db.begin():
+        row = db.get(m.WorkerHeartbeat, "main")
+        if row:
+            row.heartbeat_at, row.state = m.now(), state
+        else:
+            db.add(m.WorkerHeartbeat(id="main", heartbeat_at=m.now(), state=state))
 
 
 def finalize_pose(db, track, frames):

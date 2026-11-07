@@ -1,0 +1,11 @@
+{
+  "scope": "Temporary loopback-only production containers; not public deployment",
+  "gate_unauthorized_status": 401,
+  "gate_authorized_status": 200,
+  "approved_fixture_count": 2,
+  "private_session_status": 404,
+  "mutation_status": 403,
+  "mutation_code": "READ_ONLY_DEMO",
+  "readonly_collection_ui": true,
+  "readonly_upload_ui": true
+}

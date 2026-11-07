@@ -1,0 +1,131 @@
+{
+  "scope": "Local production Chromium, existing synthetic sessions; not production throughput",
+  "results": [
+    {
+      "route": "landing",
+      "viewport": "desktop",
+      "load_ms": 1202.5076000000008,
+      "overflow": false,
+      "resources": 192313
+    },
+    {
+      "route": "landing",
+      "viewport": "tablet",
+      "load_ms": 600.6833999999999,
+      "overflow": false,
+      "resources": 192313
+    },
+    {
+      "route": "landing",
+      "viewport": "mobile",
+      "load_ms": 568.8652999999995,
+      "overflow": false,
+      "resources": 188612
+    },
+    {
+      "route": "library",
+      "viewport": "desktop",
+      "load_ms": 779.1813999999995,
+      "overflow": false,
+      "resources": 202722
+    },
+    {
+      "route": "library",
+      "viewport": "tablet",
+      "load_ms": 597.2335000000003,
+      "overflow": false,
+      "resources": 201232
+    },
+    {
+      "route": "library",
+      "viewport": "mobile",
+      "load_ms": 570.8208999999988,
+      "overflow": false,
+      "resources": 199273
+    },
+    {
+      "route": "capture",
+      "viewport": "desktop",
+      "load_ms": 588.1877000000004,
+      "overflow": false,
+      "resources": 194985
+    },
+    {
+      "route": "capture",
+      "viewport": "tablet",
+      "load_ms": 559.3482999999997,
+      "overflow": false,
+      "resources": 194985
+    },
+    {
+      "route": "capture",
+      "viewport": "mobile",
+      "load_ms": 551.1525999999994,
+      "overflow": false,
+      "resources": 194985
+    },
+    {
+      "route": "replay",
+      "viewport": "desktop",
+      "load_ms": 1046.3612999999987,
+      "overflow": false,
+      "resources": 716474
+    },
+    {
+      "route": "replay",
+      "viewport": "tablet",
+      "load_ms": 631.2777000000024,
+      "overflow": false,
+      "resources": 716474
+    },
+    {
+      "route": "replay",
+      "viewport": "mobile",
+      "load_ms": 619.168700000002,
+      "overflow": false,
+      "resources": 716474
+    },
+    {
+      "route": "research",
+      "viewport": "desktop",
+      "load_ms": 919.1561999999976,
+      "overflow": false,
+      "resources": 4410088
+    },
+    {
+      "route": "research",
+      "viewport": "tablet",
+      "load_ms": 1282.3152999999984,
+      "overflow": false,
+      "resources": 4410088
+    },
+    {
+      "route": "research",
+      "viewport": "mobile",
+      "load_ms": 817.6121000000021,
+      "overflow": false,
+      "resources": 4410088
+    },
+    {
+      "route": "method",
+      "viewport": "desktop",
+      "load_ms": 558.5497000000032,
+      "overflow": false,
+      "resources": 194985
+    },
+    {
+      "route": "method",
+      "viewport": "tablet",
+      "load_ms": 567.2477999999974,
+      "overflow": false,
+      "resources": 194985
+    },
+    {
+      "route": "method",
+      "viewport": "mobile",
+      "load_ms": 567.0763000000006,
+      "overflow": false,
+      "resources": 194985
+    }
+  ]
+}

@@ -54,3 +54,9 @@ Record a small, deliberate movement of the instrumented body part visible in the
 Include rest, walking, pickup and non-swing arm motions as negative examples, not only isolated successful strokes. Preserve original files and export each source clock independently. Annotate a subset with two blinded labelers, retain disagreements/uncertainty notes and adjudication separately, and define exclusions before scoring. Keep repeated sessions and all corrupted copies together in any participant-level split. With a small pilot, report feasibility and failure cases rather than population accuracy or cross-player generalization.
 
 The next stage may improve collection ergonomics and device coverage after authorization. It cannot replace the need for real paired observations and independent labels.
+
+## Step 4 review workflow
+
+From the paired synthetic lab, freeze the generated reference set, run compatible modes/conditions and select up to three experiments. Failure explorer jumps to matched/unmatched predictions, missed reference times and unavailable observation intervals. Open **Print-ready report** to inspect/export the actual stored record through browser print. Comparison text reports actual event/F1 differences only under compatible contracts; observed differences are not causal proof.
+
+History loads lightweight summaries, while selected experiments fetch their immutable full payloads. Default API history without `summaries=true` remains full for existing clients. Scientific exports and original results are unchanged. Real collection uses the Collection studio and REAL_WORLD_PILOT; freeze independently labeled human references after blinded replay, rather than reusing generated labels to claim real accuracy.

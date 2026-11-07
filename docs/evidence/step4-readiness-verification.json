@@ -1,0 +1,13 @@
+{
+  "verified_at_utc": "2026-11-07T03:51:31.667149+00:00",
+  "base_url": "http://127.0.0.1:3000",
+  "health": "ready",
+  "landing_http": 200,
+  "sessions_http": 200,
+  "demo_id": "3a29c800-519d-437e-85b0-5c7d712253f0",
+  "dataset_kind": "synthetic",
+  "samples": 1801,
+  "successful_runs": 16,
+  "event_type": "gyro_peak_v1",
+  "scientific_accuracy_evaluated": false
+}

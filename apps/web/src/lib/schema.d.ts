@@ -56,6 +56,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/api/v1/sessions/{session_id}/collection": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Save Collection */
+    patch: operations["save_collection_api_v1_sessions__session_id__collection_patch"];
+    trace?: never;
+  };
   "/api/v1/sessions/{session_id}": {
     parameters: {
       query?: never;
@@ -102,6 +119,40 @@ export interface paths {
     get: operations["job_status_api_v1_jobs__job_id__get"];
     put?: never;
     post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/demonstrations": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Demonstrations */
+    get: operations["demonstrations_api_v1_demonstrations_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/jobs/{job_id}/retry": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Retry Source Job */
+    post: operations["retry_source_job_api_v1_jobs__job_id__retry_post"];
     delete?: never;
     options?: never;
     head?: never;
@@ -519,6 +570,40 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/api/v1/capabilities": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Capabilities */
+    get: operations["capabilities_api_v1_capabilities_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/diagnostics": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Diagnostics */
+    get: operations["diagnostics_api_v1_diagnostics_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -630,6 +715,152 @@ export interface components {
     Body_upload_video_api_v1_sessions__session_id__videos_post: {
       /** File */
       file: string;
+      /**
+       * Metadata
+       * @default {}
+       */
+      metadata: string;
+    };
+    /** CapabilitiesOut */
+    CapabilitiesOut: {
+      /**
+       * Mode
+       * @enum {string}
+       */
+      mode: "local" | "demo_readonly";
+      /** Mutations Allowed */
+      mutations_allowed: boolean;
+      /** Build Id */
+      build_id: string;
+      /** Environment */
+      environment: string;
+    };
+    /** CaptureMetadata */
+    CaptureMetadata: {
+      /**
+       * Source
+       * @enum {string}
+       */
+      source: "browser_devicemotion" | "browser_camera" | "csv_external";
+      /**
+       * Device Model
+       * @default unknown
+       */
+      device_model: string;
+      /**
+       * Started At Utc
+       * @default unknown
+       */
+      started_at_utc: string;
+      /**
+       * Timestamp Basis
+       * @default unknown
+       */
+      timestamp_basis: string;
+      /** Time Origin Ms */
+      time_origin_ms?: number | null;
+      /** Original First Timestamp Ms */
+      original_first_timestamp_ms?: number | null;
+      /**
+       * Coordinate Frame
+       * @default device frame; no world-frame transformation
+       */
+      coordinate_frame: string;
+      /**
+       * Axis Mapping
+       * @default unknown
+       */
+      axis_mapping: string;
+      /**
+       * Acceleration Kind
+       * @default unknown
+       * @enum {string}
+       */
+      acceleration_kind: "linear" | "including_gravity" | "unknown";
+      /**
+       * Source Rotation Unit
+       * @default unknown
+       * @enum {string}
+       */
+      source_rotation_unit: "deg/s" | "unknown";
+      /** Orientation Angle Deg */
+      orientation_angle_deg?: number | null;
+      /**
+       * Browser
+       * @default unknown
+       */
+      browser: string;
+      /**
+       * Stop Reason
+       * @default user
+       */
+      stop_reason: string;
+      /**
+       * Discarded Timestamps
+       * @default 0
+       */
+      discarded_timestamps: number;
+      /**
+       * Sample Count
+       * @default 0
+       */
+      sample_count: number;
+      /** Operator Cues Us */
+      operator_cues_us?: number[];
+    };
+    /** CollectionProfile */
+    CollectionProfile: {
+      /**
+       * Participant Pseudonym
+       * @default unknown
+       */
+      participant_pseudonym: string;
+      /**
+       * Movement
+       * @default unknown
+       */
+      movement: string;
+      /**
+       * Camera View
+       * @default unknown
+       */
+      camera_view: string;
+      /**
+       * Sensor Placement
+       * @default unknown
+       */
+      sensor_placement: string;
+      /**
+       * Attachment
+       * @default unknown
+       */
+      attachment: string;
+      /**
+       * Device Model
+       * @default unknown
+       */
+      device_model: string;
+      /**
+       * Conditions
+       * @default unknown
+       */
+      conditions: string;
+      /**
+       * Consent Confirmed
+       * @default false
+       */
+      consent_confirmed: boolean;
+      /**
+       * Pairing Note
+       * @default
+       */
+      pairing_note: string;
+    };
+    /** CollectionUpdate */
+    CollectionUpdate: {
+      /** Revision */
+      revision: number;
+      profile: components["schemas"]["CollectionProfile"];
     };
     /** ComponentResult */
     ComponentResult: {
@@ -735,6 +966,48 @@ export interface components {
        * @default 3
        */
       adaptive_k: number;
+    };
+    /** DiagnosticsOut */
+    DiagnosticsOut: {
+      /**
+       * Mode
+       * @enum {string}
+       */
+      mode: "local" | "demo_readonly";
+      /** Mutations Allowed */
+      mutations_allowed: boolean;
+      /** Build Id */
+      build_id: string;
+      /** Environment */
+      environment: string;
+      /**
+       * Database
+       * @constant
+       */
+      database: "reachable";
+      /**
+       * Worker
+       * @enum {string}
+       */
+      worker: "ready" | "stale" | "unknown";
+      /** Worker Age S */
+      worker_age_s: number | null;
+      /** Worker State */
+      worker_state: string | null;
+      /** Python Version */
+      python_version: string;
+      /** Ffprobe Available */
+      ffprobe_available: boolean;
+      /** Storage Free Bytes */
+      storage_free_bytes: number | null;
+      /** Migration */
+      migration: string;
+      /** Job Counts */
+      job_counts: {
+        [key: string]: number;
+      };
+      /** Recent Jobs */
+      recent_jobs: components["schemas"]["JobOut"][];
     };
     /** Evaluation */
     Evaluation: {
@@ -1041,6 +1314,16 @@ export interface components {
     PoseFramesOut: {
       /** Frames */
       frames: components["schemas"]["PoseFrame"][];
+      /**
+       * Source Count
+       * @default 0
+       */
+      source_count: number;
+      /**
+       * Truncated
+       * @default false
+       */
+      truncated: boolean;
     };
     /** PoseOut */
     PoseOut: {
@@ -1082,6 +1365,12 @@ export interface components {
        * @enum {number}
        */
       playback_rate: 0.5 | 1;
+      /**
+       * Sampling Method
+       * @default playback
+       * @enum {string}
+       */
+      sampling_method: "playback" | "seek_backpressure";
     };
     /** PredictionOut */
     PredictionOut: {
@@ -1274,6 +1563,7 @@ export interface components {
        * @default unknown
        */
       placement: string;
+      capture?: components["schemas"]["CaptureMetadata"] | null;
     };
     /** SensorOut */
     SensorOut: {
@@ -1319,6 +1609,7 @@ export interface components {
        * @default
        */
       notes: string;
+      collection_profile?: components["schemas"]["CollectionProfile"];
     };
     /** SessionDetail */
     SessionDetail: {
@@ -1337,6 +1628,10 @@ export interface components {
        * @default
        */
       notes: string;
+      /** Collection Profile */
+      collection_profile: {
+        [key: string]: components["schemas"]["JsonValue"];
+      };
       /** Id */
       id: string;
       /**
@@ -1344,6 +1639,8 @@ export interface components {
        * Format: date-time
        */
       created_at: string;
+      /** Collection Revision */
+      collection_revision: number;
       /** Sensors */
       sensors: components["schemas"]["SensorOut"][];
       /** Videos */
@@ -1378,6 +1675,10 @@ export interface components {
        * @default
        */
       notes: string;
+      /** Collection Profile */
+      collection_profile: {
+        [key: string]: components["schemas"]["JsonValue"];
+      };
       /** Id */
       id: string;
       /**
@@ -1385,6 +1686,8 @@ export interface components {
        * Format: date-time
        */
       created_at: string;
+      /** Collection Revision */
+      collection_revision: number;
     };
     /** SignalPoint */
     SignalPoint: {
@@ -1402,6 +1705,36 @@ export interface components {
       sensor_id: string;
       /** Offset Us */
       offset_us: number;
+      /** Video Id */
+      video_id?: string | null;
+      evidence?: components["schemas"]["SyncEvidence"];
+    };
+    /** SyncCue */
+    SyncCue: {
+      /** Sensor Us */
+      sensor_us: number;
+      /** Video Us */
+      video_us: number;
+      /**
+       * Uncertainty Us
+       * @default 40000
+       */
+      uncertainty_us: number;
+    };
+    /** SyncEvidence */
+    SyncEvidence: {
+      /**
+       * Note
+       * @default
+       */
+      note: string;
+      /**
+       * Paired
+       * @default false
+       */
+      paired: boolean;
+      /** Cues */
+      cues?: components["schemas"]["SyncCue"][];
     };
     /** SyncOut */
     SyncOut: {
@@ -1413,6 +1746,12 @@ export interface components {
       sensor_id: string;
       /** Offset Us */
       offset_us: number;
+      /** Video Id */
+      video_id: string | null;
+      /** Evidence */
+      evidence: {
+        [key: string]: components["schemas"]["JsonValue"];
+      };
     };
     /** TimingMatch */
     TimingMatch: {
@@ -1612,6 +1951,41 @@ export interface operations {
       };
     };
   };
+  save_collection_api_v1_sessions__session_id__collection_patch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        session_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CollectionUpdate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SessionOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
   detail_api_v1_sessions__session_id__get: {
     parameters: {
       query?: never;
@@ -1707,6 +2081,57 @@ export interface operations {
     responses: {
       /** @description Successful Response */
       200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["JobOut"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  demonstrations_api_v1_demonstrations_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SessionOut"][];
+        };
+      };
+    };
+  };
+  retry_source_job_api_v1_jobs__job_id__retry_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        job_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      202: {
         headers: {
           [name: string]: unknown;
         };
@@ -2243,6 +2668,7 @@ export interface operations {
       query?: {
         start_us?: number;
         end_us?: number;
+        max_frames?: number;
       };
       header?: never;
       path: {
@@ -2408,6 +2834,7 @@ export interface operations {
     parameters: {
       query?: {
         limit?: number;
+        summaries?: boolean;
       };
       header?: never;
       path: {
@@ -2598,6 +3025,46 @@ export interface operations {
         };
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  capabilities_api_v1_capabilities_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["CapabilitiesOut"];
+        };
+      };
+    };
+  };
+  diagnostics_api_v1_diagnostics_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiagnosticsOut"];
         };
       };
     };

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
 import {
   Activity,
   ScanLine,
@@ -22,6 +22,7 @@ import {
   record,
   modeOf,
 } from "./types";
+import { openDemonstration, useCapabilities } from "@/lib/capabilities";
 import { ReferenceManager } from "./reference-manager";
 import { ResultComparison } from "./results";
 
@@ -35,6 +36,8 @@ export function Challenge({
   refreshSession: () => void;
 }) {
   const query = useQueryClient();
+  const capabilities = useCapabilities();
+  const readonly = capabilities.data?.mode === "demo_readonly";
   const router = useRouter();
   const [mode, setMode] = useState<ExperimentRequest["mode"]>("imu");
   const [sensorId, setSensorId] = useState("");
@@ -87,8 +90,11 @@ export function Challenge({
   const base = `/sessions/${session.id}`;
   const history = useQuery({
     queryKey: ["experiments", session.id],
-    queryFn: () => api<Experiment[]>(`${base}/experiments`),
-    refetchInterval: 2000,
+    queryFn: () => api<Experiment[]>(`${base}/experiments?summaries=true`),
+    refetchInterval: (q) =>
+      q.state.data?.some((r) => ["queued", "running"].includes(r.status))
+        ? 2000
+        : 10000,
   });
   const refs = useQuery({
     queryKey: ["references", session.id],
@@ -112,6 +118,10 @@ export function Challenge({
     setBusy(true);
     setError(null);
     try {
+      if (readonly)
+        throw new Error(
+          "Read-only demonstration: inspect stored experiments; new runs require a private local workspace.",
+        );
       await fn();
       await refresh();
     } catch (e) {
@@ -129,9 +139,20 @@ export function Challenge({
   const runSelected = (history.data || []).filter((r) =>
     selected.includes(r.id),
   );
-  const displayed = runSelected.length
+  const displaySummaries = runSelected.length
     ? runSelected.slice(0, 3)
     : (history.data || []).slice(0, 1);
+  const details = useQueries({
+    queries: displaySummaries.map((r) => ({
+      queryKey: ["experiment", r.id, r.status],
+      queryFn: () => api<Experiment>(`/experiments/${r.id}`),
+      staleTime: ["queued", "running"].includes(r.status) ? 0 : Infinity,
+      refetchInterval: ["queued", "running"].includes(r.status)
+        ? 2000
+        : (false as const),
+    })),
+  });
+  const displayed = details.flatMap((q) => (q.data ? [q.data] : []));
   const corrupt: NonNullable<ExperimentRequest["corruption"]> = {
     seed,
     dropout_fraction: 0,
@@ -216,13 +237,10 @@ export function Challenge({
         </span>
         <button
           className="button secondary"
-          disabled={busy}
+          disabled={readonly || busy}
           onClick={() =>
             action(async () => {
-              const demo = await api<{ id: string }>(
-                "/research-demo-sessions",
-                { method: "POST" },
-              );
+              const demo = await openDemonstration(true);
               router.push(`/sessions/${demo.id}?tab=research`);
             })
           }
@@ -592,6 +610,7 @@ export function Challenge({
           <button
             className="button primary"
             disabled={
+              readonly ||
               busy ||
               !!unavailable ||
               (mode === "fusion" && (!paired || alignment.trim().length < 8))
@@ -604,7 +623,7 @@ export function Challenge({
         </div>
       </section>
       <ReferenceManager
-        busy={busy}
+        busy={readonly || busy}
         session={session}
         sets={sets.data || []}
         references={refs.data || []}
@@ -625,7 +644,7 @@ export function Challenge({
               <label>
                 <input
                   type="checkbox"
-                  checked={displayed.some((r) => r.id === run.id)}
+                  checked={displaySummaries.some((r) => r.id === run.id)}
                   onChange={(e) =>
                     setSelected((old) =>
                       e.target.checked
@@ -658,7 +677,7 @@ export function Challenge({
                 className="icon-button"
                 title="Rerun frozen configuration"
                 aria-label={`Rerun ${run.name}`}
-                disabled={busy}
+                disabled={readonly || busy}
                 onClick={() =>
                   action(async () => {
                     const next = await api<Experiment>(`${base}/experiments`, {
@@ -679,6 +698,7 @@ export function Challenge({
         </div>
       )}
       <ResultComparison runs={displayed} onSeek={onSeek} />
+      <ErrorBox error={details.find((q) => q.error)?.error} />
       <footer className="research-footer">
         Visibility measures observability. Strength measures a signal. Accuracy
         requires independent labels. None is calibrated model confidence.

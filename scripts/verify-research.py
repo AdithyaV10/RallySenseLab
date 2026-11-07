@@ -1,9 +1,15 @@
 """Run real local synthetic experiments; never claim athlete accuracy."""
+import argparse
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+
 import httpx
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--output", default="docs/evidence/step3-local-verification.json")
+args = parser.parse_args()
 
 base = "http://127.0.0.1:3000"
 
@@ -88,12 +94,12 @@ with httpx.Client(base_url=base, headers={"x-lab-client": "rallysense"}, timeout
     assert original["sensors"][0]["samples"] == 1801
     original_samples=checked(client.get(f"/api/v1/sensor-recordings/{original['sensors'][0]['id']}/samples",params={"max_points":20}))
     assert original_samples["source_count"] == 1801
-    evidence={"verified_at_utc":datetime.now(timezone.utc).isoformat(),"base_url":base,
+    evidence={"verified_at_utc":datetime.now(UTC).isoformat(),"base_url":base,
               "evidence_level":"synthetic software verification only; no real-world accuracy study",
               "session_id":sid,"reference_id":reference["id"],"original_step2_demo_id":original["id"],
               "original_step2_samples":1801,"sources_unchanged":True,"report_http":report.status_code,"experiments":summaries}
     evidence["original_step2_parquet_samples_read"]=original_samples["source_count"]
-    target=Path(__file__).resolve().parents[1]/"docs/evidence/step3-local-verification.json"
+    target=Path(__file__).resolve().parents[1]/args.output
     target.write_text(json.dumps(evidence,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"evidence_file":str(target),"session_id":sid,"original_step2_samples":1801,
                       "sources_unchanged":True,"experiments":[{k:r[k] for k in ["name","status","events","processing_ms"]} for r in summaries]},indent=2))

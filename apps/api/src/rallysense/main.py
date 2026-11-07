@@ -1,15 +1,26 @@
 import hmac
 import logging
+import time
+import json
 from uuid import uuid4
 from fastapi import FastAPI, Depends, Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 from .config import LOCAL_TOKEN, ALLOWED_ORIGINS, STORAGE_ROOT
 from .db import engine
 from .errors import DomainError
-from .api import sessions, sensors, videos, annotations, pose, research
+from .api import sessions, sensors, videos, annotations, pose, research, diagnostics
+from . import config
+from .policy import upload_allowed
+
+request_logger = logging.getLogger("rallysense.http")
+if not request_logger.handlers:
+    request_logger.addHandler(logging.StreamHandler())
+request_logger.setLevel(logging.INFO)
+request_logger.propagate = False
 
 
 async def authorize(request: Request):
@@ -21,12 +32,42 @@ async def authorize(request: Request):
 
 
 app = FastAPI(title="RallySense Lab API", version="0.2.0")
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "api", "testserver"])
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=config.ALLOWED_HOSTS)
 
 
 @app.middleware("http")
 async def safe_headers(request: Request, call_next):
+    started = time.perf_counter()
     request.state.request_id = str(uuid4())
+    if (
+        request.url.path.startswith("/api/v1/")
+        and config.APP_MODE == "demo_readonly"
+        and request.method not in {"GET", "HEAD", "OPTIONS"}
+    ):
+        return JSONResponse(
+            {
+                "error": {
+                    "code": "READ_ONLY_DEMO",
+                    "message": "This demonstration is read-only. Uploads, capture saves, edits and experiment mutations are disabled.",
+                }
+            },
+            status_code=403,
+        )
+    if (
+        request.method == "POST"
+        and request.url.path.endswith(("/videos", "/sensor-imports"))
+        and not upload_allowed(request.client.host if request.client else "unknown")
+    ):
+        return JSONResponse(
+            {
+                "error": {
+                    "code": "RATE_LIMITED",
+                    "message": "Upload limit reached; wait one minute before retrying.",
+                }
+            },
+            status_code=429,
+            headers={"Retry-After": "60"},
+        )
     if request.url.path.startswith("/api/v1/") and "/health/" not in request.url.path:
         if not hmac.compare_digest(request.headers.get("x-lab-token", ""), LOCAL_TOKEN):
             return JSONResponse(
@@ -61,6 +102,19 @@ async def safe_headers(request: Request, call_next):
     response.headers["Cache-Control"] = "no-store"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Request-ID"] = request.state.request_id
+    route = getattr(request.scope.get("route"), "path", "unmatched")
+    request_logger.info(
+        json.dumps(
+            {
+                "event": "http_request",
+                "request_id": request.state.request_id,
+                "method": request.method,
+                "route": route,
+                "status": response.status_code,
+                "duration_ms": round((time.perf_counter() - started) * 1000, 2),
+            }
+        )
+    )
     return response
 
 
@@ -111,9 +165,12 @@ def live():
 
 @app.get("/api/v1/health/ready")
 def ready():
-    with engine.connect() as connection:
-        connection.execute(text("SELECT 1"))
-    STORAGE_ROOT.mkdir(parents=True, exist_ok=True)
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+        STORAGE_ROOT.mkdir(parents=True, exist_ok=True)
+    except (SQLAlchemyError, OSError) as exc:
+        raise DomainError("Database or artifact storage unavailable", "NOT_READY", 503) from exc
     return {"status": "ready"}
 
 
@@ -124,5 +181,6 @@ for router in [
     annotations.router,
     pose.router,
     research.router,
+    diagnostics.router,
 ]:
     app.include_router(router, prefix="/api/v1", dependencies=[Depends(authorize)])

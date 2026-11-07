@@ -8,13 +8,19 @@ async function proxy(
 ) {
   const { path } = await context.params;
   const host = request.headers.get("host")?.split(":")[0];
-  if (host !== "127.0.0.1" && host !== "localhost")
+  const allowedHosts = (
+    process.env.WEB_ALLOWED_HOSTS || "127.0.0.1,localhost"
+  ).split(",");
+  if (!host || !allowedHosts.includes(host))
     return Response.json(
       { error: { message: "Local host required" } },
       { status: 403 },
     );
   const origin = request.headers.get("origin");
-  const localOrigins = ["http://127.0.0.1:3000", "http://localhost:3000"];
+  const localOrigins = (
+    process.env.WEB_ALLOWED_ORIGINS ||
+    "http://127.0.0.1:3000,http://localhost:3000"
+  ).split(",");
   if (origin && !localOrigins.includes(origin))
     return Response.json(
       { error: { message: "Origin rejected" } },
@@ -58,6 +64,7 @@ async function proxy(
       "content-range",
       "accept-ranges",
       "x-request-id",
+      "retry-after",
     ]) {
       const value = upstream.headers.get(name);
       if (value) responseHeaders.set(name, value);

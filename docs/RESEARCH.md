@@ -77,3 +77,11 @@ The UI runs one selected corruption at a time; the typed API supports combinatio
 The original five-pulse demo and new two-pulse paired fixture are synthetic. The paired fixture renders a generated stick figure and persists the same analytical landmarks; it is explicitly **not MediaPipe output**. Its generated IMU pulses share the fixture clock. This verifies fusion code without pretending the signals are a physical racket model. Real MediaPipe integration is separately exercised on the official clip's documented seekable derivative, with no independent tennis labels. That clip's unrelated synthetic IMU remains mixed and ineligible for fusion.
 
 Half-prominence widths follow [SciPy's definition](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.peak_widths.html). They are descriptive signal intervals, not physiological confidence intervals.
+
+## Step 4 observation and presentation constraints
+
+DeviceMotion is raw device acceleration/angular rate. Linear and gravity-inclusive acceleration are explicit choices, missing channels stay missing, and rotation is not an orientation estimate. Captured UTC descriptions do not align independently encoded video and event clocks. Start/end cues retain uncertainty/evidence and expose an end residual; offset-only alignment never corrects drift. Collection profile is an operator attestation frozen into future experiment manifests.
+
+Seek/backpressure improves sampling opportunity by waiting for processing, but only actual video presentation timestamps are stored. Achieved cadence/gaps, not the target, describe temporal observation quality. No interpolated unseen landmark frames are generated. Existing tracks are reused for replay/inference; extracting a new track is explicit.
+
+Failure explorer and deterministic comparison text use stored matches, misses, eligible intervals and numerical deltas. Incompatible references/sources/alignment/protocols warn against isolating algorithm effects. Explanations do not claim physical causality. Print reports contain actual results/manifests. Synthetic scores remain software verification. No physical tennis study, impact validation, trained movement classifier or calibrated confidence is introduced.

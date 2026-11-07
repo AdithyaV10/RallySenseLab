@@ -72,7 +72,16 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
             .status,
       )
       .toBe("succeeded");
-    await expect(page.getByTestId("experiment-result").filter({has:page.getByRole("heading",{name:`${name} ${suffix}`,exact:true})})).toContainText("succeeded");
+    await expect(
+      page
+        .getByTestId("experiment-result")
+        .filter({
+          has: page.getByRole("heading", {
+            name: `${name} ${suffix}`,
+            exact: true,
+          }),
+        }),
+    ).toContainText("succeeded");
     return await (await request.get(`/api/v1/experiments/${exp.id}`)).json();
   }
   const imu = await run("IMU clean");
@@ -122,6 +131,22 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
   );
   expect(exported.ok()).toBeTruthy();
   expect(await exported.text()).toContain('"fn": 2');
+  const reportPage = await page.context().newPage();
+  await reportPage.goto(`/experiments/${degraded.id}/report`);
+  await expect(
+    reportPage.getByRole("heading", { name: degraded.name, exact: true }),
+  ).toBeVisible();
+  await expect(reportPage.getByText(/TP 0 · FP 0 · FN 2/)).toBeVisible();
+  await reportPage.emulateMedia({ media: "print" });
+  await expect(
+    reportPage.getByRole("button", { name: "Print / Save PDF" }),
+  ).toBeHidden();
+  await reportPage.pdf({
+    path: "../../docs/evidence/step4-synthetic-report.pdf",
+    format: "A4",
+    printBackground: true,
+  });
+  await reportPage.close();
   await page.setViewportSize({ width: 390, height: 844 });
   expect(
     await page.evaluate(

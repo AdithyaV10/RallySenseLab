@@ -57,3 +57,13 @@ The earlier decision table describes the accepted architecture; source-level det
 - A score, quality indicator, confidence interval, and annotation uncertainty are different concepts.
 - No metric or user-facing claim may imply a real experiment when only synthetic fixtures have run.
 - A completed stage always stops at its mandatory gate. Publication and Git push remain unauthorized.
+
+## Step 4 decisions, 2026-11-06
+
+- Preserve the local Next/FastAPI/PostgreSQL/durable-worker architecture and scientific event semantics. Use an additive collection/evidence/heartbeat migration and preserve old manifests/results.
+- Use explicit browser quantities and per-source recorded/synthetic provenance; never silently replace missing linear acceleration with gravity-inclusive acceleration or treat angular rate as attitude. Unsaved capture is bounded memory, with explicit save/export and interruption states; no background recording promise.
+- Repair a directly observed streamed WebM duration problem with bounded encoded-frame container copying, retaining the original artifact/hash. Do not introduce general automatic transcoding.
+- Add optional seek/backpressure, retain actual presentation timestamps and existing playback/fallback. Keep achieved cadence separate from target frequency.
+- Load cursor-local pose windows and summary experiment history; full scientific artifacts/results remain available. Use deterministic stored-result explanations, not an external LLM.
+- Public preparation uses fail-closed builtin synthetic allowlists and requires fresh isolated volumes. A shared local token/workspace password is not multiuser security. Prepare private trusted phone HTTPS without actually opening a LAN listener.
+- Recommend the implemented filesystem-compatible container topology for an initial demonstration. Split serverless/object-store architecture needs adapters and upload changes. No deployment, paid service or push in Step 4.

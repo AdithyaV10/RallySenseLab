@@ -86,4 +86,25 @@ Use a separate terminal for `uv run python -m rallysense.worker` and stop the co
 - **Invalid CSV:** inspect the failed job, correct exact column names/units and import again. Decimal-point numeric text is supported; ambiguous locale formats and decreasing/duplicate times are rejected. ZIP imports are not supported; extract phyphox CSVs first.
 - **Unsupported video:** use MP4 H.264 or WebM VP8/VP9, <=500 MiB, <=10 min, <=1920×1080 pixels. Both FFprobe validation and the active browser must support decoding. The MVP does not automatically transcode.
 - **Pose worker failure:** initialization uses the documented main-thread CPU fallback and records it. A failure mid-track marks extraction failed. Background-tab throttling can reduce sampled coverage. Keep the page visible for best results.
-- **Failed cleanup/job:** inspect its safe error via the API and local worker logs. A general retry UI is not implemented; preserve volumes and investigate rather than deleting storage manually.
+- **Failed cleanup/job:** inspect its safe error via the API and local worker logs. System readiness can retry failed source normalization/video probing as a new validation job. Rerun scientific experiments as new runs. Cleanup and other job failures still require log investigation; preserve volumes rather than deleting storage manually.
+
+## Opt-in trusted HTTPS for phone capture
+
+The ordinary Compose application stays on loopback. A phone's `127.0.0.1` refers to the phone, not the workstation. Browser motion/camera APIs need a secure context; an untrusted certificate warning is not equivalent to a trusted HTTPS origin. Physical iOS/Android verification remains required.
+
+For a private, trusted LAN only:
+
+1. Install locked native web dependencies (`npm.cmd ci --prefix apps/web`) and keep the Docker API/database/worker running. Use your workstation's actual RFC1918 IPv4 address shown by `Get-NetIPAddress -AddressFamily IPv4`. Use a private trusted network, not public Wi-Fi.
+2. Independently install/review mkcert if desired, generate a certificate whose SAN includes that exact IP, and install only its public root CA certificate into the phone's trust store using the operating system's documented process. [mkcert's official mobile instructions](https://github.com/FiloSottile/mkcert) explain that mobile trust is a separate step. Do not share `rootCA-key.pem` or private keys. Certificate/key files belong in ignored `certificates/`. This agent has not installed a CA or changed trust settings.
+3. Set a unique `SITE_ACCESS_PASSWORD` of at least 20 characters and set `LOCAL_TOKEN` to match your running API in the same PowerShell process. Do not put either in URLs, browser code or Git. The browser username is `lab`; its workspace password differs from the internal API token.
+4. Prepare the exact configuration first. The command below validates paths/IP/password and opens no listener:
+
+```powershell
+.\scripts\start-phone-https.ps1 -LanAddress 192.168.1.50 -Certificate .\certificates\phone.pem -Key .\certificates\phone-key.pem
+```
+
+Replace the example IP/files with your actual values. When you explicitly want to start it, repeat with `-Start`. It runs native Next dev on **that IP only, port 3443**, with provided HTTPS files and exact allowed host/origin. The script does not install trust or add firewall rules; review any Windows private-network firewall decision yourself. Stop with Ctrl+C. Environment values set by the helper are restored when it exits.
+
+5. On the phone open `https://YOUR_WORKSTATION_IP:3443/record`, authenticate with username `lab` and the workspace password, and verify actual sensor availability. Keep the screen unlocked/page visible. Export/save a short test, inspect quality and independently check start/end cues before a physical pilot. CSV from phyphox remains the fallback if APIs or certificate trust are incompatible.
+
+The installed Next CLI's HTTPS flags are a development facility, not a public hosting configuration. No LAN listener, CA installation, firewall change or physical phone verification was performed during Step 4. The shared workspace gate is not multiuser authorization. Never expose private volumes publicly; see DEPLOYMENT.

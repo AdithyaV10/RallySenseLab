@@ -1,0 +1,32 @@
+# Preparation only. Remains loopback-bound; a reviewed TLS/access layer is required before any public use.
+# Use with the base Compose file AFTER Step 5 authorization. Never point a public demo at private volumes.
+services:
+  api:
+    environment:
+      ENVIRONMENT: production
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Set a unique strong internal token}
+      APP_MODE: demo_readonly
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:?Explicit approved fixture IDs required}
+      BUILD_ID: ${BUILD_ID:?Set the reviewed commit ID}
+    logging: &bounded_logs
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  worker:
+    environment:
+      ENVIRONMENT: production
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Set a unique strong internal token}
+      APP_MODE: demo_readonly
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:?Explicit approved fixture IDs required}
+      BUILD_ID: ${BUILD_ID:?Set the reviewed commit ID}
+    logging: *bounded_logs
+  web:
+    environment:
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Set a unique strong internal token}
+      SITE_ACCESS_PASSWORD: ${SITE_ACCESS_PASSWORD:?Set a unique workspace access password}
+      WEB_ALLOWED_HOSTS: ${WEB_ALLOWED_HOSTS:?Set exact reviewed public hostnames}
+      WEB_ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:?Set exact reviewed HTTPS origins}
+    logging: *bounded_logs
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a unique database password}
+    logging: *bounded_logs

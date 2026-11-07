@@ -3,11 +3,12 @@ from sqlalchemy import select
 from . import __doc__  # noqa: F401
 from .. import models as m
 from ..errors import DomainError
+from ..policy import visible
 
 
 def active_session(db, session_id):
     session = db.get(m.RecordingSession, str(session_id))
-    if not session or session.deleted_at:
+    if not session or session.deleted_at or not visible(session):
         raise DomainError("Session not found", "NOT_FOUND", 404)
     return session
 

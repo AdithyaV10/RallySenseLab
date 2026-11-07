@@ -1,74 +1,63 @@
 # Project status
 
-Updated: 2026-11-05, America/New_York.
+Updated: 2026-11-06, America/New_York. Verification timestamps in JSON are UTC and can fall on November 7.
 
 ## Authorization and stage gate
 
-- Current and last completed stage: **Step 3 - advanced inference, sensor association, and scientific evaluation**.
-- State: **complete; stopped at the mandatory Step 3 review gate**.
-- Authorization: the preserved [Step 3 specification](STEP3_SPECIFICATION.md), the explicit November 5 recovery request, and the instruction to continue after Docker startup.
-- Next authorized stage: **none**. Step 4 requires separate user authorization.
-- No Step 4 implementation, deployment, publication, remote push, GitHub synchronization or cloud provisioning occurred.
-- Step 2 checkpoint: `7ce77c6`. The Step 3 checkpoint is the local commit containing this status/report; obtain its ID with `git log -1 --format=%h`.
+- Completed stage: **Step 4 ? collection readiness, analytical product experience, reliability and deployment preparation**.
+- State: **complete; stopped at the mandatory Step 4 review gate**.
+- Authorization: [preserved Step 4 execution specification](STEP4_SPECIFICATION.md).
+- Next authorized stage: **none**. Step 5 needs explicit user authorization.
+- No deployment, publication, remote push, cloud provisioning or Step 5 independent audit occurred.
+- Starting checkpoint: Step 3 `3ec36d8`; Step 2 `7ce77c6`. The Step 4 checkpoint is the local commit containing this status/report; obtain its ID with `git log -1 --format=%h`.
 
-## Implemented
+## Delivered
 
-The working Next.js/FastAPI/PostgreSQL MVP is preserved. Step 3 adds actual stored-pose wrist-speed inference, enhanced measured IMU windows/quality, explicit temporal association using both modalities, frozen reference revisions, mathematically defined event evaluation, durable reproducible experiments, controlled corruption, the Sensor Fusion Challenge/results dashboard, and actual-result Markdown/JSON export.
+The Next.js/FastAPI/PostgreSQL/durable-worker architecture is preserved. Collection studio supports real browser DeviceMotion and optional MediaRecorder where APIs permit, explicit recorded/synthetic source provenance, raw/SI export, ordinary worker ingestion, revisioned collection metadata, actual source quality and start/end cue evidence. Streamed WebM repair retains original uploads and copies encoded video without re-encoding.
 
-Algorithms are `imu_motion_window@1.0.0`, `video_wrist_speed@1.0.0`, and `multimodal_temporal_association@1.0.0`. Output meanings remain distinct: `gyro_peak_v1`, `wrist_speed_peak_v1`, and `multimodal_association_v1`. None is automatically a confirmed tennis swing or ball impact. Unlike reference definitions require an explicit proxy hypothesis. Missing references give no accuracy metrics. Mixed unrelated inputs cannot run paired fusion.
+Replay adds cursor-local pose retrieval beyond the former initial cap, signal windows, time/observed-pose-frame stepping, short event-context playback, clock/evidence readouts and view preferences. Challenge adds actual-result failure navigation, compatible comparison deltas, efficient history summaries and print-ready reports. Independent annotations, blind labeling and immutable reference snapshots remain intact. Dismissible guidance, responsive polish, diagnostics/heartbeat, narrow safe retries, readonly fixture visibility and optional trusted local HTTPS preparation are implemented.
 
-Reference snapshots freeze one set revision/event definition with provenance and labeling metadata. Later edits do not rewrite experiments. Manifests preserve input identities/hashes, parameters, alignment/reference revisions, algorithm/code/dependency/runtime identity, seed and evaluation interval. Results preserve events, quality/coverage, per-event errors, metrics, measured latency and failures. Dense sources are referenced rather than duplicated.
+Scientific meanings are unchanged: `gyro_peak_v1` is an angular-speed signal event, `wrist_speed_peak_v1` an image wrist-speed event and `multimodal_association_v1` a temporal co-occurrence retaining both observation times. None automatically confirms a tennis swing, ball impact or biomechanical reconstruction. Unlike reference definitions need a declared proxy hypothesis. No eligible reference means no accuracy. Synthetic results verify software only.
 
-The paired synthetic lab renders a stick figure and persists analytical landmarks plus generated IMU pulses on a shared clock. It is explicitly not athlete footage or MediaPipe output. Actual MediaPipe remains separately verified on the official clip's seekable derivative. Extraction supports the original 10 Hz path and a denser 30 Hz target with slower playback, recording achieved cadence/gaps.
+## Actual verification
 
-## Recovery audit and integration fixes
-
-All uncommitted work from the interrupted session was inspected and preserved. Docker was restored without deleting volumes. The additive migration `a496e751b8a9` is valid and applied; a real migration test preserves an MVP row across upgrade, checks consistency and exercises downgrade/re-upgrade.
-
-Recovery corrected mobile tab overflow, annotation refresh/freeze racing, two damaged text encodings, inapplicable corruption controls, visual-reference source mismatch, cross-gap event association, legacy generated-source wording and a directly observed response/commit race. Database transactions now commit before HTTP success headers; a separate PostgreSQL connection verifies visibility at the ASGI send boundary, and injected persistence failure returns an error with no persisted row. Numerical semantics and raw observations remain preserved.
-
-## Final verification
-
-| Check | Actual result |
+| Check | Result |
 | --- | --- |
-| Production API/worker and Next.js builds | PASS; final packaged sources, no API source bind mounts |
-| Container backend suite | **36 passed, 0 failed, 0 skipped**, 18.99 s; six deprecation warnings |
-| Native backend suite | **34 passed, 2 expected native-FFmpeg skips**; equivalent tests pass in container |
-| Frontend unit tests | **9 passed**, 3 files |
-| Strict TypeScript and installed Next route types | PASS |
-| ESLint and Ruff | PASS |
-| Generated OpenAPI/TypeScript contract consistency | PASS |
-| Alembic head / consistency | `a496e751b8a9`; no new upgrade operations |
-| Production Chromium browser suite | **5 passed, 0 failed, 0 skipped, 0 flaky**, 60.3 s |
-| Ordinary local application smoke | PASS: HTTP 200/readiness and preserved Step 2 demo |
-| Real synthetic research smoke | PASS: 11 conditions, strict read-after-create, source preservation, original Parquet read and actual report export |
+| Production API/worker and Next images / startup | PASS; retained volumes, packaged source, loopback web/API/DB, healthy API/DB/worker |
+| Final container backend suite | **42 passed, 0 failed, 0 skipped**, 13.10 s; six documented deprecation warnings |
+| Final frontend units | **15 passed**, 5 files, 4.63 s |
+| Strict types / ESLint / Ruff / generated contracts | PASS |
+| Migration head / consistency | `0003_collection_readiness`; no new upgrade operations |
+| Full production Chromium suite | **8 passed, 0 failed/skipped/flaky**, 96.996 s |
+| Focused final ingestion/permission/camera/CSV/lifecycle verification | **4 passed**, 33.5 s after source-panel polish |
+| Optional workspace gate and read-only production integration | PASS: 401/200 authentication, approved fixtures only, private 404, mutation 403, capture/upload disabled |
+| Desktop/tablet/mobile layout and actual screenshot inspection | PASS: eight routes, 24 viewport checks without page overflow; additional paired-collection screenshots |
+| Original Step 3 data preservation | PASS: baseline 82 experiments, 11 references, 41 artifact identities/fields and 10 sessions retained; additions allowed |
+| Ordinary smoke and 11-condition synthetic research smoke | PASS; original 1,801-row Parquet read, source preservation and actual reports |
+| Package advisory scan | Runtime npm 0; pinned Python 35 packages / 0 known findings; 10 moderate development-tool findings remain |
+| Phone helper / default and production-prep Compose configuration | Syntax/render checks PASS; no LAN listener/trust/firewall change performed |
 
-The original Step 2 demo remains `3a29c800-519d-437e-85b0-5c7d712253f0`, with 1,801 samples read from its retained Parquet. The new paired fixture is `d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472`, with 801 generated IMU rows and 241 analytical landmark observations. Existing sessions and original source volumes were retained.
+The actual permitted clip produced 83 playback-worker observations at 13.85 Hz with 360 ms maximum gap, and 149 seek/backpressure observations at 24.67 Hz with 80 ms maximum gap, at a nominal 30 Hz target. The actual main-thread fallback completed 49 frames. These are source observation/cadence measurements, not throughput or tennis accuracy.
 
-Final actual real-clip evidence: 87 worker frames, achieved 14.53 Hz against a 30 Hz target, maximum gap 400 ms; 48 main-thread fallback frames at the standard target. The recorded exploratory video configuration produces nine wrist-speed events, with evaluation null. These values describe this integration run and do not establish tennis accuracy.
+Same-history profiling measured 3,335,773 bytes for 50 full experiment results versus 281,249 bytes for summaries plus one selected full result. Current screenshot/navigation measurements and exact scope are retained; no production benchmark is claimed.
 
-Synthetic clean modes recover two generator events. Missing-window and occlusion conditions retain missed references; +1 second sync error removes both associations; full occlusion explicitly fails without metrics. All values come from stored computations. See [local conditions](evidence/step3-local-verification.json), [browser summary](evidence/step3-browser-verification.json), and [readiness](evidence/local-verification.json). Screenshots and traces are local ignored artifacts. No remote CI result is claimed.
+Evidence: [ordinary readiness](evidence/step4-readiness-verification.json), [full browser](evidence/step4-browser-verification.json), [focused final ingestion](evidence/step4-final-ingestion-verification.json), [access restrictions](evidence/step4-access-verification.json), [preservation](evidence/step4-preservation-verification.json), [synthetic conditions](evidence/step4-local-verification.json), [history profile](evidence/step4-history-profile.json), [final layout/performance](evidence/step4-final-performance.json), [advisories](evidence/step4-dependency-audit.json). Screenshots and the actual synthetic PDF are retained locally under ignored `docs/evidence/step4-*` paths. Historical Step 3 evidence remains separate.
 
 ## Known limits
 
-- No independently labeled paired tennis study, impact validation, calibrated confidence, trained movement classifier, held-out player evaluation or demonstrated real-world fusion improvement.
-- Sampling targets are not exhaustive decoding guarantees. Visibility, gaps, camera geometry, device/browser scheduling and perspective limit localization. Physical iOS/Android and non-Chromium runs remain unverified.
-- Offset-only alignment; no automatic drift fitting. Pairing, placement and label independence are user attestations. No cohort/bootstrap summaries or structured inter-rater uncertainty computation.
-- Matching caps each list at 2,000 events. Default experiment history returns the latest 50 (API maximum 200). Initial replay pose fetching caps at 10,000 frames; long dense tracks can lack late overlays while inference still reads the full artifact.
-- No automatic transcoding; full rotated/portrait/VFR/nonzero-origin/max-size real-recording coverage is not established. Existing CSV locale/ZIP and general job-retry limits remain.
-- Single-user loopback application. Public identity/security/deployment readiness is not claimed. Existing deprecation/tooling warnings and the historical dependency-advisory scan are documented in TESTING.
+Physical iOS/Android and a consented paired tennis pilot remain unverified. Capture is foreground/in-memory until save/export; browser support, missed channels, interruption, codec and clock limits remain. Offset-only alignment does not repair drift. Pairing/placement/consent are operator attestations. No independently labeled held-out tennis accuracy, trained movement classifier, calibrated confidence, racket orientation/trajectory or ball-impact validation is claimed.
 
-## Review locally and next stage
+Public multiuser identity, disposable mutation isolation, object storage/direct upload, distributed quotas and public security certification are not implemented. Readonly demos require fresh dedicated fixture-only volumes and independent review. The optional shared workspace gate is not multiuser authorization. Ten moderate development-only package findings and an unperformed container OS scan remain. Backup/restore is documented; the live project was not destructively restored.
 
-Services are left running locally with retained database/artifact volumes. If stopped, use:
+## Review locally
 
 ```powershell
 Set-Location C:\RallySenseLab
 docker compose up -d --build
 ```
 
-Open `http://127.0.0.1:3000`, enter a session and select **Sensor Fusion Challenge**. Choose **Open paired synthetic lab**, freeze the generated references, run/compare the modes and try a controlled sync error. The full report is [STEP3_REPORT.md](STEP3_REPORT.md); methods are in [RESEARCH.md](RESEARCH.md); the practical workflow and real paired-collection guide are in [EXPERIMENTS.md](EXPERIMENTS.md). Exact tests/startup/API details are in [TESTING.md](TESTING.md), [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md), and [API.md](API.md).
+Open `http://127.0.0.1:3000`. Explore the ordinary or paired synthetic demo, follow/dismiss guidance, run/compare modes, introduce a controlled failure and inspect its actual report. Collection studio handles actual capture/import, quality and cue alignment. System readiness shows live services and processing state.
 
-Step 4 recommendations are recorded, but no Step 4 work is authorized or begun. Stop after this Step 3 handoff and await the user's explicit instruction.
+The full implementation/checks/limits are in [STEP4_REPORT](STEP4_REPORT.md); startup in [LOCAL_DEVELOPMENT](LOCAL_DEVELOPMENT.md); collection in [DATA_COLLECTION](DATA_COLLECTION.md) and [REAL_WORLD_PILOT](REAL_WORLD_PILOT.md); handoff in [PROJECT_HANDOFF](PROJECT_HANDOFF.md); future hosting barriers in [DEPLOYMENT](DEPLOYMENT.md). The working tree is checked after the local checkpoint. No Step 5 work is authorized.
 
-**STEP 3 COMPLETE - AWAITING USER AUTHORIZATION FOR STEP 4.**
+**STEP 4 COMPLETE - AWAITING USER AUTHORIZATION FOR STEP 5.**

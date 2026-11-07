@@ -117,6 +117,17 @@ def save_sync(session_id: UUID, payload: s.SyncCreate, db: Session = Depends(get
     sensor = owned(db, m.SensorRecording, payload.sensor_id)
     if sensor.session_id != session.id:
         raise DomainError("Sensor belongs to another session", "INVALID_REFERENCE", 409)
+    if payload.video_id:
+        video = owned(db, m.VideoAsset, payload.video_id)
+        if video.session_id != session.id:
+            raise DomainError("Video belongs to another session", "INVALID_REFERENCE", 409)
+    evidence = payload.evidence.model_dump()
+    if len(payload.evidence.cues) == 2:
+        first, last = payload.evidence.cues
+        if last.sensor_us <= first.sensor_us or last.video_us <= first.video_us:
+            raise DomainError("End cues must follow start cues in both clocks", "INVALID_CONFIGURATION")
+        evidence["end_residual_us"] = last.video_us - (last.sensor_us + payload.offset_us)
+        evidence["drift_corrected"] = False
     latest = db.scalars(
         select(m.SyncConfiguration)
         .where(m.SyncConfiguration.session_id == session.id)
@@ -127,6 +138,9 @@ def save_sync(session_id: UUID, payload: s.SyncCreate, db: Session = Depends(get
         sensor_id=sensor.id,
         offset_us=payload.offset_us,
         revision=latest.revision + 1 if latest else 1,
+        video_id=str(payload.video_id) if payload.video_id else None,
+        evidence=evidence,
+        method="manual_cues" if payload.evidence.cues else "manual_offset",
     )
     db.add(sync)
     db.flush()

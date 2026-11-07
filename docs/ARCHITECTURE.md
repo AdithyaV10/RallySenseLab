@@ -18,7 +18,7 @@ MediaPipe extraction supports the original 10 Hz target and an optional 30 Hz ta
 
 Build one local monorepo with a Next.js web application and a modular FastAPI backend. A worker process imports the same Python application modules and claims durable jobs from PostgreSQL; it is not a separate service domain. Browser MediaPipe handles pose extraction. Python handles sensor normalization, numerical inference, and later evaluation. No Redis, cloud service, trained movement model, or GPU is necessary for the MVP.
 
-Step 2 implements ingestion, real pose processing, an IMU baseline, manual alignment, replay, annotations, and a synthetic demonstration. Step 3 adds video event detection, temporal association, experiments and evaluation. Phone recording completion and product hardening remain Step 4. Step 5 independently audits the result. The user must authorize each subsequent stage.
+Step 2 implements ingestion, real pose processing, an IMU baseline, manual alignment, replay, annotations, and a synthetic demonstration. Step 3 adds video event detection, temporal association, experiments and evaluation. Step 4 adds browser recording where supported, collection metadata, synchronization evidence, replay/report polish and product hardening. Step 5 independently audits the result. The user must authorize each subsequent stage.
 
 ```mermaid
 flowchart LR
@@ -119,3 +119,9 @@ Measure upload/normalization time, extraction frames per second and coverage, in
 Plan Docker Compose services for web, API, worker, and PostgreSQL with private storage and DB volumes, health/readiness probes, nonroot application containers, and a one-shot migration command. Pin dependency locks and container digests during implementation. Separate liveness from database/storage readiness. S3 migration replaces the storage adapter, not computational interfaces. There is no Sites hosting integration: this user-requested local Python/PostgreSQL architecture is outside that hosting runtime and publication is explicitly unauthorized.
 
 Use Pytest for numerics, API, storage safety, and PostgreSQL integration; Vitest/Testing Library for timeline controls and state; Playwright for the synthetic end-to-end flow. Actual browser pose validation needs a licensed real clip and model asset; a mock or synthetic skeleton does not satisfy that check. CI should run type checking, lint, unit/integration tests, migrations, production build, and a Compose smoke test. Test fixtures and expected mathematical outcomes are specified in [implementation plan](IMPLEMENTATION_PLAN.md).
+
+## Step 4 additions
+
+Collection remains browser capture -> normal multipart import -> durable source job -> immutable artifact/normalized source. Additive migration `0003_collection_readiness` stores revisioned collection profiles, optional sync-video ownership and cue evidence, plus a real worker heartbeat. Future experiment manifests freeze collection/evidence; earlier manifests remain unchanged. Browser camera streaming WebM can receive a bounded video-only container remux; original artifact/hash are retained and encoded frames copied. No object-store adapter or trained inference service was added.
+
+Replay fetches bounded timestamp windows around the cursor, including late dense tracks; scientific inference still reads full artifacts. Optional seek/backpressure keeps actual presented timestamps and serializes observation processing; playback worker/fallback remain supported. Challenge requests history summaries and selected full details. Read-only visibility is centralized in the session ownership guard and rejects all mutation methods. The optional Node Next proxy workspace gate and trusted LAN preparation do not establish public multiuser security. See DEPLOYMENT and DATA_COLLECTION.

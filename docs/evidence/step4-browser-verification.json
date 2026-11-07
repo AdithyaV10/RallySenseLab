@@ -1,0 +1,42 @@
+{
+  "scope": "Local production Chromium; actual backend; software DeviceMotion and camera fixtures; actual permitted MediaPipe clip; no physical device validation",
+  "stats": {
+    "startTime": "2026-11-07T03:37:56.143Z",
+    "duration": 96995.683,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "annotations": [
+    {
+      "type": "capture-verification-scope",
+      "description": "Injected synthetic DeviceMotion events; actual UI, CSV transport, PostgreSQL, worker normalization and detector. No physical hardware."
+    },
+    {
+      "type": "actual-research-results",
+      "description": "{\"session\":\"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\"imu\":\"3a7465a9-c1fe-4a55-b824-05d73f3a2743\",\"video\":\"8f37100f-1a19-4ffc-8ff8-8c7489bfa4f8\",\"fusion\":\"8c3e7ef1-e26b-4d13-9597-e858996b5fcc\",\"degraded\":\"771687d8-f0d3-43f4-ba3c-4ef83f571827\",\"clean_fusion_events\":2,\"degraded_fusion_events\":0,\"evidence\":\"synthetic software verification only\"}"
+    },
+    {
+      "type": "measured-dense-pose-cadence",
+      "description": "{\"track_id\":\"ac052004-5212-4061-968c-139ab15c52e5\",\"target_hz\":30,\"quality\":{\"end_us\":6000000,\"start_us\":80000,\"max_gap_us\":360000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":80000,\"detected_frames\":83,\"processed_frames\":83,\"detection_fraction\":1,\"observed_sample_hz\":13.85135135135135}}"
+    },
+    {
+      "type": "actual-pose-execution",
+      "description": "Complete \u00b7 83 sampled frames \u00b7 worker"
+    },
+    {
+      "type": "measured-seek-pose-cadence",
+      "description": "{\"track_id\":\"c817ffe7-9adc-4571-81fa-a2ef6d273863\",\"quality\":{\"end_us\":6000000,\"start_us\":0,\"max_gap_us\":80000,\"coverage_note\":\"Sampled browser frames; not exhaustive video decoding\",\"median_gap_us\":40000,\"detected_frames\":149,\"processed_frames\":149,\"detection_fraction\":1,\"observed_sample_hz\":24.666666666666668},\"scope\":\"Actual permitted sample clip; software integration only\"}"
+    },
+    {
+      "type": "actual-fallback-execution",
+      "description": "Complete \u00b7 49 sampled frames \u00b7 main_thread_fallback"
+    },
+    {
+      "type": "actual-stored-pose-inference",
+      "description": "{\"id\":\"5380dca2-579e-4f7e-95ab-667c2a0de595\",\"events\":3,\"evaluation\":null,\"evidence\":\"Official video integration input; no independent tennis ground truth\"}"
+    }
+  ]
+}

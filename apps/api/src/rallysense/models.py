@@ -44,6 +44,8 @@ class RecordingSession(Row, Base):
     notes: Mapped[str] = mapped_column(String(2000), default="")
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     demo_key: Mapped[str | None] = mapped_column(String(80), unique=True)
+    collection_profile: Mapped[dict] = mapped_column(JSONB, default=dict, server_default="{}")
+    collection_revision: Mapped[int] = mapped_column(Integer, default=1, server_default="1")
 
 
 class Owned(Row):
@@ -107,6 +109,8 @@ class SyncConfiguration(Owned, Base):
     sensor_id: Mapped[str] = mapped_column(ForeignKey("sensor_recordings.id"))
     offset_us: Mapped[int] = mapped_column(BigInteger)
     method: Mapped[str] = mapped_column(String(40), default="manual_offset")
+    video_id: Mapped[str | None] = mapped_column(ForeignKey("video_assets.id"))
+    evidence: Mapped[dict] = mapped_column(JSONB, default=dict, server_default="{}")
     __table_args__ = (UniqueConstraint("session_id", "revision"),)
 
 
@@ -187,6 +191,13 @@ class Experiment(Owned, Base):
     reused_from_id: Mapped[str | None] = mapped_column(String(36))
 
 
+class WorkerHeartbeat(Base):
+    __tablename__ = "worker_heartbeats"
+    id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    heartbeat_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    state: Mapped[str] = mapped_column(String(20))
+
+
 # Enforce ownership in PostgreSQL as well as at the API boundary.
 for _table in list(Base.metadata.tables.values()):
     if "session_id" in _table.c:
@@ -196,7 +207,7 @@ for _model, _references in [
     (SensorRecording, {"raw_artifact_id": "artifacts", "normalized_artifact_id": "artifacts"}),
     (VideoAsset, {"artifact_id": "artifacts"}),
     (PoseTrack, {"video_id": "video_assets", "artifact_id": "artifacts"}),
-    (SyncConfiguration, {"sensor_id": "sensor_recordings"}),
+    (SyncConfiguration, {"sensor_id": "sensor_recordings", "video_id": "video_assets"}),
     (EventAnnotation, {"set_id": "annotation_sets"}),
     (InferenceRun, {"sensor_id": "sensor_recordings", "sync_id": "sync_configurations"}),
     (Prediction, {"run_id": "inference_runs"}),

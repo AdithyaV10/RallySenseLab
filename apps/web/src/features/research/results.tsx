@@ -1,5 +1,8 @@
 "use client";
 import { Experiment, modeOf, percent, millis, record } from "./types";
+import Link from "next/link";
+import { comparisonCompatible, comparisonInsight } from "./insights";
+import { FailureExplorer } from "./failure-explorer";
 
 export function ResultComparison({
   runs,
@@ -19,19 +22,7 @@ export function ResultComparison({
         </p>
       </div>
     );
-  const signature = (r: Experiment) =>
-    JSON.stringify([
-      r.manifest.reference,
-      record(r.manifest.request).start_us,
-      record(r.manifest.request).end_us,
-      record(r.manifest.request).tolerance_us,
-      record(r.manifest.request).comparison,
-      record(r.manifest.request).hypothesis,
-    ]);
-  const syncs = runs.map((r) => record(r.manifest.sync).id).filter(Boolean);
-  const comparable =
-    runs.every((r) => signature(r) === signature(runs[0])) &&
-    new Set(syncs).size <= 1;
+  const comparable = comparisonCompatible(runs);
   return (
     <>
       {!comparable && (
@@ -230,6 +221,12 @@ export function ResultComparison({
                 </div>
               )}
               <p className="research-evidence">{result.evaluation_note}</p>
+              {run.id !== runs[0].id && (
+                <p className="research-insight">
+                  {comparisonInsight(runs[0], run)}
+                </p>
+              )}
+              <FailureExplorer run={run} onSeek={onSeek} />
               <details>
                 <summary>Quality & failure inspection</summary>
                 <pre>
@@ -305,6 +302,12 @@ export function ResultComparison({
                 ))}
               </details>
               <div className="research-export">
+                <Link
+                  className="button secondary"
+                  href={`/experiments/${run.id}/report`}
+                >
+                  Print-ready report
+                </Link>
                 <a
                   className="button secondary"
                   href={`/api/v1/experiments/${run.id}/report`}

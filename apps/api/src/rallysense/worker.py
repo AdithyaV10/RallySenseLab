@@ -1,11 +1,12 @@
 import logging
 import threading
 import time
-from .jobs import claim_job, execute_job, heartbeat
+from .jobs import claim_job, execute_job, heartbeat, worker_pulse
 
 
 def run_one():
     claimed = claim_job()
+    worker_pulse("processing" if claimed else "idle")
     if not claimed:
         return False
     stop = threading.Event()
@@ -13,6 +14,7 @@ def run_one():
     def renew():
         while not stop.wait(20):
             heartbeat(*claimed)
+            worker_pulse("processing")
 
     thread = threading.Thread(target=renew, daemon=True)
     thread.start()
@@ -36,7 +38,7 @@ if __name__ == "__main__":
                 reconcile_storage()
                 next_maintenance = time.monotonic() + 3600
             if not run_one():
-                time.sleep(0.5)
+                time.sleep(2)
         except Exception:
             logging.exception("Worker polling failed")
             time.sleep(2)
