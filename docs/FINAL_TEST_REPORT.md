@@ -2,6 +2,8 @@
 
 Date: 2026-11-07. All verification was local. Starting checkpoint: `e80cd99`. Existing Step 4 claims were not treated as current passes. The interrupted Step 5 evidence is retained alongside the resumed final runs.
 
+Finalization review: 2026-11-08, America/New_York. The completed audit was already committed as `1063eba`. Only documentation/evidence consistency checks were needed: saved pass/fail outcomes, tracked unweakened regression tests, local report links, and retained preservation counts/hash results. No application or test source changed and no expensive suite was repeated. [Finalization evidence](evidence/step5/finalization-review.json) records these checks; the execution dates and results below remain those of the original runs.
+
 ## Outcomes
 
 | Check | Actual result | Evidence |
