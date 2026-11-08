@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-11-08T07:07:59.263700+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "-p",
+    "rallysense-demo-step55",
+    "-f",
+    "docker-compose.yml",
+    "-f",
+    "infrastructure/compose.restore-test.yml",
+    "run",
+    "--rm",
+    "--no-deps",
+    "-T",
+    "--volume",
+    "C:/RallySenseLab/scripts/prepare-demo-fixtures.py:/tmp/prepare-demo-fixtures.py:ro",
+    "api",
+    "sh",
+    "-c",
+    "alembic upgrade head && python /tmp/prepare-demo-fixtures.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 8.983,
+  "output": "{\"demo_session_ids\": [\"5cbd5528-9b69-482f-a95c-3de691055203\", \"181ca946-394a-4c5b-9361-85d87f1f7dd9\"], \"precomputed_experiments\": 3, \"source\": \"Only built-in generated synthetic fixtures; no local media imported\", \"next\": \"Inspect content; set explicit allowlist and demo_readonly mode; do not start public gateway without authorization\"}\n Volume rallysense-demo-step55_artifact_data Creating \n Volume rallysense-demo-step55_artifact_data Created \n Container rallysense-demo-step55-api-run-a015d18f361a Creating \n Container rallysense-demo-step55-api-run-a015d18f361a Created \n"
+}

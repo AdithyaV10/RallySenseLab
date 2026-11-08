@@ -1,0 +1,84 @@
+# Preparation only: do not start publicly without deployment authorization.
+# Use a NEW project/volumes for a public demo; never reuse the private local project.
+services:
+  db:
+    networks: [backend]
+    ports: !reset []
+    healthcheck:
+      test: ["CMD-SHELL", "PGPASSWORD=\"$$POSTGRES_PASSWORD\" psql -h 127.0.0.1 -U rallysense -d rallysense -Atc 'SELECT 1' >/dev/null"]
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Unique database password required}
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    logging: &logs
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  api:
+    image: ${API_IMAGE:?Pin the reviewed local API image tag or digest}
+    networks: [backend]
+    command: ["sh", "-c", "alembic upgrade head && uvicorn rallysense.main:app --host 0.0.0.0 --port 8000 --no-access-log --limit-concurrency 32 --timeout-keep-alive 5"]
+    ports: !reset []
+    environment: &release_api
+      ENVIRONMENT: production
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Unique internal token of at least 32 characters required}
+      APP_MODE: ${APP_MODE:?Choose local or demo_readonly deliberately}
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:-}
+      ALLOWED_HOSTS: api,127.0.0.1,localhost
+      ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:?Exact HTTPS origins required}
+      BUILD_ID: ${BUILD_ID:?Reviewed image/commit identity required}
+      MAX_UPLOADS_PER_MINUTE: 12
+      MAX_REQUESTS_PER_MINUTE: 600
+    mem_limit: 1g
+    cpus: 2
+    pids_limit: 256
+    security_opt: [no-new-privileges:true]
+    logging: *logs
+  worker:
+    image: ${API_IMAGE:?Worker must use the identical reviewed API image}
+    networks: [backend]
+    environment: *release_api
+    mem_limit: 2g
+    cpus: 2
+    pids_limit: 256
+    security_opt: [no-new-privileges:true]
+    stop_grace_period: 150s
+    logging: *logs
+  web:
+    image: ${WEB_IMAGE:?Pin the reviewed local frontend image tag or digest}
+    networks: [backend, edge]
+    ports: !reset []
+    environment:
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Unique internal token required}
+      SITE_ACCESS_PASSWORD: ${SITE_ACCESS_PASSWORD:?Unique workspace password of at least 20 characters required}
+      REQUIRE_WORKSPACE_AUTH: "true"
+      WEB_ALLOWED_HOSTS: ${WEB_ALLOWED_HOSTS:?Exact hostnames required}
+      WEB_ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:?Exact HTTPS origins required}
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    security_opt: [no-new-privileges:true]
+    logging: *logs
+  gateway:
+    networks: [edge]
+    image: caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
+    restart: unless-stopped
+    environment:
+      RALLYSENSE_DOMAIN: ${RALLYSENSE_DOMAIN:?Reviewed public domain required}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./infrastructure/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: {web: {condition: service_started}}
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    logging: *logs
+volumes:
+  caddy_data:
+  caddy_config:
+networks:
+  backend:
+    internal: true
+  edge:

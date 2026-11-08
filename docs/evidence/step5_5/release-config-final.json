@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-08T07:11:07.604062+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-release-config.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.701,
+  "output": "{\n  \"scope\": \"Configuration rendering/assertions only; no services provisioned or public listeners started\",\n  \"modes\": [\n    {\n      \"mode\": \"demo_readonly\",\n      \"private_service_ports\": [],\n      \"gateway_ports\": [\n        80,\n        443\n      ],\n      \"api_worker_identical_image\": true,\n      \"required_authentication\": true,\n      \"backend_network_internal\": true,\n      \"readonly_artifact_mounts\": true,\n      \"resource_limits_present\": true\n    },\n    {\n      \"mode\": \"local\",\n      \"private_service_ports\": [],\n      \"gateway_ports\": [\n        80,\n        443\n      ],\n      \"api_worker_identical_image\": true,\n      \"required_authentication\": true,\n      \"backend_network_internal\": true,\n      \"readonly_artifact_mounts\": false,\n      \"resource_limits_present\": true\n    }\n  ]\n}\n"
+}

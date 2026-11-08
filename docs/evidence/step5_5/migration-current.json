@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-08T07:05:23.136318+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "exec",
+    "-T",
+    "api",
+    "alembic",
+    "current"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 2.348,
+  "output": "0003_collection_readiness (head)\n"
+}

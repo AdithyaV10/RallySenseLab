@@ -1,8 +1,12 @@
-# Known limitations at final audit
+# Known limitations and remediation status
+
+**Current status, 2026-11-08:** A01–A05 have verified corrections and A06 is retained. Their original findings below remain historical evidence. Current behavior, limits and regression results are in [STEP5_5_REMEDIATION_REPORT](STEP5_5_REMEDIATION_REPORT.md) and [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md). A07 remains open: ten moderate development-only advisories; npm runtime audit is clean. Docker Scout could not scan OS packages without Docker authentication.
+
+Current engineering limits include bounded 50/500 MiB uploads, two concurrent upload slots per process, 30 s idle/300 s total frontend upload handling, process-local request budgets, 30,000 pose observations/200 batches, offset-only synchronization, memory-backed unsaved collection buffers, single-person CPU pose extraction and one shared workspace identity. Filesystem/database commit failures still use delayed orphan reconciliation after file publication. Mode-aware readiness is a bounded storage/database probe, not a worker-capacity guarantee. Public release still needs the operational/human gates in [DEPLOYMENT_EXECUTION_PLAN](DEPLOYMENT_EXECUTION_PLAN.md).
 
 2026-11-07. See [FINAL_AUDIT](FINAL_AUDIT.md) for confirmed defects, severity and evidence. This inventory separates implemented behavior from research and release claims that have not been established.
 
-## Open defects and implemented fix
+## Original Step 5 defects and audit fix (historical)
 
 - **A01 HIGH:** Next global Proxy truncates multipart bodies around 10 MiB; both valid large CSV and MP4 web-upload regressions fail. Direct backend normalization/probing succeeds.
 - **A02 HIGH:** frozen dependency/runtime descriptors are recorded but not checked against the research worker's executing environment. Two mismatch regressions fail.
@@ -32,7 +36,7 @@ MediaPipe uses one person and CPU execution, with classic worker and initializat
 
 ## Operations, security and performance limits
 
-The system is one local workspace. UUIDs and a shared token/password are not tenant isolation. No per-user ownership model, public upload sandbox, distributed quotas, S3 adapter or signed direct multipart upload exists. Read-only fixture allowlisting cannot sanitize private content already attached to a fixture; public demos require fresh inspected volumes. Worker maintenance and already queued jobs are not disabled merely by HTTP read-only mode.
+The system is one local workspace. UUIDs and a shared token/password are not tenant isolation. No per-user ownership model, public upload sandbox, distributed quotas, S3 adapter or signed direct multipart upload exists. Read-only fixture allowlisting cannot sanitize private content already attached to a fixture; public demos require fresh inspected volumes. Step 5.5 workers refuse queued jobs and skip reconciliation when their own APP_MODE is demo_readonly; consistent API/worker configuration remains required.
 
 Bounded uploads, subprocess timeouts and restricted protocols are not comprehensive hostile-media containment. Full container OS scans, independent penetration testing, maximum concurrent load and disaster-recovery restore remain unperformed. Backups and migrations need an operational owner. Readiness does not currently detect every storage failure.
 

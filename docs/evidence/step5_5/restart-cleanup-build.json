@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:19:08.708068+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "up",
+    "-d",
+    "--no-build",
+    "--wait",
+    "--wait-timeout",
+    "60"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 35.061,
+  "output": " Container rallysense-db-1 Running \n Container rallysense-api-1 Recreate \n Container rallysense-api-1 Recreated \n Container rallysense-web-1 Running \n Container rallysense-worker-1 Recreate \n Container rallysense-worker-1 Recreated \n Container rallysense-db-1 Waiting \n Container rallysense-db-1 Healthy \n Container rallysense-api-1 Starting \n Container rallysense-api-1 Started \n Container rallysense-api-1 Waiting \n Container rallysense-api-1 Waiting \n Container rallysense-api-1 Healthy \n Container rallysense-worker-1 Starting \n Container rallysense-api-1 Healthy \n Container rallysense-worker-1 Started \n Container rallysense-worker-1 Waiting \n Container rallysense-web-1 Waiting \n Container rallysense-db-1 Waiting \n Container rallysense-api-1 Waiting \n Container rallysense-web-1 Healthy \n Container rallysense-api-1 Healthy \n Container rallysense-db-1 Healthy \n Container rallysense-worker-1 Healthy \n"
+}

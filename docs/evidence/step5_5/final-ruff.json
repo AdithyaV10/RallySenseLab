@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-11-08T07:12:36.256594+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "apps/api/migrations",
+    "apps/api/audit",
+    "scripts/record-check.py",
+    "scripts/check-research-preservation.py",
+    "scripts/check-release-config.py",
+    "scripts/backup-workspace.py",
+    "scripts/prepare-demo-fixtures.py",
+    "scripts/verify-upload-boundaries.py",
+    "scripts/verify-storage-readiness.py",
+    "scripts/audit-access.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.112,
+  "output": "All checks passed!\n"
+}

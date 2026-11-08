@@ -1,0 +1,214 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "audit.config.ts"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\web\\audit.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/web/audit",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/apps/web/audit-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/RallySenseLab/apps/web/audit",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\RallySenseLab\\apps\\web\\audit-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "C:\\RallySenseLab\\apps\\web\\audit",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\web\\audit",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 120000,
+        "use": {
+          "baseURL": "http://127.0.0.1:3000",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "audit-results/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "uploads.spec.ts",
+      "file": "uploads.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "advertised csv upload accepts an intact body above 10 MiB",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "actual-upload-comparison",
+                  "description": "{\"bytes\":11590089,\"sha256\":\"cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":202}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T07:20:05.911Z",
+                  "annotations": [
+                    {
+                      "type": "actual-upload-comparison",
+                      "description": "{\"bytes\":11590089,\"sha256\":\"cbecafa74bf4bf8fb644ec8d929580996a6279b109e226ca5c1e9feb47537545\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":202}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff8464a04b8fdee8ce18-1a1fe5d8b5dfd6c7ecca",
+          "file": "uploads.spec.ts",
+          "line": 8,
+          "column": 7
+        },
+        {
+          "title": "advertised video upload accepts an intact body above 10 MiB",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [
+                {
+                  "type": "actual-upload-comparison",
+                  "description": "{\"bytes\":12585195,\"sha256\":\"915909ec29d498071d9f3f259f5ed5e089da64beb82cdfaa6618f23df87841ab\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":202}"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-08T07:20:22.064Z",
+                  "annotations": [
+                    {
+                      "type": "actual-upload-comparison",
+                      "description": "{\"bytes\":12585195,\"sha256\":\"915909ec29d498071d9f3f259f5ed5e089da64beb82cdfaa6618f23df87841ab\",\"direct_status\":202,\"direct_job\":\"succeeded\",\"proxy_status\":202}"
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ff8464a04b8fdee8ce18-c31989e6d501d5d2a2c1",
+          "file": "uploads.spec.ts",
+          "line": 8,
+          "column": 7
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-08T07:20:05.195Z",
+    "duration": 21859.091,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

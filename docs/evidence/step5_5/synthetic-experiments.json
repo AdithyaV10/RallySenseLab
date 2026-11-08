@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:08:19.928346+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-research.py",
+    "--output",
+    "docs/evidence/step5_5/synthetic-experiments-results.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 24.329,
+  "output": "{\n  \"evidence_file\": \"C:\\\\RallySenseLab\\\\docs\\\\evidence\\\\step5_5\\\\synthetic-experiments-results.json\",\n  \"session_id\": \"d4eb12ca-ad5c-453a-b8ff-fc59ec5f6472\",\n  \"original_step2_samples\": 1801,\n  \"sources_unchanged\": true,\n  \"experiments\": [\n    {\n      \"name\": \"IMU clean\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 18.0\n    },\n    {\n      \"name\": \"Video clean\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 41.0\n    },\n    {\n      \"name\": \"Fusion clean\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 47.0\n    },\n    {\n      \"name\": \"IMU dropout 20%\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 13.0\n    },\n    {\n      \"name\": \"IMU gyro noise 0.3 rad/s\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 16.0\n    },\n    {\n      \"name\": \"IMU acceleration noise 1 m/s2\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 13.0\n    },\n    {\n      \"name\": \"IMU timestamp jitter 40%\",\n      \"status\": \"succeeded\",\n      \"events\": 2,\n      \"processing_ms\": 17.0\n    },\n    {\n      \"name\": \"IMU missing window\",\n      \"status\": \"succeeded\",\n      \"events\": 1,\n      \"processing_ms\": 14.0\n    },\n    {\n      \"name\": \"Fusion wrist occlusion\",\n      \"status\": \"succeeded\",\n      \"events\": 1,\n      \"processing_ms\": 45.0\n    },\n    {\n      \"name\": \"Fusion offset +1 second\",\n      \"status\": \"succeeded\",\n      \"events\": 0,\n      \"processing_ms\": 56.0\n    },\n    {\n      \"name\": \"Video full occlusion\",\n      \"status\": \"failed\",\n      \"events\": 0,\n      \"processing_ms\": 33.0\n    }\n  ]\n}\n"
+}

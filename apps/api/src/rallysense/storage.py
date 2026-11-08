@@ -20,8 +20,12 @@ def put_bytes(db, session_id: str, content: bytes, kind: str) -> Artifact:
     target = resolve(key)
     target.parent.mkdir(parents=True, exist_ok=True)
     staging = target.with_suffix(".part")
-    staging.write_bytes(content)
-    os.replace(staging, target)
+    try:
+        staging.write_bytes(content)
+        os.replace(staging, target)
+    finally:
+        # A failed write/rename must not leave a partial upload on disk.
+        staging.unlink(missing_ok=True)
     artifact = Artifact(
         session_id=session_id,
         storage_key=key,

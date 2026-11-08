@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:05:32.880150+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/web",
+    "run",
+    "test:e2e",
+    "--",
+    "--config",
+    "audit.config.ts"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 19.005,
+  "output": "\n> rallysense-web@0.2.0 test:e2e\n> playwright test --config audit.config.ts\n\n\nRunning 2 tests using 1 worker\n\n  ok 1 [chromium] \u203a audit\\uploads.spec.ts:8:7 \u203a advertised csv upload accepts an intact body above 10 MiB (12.7s)\n  ok 2 [chromium] \u203a audit\\uploads.spec.ts:8:7 \u203a advertised video upload accepts an intact body above 10 MiB (4.2s)\n\n  2 passed (17.5s)\n(node:4436) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+}

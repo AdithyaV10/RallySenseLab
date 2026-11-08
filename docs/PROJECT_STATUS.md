@@ -1,42 +1,46 @@
 # Project status
 
-Updated: 2026-11-08, America/New_York. Audit execution completed on 2026-11-07; finalization reviewed the existing checkpoint and evidence without repeating the full suites.
+Updated: 2026-11-08, America/New_York.
 
-**Step 5 independent audit complete. Verdict: SIGNIFICANT FIXES REQUIRED.**
+**Step 5.5 remediation complete. SOFTWARE ACCEPTANCE PASSED; PUBLIC DEPLOYMENT ACCEPTANCE PENDING.**
 
-Starting checkpoint: `e80cd99`. Completed technical audit checkpoint: `1063eba`. It contains the audit, evidence, failing acceptance gates and the source-job state repair. The subsequent finalization checkpoint records this status review and evidence consistency checks; obtain its ID with `git log -1 --format=%h`.
+Authorization: [Step 5.5 specification](STEP5_5_SPECIFICATION.md). Starting checkpoint: `be725ae5cb474c74c84a3d2357565facd0f6d997`. The final local checkpoint contains corrections, original regression gates, new tests, evidence and release preparation. Obtain its ID with `git log -1 --format=%H`. No deployment, cloud provisioning or remote push occurred.
 
-Authorization: [original Step 5 specification](STEP5_SPECIFICATION.md) and [resume instructions](STEP5_RESUME_SPECIFICATION.md). No remediation stage, deployment, publication, remote push or cloud provisioning is authorized.
+## Confirmed outcomes
 
-## Verified outcomes
+- A01: independently authenticated bounded streaming uploads; actual 50 MiB CSV and 500 MiB MP4 passed through the web path with worker success and identical stored hashes. No large Next Proxy clone buffer.
+- A02: frozen dependency/Python/numerical runtime enforcement for research and legacy inference; actual executor identity recorded; historical completed results unchanged.
+- A03: bounded byte/count batching and total observation cap; 18,000 observations passed ordinary staged ingestion, with retry/conflict/completion checks.
+- A04: writable write/read/fsync/remove/free-space readiness and read-only approved-fixture readability. Actual unwritable storage returns generic 503.
+- A05: synchronization revision/offset participate in replay cache identity; browser verifies positive/negative offsets, partial and empty coverage without reload.
+- A06 terminal-state repair remains covered. A07 remains ten moderate development-tool advisories; npm runtime scan reports zero.
 
-- Packaged backend: **52 passed**, zero failed/skipped.
+## Actual verification
+
+- Backend: **65 passed**, zero failed/skipped, six deprecation warnings.
 - Frontend units: **15 passed**.
-- Standard production Chromium: **8 passed**, zero failed/skipped/flaky; actual MediaPipe worker, seek and fallback ran.
-- Additional audit gates: **four genuine failures**: two large-upload and two frozen-runtime mismatch cases. They remain failing tests, not skips.
-- Types, lint, contracts, migration consistency and production builds passed. Eleven synthetic conditions produced their expected software outcomes.
-- Production-container gate/readonly checks passed; 16 desktop/mobile navigation checks had no overflow/page errors.
-- Restart preservation retained the pre-audit baseline: 113 experiments, 16 references, 93 artifact identities and 35 active sessions. Artifact bytes were also checked against SHA-256. No user data was reset.
-- Finalization rechecked the saved outcomes, tracked regression tests, report links and preservation records. The final recorded artifact check covered **116 files, zero missing and zero hash mismatches**. These are retained audit results, not a newly repeated live-data verification. See [finalization evidence](evidence/step5/finalization-review.json).
+- Standard production browser: **9 passed**, zero failed/skipped/flaky, including actual MediaPipe worker/seek/fallback.
+- Original audit gates: **2 upload + 2 runtime cases passed**, no weakened assertions or skip/xfail.
+- Real upload boundary/adversarial probe: **14 cases passed**, including chunked limits, hashes, aborts, idle timeout, concurrency, invalid Origin/Host and malformed requests.
+- Types, ESLint, Ruff, contracts, migration consistency and production image builds passed. Head remains `0003_collection_readiness`; no schema migration was added.
+- Eleven synthetic scientific conditions had expected software outcomes; no real-world tennis accuracy was claimed.
+- Production-image access checks, both release configuration modes, fresh synthetic-only read-only fixtures, restart and ordinary smoke passed.
+- A paired backup/isolated restore matched **17 table digests and 116 then-current artifacts**. Original and test recovery volumes were retained.
+- Full original-row preservation passed across 12 model inventories. Baseline includes 134 experiments, 19 frozen references, 116 artifacts, 43 active sessions and original annotations/legacy runs/poses/syncs. The final complete artifact scan checked **139 files: zero missing/mismatched**.
 
-## Findings
+The browser annotation test now uses a dedicated new set. Its earlier three revision-counter increments on an existing synthetic set were restored using the isolated pre-test backup and an exact baseline hash guard; no annotation values or frozen records changed. Historical Step 5 failure evidence and Step 4 camera evidence are preserved.
 
-A01 HIGH: web multipart uploads truncate around 10 MiB despite larger advertised limits.
-A02 HIGH: workers do not enforce the frozen dependency/runtime identity.
-A03 MEDIUM: browser extraction reaches the batch limit after 10,000 observations.
-A04 MEDIUM: readiness can report ready with unwritable artifact storage.
-A05 MEDIUM: alignment changes reuse stale zoomed sample windows.
-A06 MEDIUM, fixed: terminal job state now propagates to source/run targets, preserving published results.
-A07 LOW runtime relevance: ten moderate development-tool advisories remain.
+## Release handoff
 
-Numerical methods, event meanings and historical completed results were preserved. Gyro peaks are signal events, visual peaks are image wrist-speed events, and fusion is temporal association. No real tennis accuracy or physical-phone verification was fabricated.
+- [Implementation report](STEP5_5_REMEDIATION_REPORT.md)
+- [Release acceptance and exact checks](RELEASE_ACCEPTANCE.md)
+- [Deployment execution plan](DEPLOYMENT_EXECUTION_PLAN.md)
+- [Current readiness](DEPLOYMENT_READINESS.md) and [known limitations](KNOWN_LIMITATIONS.md)
 
-## Handoff
+Mode A is a fresh curated read-only workspace with approved generated fixtures and precomputed results; it was verified locally with read-only artifact mounts and no exposed ports. Mode B is an authenticated shared research workspace with functioning uploads and scientific workflows. Neither is a public anonymous multiuser service.
 
-Read [FINAL_AUDIT](FINAL_AUDIT.md), [FINAL_TEST_REPORT](FINAL_TEST_REPORT.md), [DEPLOYMENT_READINESS](DEPLOYMENT_READINESS.md), [KNOWN_LIMITATIONS](KNOWN_LIMITATIONS.md) and [REMEDIATION_PLAN](REMEDIATION_PLAN.md).
+Before public deployment: authenticate and review OS/FFmpeg/base-image scans (Docker Scout was blocked by missing Docker login), approve fixture/licenses/content, configure and verify actual host/domain/TLS/firewall/secrets, establish off-host backup retention/monitoring, and validate resource budgets on the target host. Physical phones and independent paired-tennis validation remain unverified. No clean OS scan or deployment result is invented.
 
-The fastest safe deployment path is a separately authorized fresh fixture-only, precomputed read-only Compose environment behind TLS/access controls, with private API/DB, inspected content, bounded resources, image scans and a tested backup restore. Writable operation additionally requires the upload/runtime and collection/replay fixes. No deployment occurred.
+Local startup from `C:\RallySenseLab`: `docker compose up -d --build --wait --wait-timeout 60`; open http://127.0.0.1:3000. Existing volumes are retained. Private backup and stopped isolated restore/demo projects remain local; do not reset or remove them as part of startup.
 
-Local startup: `docker compose up -d --build` from `C:\RallySenseLab`; open http://127.0.0.1:3000. Existing volumes remain intact. Docker Desktop's stalled startup was recovered without resetting volumes. Remaining physical-device, research and operational verification is explicit in the reports.
-
-**STEP 5 COMPLETE - FINAL AUDIT DELIVERED. AWAITING HUMAN REVIEW BEFORE REMEDIATION AND DEPLOYMENT.**
+**STEP 5.5 COMPLETE - REMEDIATION AND RELEASE ACCEPTANCE DELIVERED. AWAITING DEPLOYMENT AUTHORIZATION.**

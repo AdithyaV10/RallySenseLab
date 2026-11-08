@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-08T07:07:16.857784+00:00",
+  "command": [
+    "docker",
+    "scout",
+    "cves",
+    "--only-severity",
+    "critical,high",
+    "--format",
+    "sarif",
+    "--output",
+    "storage/step55-api-cves.sarif",
+    "local://rallysense-api:local"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.724,
+  "output": "    i New version 1.29.0 available (installed version is 1.21.0) at https://github.com/docker/scout-cli\nLog in with your Docker ID or email address to use docker scout.\n\nIf you don't have a Docker ID, head over to https://hub.docker.com to\ncreate one. You can log in with your password or a Personal Access Token (PAT)\nby running docker login.\nUsing a limited-scope PAT grants better security and is required for organizations\nusing SSO. Learn more at https://docs.docker.com/go/access-tokens/\n\nYou can also log in using Docker Desktop.\n"
+}

@@ -1,5 +1,6 @@
 """Step 5 disposable loopback-only gate/read-only integration. Never provisions hosting."""
 
+import argparse
 import json
 import subprocess
 import time
@@ -8,6 +9,9 @@ from pathlib import Path
 import httpx
 
 names = ["rallysense-step5-web", "rallysense-step5-api"]
+parser = argparse.ArgumentParser()
+parser.add_argument("--output", default="docs/evidence/step5/access.json")
+args = parser.parse_args()
 password = "step5-disposable-local-gate-password"
 result = {
     "scope": "Temporary loopback production images, existing data read-only; no public exposure"
@@ -81,6 +85,7 @@ with httpx.Client(timeout=20) as client:
             for headers in [
                 {},
                 {"x-middleware-subrequest": "proxy:proxy:proxy:proxy:proxy"},
+                {"x-lab-token": "rallysense-local-development"},
             ]:
                 status = client.get(base + route, headers=headers).status_code
                 assert status == 401, (route, status)
@@ -94,6 +99,23 @@ with httpx.Client(timeout=20) as client:
                 break
             time.sleep(0.5)
         assert response.status_code == 200, (response.status_code, response.text)
+        spoofed = client.get(
+            base + "/api/v1/sessions",
+            headers={"x-lab-token": "spoofed-client-credential"},
+        )
+        assert spoofed.status_code == 200, (spoofed.status_code, spoofed.text)
+        assert (
+            client.get(
+                base + "/api/v1/sessions", headers={"origin": "https://foreign.invalid"}
+            ).status_code
+            == 403
+        )
+        assert (
+            client.get(
+                base + "/api/v1/sessions", headers={"host": "foreign.invalid"}
+            ).status_code
+            == 403
+        )
         visible = response.json()
         assert {s["id"] for s in visible} == {s["id"] for s in demos}
         private = next(
@@ -141,7 +163,5 @@ with httpx.Client(timeout=20) as client:
                 capture_output=True,
                 timeout=60,
             )
-Path("docs/evidence/step5/access.json").write_text(
-    json.dumps(result, indent=2), encoding="utf-8"
-)
+Path(args.output).write_text(json.dumps(result, indent=2), encoding="utf-8")
 print(json.dumps(result, indent=2))

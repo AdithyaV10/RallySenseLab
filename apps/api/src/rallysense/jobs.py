@@ -16,7 +16,7 @@ from .schemas import SensorMapping, DetectorConfig
 from .signals import normalize_csv, parquet_bytes, detect_gyro
 from .storage import put_bytes, path_for, resolve
 from .media import prepare_video
-from .provenance import input_manifest
+from .provenance import input_manifest, validate_execution_environment, execution_environment
 from .pose_features import derive_features
 
 
@@ -107,10 +107,25 @@ def compute(db, job):
         )
     if job.kind == "inference":
         run = db.get(m.InferenceRun, job.target_id)
+        manifest = run.result.get("input_manifest", {})
+        executor = validate_execution_environment(manifest)
         sensor = db.get(m.SensorRecording, run.sensor_id)
         sync = db.get(m.SyncConfiguration, run.sync_id)
+        artifact = db.get(m.Artifact, sensor.normalized_artifact_id)
+        actual = input_manifest(job.session_id, artifact.sha256, sync.id, run.config)
+        if manifest.get("implementation_sha256") != actual["implementation_sha256"]:
+            raise DomainError(
+                "Implementation changed since enqueue; create a new run", "IMPLEMENTATION_CHANGED"
+            )
+        if hashlib.sha256(
+            path_for(db, sensor.normalized_artifact_id, job.session_id).read_bytes()
+        ).hexdigest() != manifest.get("artifact_sha256"):
+            raise DomainError("Input artifact differs from frozen manifest", "INPUT_CHANGED")
         table = pq.read_table(path_for(db, sensor.normalized_artifact_id, job.session_id))
-        return detect_gyro(table, DetectorConfig.model_validate(run.config), sync.offset_us)
+        return {
+            **detect_gyro(table, DetectorConfig.model_validate(run.config), sync.offset_us),
+            "executor": executor,
+        }
     if job.kind == "delete_session":
         return None
     raise DomainError("Unknown job kind")
@@ -334,9 +349,16 @@ def execute_job(job_id, token):
                 }.get(job.kind)
                 if model and (target := db.get(model, job.target_id)):
                     target.status = "failed"
+                    if job.kind in {"experiment", "inference"}:
+                        target.result = {
+                            **target.result,
+                            "executor": execution_environment(),
+                            "failure_code": exc.code if isinstance(exc, DomainError) else "PROCESSING_FAILED",
+                        }
                     if job.kind == "experiment":
                         target.error = job.error
                         target.result = {
+                            **target.result,
                             "processing_ms": round((time.perf_counter() - start) * 1000),
                             "failure_code": exc.code if isinstance(exc, DomainError) else "PROCESSING_FAILED",
                         }

@@ -1034,6 +1034,16 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoseComplete",
+                "default": {}
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -3166,6 +3176,25 @@
           "frames"
         ],
         "title": "PoseBatchIn"
+      },
+      "PoseComplete": {
+        "properties": {
+          "expected_frames": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 30000.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Frames"
+          }
+        },
+        "type": "object",
+        "title": "PoseComplete"
       },
       "PoseFrame": {
         "properties": {

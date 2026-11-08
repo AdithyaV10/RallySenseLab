@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-11-08T06:58:06.383353+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "apps/api/migrations",
+    "apps/api/audit",
+    "scripts/record-check.py",
+    "scripts/check-research-preservation.py",
+    "scripts/backup-workspace.py",
+    "scripts/verify-upload-boundaries.py",
+    "scripts/audit-access.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.154,
+  "output": "All checks passed!\n"
+}

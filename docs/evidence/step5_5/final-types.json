@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-08T07:12:22.050017+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/web",
+    "run",
+    "typecheck"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 21.704,
+  "output": "\n> rallysense-web@0.2.0 typecheck\n> next typegen && tsc --noEmit\n\nGenerating route types...\n\u2713 Types generated successfully\n"
+}

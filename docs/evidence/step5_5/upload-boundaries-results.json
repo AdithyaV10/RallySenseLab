@@ -1,0 +1,110 @@
+{
+  "scope": "Synthetic loopback tests; exact 50/500 MiB file bounds, chunked bodies, real workers, stored byte hashes, abort and concurrency",
+  "cases": [
+    {
+      "case": "csv_exact_file_limit_chunked",
+      "status": 202,
+      "elapsed_s": 4.256,
+      "bytes": 52428800,
+      "stored_sha256": "c9ac0d893ef8c510e7d6b1a466c16527384723d738282ad3692e39cdab0f4be7",
+      "actual_sha256": "c9ac0d893ef8c510e7d6b1a466c16527384723d738282ad3692e39cdab0f4be7"
+    },
+    {
+      "case": "csv_file_limit_plus_one",
+      "status": 413
+    },
+    {
+      "case": "video_exact_file_limit_chunked",
+      "status": 202,
+      "elapsed_s": 7.621,
+      "bytes": 524288000,
+      "stored_sha256": "f7db71500abfd4946f151acb277c35b2d732f6e72c16732aa0e2433c39ab28b4",
+      "actual_sha256": "f7db71500abfd4946f151acb277c35b2d732f6e72c16732aa0e2433c39ab28b4"
+    },
+    {
+      "case": "video_file_limit_plus_one",
+      "status": 413
+    },
+    {
+      "case": "chunked_total_body_over_51_mib",
+      "status": 413
+    },
+    {
+      "case": "multipart_request_content_length_over_limit",
+      "status": 413
+    },
+    {
+      "case": "malformed_multipart",
+      "status": 400
+    },
+    {
+      "case": "foreign_origin",
+      "status": 403
+    },
+    {
+      "case": "foreign_host",
+      "status": 403
+    },
+    {
+      "case": "missing_client_guard",
+      "status": 403
+    },
+    {
+      "case": "third_inflight_upload",
+      "status": 429,
+      "active_limit": 2
+    },
+    {
+      "case": "two_aborted_uploads",
+      "published_videos": 0
+    },
+    {
+      "case": "idle_upload_timeout",
+      "status": 408,
+      "elapsed_s": 32.74
+    },
+    {
+      "case": "two_concurrent_valid_uploads",
+      "statuses": [
+        202,
+        202
+      ],
+      "worker_results": [
+        "succeeded",
+        "succeeded"
+      ],
+      "hashes_verified": true
+    }
+  ],
+  "memory_before": {
+    "web_process": "Name:\tnext-server (v\nVmHWM:\t   99464 kB\nVmRSS:\t   99464 kB",
+    "api_processes": [
+      {
+        "Name": "sh",
+        "VmRSS": "1648 kB",
+        "VmHWM": "1648 kB"
+      },
+      {
+        "Name": "uvicorn",
+        "VmRSS": "203464 kB",
+        "VmHWM": "203464 kB"
+      }
+    ]
+  },
+  "memory_after": {
+    "web_process": "Name:\tnext-server (v\nVmHWM:\t  208756 kB\nVmRSS:\t  184592 kB",
+    "api_processes": [
+      {
+        "Name": "sh",
+        "VmRSS": "1648 kB",
+        "VmHWM": "1648 kB"
+      },
+      {
+        "Name": "uvicorn",
+        "VmRSS": "206784 kB",
+        "VmHWM": "254120 kB"
+      }
+    ]
+  },
+  "memory_note": "VmHWM is the kernel-observed process lifetime peak RSS, including earlier checks; not isolated upload-only RSS or a production capacity benchmark."
+}

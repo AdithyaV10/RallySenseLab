@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-08T07:00:02.019020+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "exec",
+    "-T",
+    "api",
+    "python",
+    "/tmp/verify-storage-readiness.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 7.821,
+  "output": "{\"artifact_files_checked\": 116, \"missing\": 0, \"mismatched\": 0, \"nonroot_unwritable_storage_status\": 503, \"writable_ready\": true, \"probe_files_remaining\": 0}\n"
+}

@@ -1,4 +1,6 @@
 # Preparation only. Remains loopback-bound; a reviewed TLS/access layer is required before any public use.
+# Legacy Step 4 preparation snapshot. Current reviewed release path is compose.release.yml
+# plus compose.readonly.yml when applicable; see docs/DEPLOYMENT_EXECUTION_PLAN.md.
 # Use with the base Compose file AFTER Step 5 authorization. Never point a public demo at private volumes.
 services:
   api:

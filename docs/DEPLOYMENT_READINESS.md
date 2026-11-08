@@ -1,5 +1,17 @@
 # Deployment readiness decision
 
+## Current Step 5.5 decision, 2026-11-08
+
+**Application remediation delivered; public release remains conditional on operational and human acceptance.** A01–A05 are repaired, A06 is retained, and all four original application audit regressions pass. [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md) records exact final results and unresolved scan/advisory outcomes.
+
+Mode A has been verified on fresh synthetic-only volumes with two sessions, three precomputed results, a read-only artifact mount, denied mutations, unknown-session isolation and an idle worker. Mode B has verified authenticated streaming uploads through actual 50/500 MiB file limits, scientific processing, annotations and replay. Both are controlled shared workspaces; no anonymous multiuser upload service is provided.
+
+Use [release Compose](../infrastructure/compose.release.yml), [read-only override](../infrastructure/compose.readonly.yml), [Caddyfile](../infrastructure/Caddyfile) and the [execution plan](DEPLOYMENT_EXECUTION_PLAN.md). Only gateway ports are published; backend networking is internal; API/worker use the same image; missing/template credentials fail closed. A local paired backup/restore verified 17 tables and 116 artifacts. Final OS/FFmpeg/base-image scans require Docker authentication, and actual public DNS/TLS/host/firewall, off-host recovery/retention, monitoring and human fixture review are still required. No public gateway was started.
+
+## Historical Step 5 decision and acceptance matrix
+
+The original decision below is retained as the pre-remediation baseline. Its application defects are resolved as described above; its external release gates still apply.
+
 2026-11-07. **SIGNIFICANT FIXES REQUIRED** for the full application. Local controlled demonstration is viable with short verified fixtures and explicit limitations. Neither unrestricted public deployment nor deployment authorization follows from this audit.
 
 ## Simplest compatible topology

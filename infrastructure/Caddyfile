@@ -1,0 +1,33 @@
+{
+    admin off
+    servers {
+        max_header_size 32KB
+        timeouts {
+            read_header 10s
+            read_body 5m
+            idle 60s
+        }
+    }
+}
+
+{$RALLYSENSE_DOMAIN} {
+    # Auth is enforced by both page Proxy and the independent API route gate.
+    # Never forward caller-supplied internal credentials or middleware bypass hints.
+    request_body {
+        max_size 501MiB
+    }
+    request_header -X-Lab-Token
+    request_header -X-Middleware-Subrequest
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+    reverse_proxy web:3000 {
+        transport http {
+            dial_timeout 5s
+            response_header_timeout 310s
+        }
+    }
+}

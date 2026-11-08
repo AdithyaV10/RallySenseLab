@@ -4,6 +4,7 @@ import fs from "node:fs";
 
 test("synthetic session: computed events, seek, label edits, saved sync and reload", async ({
   page,
+  request,
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
@@ -17,6 +18,16 @@ test("synthetic session: computed events, seek, label edits, saved sync and relo
   await expect(
     page.getByRole("heading", { name: "Baseline / synthetic motion" }),
   ).toBeVisible();
+  // Mutate a newly created label set, never a pre-existing workspace reference set.
+  const sid = new URL(page.url()).pathname.split("/").at(-1)!;
+  const isolated = await request.post(`/api/v1/sessions/${sid}/annotation-sets`, {
+    headers: { "x-lab-client": "rallysense" },
+    data: { name: `Browser-only observations ${Date.now()}` },
+  });
+  expect(isolated.status()).toBe(201);
+  const labelSetId = (await isolated.json()).id;
+  await page.reload();
+  await page.getByLabel("Replay reference set").selectOption(labelSetId);
   await expect(page.getByRole("button", { name: /Gyro peak/ })).toHaveCount(5, {
     timeout: 30000,
   });
@@ -61,6 +72,7 @@ test("synthetic session: computed events, seek, label edits, saved sync and relo
   await expect(page.getByText(/earlier alignment/)).toBeVisible();
   await page.reload();
   await expect(page.getByLabel("Sensor offset in seconds")).toHaveValue("0.25");
+  await page.getByLabel("Replay reference set").selectOption(labelSetId);
   await page.getByRole("button", { name: /References/ }).click();
   await expect(page.getByText(/E2E independent observation/)).toBeVisible();
   await page

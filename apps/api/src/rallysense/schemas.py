@@ -284,6 +284,10 @@ class PoseBatchIn(DTO):
     frames: list[PoseFrame] = Field(min_length=1, max_length=300)
 
 
+class PoseComplete(DTO):
+    expected_frames: int | None = Field(default=None, ge=1, le=30_000)
+
+
 class PoseStart(DTO):
     runtime_version: str = Field(max_length=40)
     model_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")

@@ -1,0 +1,17 @@
+{
+  "scope": "Temporary loopback production images, existing data read-only; no public exposure",
+  "unauthorized_routes_including_spoofed_middleware_header": {
+    "/": 401,
+    "/sessions": 401,
+    "/record": 401,
+    "/api/v1/sessions": 401,
+    "/api/v1/diagnostics": 401
+  },
+  "authorized_status": 200,
+  "visible_fixture_count": 2,
+  "private_status": 404,
+  "mutation_status": 403,
+  "direct_no_token": 401,
+  "direct_private": 404,
+  "direct_mutation": 403
+}

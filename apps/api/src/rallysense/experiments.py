@@ -8,6 +8,7 @@ from .errors import DomainError
 from .storage import path_for
 from .research_schemas import ExperimentCreate
 from .research import detect_imu, detect_video, associate, corrupt, evaluate
+from .provenance import validate_execution_environment
 
 ALGORITHMS = {
     "imu": "imu_motion_window@1.0.0",
@@ -55,6 +56,7 @@ def check_comparison(request, reference, dataset_kind):
 
 def compute_experiment(db, experiment):
     manifest = experiment.manifest
+    executor = validate_execution_environment(manifest)
     request = ExperimentCreate.model_validate(manifest["request"])
     if manifest["implementation_sha256"] != implementation_hash():
         raise DomainError(
@@ -93,6 +95,7 @@ def compute_experiment(db, experiment):
         if request.start_us <= e["t_session_us"] <= request.end_us
     ]
     result = {
+        "executor": executor,
         **output,
         "events": events,
         "outside_interval_predictions": len(all_events) - len(events),

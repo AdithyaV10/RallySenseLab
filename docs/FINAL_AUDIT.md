@@ -1,5 +1,7 @@
 # Final independent engineering audit
 
+**2026-11-08 remediation update:** this document preserves the original Step 5 findings and verdict below. Step 5.5 corrects A01–A05 and retains A06; the four original defect regressions now pass. A07 development tooling and external release gates remain. Current implementation/evidence: [STEP5_5_REMEDIATION_REPORT](STEP5_5_REMEDIATION_REPORT.md), [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md). Historical OPEN labels below describe the audited checkpoint, not the remediated application. No deployment has been authorized or performed.
+
 Audit date: 2026-11-07, America/New_York. Scope: local checkpoint `e80cd99`, preserved interrupted Step 5 work, and the narrowly scoped fixes below. Authorization: [original specification](STEP5_SPECIFICATION.md) and [resume specification](STEP5_RESUME_SPECIFICATION.md). This is an independent pass over the implementation and fresh tests, performed by the same coding agent; it is not third-party certification.
 
 **Final verdict: SIGNIFICANT FIXES REQUIRED.**

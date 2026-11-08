@@ -1,8 +1,8 @@
 import hashlib
 import json
 from uuid import UUID
-from fastapi import APIRouter, Depends, Query
-from sqlalchemy import select, delete
+from fastapi import APIRouter, Depends, Query, Body
+from sqlalchemy import select, delete, func
 from sqlalchemy.orm import Session
 import pyarrow.parquet as pq
 from ..db import get_db
@@ -13,6 +13,8 @@ from ..storage import path_for
 from .common import owned
 
 router = APIRouter()
+MAX_BATCHES = 200
+MAX_FRAMES = 30_000
 
 
 @router.post("/videos/{video_id}/pose-tracks", response_model=s.PoseOut, status_code=201)
@@ -42,9 +44,15 @@ def pose_batch(
 ):
     track = owned(db, m.PoseTrack, track_id)
     track = db.get(m.PoseTrack, track.id, with_for_update=True)
-    if track.status != "processing" or not 0 <= index < 100:
+    if track.status != "processing" or not 0 <= index < MAX_BATCHES:
         raise DomainError("Track is finalized or batch limit reached", "INVALID_STATE", 409)
     frames = payload.model_dump()["frames"]
+    times = [frame["t_video_us"] for frame in frames]
+    if any(b <= a for a, b in zip(times, times[1:])):
+        raise DomainError("Pose frame timestamps must strictly increase")
+    video = db.get(m.VideoAsset, track.video_id)
+    if times[-1] > video.duration_us + 100_000:
+        raise DomainError("Pose timestamps exceed source video")
     digest = hashlib.sha256(json.dumps(frames, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     old = db.scalars(
         select(m.PoseBatch).where(m.PoseBatch.track_id == track.id, m.PoseBatch.batch_index == index)
@@ -53,12 +61,23 @@ def pose_batch(
         if old.digest != digest:
             raise DomainError("Conflicting pose batch retry", "REVISION_CONFLICT", 409)
         return {"accepted": len(frames)}
+    count = db.scalar(
+        select(func.coalesce(func.sum(func.jsonb_array_length(m.PoseBatch.frames)), 0)).where(
+            m.PoseBatch.track_id == track.id
+        )
+    )
+    if count + len(frames) > MAX_FRAMES:
+        raise DomainError("Pose track exceeds 30,000 observations", "RESOURCE_LIMIT", 413)
     db.add(m.PoseBatch(track_id=track.id, batch_index=index, digest=digest, frames=frames))
     return {"accepted": len(frames)}
 
 
 @router.post("/pose-tracks/{track_id}/complete", response_model=s.PoseOut)
-def complete_pose(track_id: UUID, db: Session = Depends(get_db, scope="function")):
+def complete_pose(
+    track_id: UUID,
+    payload: s.PoseComplete = Body(default=s.PoseComplete()),
+    db: Session = Depends(get_db, scope="function"),
+):
     track = owned(db, m.PoseTrack, track_id)
     track = db.get(m.PoseTrack, track.id, with_for_update=True)
     if track.status == "ready":
@@ -72,7 +91,12 @@ def complete_pose(track_id: UUID, db: Session = Depends(get_db, scope="function"
     )
     if [b.batch_index for b in batches] != list(range(len(batches))):
         raise DomainError("Pose batch sequence is incomplete", "MISSING_INPUT", 409)
-    finalize_pose(db, track, [frame for batch in batches for frame in batch.frames])
+    frames = [frame for batch in batches for frame in batch.frames]
+    if len(frames) > MAX_FRAMES or (
+        payload.expected_frames is not None and len(frames) != payload.expected_frames
+    ):
+        raise DomainError("Pose observation count is incomplete or exceeds capacity", "MISSING_INPUT", 409)
+    finalize_pose(db, track, frames)
     db.execute(delete(m.PoseBatch).where(m.PoseBatch.track_id == track.id))
     return track
 

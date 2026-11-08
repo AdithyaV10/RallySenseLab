@@ -111,17 +111,32 @@ export function Workbench({
   const pose = data?.poses
     .filter((p) => p.video_id === video?.id && p.status === "ready")
     .at(-1);
+  const sourceStart = zoomUs
+    ? Math.floor(timeUs / zoomUs) * zoomUs - offsetUs
+    : 0;
+  const sourceEnd = zoomUs
+    ? (Math.floor(timeUs / zoomUs) + 1) * zoomUs - offsetUs
+    : 1_200_000_000;
   const samples = useQuery({
     queryKey: [
       "samples",
       sensor?.id,
+      sync?.id,
+      offsetUs,
       zoomUs,
       zoomUs ? Math.floor(timeUs / zoomUs) : 0,
     ],
     queryFn: () =>
-      api<Samples>(
-        `/sensor-recordings/${sensor!.id}/samples?start_us=${Math.max(0, Math.floor(timeUs / Math.max(1, zoomUs)) * zoomUs - offsetUs)}&end_us=${zoomUs ? Math.max(1, (Math.floor(timeUs / zoomUs) + 1) * zoomUs - offsetUs) : 1_200_000_000}`,
-      ),
+      sourceEnd < 0 || sourceStart > (sensor?.duration_us || 0)
+        ? Promise.resolve({
+            clock: "source_relative_us" as const,
+            source_count: 0,
+            returned_count: 0,
+            data: [],
+          })
+        : api<Samples>(
+            `/sensor-recordings/${sensor!.id}/samples?start_us=${Math.max(0, sourceStart)}&end_us=${Math.max(1, sourceEnd)}`,
+          ),
     enabled: !!sensor,
     staleTime: Infinity,
   });

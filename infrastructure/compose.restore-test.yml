@@ -1,0 +1,12 @@
+# Used only with a fresh isolated project by scripts/backup-workspace.py restore.
+services:
+  db:
+    ports: !reset []
+  api:
+    ports: !reset []
+    # Extraction/readback only in a new isolated recovery project, never live volumes.
+    environment:
+      APP_MODE: local
+    volumes: ["artifact_data:/data/storage"]
+  web:
+    ports: !reset []

@@ -201,7 +201,7 @@ def test_audit_readonly_alternate_endpoints_and_direct_references(lab, monkeypat
 
 
 def test_audit_pose_batch_capacity_characterization(lab):  # noqa: F811
-    """Document server cap: frontend's 100-frame flush supports only 10,000 frames."""
+    """Retain the audited boundary and verify the repaired, still bounded batch cap."""
     from rallysense.storage import put_bytes
 
     client, engine = lab
@@ -231,6 +231,11 @@ def test_audit_pose_batch_capacity_characterization(lab):  # noqa: F811
         )
     result = client.put(
         f"/api/v1/pose-tracks/{tid}/batches/100",
+        json={"frames": [{"t_video_us": 333_330_000, "landmarks": []}]},
+    )
+    assert result.status_code == 200
+    result = client.put(
+        f"/api/v1/pose-tracks/{tid}/batches/200",
         json={"frames": [{"t_video_us": 333_330_000, "landmarks": []}]},
     )
     assert result.status_code == 409 and result.json()["error"]["code"] == "INVALID_STATE"

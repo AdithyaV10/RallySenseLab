@@ -103,15 +103,21 @@ export async function extractPose(
         sampling_method: samplingMethod,
       }),
     });
-    const frames: PoseFrame[] = [];
+    // Keep only the bounded staging batch, rather than retaining an entire track in RAM.
+    let frameCount = 0,
+      lastTimeUs = -1;
     let nextSample = 0,
       processing: Promise<void> = Promise.resolve(),
       batchIndex = 0,
+      bufferBytes = 12,
       buffer: PoseFrame[] = [];
     async function flush() {
       if (!buffer.length) return;
+      if (batchIndex >= 200)
+        throw new Error("Pose batch capacity reached (200)");
       const payload = buffer;
       buffer = [];
+      bufferBytes = 12;
       await api(`/pose-tracks/${track!.id}/batches/${batchIndex++}`, {
         method: "PUT",
         body: JSON.stringify({ frames: payload }),
@@ -119,8 +125,9 @@ export async function extractPose(
     }
     async function observe(timeUs: number) {
       if (signal.aborted) throw new Error("Pose extraction cancelled");
-      if (frames.length && timeUs <= frames[frames.length - 1].t_video_us)
-        return;
+      if (timeUs <= lastTimeUs) return;
+      if (frameCount >= 30_000)
+        throw new Error("Pose observation capacity reached (30,000)");
       let result: Pick<PoseFrame, "landmarks" | "world_landmarks">;
       if (worker) {
         const bitmap = await createImageBitmap(video);
@@ -139,12 +146,16 @@ export async function extractPose(
         landmarks: result.landmarks,
         world_landmarks: result.world_landmarks,
       };
-      frames.push(frame);
+      frameCount++;
+      lastTimeUs = timeUs;
+      const bytes = JSON.stringify(frame).length + 1;
+      if (bufferBytes + bytes > 1_900_000) await flush();
       buffer.push(frame);
+      bufferBytes += bytes;
       onProgress(
-        `${samplingMethod} · ${executor} · ${frames.length} frames · ${(timeUs / 1e6).toFixed(2)} / ${video.duration.toFixed(2)} s`,
+        `${samplingMethod} · ${executor} · ${frameCount} frames · ${(timeUs / 1e6).toFixed(2)} / ${video.duration.toFixed(2)} s`,
       );
-      if (buffer.length >= 100) await flush();
+      if (buffer.length >= 200) await flush();
     }
     if (samplingMethod === "seek_backpressure") {
       await new Promise<void>((resolve, reject) => {
@@ -245,8 +256,9 @@ export async function extractPose(
     await flush();
     const result = await api<Pose>(`/pose-tracks/${track.id}/complete`, {
       method: "POST",
+      body: JSON.stringify({ expected_frames: frameCount }),
     });
-    onProgress(`Complete · ${frames.length} sampled frames · ${executor}`);
+    onProgress(`Complete · ${frameCount} sampled frames · ${executor}`);
     return result;
   } catch (error) {
     if (track)

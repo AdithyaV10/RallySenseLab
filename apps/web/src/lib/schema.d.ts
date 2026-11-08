@@ -1297,6 +1297,11 @@ export interface components {
       /** Frames */
       frames: components["schemas"]["PoseFrame"][];
     };
+    /** PoseComplete */
+    PoseComplete: {
+      /** Expected Frames */
+      expected_frames?: number | null;
+    };
     /** PoseFrame */
     PoseFrame: {
       /** T Video Us */
@@ -2610,7 +2615,11 @@ export interface operations {
       };
       cookie?: never;
     };
-    requestBody?: never;
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PoseComplete"];
+      };
+    };
     responses: {
       /** @description Successful Response */
       200: {

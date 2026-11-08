@@ -6,5 +6,11 @@
 storage
 data/private
 .env
+**/.env
+**/.env.*
+**/audit-results
+certificates
+**/*.key
+**/*.pem
 **/test-results
 **/playwright-report

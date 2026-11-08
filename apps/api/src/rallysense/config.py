@@ -15,7 +15,12 @@ BUILD_ID = os.getenv("BUILD_ID", "local-source")[:80]
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,api,testserver").split(",")
 MAX_UPLOADS_PER_MINUTE = int(os.getenv("MAX_UPLOADS_PER_MINUTE", "60"))
+MAX_REQUESTS_PER_MINUTE = int(os.getenv("MAX_REQUESTS_PER_MINUTE", "6000"))
 if APP_MODE not in {"local", "demo_readonly"}:
     raise ValueError("APP_MODE must be local or demo_readonly")
-if ENVIRONMENT == "production" and (LOCAL_TOKEN == "rallysense-local-development" or len(LOCAL_TOKEN) < 32):
+if ENVIRONMENT == "production" and (
+    LOCAL_TOKEN == "rallysense-local-development"
+    or len(LOCAL_TOKEN) < 32
+    or LOCAL_TOKEN.startswith("CHANGE_ME")
+):
     raise ValueError("Production requires an explicitly configured LOCAL_TOKEN of at least 32 characters")

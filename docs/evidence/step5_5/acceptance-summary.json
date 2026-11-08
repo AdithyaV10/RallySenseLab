@@ -1,0 +1,21 @@
+{
+  "reports_checked": 11,
+  "local_links_checked": 115,
+  "broken_links": [],
+  "backend_passed": 65,
+  "frontend_passed": 15,
+  "browser_passed": 9,
+  "audit_cases_passed": 4,
+  "application_failures": 0,
+  "application_skips": 0,
+  "upload_adversarial_cases": 14,
+  "original_research_rows_preserved": true,
+  "artifact_files_verified": 139,
+  "nonempty_fixture_storage_refused": true,
+  "remaining_nonzero_checks": {
+    "npm_dev_advisories": 10,
+    "os_scan": "Docker authentication unavailable"
+  },
+  "deployment_performed": false,
+  "annotation_isolation_targeted_passed": 1
+}

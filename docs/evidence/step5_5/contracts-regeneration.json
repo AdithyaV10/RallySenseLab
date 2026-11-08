@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-08T06:53:21.086186+00:00",
+  "command": [
+    "node",
+    "scripts/check-contracts.mjs"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 8.471,
+  "output": "C:\\RallySenseLab\\packages\\shared-contracts\\openapi.json\n\u2728 openapi-typescript 7.13.0\n\ud83d\ude80 packages/shared-contracts/openapi.json \u2192 apps/web/src/lib/schema.d.ts [158.8ms]\napps/web/src/lib/schema.d.ts 231ms\nGenerated API contract drift. Review and commit regenerated files.\n"
+}

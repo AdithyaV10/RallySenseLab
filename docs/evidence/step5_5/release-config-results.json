@@ -1,0 +1,31 @@
+{
+  "scope": "Configuration rendering/assertions only; no services provisioned or public listeners started",
+  "modes": [
+    {
+      "mode": "demo_readonly",
+      "private_service_ports": [],
+      "gateway_ports": [
+        80,
+        443
+      ],
+      "api_worker_identical_image": true,
+      "required_authentication": true,
+      "backend_network_internal": true,
+      "readonly_artifact_mounts": true,
+      "resource_limits_present": true
+    },
+    {
+      "mode": "local",
+      "private_service_ports": [],
+      "gateway_ports": [
+        80,
+        443
+      ],
+      "api_worker_identical_image": true,
+      "required_authentication": true,
+      "backend_network_internal": true,
+      "readonly_artifact_mounts": false,
+      "resource_limits_present": true
+    }
+  ]
+}

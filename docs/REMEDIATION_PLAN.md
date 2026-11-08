@@ -1,5 +1,13 @@
 # Prioritized remediation handoff
 
+## Implemented Step 5.5 status, 2026-11-08
+
+A01 authenticated bounded streaming, A02 execution-environment enforcement (including legacy inference), A03 bounded long-track ingestion, A04 mode-aware readiness and A05 synchronization-dependent replay caching are implemented and tested. A06 remains covered. The original four audit regressions pass with their assertions preserved. See [implementation](STEP5_5_REMEDIATION_REPORT.md) and [acceptance](RELEASE_ACCEPTANCE.md).
+
+Remaining work before public release is operational/human acceptance: final image/OS scan (Docker login unavailable here), reviewed host/domain/TLS/secrets/firewall, content/license/privacy review, off-host backup retention/monitoring and host resource validation. A07 still reports ten moderate development-only findings; compatible maintenance remains open, without a blind major downgrade. Physical capture compatibility and tennis validation remain unestablished. The [deployment execution plan](DEPLOYMENT_EXECUTION_PLAN.md) is prepared but requires authorization to execute publicly.
+
+The original prioritized repair plan follows for traceability; its A01–A06 application gates have been addressed by Step 5.5.
+
 2026-11-07. This is a plan for the next explicitly authorized stage, not permission to deploy. Starting application checkpoint is `e80cd99`; the Step 5 local checkpoint adds audit reports/evidence, regression gates and the A06 terminal-state fix. Preserve existing databases, volumes, artifacts and immutable research results.
 
 ## P0 — Choose the smallest release scope

@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:04:29.981818+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/audit-access.py",
+    "--output",
+    "docs/evidence/step5_5/access-final.json"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 5.025,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\audit-access.py\", line 96, in <module>\n    assert client.get(base + \"/api/v1/sessions\", headers={\"x-lab-token\": \"spoofed-client-credential\"}).status_code == 200\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

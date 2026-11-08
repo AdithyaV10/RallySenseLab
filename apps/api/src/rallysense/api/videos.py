@@ -11,8 +11,9 @@ from ..errors import DomainError
 from ..jobs import enqueue
 from ..storage import resolve, path_for
 from .common import active_session, owned
+from ..upload_route import BoundedUploadRoute
 
-router = APIRouter()
+router = APIRouter(route_class=BoundedUploadRoute)
 
 
 @router.post("/sessions/{session_id}/videos", response_model=s.JobOut, status_code=202)

@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-08T07:01:18.496844+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "restore",
+    "--directory",
+    "storage/step55-paired-backup",
+    "--project",
+    "rallysense-restore-step55"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 7.202,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 205, in <module>\n    service(\n    ~~~~~~~^\n        \"exec\",\n        ^^^^^^^\n    ...<8 lines>...\n        stdin=source,\n        ^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 43, in service\n    return run(*compose, *command, **kwargs)\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 31, in run\n    result = subprocess.run(\n        command,\n    ...<4 lines>...\n        **kwargs,\n    )\n  File \"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '('docker', 'compose', '-p', 'rallysense-restore-step55', '-f', 'docker-compose.yml', '-f', 'infrastructure/compose.restore-test.yml', 'exec', '-T', 'db', 'pg_restore', '-U', 'rallysense', '-d', 'rallysense', '--exit-on-error')' returned non-zero exit status 1.\n"
+}

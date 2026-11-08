@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-08T07:01:11.074747+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "backup",
+    "--directory",
+    "storage/step55-paired-backup",
+    "--project",
+    "rallysense"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 26.601,
+  "output": "{\"backup_complete\": true, \"directory\": \"C:\\\\RallySenseLab\\\\storage\\\\step55-paired-backup\", \"artifact_files_verified\": 116}\n"
+}

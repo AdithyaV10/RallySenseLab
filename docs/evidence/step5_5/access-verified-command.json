@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:05:20.610161+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/audit-access.py",
+    "--output",
+    "docs/evidence/step5_5/access-final.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 9.051,
+  "output": "{\n  \"scope\": \"Temporary loopback production images, existing data read-only; no public exposure\",\n  \"unauthorized_routes_including_spoofed_middleware_header\": {\n    \"/\": 401,\n    \"/sessions\": 401,\n    \"/record\": 401,\n    \"/api/v1/sessions\": 401,\n    \"/api/v1/diagnostics\": 401\n  },\n  \"authorized_status\": 200,\n  \"visible_fixture_count\": 2,\n  \"private_status\": 404,\n  \"mutation_status\": 403,\n  \"direct_no_token\": 401,\n  \"direct_private\": 404,\n  \"direct_mutation\": 403\n}\n"
+}

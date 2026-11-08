@@ -1,0 +1,8 @@
+{
+  "scope": "Restore only the three test-induced revision increments on the existing built-in synthetic demo human label set; original revision read from isolated pre-test backup and full-row hash matched before mutation",
+  "revision_before_cleanup": 40,
+  "revision_restored": 37,
+  "annotation_values_changed": false,
+  "frozen_references_changed": false,
+  "future_browser_workflow": "Now creates a dedicated new annotation set"
+}

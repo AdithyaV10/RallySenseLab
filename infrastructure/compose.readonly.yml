@@ -1,0 +1,12 @@
+# Add after compose.release.yml for Mode A only, after private fixture preparation.
+services:
+  api:
+    environment:
+      APP_MODE: demo_readonly
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:?Explicit inspected fixture IDs required}
+    volumes: ["artifact_data:/data/storage:ro"]
+  worker:
+    environment:
+      APP_MODE: demo_readonly
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:?Explicit inspected fixture IDs required}
+    volumes: ["artifact_data:/data/storage:ro"]

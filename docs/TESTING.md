@@ -1,6 +1,6 @@
 # Verification
 
-**Current Step 5 acceptance:** 52 backend tests, 15 frontend units and eight standard production browser tests pass. Four additional audit cases fail: large CSV/video proxy uploads and frozen worker dependency/runtime mismatch. Run both ordinary and audit gates before release. Exact commands, evidence and remaining verification are in [FINAL_TEST_REPORT](FINAL_TEST_REPORT.md). Prior stage counts below are historical.
+**Current Step 5.5 acceptance:** ordinary backend/frontend/browser workflows and all four original audit cases have successful remediation runs. See [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md) for exact final counts/commands, large-upload boundaries, long-pose ingestion, readiness, replay, access, recovery and preservation results. Run ordinary and audit configurations together. [FINAL_TEST_REPORT](FINAL_TEST_REPORT.md) preserves the original Step 5 failures; it is historical evidence, not the current verdict. Dependency advisory and scan failures remain explicitly separate from passing application tests. Prior stage counts below are historical.
 
 All results refer to local software checks, not a tennis accuracy study. Synthetic fixture scores are explicitly software verification. No independent paired tennis or coaching validation is claimed.
 

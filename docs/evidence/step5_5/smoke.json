@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-08T07:08:20.959380+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-local.py",
+    "--output",
+    "docs/evidence/step5_5/smoke-results.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.869,
+  "output": "{\n  \"verified_at_utc\": \"2026-11-08T07:08:20.927497+00:00\",\n  \"base_url\": \"http://127.0.0.1:3000\",\n  \"health\": \"ready\",\n  \"landing_http\": 200,\n  \"sessions_http\": 200,\n  \"demo_id\": \"3a29c800-519d-437e-85b0-5c7d712253f0\",\n  \"dataset_kind\": \"synthetic\",\n  \"samples\": 1801,\n  \"successful_runs\": 19,\n  \"event_type\": \"gyro_peak_v1\",\n  \"scientific_accuracy_evaluated\": false\n}\n"
+}

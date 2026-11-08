@@ -8,6 +8,19 @@ from . import config
 DEMO_KEYS = {"synthetic-v1", "paired-research-v1"}
 _uploads = defaultdict(deque)
 _lock = threading.Lock()
+_requests = deque()
+
+
+def request_allowed(timestamp=None):
+    """One bounded, process-wide workspace budget; never trusts client identity headers."""
+    stamp = time.monotonic() if timestamp is None else timestamp
+    with _lock:
+        while _requests and _requests[0] <= stamp - 60:
+            _requests.popleft()
+        if len(_requests) >= config.MAX_REQUESTS_PER_MINUTE:
+            return False
+        _requests.append(stamp)
+        return True
 
 
 def visible(session):

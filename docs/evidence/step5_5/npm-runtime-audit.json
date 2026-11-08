@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-08T07:04:32.935153+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/web",
+    "audit",
+    "--omit=dev",
+    "--json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 2.718,
+  "output": "{\n  \"auditReportVersion\": 2,\n  \"vulnerabilities\": {},\n  \"metadata\": {\n    \"vulnerabilities\": {\n      \"info\": 0,\n      \"low\": 0,\n      \"moderate\": 0,\n      \"high\": 0,\n      \"critical\": 0,\n      \"total\": 0\n    },\n    \"dependencies\": {\n      \"prod\": 90,\n      \"dev\": 494,\n      \"optional\": 104,\n      \"peer\": 29,\n      \"peerOptional\": 0,\n      \"total\": 621\n    }\n  }\n}\n"
+}

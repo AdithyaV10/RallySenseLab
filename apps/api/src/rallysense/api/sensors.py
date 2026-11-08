@@ -12,8 +12,9 @@ from ..jobs import enqueue, fingerprint
 from ..provenance import input_manifest
 from ..storage import put_bytes, path_for
 from .common import active_session, owned
+from ..upload_route import BoundedUploadRoute
 
-router = APIRouter()
+router = APIRouter(route_class=BoundedUploadRoute)
 
 
 @router.get("/contracts/sensor-mapping", response_model=s.SensorMapping)

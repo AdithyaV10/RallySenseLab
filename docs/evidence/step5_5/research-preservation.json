@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-08T07:08:22.961545+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-research-preservation.py",
+    "verify"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 1.85,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\check-research-preservation.py\", line 60, in <module>\n    assert not changed, changed\n           ^^^^^^^^^^^\nAssertionError: [('annotation_sets', '8cb02d9e-0d33-47bb-88ab-5cee60fc9ad7')]\n"
+}

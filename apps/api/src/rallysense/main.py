@@ -2,8 +2,13 @@ import hmac
 import logging
 import time
 import json
+import asyncio
+import os
+import tempfile
+import shutil
 from uuid import uuid4
-from fastapi import FastAPI, Depends, Request
+from fastapi import FastAPI, Depends, Request, HTTPException
+from fastapi.exception_handlers import http_exception_handler
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.middleware.trustedhost import TrustedHostMiddleware
@@ -14,13 +19,19 @@ from .db import engine
 from .errors import DomainError
 from .api import sessions, sensors, videos, annotations, pose, research, diagnostics
 from . import config
-from .policy import upload_allowed
+from .policy import upload_allowed, request_allowed
+from .policy import visible
+from . import models as m
+from .storage import path_for
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 request_logger = logging.getLogger("rallysense.http")
 if not request_logger.handlers:
     request_logger.addHandler(logging.StreamHandler())
 request_logger.setLevel(logging.INFO)
 request_logger.propagate = False
+active_uploads = 0
 
 
 async def authorize(request: Request):
@@ -37,6 +48,7 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=config.ALLOWED_HOSTS)
 
 @app.middleware("http")
 async def safe_headers(request: Request, call_next):
+    global active_uploads
     started = time.perf_counter()
     request.state.request_id = str(uuid4())
     if (
@@ -74,6 +86,21 @@ async def safe_headers(request: Request, call_next):
                 {"error": {"code": "UNAUTHORIZED", "message": "Local API credential required"}},
                 status_code=401,
             )
+        if not request_allowed():
+            return JSONResponse(
+                {
+                    "error": {
+                        "code": "RATE_LIMITED",
+                        "message": "Workspace request budget reached; retry in one minute",
+                    }
+                },
+                status_code=429,
+                headers={"Retry-After": "60"},
+            )
+        if request.headers.get("origin") and request.headers["origin"] not in ALLOWED_ORIGINS:
+            return JSONResponse(
+                {"error": {"code": "FORBIDDEN_ORIGIN", "message": "Origin is not allowed"}}, status_code=403
+            )
     content_length = request.headers.get("content-length")
     limit = (
         501 * 1024 * 1024
@@ -88,17 +115,57 @@ async def safe_headers(request: Request, call_next):
         )
     original_receive = request._receive
     received = 0
+    body_error = None
 
     async def bounded_receive():
-        nonlocal received
-        message = await original_receive()
+        nonlocal received, body_error
+        try:
+            message = await asyncio.wait_for(original_receive(), timeout=30)
+        except TimeoutError as exc:
+            body_error = (408, "Request body timed out")
+            raise HTTPException(408, "Request body timed out") from exc
         received += len(message.get("body", b""))
         if received > limit:
-            raise DomainError("Request body exceeds limit", "RESOURCE_LIMIT", 413)
+            body_error = (413, "Request body exceeds limit")
+            raise HTTPException(413, "Request body exceeds limit")
         return message
 
     request._receive = bounded_receive
-    response = await call_next(request)
+    is_upload = request.method == "POST" and request.url.path.endswith(("/videos", "/sensor-imports"))
+    if is_upload and active_uploads >= 2:
+        return JSONResponse(
+            {"error": {"code": "RESOURCE_LIMIT", "message": "Upload concurrency limit reached"}},
+            status_code=429,
+            headers={"Retry-After": "5"},
+        )
+    if is_upload:
+        active_uploads += 1
+    try:
+        response = await call_next(request)
+        # BaseHTTPMiddleware can wrap receive exceptions in an ExceptionGroup that
+        # multipart parsing translates to 400. Preserve the actual bounded-body error.
+        if body_error:
+            status, message = body_error
+            response = JSONResponse(
+                {
+                    "error": {
+                        "code": "RESOURCE_LIMIT" if status == 413 else "REQUEST_TIMEOUT",
+                        "message": message,
+                    }
+                },
+                status_code=status,
+            )
+    except Exception:
+        if not body_error:
+            raise
+        status, message = body_error
+        response = JSONResponse(
+            {"error": {"code": "RESOURCE_LIMIT" if status == 413 else "REQUEST_TIMEOUT", "message": message}},
+            status_code=status,
+        )
+    finally:
+        if is_upload:
+            active_uploads -= 1
     response.headers["Cache-Control"] = "no-store"
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Request-ID"] = request.state.request_id
@@ -116,6 +183,21 @@ async def safe_headers(request: Request, call_next):
         )
     )
     return response
+
+
+@app.exception_handler(HTTPException)
+async def http_error(request, exc):
+    if exc.status_code in {408, 413}:
+        return JSONResponse(
+            {
+                "error": {
+                    "code": "RESOURCE_LIMIT" if exc.status_code == 413 else "REQUEST_TIMEOUT",
+                    "message": str(exc.detail),
+                }
+            },
+            status_code=exc.status_code,
+        )
+    return await http_exception_handler(request, exc)
 
 
 @app.exception_handler(DomainError)
@@ -168,8 +250,41 @@ def ready():
     try:
         with engine.connect() as connection:
             connection.execute(text("SELECT 1"))
-        STORAGE_ROOT.mkdir(parents=True, exist_ok=True)
-    except (SQLAlchemyError, OSError) as exc:
+        if config.APP_MODE == "demo_readonly":
+            # Read every approved fixture artifact; do not create directories or demand writes.
+            with Session(engine) as db:
+                fixtures = list(
+                    db.scalars(
+                        select(m.RecordingSession).where(
+                            m.RecordingSession.id.in_(config.DEMO_SESSION_IDS),
+                            m.RecordingSession.deleted_at.is_(None),
+                        )
+                    )
+                )
+                if {s.id for s in fixtures if visible(s)} != config.DEMO_SESSION_IDS or not fixtures:
+                    raise OSError("Approved fixture inventory unavailable")
+                for fixture in fixtures:
+                    artifacts = list(
+                        db.scalars(select(m.Artifact).where(m.Artifact.session_id == fixture.id))
+                    )
+                    if not artifacts:
+                        raise OSError("Approved fixture artifacts unavailable")
+                    for artifact in artifacts:
+                        with path_for(db, artifact.id, fixture.id).open("rb") as stream:
+                            if artifact.bytes and not stream.read(1):
+                                raise OSError("Fixture artifact unreadable")
+        else:
+            STORAGE_ROOT.mkdir(parents=True, exist_ok=True)
+            if shutil.disk_usage(STORAGE_ROOT).free < 1024 * 1024:
+                raise OSError("Storage free space exhausted")
+            with tempfile.NamedTemporaryFile(dir=STORAGE_ROOT, prefix=".ready-", delete=True) as probe:
+                probe.write(b"rallysense-ready")
+                probe.flush()
+                os.fsync(probe.fileno())
+                probe.seek(0)
+                if probe.read() != b"rallysense-ready":
+                    raise OSError("Storage readback failed")
+    except (SQLAlchemyError, OSError, DomainError) as exc:
         raise DomainError("Database or artifact storage unavailable", "NOT_READY", 503) from exc
     return {"status": "ready"}
 

@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-08T07:15:04.648071+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-research-preservation.py",
+    "verify"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 2.594,
+  "output": "{\"action\": \"verify\", \"preserved\": true, \"baseline_counts\": {\"sessions\": 82, \"sensor_recordings\": 28, \"video_assets\": 22, \"pose_tracks\": 33, \"inference_runs\": 38, \"predictions\": 110, \"event_annotations\": 8, \"annotation_sets\": 45, \"sync_configurations\": 80, \"reference_snapshots\": 19, \"experiments\": 134, \"artifacts\": 116}}\n"
+}
