@@ -1,0 +1,48 @@
+{
+    admin off
+    servers {
+        strict_sni_host on
+        max_header_size 32KB
+        timeouts {
+            read_header 10s
+            read_body 5m
+            idle 60s
+        }
+    }
+}
+
+(application_policy) {
+    request_body {
+        max_size 501MiB
+    }
+    request_header -X-Lab-Token
+    request_header -X-Middleware-Subrequest
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+    reverse_proxy {args[0]} {
+        transport http {
+            dial_timeout 5s
+            response_header_timeout 310s
+        }
+    }
+}
+
+{$DEMO_HOST} {
+    # Empty in production = public ACME; local tests explicitly use "tls internal".
+    {$TLS_POLICY}
+    import application_policy demo-web:3000
+}
+
+{$WORKSPACE_HOST} {
+    {$TLS_POLICY}
+    import application_policy workspace-web:3000
+}
+
+http://127.0.0.1:8081 {
+    bind 127.0.0.1
+    respond /health 200
+}

@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T06:13:42.384261+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/review-release-vulnerabilities.py",
+    "--reuse-runtime-evidence"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.233,
+  "output": "{\"high_critical_instances\": 375, \"groups\": {\"MAINTENANCE_TOOLING_REVIEW_REQUIRED\": 6, \"LOCAL_PRIVILEGED_FILESYSTEM_HELPERS\": 99, \"UPLOAD_MEDIA_PARSER_REVIEW_REQUIRED\": 153, \"ADDITIONAL_NATIVE_PARSER_REVIEW_REQUIRED\": 18, \"TERMINAL_LIBRARY_DEPENDENCIES\": 11, \"SQLITE_OPTIONAL_FEATURES\": 6, \"SYSTEMD_HOMED_SOURCE_MAPPING\": 6, \"X_SERVER_CLIENT_DEPENDENCIES\": 6, \"XML_PARSER_REVIEW_REQUIRED\": 16, \"UNUSED_CLI_PARSER_TOOLING\": 14, \"SBOM_TOOLING_NOT_IN_APP_VENV\": 5, \"DEBIAN_MINIZIP_SOURCE_MAPPING\": 1, \"NPM_BUNDLED_TOOLING\": 6, \"GOSU_EMBEDDED_GO_STDLIB\": 26, \"GATEWAY_TRANSITIVE_REVIEW_REQUIRED\": 2}, \"release_gate_passed\": false}\n"
+}

@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-11-09T06:14:32.807904+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "scripts/prepare-curated-fixtures.py",
+    "scripts/prepare-step6-local.py",
+    "scripts/prepare-release-config.py",
+    "scripts/review-release-vulnerabilities.py",
+    "scripts/scan-release-images.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-production-config.py",
+    "scripts/smoke-release.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.092,
+  "output": "All checks passed!\n"
+}

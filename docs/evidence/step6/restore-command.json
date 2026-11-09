@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-09T05:59:43.727238+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "restore",
+    "--project",
+    "rallysense-restore-step6-demo",
+    "--env-file",
+    "storage/step6/demo.env",
+    "--file",
+    "docker-compose.yml",
+    "--file",
+    "infrastructure/compose.release.yml",
+    "--file",
+    "infrastructure/compose.application.yml",
+    "--file",
+    "infrastructure/compose.readonly.yml",
+    "--directory",
+    "storage/step6-demo-backup"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 28.702,
+  "output": "{\"restore_verified\": true, \"project\": \"rallysense-restore-step6-demo\", \"published_ports\": [], \"artifact_files_verified\": 6, \"tables_verified\": 17, \"migration\": \"0003_collection_readiness (head)\", \"retained\": \"Isolated database/artifact volumes retained; original project untouched\"}\n"
+}

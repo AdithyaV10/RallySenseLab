@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T05:42:11.673644+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-step6-local.py",
+    "verify-config"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.75,
+  "output": "[{\"role\": \"demo\", \"ports\": [], \"mode\": \"demo_readonly\", \"healthchecks\": true, \"resource_limits\": true, \"production_credentials\": true, \"private_backend\": true}, {\"role\": \"workspace\", \"ports\": [], \"mode\": \"local\", \"healthchecks\": true, \"resource_limits\": true, \"production_credentials\": true, \"private_backend\": true}]\n"
+}

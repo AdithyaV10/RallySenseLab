@@ -1,6 +1,8 @@
 # Deployment execution plan — authorization required
 
-2026-11-08. These are reviewable instructions for a future authorized deployment. **Do not start the public gateway during Step 5.5.** Local preparation, configuration validation and isolated recovery tests have run; no server/domain/cloud account has been provisioned. Complete [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md) first.
+**Step 6 update, 2026-11-09:** use [DEPLOYMENT_HANDOFF.md](DEPLOYMENT_HANDOFF.md) for the current **two isolated environments / one shared gateway** procedure, image manifest, secrets, DNS/firewall, recovery and smoke commands. The single-project examples below remain historical context. Do not start two standalone gateways on the same ports. Local dual-project rehearsal passed; image-security acceptance is blocked by [actual Trivy findings](VULNERABILITY_REVIEW.md). No deployment/provisioning/public exposure/push is authorized by this document.
+
+2026-11-08. These are historical reviewable instructions for a future authorized single-environment deployment. **Do not start the public gateway without authorization.** Local preparation, configuration validation and isolated recovery tests have run; no server/domain/cloud account has been provisioned. Complete [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md) first.
 
 ## Topology and prerequisites
 

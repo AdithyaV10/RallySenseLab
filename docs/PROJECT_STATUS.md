@@ -1,5 +1,17 @@
 # Project status
 
+## Current Step 6 checkpoint — 2026-11-09
+
+**Local release preparation/rehearsal delivered; PUBLIC RELEASE BLOCKED pending image-security disposition and external acceptance. No deployment authorization was exercised.** Approved application checkpoint remains `ac75d818a168bfcf1b7f23a609121b18b0933e8e`. Existing application images were reused; scientific code, dependency locks, migrations and historical research records were not changed.
+
+Two isolated fresh projects and one loopback-only HTTPS gateway verified the synthetic readonly demonstration and protected research workspace simultaneously. Real TLS chain/name checks, Host/SNI/Origin/auth enforcement, private backend isolation, readonly mutation/allowlist/worker behavior, replay/comparison/failure exploration/exports and actual workspace ingestion/MediaPipe/sync/annotations/experiments passed. The generated MediaPipe clip processed 79 frames with zero person detections; no accuracy claim follows. A fresh paired backup/restore matched 17 tables and six generated artifacts.
+
+Auth-free pinned Trivy scanning completed for all four images, replacing the earlier Scout-login limitation. It found **4 critical and 371 high package instances** (including duplicates/tooling). Raw findings and per-instance triage are retained; **the image security gate did not pass**. API media/XML parser advisories, gateway dependencies, OS updates and residual applicability decisions remain release blockers. Readonly mode mitigates uploads but does not clear public-facing image findings.
+
+Read [Step 6 report](STEP6_RELEASE_REPORT.md), [deployment handoff and exact controlled commands](DEPLOYMENT_HANDOFF.md), [vulnerability review](VULNERABILITY_REVIEW.md), and [fixture inventory](FIXTURE_RELEASE_INVENTORY.md). The single-host recommendation is two independent application projects plus one shared Caddy gateway on a 16 GiB Linux/amd64 host. Viewer demo and research workspace retain distinct passwords. Real DNS/ACME/firewall/capacity, off-host recovery, alert delivery and owner content/model approval remain unverified. Do not provision, publish, change DNS or start public listeners without explicit authorization.
+
+## Historical Step 5.5 checkpoint
+
 Updated: 2026-11-08, America/New_York.
 
 **Step 5.5 remediation complete. SOFTWARE ACCEPTANCE PASSED; PUBLIC DEPLOYMENT ACCEPTANCE PENDING.**

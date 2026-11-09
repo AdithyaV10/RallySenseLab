@@ -1,5 +1,13 @@
 # Step 5.5 release acceptance
 
+## Step 6 update, 2026-11-09
+
+Software acceptance from Step 5.5 is retained. New release-shaped HTTPS, browser, isolation, readonly/protected workflow, production rendering and fresh backup/restore evidence is indexed in [STEP6_RELEASE_REPORT](STEP6_RELEASE_REPORT.md). **Image scanner execution passed; security acceptance did not pass:** four critical and 371 high package instances require patch/applicability decisions. See [VULNERABILITY_REVIEW](VULNERABILITY_REVIEW.md). No app rebuild, algorithm/lock/migration change, public deployment or push occurred.
+
+The two-environment [deployment handoff](DEPLOYMENT_HANDOFF.md) is the current controlled procedure. Real public DNS/ACME/firewall, host capacity, off-host recovery, alert delivery and content/model approval remain outstanding. The historical acceptance results below are preserved, not rerun or relabeled as Step 6 results.
+
+## Historical Step 5.5 acceptance
+
 2026-11-08. **SOFTWARE ACCEPTANCE PASSED; PUBLIC DEPLOYMENT ACCEPTANCE PENDING.** A01–A05 are corrected; A06 is retained. A07 development-tool maintenance and external operational gates remain. Read the [implementation report](STEP5_5_REMEDIATION_REPORT.md) and [deployment execution plan](DEPLOYMENT_EXECUTION_PLAN.md).
 
 ## Recorded verification

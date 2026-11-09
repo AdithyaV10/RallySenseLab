@@ -1,5 +1,13 @@
 # Deployment readiness decision
 
+## Current Step 6 decision, 2026-11-09
+
+**Local dual-environment release rehearsal passed; image-security gate FAILED / disposition pending; public deployment NOT ready.** [Step 6 report](STEP6_RELEASE_REPORT.md) records new evidence. [Deployment handoff](DEPLOYMENT_HANDOFF.md) supersedes the historical single-project commands with two independent backend/database/artifact projects and one shared gateway.
+
+Auth-free pinned Trivy scanning completed. Four critical and 371 high package instances were reported, including duplicated libraries, build/SBOM/CLI tooling and unproven runtime applicability. [Vulnerability review](VULNERABILITY_REVIEW.md) distinguishes vendor-supported false-positive candidates from unresolved media/XML/gateway/OS risks. No scan suppression or security acceptance was invented. Both curated demo and authenticated workspace require an approved image-security disposition; uploads add native media-parser exposure.
+
+Fresh synthetic-only demo and separate protected workspace passed actual HTTPS/browser/worker workflows, auth/Host/Origin/isolation checks and paired recovery. Existing Step 5.5 software tests remain applicable because application source/locks were unchanged. Public ACME/DNS/firewall/target-host performance, encrypted off-host restore, monitoring and owner fixture/model approval are still external gates. No cloud resource or public listener was created. The earlier statement that image scanning requires Docker authentication is superseded by the successful Trivy execution, not by a clean security verdict.
+
 ## Current Step 5.5 decision, 2026-11-08
 
 **Application remediation delivered; public release remains conditional on operational and human acceptance.** A01–A05 are repaired, A06 is retained, and all four original application audit regressions pass. [RELEASE_ACCEPTANCE](RELEASE_ACCEPTANCE.md) records exact final results and unresolved scan/advisory outcomes.

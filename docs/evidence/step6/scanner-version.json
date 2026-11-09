@@ -1,0 +1,18 @@
+{
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--mount",
+    "type=volume,source=rallysense_step6_trivy_cache,target=/cache",
+    "aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb",
+    "--cache-dir",
+    "/cache",
+    "--version",
+    "--format",
+    "json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.778,
+  "output": "{\"Version\":\"0.76.2\",\"VulnerabilityDB\":{\"Version\":2,\"NextUpdate\":\"2026-11-10T00:56:17.155719496Z\",\"UpdatedAt\":\"2026-11-09T00:56:17.155719746Z\",\"DownloadedAt\":\"2026-11-09T05:33:07.856813659Z\"}}\n"
+}

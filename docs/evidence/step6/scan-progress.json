@@ -1,0 +1,34 @@
+[
+  {
+    "image": "rallysense-api:local",
+    "image_id": "sha256:3cd9f15bdc8ab6a228027621c3732910489b6a388263757322537ec9fd8d149c",
+    "exit_code": 0,
+    "elapsed_s": 280.042,
+    "archive_sha256": "bf59b8935e5644efa8b124bec0960fd80f5e0011b4f8f4e4a2bea1c2269b1bf0",
+    "archive_bytes": 370951168
+  },
+  {
+    "image": "rallysense-web:latest",
+    "image_id": "sha256:28775f33b844fff92db9de9813378273f276d09e6a5f5b7d4fe7308ba608fda0",
+    "exit_code": 0,
+    "elapsed_s": 41.008,
+    "archive_sha256": "8436f9ccf4fb8ee5c904c2962809ba783d1d8e587f3bbc1262d97ce892448d1b",
+    "archive_bytes": 111507456
+  },
+  {
+    "image": "postgres:17.11@sha256:3b0cda93be7c8dba2ed484d19393d93845dc3dafb88973e248ba8e6d99d784e1",
+    "image_id": "sha256:3b0cda93be7c8dba2ed484d19393d93845dc3dafb88973e248ba8e6d99d784e1",
+    "exit_code": 0,
+    "elapsed_s": 39.347,
+    "archive_sha256": "b4e2388013aee73ce2015e7265a9c9151ad717fb6f8ee8ca2fbcfcbfd02a1631",
+    "archive_bytes": 167182336
+  },
+  {
+    "image": "caddy@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9",
+    "image_id": "sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9",
+    "exit_code": 0,
+    "elapsed_s": 8.036,
+    "archive_sha256": "5ef52a2da49717249d574d1577979be7f9bbfc41d5967c034b288799b695a8f4",
+    "archive_bytes": 25161728
+  }
+]

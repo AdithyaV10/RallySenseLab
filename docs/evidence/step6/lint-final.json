@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-11-09T06:10:19.102925+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "scripts/prepare-curated-fixtures.py",
+    "scripts/prepare-step6-local.py",
+    "scripts/prepare-release-config.py",
+    "scripts/review-release-vulnerabilities.py",
+    "scripts/scan-release-images.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-production-config.py",
+    "scripts/smoke-release.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.106,
+  "output": "PLW1510 `subprocess.run` without explicit `check` argument\n  --> scripts\\verify-production-config.py:12:14\n   |\n11 | def run(command):\n12 |     result = subprocess.run(\n   |              ^^^^^^^^^^^^^^\n13 |         command, capture_output=True, text=True, encoding=\"utf-8\", timeout=60\n14 |     )\n   |\nhelp: Add explicit `check=False`\n   |\n12 |     result = subprocess.run(\n   -         command, capture_output=True, text=True, encoding=\"utf-8\", timeout=60\n13 +         command, check=False, capture_output=True, text=True, encoding=\"utf-8\", timeout=60\n14 |     )\n   |\nnote: This suggestion may be incorrect or produce invalid syntax. It requires manual review and cannot be applied automatically\n\nFound 1 error.\n"
+}

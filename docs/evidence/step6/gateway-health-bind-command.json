@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-11-09T06:04:16.024005+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "--project-directory",
+    "C:/RallySenseLab",
+    "--env-file",
+    "storage/step6/edge.env",
+    "-p",
+    "rallysense-step6-edge",
+    "-f",
+    "infrastructure/compose.gateway.yml",
+    "-f",
+    "infrastructure/compose.gateway.local-test.yml",
+    "up",
+    "-d",
+    "--no-build",
+    "--force-recreate",
+    "--wait",
+    "--wait-timeout",
+    "60"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 17.911,
+  "output": " Container rallysense-step6-edge-gateway-1 Recreate \n Container rallysense-step6-edge-gateway-1 Recreated \n Container rallysense-step6-edge-gateway-1 Starting \n Container rallysense-step6-edge-gateway-1 Started \n Container rallysense-step6-edge-gateway-1 Waiting \n Container rallysense-step6-edge-gateway-1 Healthy \n"
+}

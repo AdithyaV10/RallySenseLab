@@ -1,0 +1,16 @@
+{
+  "web_node": {
+    "node": "v24.22.2",
+    "fetch_undici": "7.30.1"
+  },
+  "api_python": {
+    "fastapi": "/app/.venv/lib/python3.13/site-packages/fastapi/__init__.py",
+    "numpy": "/app/.venv/lib/python3.13/site-packages/numpy/__init__.py",
+    "msgpack": null,
+    "urllib3": null,
+    "setuptools": null
+  },
+  "web_zlib_files": "/.\n/lib\n/lib/x86_64-linux-gnu\n/lib/x86_64-linux-gnu/libz.so.1.2.13\n/usr\n/usr/share\n/usr/share/doc\n/usr/share/doc/zlib1g\n/usr/share/doc/zlib1g/changelog.Debian.gz\n/usr/share/doc/zlib1g/changelog.gz\n/usr/share/doc/zlib1g/copyright\n/lib/x86_64-linux-gnu/libz.so.1",
+  "api_media_versions": "ffmpeg\t7:7.1.5-0+deb13u1\nlibxml2:amd64\t2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+  "scope": "Runtime resolution and installed package evidence; does not prove absence from every image layer or transitive binary."
+}

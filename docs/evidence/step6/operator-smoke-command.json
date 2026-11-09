@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T06:03:09.109798+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/smoke-release.py",
+    "--local-step6"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.952,
+  "output": "{\"passed\": [{\"role\": \"demo\", \"tls\": true, \"auth\": true, \"origin_host\": true, \"ready\": true}, {\"role\": \"workspace\", \"tls\": true, \"auth\": true, \"origin_host\": true, \"ready\": true}], \"tls_scope\": \"private CA and loopback\", \"uploads_exercised\": false}\n"
+}

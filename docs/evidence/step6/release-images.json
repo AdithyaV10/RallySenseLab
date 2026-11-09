@@ -1,0 +1,14 @@
+{
+  "source_checkpoint": "ac75d818a168bfcf1b7f23a609121b18b0933e8e",
+  "api_image": {
+    "tag": "rallysense-api:release-ac75d818",
+    "id": "sha256:3cd9f15bdc8ab6a228027621c3732910489b6a388263757322537ec9fd8d149c",
+    "platform": "linux/amd64"
+  },
+  "web_image": {
+    "tag": "rallysense-web:release-ac75d818",
+    "id": "sha256:28775f33b844fff92db9de9813378273f276d09e6a5f5b7d4fe7308ba608fda0",
+    "platform": "linux/amd64"
+  },
+  "api_source_files_verified": 31
+}

@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-09T05:55:34.371346+00:00",
+  "command": [
+    "node",
+    "scripts/verify-step6-browser.mjs"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 19.207,
+  "output": "[\n  {\n    \"role\": \"demo\",\n    \"authenticated_navigation\": true,\n    \"video_decode_and_play\": true,\n    \"synchronized_seek\": true,\n    \"graph\": true,\n    \"stored_comparison\": true,\n    \"missed_reference_navigation\": true,\n    \"report\": true,\n    \"mobile_overflow\": false,\n    \"page_errors\": [],\n    \"mediapipe\": null\n  },\n  {\n    \"role\": \"workspace\",\n    \"authenticated_navigation\": true,\n    \"video_decode_and_play\": true,\n    \"synchronized_seek\": true,\n    \"graph\": true,\n    \"stored_comparison\": true,\n    \"missed_reference_navigation\": true,\n    \"report\": true,\n    \"mobile_overflow\": false,\n    \"page_errors\": [],\n    \"mediapipe\": {\n      \"executor\": \"worker\",\n      \"frames\": 79,\n      \"detected_frames\": 0,\n      \"source\": \"programmatic synthetic MP4; actual MediaPipe execution, no accuracy claim\"\n    }\n  }\n]\n"
+}

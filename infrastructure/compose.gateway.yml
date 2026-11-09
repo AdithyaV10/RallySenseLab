@@ -1,0 +1,38 @@
+# Always use --project-directory at the repository root. Requires both private app networks.
+name: rallysense-edge
+services:
+  gateway:
+    image: caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
+    restart: unless-stopped
+    environment:
+      DEMO_HOST: ${DEMO_HOST:?Demo hostname required}
+      WORKSPACE_HOST: ${WORKSPACE_HOST:?Workspace hostname required}
+      TLS_POLICY: ${TLS_POLICY:-}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./infrastructure/Caddyfile.release:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [demo_edge, workspace_edge]
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8081/health"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+volumes:
+  caddy_data:
+  caddy_config:
+networks:
+  demo_edge:
+    external: true
+    name: ${DEMO_EDGE_NETWORK:?Demo edge network required}
+  workspace_edge:
+    external: true
+    name: ${WORKSPACE_EDGE_NETWORK:?Workspace edge network required}

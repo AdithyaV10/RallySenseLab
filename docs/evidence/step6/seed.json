@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T05:40:57.410625+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-step6-local.py",
+    "seed"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 36.181,
+  "output": "demo: fresh generated fixtures and precomputed failure/clean cases ready.\nworkspace: fresh generated fixtures and precomputed failure/clean cases ready.\n"
+}

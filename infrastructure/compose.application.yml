@@ -1,0 +1,19 @@
+# Add after compose.release.yml. One shared gateway serves two isolated app projects.
+services:
+  gateway:
+    profiles: [disabled-standalone-gateway]
+    ports: !reset []
+  web:
+    networks:
+      backend: {}
+      edge:
+        aliases: ["${EDGE_WEB_ALIAS:?Unique environment web alias required}"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "const h=require('node:http');const r=h.get({host:'127.0.0.1',port:3000,path:'/api/v1/health/ready',headers:{host:process.env.WEB_ALLOWED_HOSTS.split(',')[0],authorization:'Basic '+Buffer.from('lab:'+process.env.SITE_ACCESS_PASSWORD).toString('base64')}},s=>{s.resume();process.exit(s.statusCode===200?0:1)});r.setTimeout(2500,()=>{r.destroy();process.exit(1)});r.on('error',()=>process.exit(1));"]
+      interval: 15s
+      timeout: 4s
+      retries: 5
+      start_period: 10s
+networks:
+  edge:
+    name: ${EDGE_NETWORK:?Unique environment edge network required}

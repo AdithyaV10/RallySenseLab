@@ -1,6 +1,7 @@
 {
     admin off
     servers {
+        strict_sni_host on
         max_header_size 32KB
         timeouts {
             read_header 10s

@@ -1,0 +1,73 @@
+{
+  "sessions": [
+    {
+      "id": "a991985d-1a9e-456d-8e6a-12549dd360ed",
+      "title": "Baseline / synthetic motion",
+      "dataset_kind": "synthetic"
+    },
+    {
+      "id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+      "title": "Paired motion / synthetic research",
+      "dataset_kind": "synthetic"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "fbf40fa6-e0dc-42d4-aac4-6e5aa3d1c01d",
+      "session_id": "a991985d-1a9e-456d-8e6a-12549dd360ed",
+      "kind": "raw_csv",
+      "bytes": 233448,
+      "sha256": "923395fa992771b506c57af2e4b76856e420b3137cff9704a40d06041ea662fb"
+    },
+    {
+      "id": "36aad953-373d-4745-9754-4f2289fec223",
+      "session_id": "a991985d-1a9e-456d-8e6a-12549dd360ed",
+      "kind": "sensor_parquet_v1",
+      "bytes": 95405,
+      "sha256": "adbb6c592c460b89923d50ef94c90c595cee3436de2deff46a71d368657a7c0f"
+    },
+    {
+      "id": "63ae1113-e763-43c3-8969-69022b4ff1ef",
+      "session_id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+      "kind": "raw_csv",
+      "bytes": 34278,
+      "sha256": "932149dd3113cdab9607e31e4ee2e0a54d63707d017c4cce2855f599409b2845"
+    },
+    {
+      "id": "05ef8bcd-5e7e-4de4-8ca3-d11d491fb9de",
+      "session_id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+      "kind": "sensor_parquet_v1",
+      "bytes": 9468,
+      "sha256": "286db07885e4d5be35bc868e936168287c10e770be3afa9c1f4df16a64f6149e"
+    },
+    {
+      "id": "40ad6791-c128-4aec-a8b8-1d997e106cf6",
+      "session_id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+      "kind": "video_mp4",
+      "bytes": 15839,
+      "sha256": "d504bf67145395b53cdf65432272c32f6ffd4080c1b68f1e031995591d9b0419"
+    },
+    {
+      "id": "479c0f0b-6eee-46f2-b5f7-a73c89e82d79",
+      "session_id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+      "kind": "pose_parquet_v1",
+      "bytes": 7479,
+      "sha256": "5a3276bec2d26529a3da7edaaea3943d6826a24eb2ee4c9ebbc6ef31e84f9047"
+    }
+  ],
+  "all_artifacts_verified": true,
+  "private_imports": false,
+  "vendor_asset_hashes_verified": [
+    {
+      "filename": "pose_landmarker_lite.task",
+      "url": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+      "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a"
+    },
+    {
+      "filename": "LICENSE",
+      "url": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE",
+      "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8"
+    }
+  ],
+  "mediapipe_package": "Apache-2.0"
+}

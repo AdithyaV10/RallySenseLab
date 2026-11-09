@@ -1,0 +1,36 @@
+{
+  "scope": "Actual Chromium against loopback HTTPS release stacks; private-CA chain separately verified by Python; generated sources only",
+  "results": [
+    {
+      "role": "demo",
+      "authenticated_navigation": true,
+      "video_decode_and_play": true,
+      "synchronized_seek": true,
+      "graph": true,
+      "stored_comparison": true,
+      "missed_reference_navigation": true,
+      "report": true,
+      "mobile_overflow": false,
+      "page_errors": [],
+      "mediapipe": null
+    },
+    {
+      "role": "workspace",
+      "authenticated_navigation": true,
+      "video_decode_and_play": true,
+      "synchronized_seek": true,
+      "graph": true,
+      "stored_comparison": true,
+      "missed_reference_navigation": true,
+      "report": true,
+      "mobile_overflow": false,
+      "page_errors": [],
+      "mediapipe": {
+        "executor": "worker",
+        "frames": 79,
+        "detected_frames": 0,
+        "source": "programmatic synthetic MP4; actual MediaPipe execution, no accuracy claim"
+      }
+    }
+  ]
+}

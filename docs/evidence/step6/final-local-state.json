@@ -1,0 +1,90 @@
+{
+  "isolated_projects_stopped": true,
+  "volumes_retained": true,
+  "projects": [
+    {
+      "project": "rallysense-step6-demo",
+      "containers": [
+        {
+          "name": "rallysense-step6-demo-worker-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-demo-web-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-demo-api-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-demo-db-1",
+          "state": "exited"
+        }
+      ],
+      "retained_volumes": [
+        "rallysense-step6-demo_artifact_data",
+        "rallysense-step6-demo_postgres_data"
+      ]
+    },
+    {
+      "project": "rallysense-step6-workspace",
+      "containers": [
+        {
+          "name": "rallysense-step6-workspace-worker-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-workspace-web-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-workspace-api-1",
+          "state": "exited"
+        },
+        {
+          "name": "rallysense-step6-workspace-db-1",
+          "state": "exited"
+        }
+      ],
+      "retained_volumes": [
+        "rallysense-step6-workspace_artifact_data",
+        "rallysense-step6-workspace_postgres_data"
+      ]
+    },
+    {
+      "project": "rallysense-step6-edge",
+      "containers": [
+        {
+          "name": "rallysense-step6-edge-gateway-1",
+          "state": "exited"
+        }
+      ],
+      "retained_volumes": [
+        "rallysense-step6-edge_caddy_config",
+        "rallysense-step6-edge_caddy_data"
+      ]
+    },
+    {
+      "project": "rallysense-restore-step6-demo",
+      "containers": [
+        {
+          "name": "rallysense-restore-step6-demo-db-1",
+          "state": "exited"
+        }
+      ],
+      "retained_volumes": [
+        "rallysense-restore-step6-demo_artifact_data",
+        "rallysense-restore-step6-demo_postgres_data"
+      ]
+    }
+  ],
+  "original_development_services_running": [
+    "rallysense-worker-1",
+    "rallysense-api-1",
+    "rallysense-web-1",
+    "rallysense-db-1"
+  ],
+  "cloud_provisioned": false,
+  "public_listener_started": false
+}

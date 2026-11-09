@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T05:39:25.555133+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-step6-local.py",
+    "verify-config"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.539,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\prepare-step6-local.py\", line 243, in <module>\n    assert services[\"gateway\"][\"profiles\"] == [\n           ~~~~~~~~^^^^^^^^^^^\nKeyError: 'gateway'\n"
+}

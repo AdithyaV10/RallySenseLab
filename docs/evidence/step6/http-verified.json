@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T05:48:23.269965+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-step6-release.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 1.077,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\verify-step6-release.py\", line 192, in <module>\n    assert compared.status_code == 200\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

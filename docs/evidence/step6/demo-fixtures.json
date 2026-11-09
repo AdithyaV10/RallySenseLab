@@ -1,0 +1,245 @@
+{
+  "session_ids": [
+    "a991985d-1a9e-456d-8e6a-12549dd360ed",
+    "f66ad662-25be-4350-bd04-26e8b1ae1752"
+  ],
+  "paired_id": "f66ad662-25be-4350-bd04-26e8b1ae1752",
+  "private_data_imported": false,
+  "dataset": "built-in generated analytical fixtures; no real-world accuracy evaluation",
+  "curated_experiments": [
+    {
+      "name": "Missing IMU window / synthetic failure case",
+      "id": "b76d28bd-024d-4a5b-b84b-5e2574304967",
+      "status": "succeeded",
+      "events": 1,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 0.6666666666666666,
+        "fn": 1,
+        "fp": 0,
+        "tp": 1,
+        "recall": 0.5,
+        "matches": [
+          {
+            "reference_us": 5000000,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "signed_error_us": 0,
+            "prediction_index": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": 1.0,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [
+          0
+        ],
+        "mean_signed_error_us": 0.0,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "false_positives_per_minute": 0.0
+      }
+    },
+    {
+      "name": "Wrist occlusion / synthetic failure case",
+      "id": "06b50861-d898-41d1-bfb9-e86493cfd5f6",
+      "status": "succeeded",
+      "events": 1,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 0.6666666666666666,
+        "fn": 1,
+        "fp": 0,
+        "tp": 1,
+        "recall": 0.5,
+        "matches": [
+          {
+            "reference_us": 5000000,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "signed_error_us": 0,
+            "prediction_index": 0,
+            "absolute_error_us": 0
+          }
+        ],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": 1.0,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [
+          0
+        ],
+        "mean_signed_error_us": 0.0,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "false_positives_per_minute": 0.0
+      }
+    },
+    {
+      "name": "Offset +1 second / synthetic failure case",
+      "id": "64367bff-edfb-4086-a3b0-4ea109f5d0ad",
+      "status": "succeeded",
+      "events": 0,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 0.0,
+        "fn": 2,
+        "fp": 0,
+        "tp": 0,
+        "recall": 0.0,
+        "matches": [],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": null,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [
+          0,
+          1
+        ],
+        "mean_signed_error_us": null,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": null,
+        "median_absolute_error_us": null,
+        "false_positives_per_minute": 0.0
+      }
+    },
+    {
+      "name": "Full occlusion / expected inference failure",
+      "id": "b22c030f-bde9-4f4f-9d28-b351414b6983",
+      "status": "failed",
+      "events": 0,
+      "failure_code": "INSUFFICIENT_DATA",
+      "evaluation": null
+    },
+    {
+      "name": "Clean IMU / synthetic software verification",
+      "id": "68b0866f-df6c-4fa0-ae7f-822c98271d84",
+      "status": "succeeded",
+      "events": 2,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "tp": 2,
+        "recall": 1.0,
+        "matches": [
+          {
+            "reference_us": 2000000,
+            "prediction_us": 2000000,
+            "reference_index": 0,
+            "signed_error_us": 0,
+            "prediction_index": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "reference_us": 5000000,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "signed_error_us": 0,
+            "prediction_index": 1,
+            "absolute_error_us": 0
+          }
+        ],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": 1.0,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [],
+        "mean_signed_error_us": 0.0,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "false_positives_per_minute": 0.0
+      }
+    },
+    {
+      "name": "Clean video / synthetic software verification",
+      "id": "723c44fc-1e20-4b86-87d5-22ff4d114bb5",
+      "status": "succeeded",
+      "events": 2,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "tp": 2,
+        "recall": 1.0,
+        "matches": [
+          {
+            "reference_us": 2000000,
+            "prediction_us": 2016666,
+            "reference_index": 0,
+            "signed_error_us": 16666,
+            "prediction_index": 0,
+            "absolute_error_us": 16666
+          },
+          {
+            "reference_us": 5000000,
+            "prediction_us": 4983333,
+            "reference_index": 1,
+            "signed_error_us": -16667,
+            "prediction_index": 1,
+            "absolute_error_us": 16667
+          }
+        ],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": 1.0,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [],
+        "mean_signed_error_us": -0.5,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": 16666.5,
+        "median_absolute_error_us": 16666.5,
+        "false_positives_per_minute": 0.0
+      }
+    },
+    {
+      "name": "Clean fusion / synthetic software verification",
+      "id": "8f328ee0-f227-464b-9aca-9dd03634ebf1",
+      "status": "succeeded",
+      "events": 2,
+      "failure_code": null,
+      "evaluation": {
+        "f1": 1.0,
+        "fn": 0,
+        "fp": 0,
+        "tp": 2,
+        "recall": 1.0,
+        "matches": [
+          {
+            "reference_us": 2000000,
+            "prediction_us": 2000000,
+            "reference_index": 0,
+            "signed_error_us": 0,
+            "prediction_index": 0,
+            "absolute_error_us": 0
+          },
+          {
+            "reference_us": 5000000,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "signed_error_us": 0,
+            "prediction_index": 1,
+            "absolute_error_us": 0
+          }
+        ],
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "precision": 1.0,
+        "tolerance_us": 150000,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "missed_references": [],
+        "mean_signed_error_us": 0.0,
+        "unmatched_predictions": [],
+        "mean_absolute_error_us": 0.0,
+        "median_absolute_error_us": 0.0,
+        "false_positives_per_minute": 0.0
+      }
+    }
+  ]
+}
