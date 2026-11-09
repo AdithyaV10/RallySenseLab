@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T07:14:42.768238+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/finalize-security-manifest.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 5.019,
+  "output": "{\"frozen_local_candidate_aliases\": [\"rallysense-api:release-step6_5-rc1\", \"rallysense-api-readonly:release-step6_5-rc1\", \"rallysense-web:release-step6_5-rc1\", \"rallysense-postgres:release-step6_5-rc1\", \"rallysense-caddy:release-step6_5-rc1\"], \"security_gate_passed\": false, \"public_actions\": false}\n"
+}

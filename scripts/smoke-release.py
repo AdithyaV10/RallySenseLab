@@ -15,11 +15,14 @@ parser.add_argument(
     action="store_true",
     help="Only the isolated .test stacks, with their private CA",
 )
+parser.add_argument("--local-stage", choices=["step6", "step6_5"])
+parser.add_argument("--role", choices=["demo", "workspace", "both"], default="both")
 args = parser.parse_args()
+local_stage = args.local_stage or ("step6" if args.local_step6 else None)
 tls = ssl.create_default_context()
-if args.local_step6:
-    args.env_directory = Path("storage/step6")
-    tls = ssl.create_default_context(cafile="storage/step6/test-root.crt")
+if local_stage:
+    args.env_directory = Path(f"storage/{local_stage}")
+    tls = ssl.create_default_context(cafile=f"storage/{local_stage}/test-root.crt")
     original = socket.getaddrinfo
 
     def resolve(host, *positional, **keywords):
@@ -33,7 +36,7 @@ if args.local_step6:
 
     socket.getaddrinfo = resolve
 checks = []
-for role in ["demo", "workspace"]:
+for role in ["demo", "workspace"] if args.role == "both" else [args.role]:
     values = dict(
         line.split("=", 1)
         for line in (args.env_directory / f"{role}.env").read_text().splitlines()
@@ -97,7 +100,7 @@ print(
         {
             "passed": checks,
             "tls_scope": "private CA and loopback"
-            if args.local_step6
+            if local_stage
             else "system public CA and real DNS",
             "uploads_exercised": False,
         }

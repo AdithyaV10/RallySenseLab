@@ -1,0 +1,14 @@
+{
+  "original_runtime_assertions_unchanged": true,
+  "scientific_sources_locks_and_historical_evidence_unchanged": true,
+  "generated_secrets_in_reviewable_files": 0,
+  "files_checked": 216,
+  "missing_local_links": 0,
+  "frozen_source_fingerprint_matches": true,
+  "four_component_raw_final_counts": {
+    "CRITICAL": 1,
+    "HIGH": 163
+  },
+  "docker_final_state": "not_reverified_engine_unavailable",
+  "release_security_approved": false
+}

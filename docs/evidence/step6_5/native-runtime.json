@@ -1,0 +1,36 @@
+{
+  "runtime": {
+    "dependency_lock_sha256": "685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e",
+    "runtime": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "pyarrow": "26.0.0",
+      "python": "3.13.18"
+    },
+    "build_id": "local-source"
+  },
+  "uid": 1000,
+  "uv_present": false,
+  "native_inherited_environment_keys": [
+    "LANG",
+    "PATH"
+  ],
+  "top_level_modules": {
+    "msgpack": null,
+    "setuptools": null,
+    "urllib3": null
+  },
+  "libxml2": null,
+  "binaries": {
+    "ffmpeg": "8e1066b110f9178fe58c617f02ba09a950b04f7bc0e330d5c15f9330a728a846",
+    "ffprobe": "4b619aaf6cd090ed27bb7dc759d1099ec9aecd249da056953e69b0c54bc44080"
+  },
+  "native_versions": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers\nbuilt with gcc 14 (Debian 14.2.0-19)\nconfiguration: --prefix=/opt/media --disable-autodetect --disable-shared --enable-static --disable-doc --disable-debug --disable-network --disable-everything --enable-ffmpeg --enable-ffprobe --disable-ffplay --enable-gpl --enable-libx264 --enable-libvpx --enable-pthreads --enable-protocol='file,pipe,crypto' --enable-demuxer='mov,matroska,rawvideo' --enable-muxer='mp4,webm' --enable-decoder='h264,vp8,vp9,rawvideo,wrapped_avframe' --enable-encoder='libx264,libvpx_vp8,libvpx_vp9' --enable-parser='h264,vp8,vp9' --enable-bsf='h264_mp4toannexb,extract_extradata' --enable-filter='color,format,scale,null,anull' --enable-indev=lavfi\nlibavutil      61.  1.102 / 61.  1.102\nlibavcodec     63.  1.102 / 63.  1.102\nlibavformat    63.  1.102 / 63.  1.102\nlibavdevice    63.  1.102 / 63.  1.102\nlibavfilter    12.  1.102 / 12.  1.102\nlibswscale     10.  1.102 / 10.  1.102\nlibswresample   7.  1.102 /  7.  1.102\n\nExiting with exit code 0",
+  "demuxers": "Formats:\n D.. = Demuxing supported\n .E. = Muxing supported\n ..d = Is a device\n ---\n D d lavfi           Libavfilter virtual input device\n D   matroska,webm   Matroska / WebM\n D   mov,mp4,m4a,3gp,3g2,mj2 QuickTime / MOV\n D   rawvideo        raw video",
+  "decoders": "Decoders:\n V..... = Video\n A..... = Audio\n S..... = Subtitle\n .F.... = Frame-level multithreading\n ..S... = Slice-level multithreading\n ...X.. = Codec is experimental\n ....B. = Supports draw_horiz_band\n .....D = Supports direct rendering method 1\n ------\n VFS..D h264                 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10\n V..... rawvideo             raw video\n VFS..D vp8                  On2 VP8\n VFS..D vp9                  Google VP9\n V..... wrapped_avframe      AVPacket to AVFrame passthrough",
+  "protocols": "Supported file protocols:\nInput:\n  crypto\n  file\n  pipe\nOutput:\n  crypto\n  file\n  pipe",
+  "muxers": "Formats:\n D.. = Demuxing supported\n .E. = Muxing supported\n ..d = Is a device\n ---\n  E  mov             QuickTime / MOV\n  E  mp4             MP4 (MPEG-4 Part 14)\n  E  webm            WebM",
+  "filters": "Filters:\n  T.. = Timeline support\n  .S. = Slice threading\n  A = Audio input/output\n  V = Video input/output\n  N = Dynamic number and/or type of input/output\n  | = Source or sink filter\n  ------\n .. aformat           A->A       Convert the input audio to one of the specified formats.\n .. anull             A->A       Pass the source unchanged to the output.\n .. atrim             A->A       Pick one continuous section from the input, drop the rest.\n .. crop              V->V       Crop the input video.\n .. format            V->V       Convert the input video to one of the specified pixel formats.\n TS hflip             V->V       Horizontally flip the input video.\n .. null              V->V       Pass the source unchanged to the output.\n TS rotate            V->V       Rotate the input image.\n .. scale             V->V       Scale the input video size and/or convert the image format.\n .S transpose         V->V       Transpose input video.\n .. trim              V->V       Pick one continuous section from the input, drop the rest.\n T. vflip             V->V       Flip the input video vertically.\n .. color             |->V       Provide an uniformly colored input.\n .. abuffer           |->A       Buffer audio frames, and make them accessible to the filterchain.\n .. buffer            |->V       Buffer video frames, and make them accessible to the filterchain.\n .. abuffersink       A->|       Buffer audio frames, and make them available to the end of the filter graph.\n .. buffersink        V->|       Buffer video frames, and make them available to the end of the filter graph.",
+  "shared_libraries": "linux-vdso.so.1 (0x00007fff5036b000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007c56e489d000)\n\tlibvpx.so.9 => /lib/x86_64-linux-gnu/libvpx.so.9 (0x00007c56e4529000)\n\tlibx264.so.164 => /lib/x86_64-linux-gnu/libx264.so.164 (0x00007c56e4255000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007c56e4061000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007c56e5204000)",
+  "runtime_libraries": "libvpx9:amd64\t1.15.0-2.1+deb13u1\nlibx264-164:amd64\t2:0.164.3108+git31e19f9-2+b1"
+}

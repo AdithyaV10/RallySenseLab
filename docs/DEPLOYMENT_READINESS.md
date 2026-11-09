@@ -1,5 +1,9 @@
 # Deployment readiness decision
 
+## Current Step 6.5 decision, 2026-11-09
+
+**Mode A: ready for human security review, conditional/unreleased. Mode B: blocked for release approval by native-media findings.** [Final security review](FINAL_IMAGE_SECURITY_REVIEW.md) supersedes the Step 6 image counts with1 critical/163 high package instances and a separate current native-component review. No image was declared clean/approved. [Final RC](FINAL_RELEASE_CANDIDATE.md) and [handoff](DEPLOYMENT_HANDOFF.md) identify frozen local artifacts, exact commands and pending human/external gates. All normal functional regressions and original data/hash preservation passed; none of this authorizes deployment.
+
 ## Current Step 6 decision, 2026-11-09
 
 **Local dual-environment release rehearsal passed; image-security gate FAILED / disposition pending; public deployment NOT ready.** [Step 6 report](STEP6_RELEASE_REPORT.md) records new evidence. [Deployment handoff](DEPLOYMENT_HANDOFF.md) supersedes the historical single-project commands with two independent backend/database/artifact projects and one shared gateway.

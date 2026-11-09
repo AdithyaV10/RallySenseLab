@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-09T06:37:24.000185+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=C:/RallySenseLab/storage/step6_5/sources,target=/sources,readonly",
+    "--entrypoint",
+    "sh",
+    "postgres:17-trixie",
+    "-c",
+    "mkdir -m 700 /tmp/release-keyring && gpg --homedir /tmp/release-keyring --import /sources/ffmpeg-release.asc && gpg --homedir /tmp/release-keyring --verify /sources/ffmpeg-9.0.2.tar.xz.asc /sources/ffmpeg-9.0.2.tar.xz"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 2.028,
+  "output": "gpg: keybox '/tmp/release-keyring/pubring.kbx' created\ngpg: /tmp/release-keyring/trustdb.gpg: trustdb created\ngpg: key B4322F04D67658D8: public key \"FFmpeg release signing key <ffmpeg-devel@ffmpeg.org>\" imported\ngpg: Total number processed: 1\ngpg:               imported: 1\ngpg: Signature made Fri 18 Sep 2026 02:46:02 AM UTC\ngpg:                using RSA key FCF986EA15E6E293A5644F10B4322F04D67658D8\ngpg:                issuer \"ffmpeg-devel@ffmpeg.org\"\ngpg: Good signature from \"FFmpeg release signing key <ffmpeg-devel@ffmpeg.org>\" [unknown]\ngpg: WARNING: The key's User ID is not certified with a trusted signature!\ngpg:          There is no indication that the signature belongs to the owner.\nPrimary key fingerprint: FCF9 86EA 15E6 E293 A564  4F10 B432 2F04 D676 58D8\n"
+}

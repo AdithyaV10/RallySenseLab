@@ -1,0 +1,57 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "urn:uuid:696dad7d-941c-4a4c-841c-e4c0b62f20b9",
+  "author": "RallySense Lab engineering review; human security approval pending",
+  "timestamp": "2026-11-09T07:17:30.309335+00:00",
+  "version": 1,
+  "statements": [
+    {
+      "vulnerability": {
+        "name": "CVE-2026-116587"
+      },
+      "products": [
+        {
+          "@id": "urn:rallysense:caddy-config:33b03f947febffd4afa0b308ad62b88e12e9f5ba2e50fa012e9944ee99d6bc4d:image:sha256:f7fa280c0954d072ee9287220878c63627b067888253454323bcf75980e55db6"
+        }
+      ],
+      "status": "under_investigation",
+      "action_statement": "Unpatched go-jose/v3 3.0.5 is present. Proposed applicability reasoning is limited to this reverse-proxy configuration: admin disabled, no acme_server/JWK/JWT endpoint, private CA/key material controlled locally. Obtain explicit human disposition; invalidate on config/module changes. This statement must not suppress the scanner finding."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-6653"
+      },
+      "products": [
+        {
+          "@id": "urn:rallysense:postgres:sha256:c0ac57594a8888f7f7f4134315a6db5bbe495bf8a0c555180669bc66f10897e5"
+        }
+      ],
+      "status": "affected",
+      "action_statement": "Debian confirms installed stable libxml2 affected; no compatible stable vendor patch is available. PostgreSQL remains private and the application exposes no arbitrary SQL/XML interface. Require vendor update or explicit human acceptance for both release modes; do not label the library not affected."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-107678"
+      },
+      "products": [
+        {
+          "@id": "urn:rallysense:api-native:sha256:519c277ba95d40d69f8d6691a1688f4662d47f277d0d1a446d29e5a68a2f3e40"
+        }
+      ],
+      "status": "affected",
+      "action_statement": "Mode B blocked: actual required MOV/PSSH parsing hit the 20-second application timeout on a generated 1.65 MB file. Readonly image omits native media. Require supported patch or separately reviewed stronger processing isolation."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-107676"
+      },
+      "products": [
+        {
+          "@id": "urn:rallysense:api-native:sha256:519c277ba95d40d69f8d6691a1688f4662d47f277d0d1a446d29e5a68a2f3e40"
+        }
+      ],
+      "status": "affected",
+      "action_statement": "Mode B blocked pending native Matroska HDR10+ serialization applicability/patch review. Upstream fix is referenced but no accepted supported stable release containing it was established. No not-affected claim."
+    }
+  ]
+}

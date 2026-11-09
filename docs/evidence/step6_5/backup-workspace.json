@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-11-09T07:07:36.130482+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "backup",
+    "--project",
+    "rallysense-step6_5-workspace",
+    "--env-file",
+    "storage/step6_5/workspace.env",
+    "--file",
+    "docker-compose.yml",
+    "--file",
+    "infrastructure/compose.release.yml",
+    "--file",
+    "infrastructure/compose.application.yml",
+    "--directory",
+    "storage/step6_5-workspace-backup"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 268.16,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 114, in <module>\n    service(\"stop\", \"worker\")\n    ~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 48, in service\n    return run(*compose, *command, **kwargs)\n  File \"C:\\RallySenseLab\\scripts\\backup-workspace.py\", line 32, in run\n    result = subprocess.run(\n        command,\n    ...<4 lines>...\n        **kwargs,\n    )\n  File \"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\subprocess.py\", line 556, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\subprocess.py\", line 1222, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\subprocess.py\", line 1646, in _communicate\n    raise TimeoutExpired(self.args, orig_timeout)\nsubprocess.TimeoutExpired: Command '('docker', 'compose', '-p', 'rallysense-step6_5-workspace', '--env-file', 'storage/step6_5/workspace.env', '-f', 'docker-compose.yml', '-f', 'infrastructure/compose.release.yml', '-f', 'infrastructure/compose.application.yml', 'stop', 'worker')' timed out after 180 seconds\n"
+}

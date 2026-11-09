@@ -1,0 +1,32 @@
+[
+  {
+    "filename": "ffmpeg-9.0.2.tar.xz",
+    "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+    "sha256": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e",
+    "bytes": 12040788
+  },
+  {
+    "filename": "ffmpeg-9.0.2.tar.xz.asc",
+    "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz.asc",
+    "sha256": "d617fd94ea354dadd2a8bb16243d37c44e1e9729b06b6ad58fe30bfb0fa943f2",
+    "bytes": 520
+  },
+  {
+    "filename": "ffmpeg-release.asc",
+    "url": "https://ffmpeg.org/ffmpeg-devel.asc",
+    "sha256": "397b3becedcd5a98769967ff1ff8501ddc89f8368b8f766e4701377d7dbaabe5",
+    "bytes": 1709
+  },
+  {
+    "filename": "gosu-amd64",
+    "url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-amd64",
+    "sha256": "b1892636c281590f34bc63c1118f058cd9de66c4ea463772e3909672d8b302ac",
+    "bytes": 1774474
+  },
+  {
+    "filename": "gosu-amd64.asc",
+    "url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-amd64.asc",
+    "sha256": "cc08c8b99953396c88ea15955b489d378ad28da511c69ec0deccf137679ef827",
+    "bytes": 566
+  }
+]

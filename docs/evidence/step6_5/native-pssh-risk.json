@@ -1,0 +1,35 @@
+{
+  "diagnostic_completed": true,
+  "release_acceptance_passed": false,
+  "advisory": "CVE-2026-107678",
+  "control": {
+    "duration_us": 500000,
+    "width": 160,
+    "height": 120,
+    "codec": "h264",
+    "format": "mov,mp4,m4a,3gp,3g2,mj2",
+    "time_base": "1/10240",
+    "start_time": "0.000000",
+    "frame_rate": "10/1",
+    "rotation": 0,
+    "media_type": "video/mp4"
+  },
+  "cases": [
+    {
+      "pssh_boxes": 32,
+      "bytes": 2787,
+      "elapsed_s": 0.007,
+      "accepted": true,
+      "codec": "h264"
+    },
+    {
+      "pssh_boxes": 50000,
+      "bytes": 1651731,
+      "elapsed_s": 20.025,
+      "accepted": false,
+      "domain_error": "UNSUPPORTED_MEDIA",
+      "http_status": 415
+    }
+  ],
+  "scope": "Generated unencrypted clip, 512MiB/1CPU/pids64/no network/no mounts; actual bounded application probe path. No private files or database accessed."
+}

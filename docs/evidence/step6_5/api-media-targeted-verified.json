@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-09T06:52:18.026539+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=C:/RallySenseLab/apps/api/tests,target=/tmp/tests,readonly",
+    "--entrypoint",
+    "pytest",
+    "rallysense-api:rc-step6_5",
+    "-q",
+    "/tmp/tests/test_media_security.py",
+    "--tb=short",
+    "--basetemp=/tmp/media-security",
+    "-o",
+    "cache_dir=/tmp/pytest-cache"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 4.265,
+  "output": "...                                                                      [100%]\n3 passed in 0.51s\n"
+}

@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-11-09T06:53:10.635723+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "-p",
+    "rallysense-step6_5-regression",
+    "-f",
+    "docker-compose.yml",
+    "-f",
+    "infrastructure/compose.security-test.yml",
+    "up",
+    "-d",
+    "--no-build",
+    "--wait",
+    "--wait-timeout",
+    "120"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 52.824,
+  "output": " Network rallysense-step6_5-regression_default Creating \n Network rallysense-step6_5-regression_default Created \n Volume rallysense-step6_5-regression_postgres_data Creating \n Volume rallysense-step6_5-regression_postgres_data Created \n Volume rallysense-step6_5-regression_artifact_data Creating \n Volume rallysense-step6_5-regression_artifact_data Created \n Container rallysense-step6_5-regression-db-1 Creating \n Container rallysense-step6_5-regression-db-1 Created \n Container rallysense-step6_5-regression-api-1 Creating \n Container rallysense-step6_5-regression-api-1 Created \n Container rallysense-step6_5-regression-web-1 Creating \n Container rallysense-step6_5-regression-worker-1 Creating \n Container rallysense-step6_5-regression-web-1 Created \n Container rallysense-step6_5-regression-worker-1 Created \n Container rallysense-step6_5-regression-db-1 Starting \n Container rallysense-step6_5-regression-db-1 Started \n Container rallysense-step6_5-regression-db-1 Waiting \n Container rallysense-step6_5-regression-db-1 Healthy \n Container rallysense-step6_5-regression-api-1 Starting \n Container rallysense-step6_5-regression-api-1 Started \n Container rallysense-step6_5-regression-api-1 Waiting \n Container rallysense-step6_5-regression-api-1 Waiting \n Container rallysense-step6_5-regression-api-1 Healthy \n Container rallysense-step6_5-regression-web-1 Starting \n Container rallysense-step6_5-regression-api-1 Healthy \n Container rallysense-step6_5-regression-worker-1 Starting \n Container rallysense-step6_5-regression-worker-1 Started \n Container rallysense-step6_5-regression-web-1 Started \n Container rallysense-step6_5-regression-api-1 Waiting \n Container rallysense-step6_5-regression-worker-1 Waiting \n Container rallysense-step6_5-regression-web-1 Waiting \n Container rallysense-step6_5-regression-db-1 Waiting \n Container rallysense-step6_5-regression-db-1 Healthy \n Container rallysense-step6_5-regression-api-1 Healthy \n Container rallysense-step6_5-regression-web-1 Healthy \n Container rallysense-step6_5-regression-worker-1 Healthy \n"
+}

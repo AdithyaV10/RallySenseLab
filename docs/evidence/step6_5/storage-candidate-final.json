@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-09T07:22:12.811002+00:00",
+  "command": [
+    "docker",
+    "exec",
+    "rallysense-step6_5-workspace-api-1",
+    "python",
+    "/tmp/step65-readiness.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 11.155,
+  "output": "{\"artifact_files_checked\": 14, \"missing\": 0, \"mismatched\": 0, \"nonroot_unwritable_storage_status\": 503, \"writable_ready\": true, \"probe_files_remaining\": 0}\n"
+}

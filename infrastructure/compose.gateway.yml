@@ -2,7 +2,7 @@
 name: rallysense-edge
 services:
   gateway:
-    image: caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
+    image: ${CADDY_IMAGE:-caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9}
     restart: unless-stopped
     environment:
       DEMO_HOST: ${DEMO_HOST:?Demo hostname required}

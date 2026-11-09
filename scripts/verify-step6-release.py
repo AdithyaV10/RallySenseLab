@@ -1,5 +1,6 @@
 """Real TLS/auth/isolation/workspace checks against fresh Step 6 projects only."""
 
+import argparse
 import json
 import socket
 import ssl
@@ -10,8 +11,12 @@ from pathlib import Path
 import httpx
 
 ROOT = Path.cwd()
-EVIDENCE = ROOT / "docs/evidence/step6"
-state = json.loads((ROOT / "storage/step6/local-release-state.json").read_text())
+parser = argparse.ArgumentParser()
+parser.add_argument("--stage", choices=["step6", "step6_5"], default="step6")
+STAGE = parser.parse_args().stage
+EVIDENCE = ROOT / f"docs/evidence/{STAGE}"
+STATE = ROOT / f"storage/{STAGE}/local-release-state.json"
+state = json.loads(STATE.read_text())
 assert state["local_only"] and all(s["seeded"] for s in state["roles"].values())
 
 
@@ -36,8 +41,8 @@ def docker(*args, input=None):
     return result.stdout.strip()
 
 
-gateway = json.loads(docker("inspect", "rallysense-step6-edge-gateway-1"))[0]
-cert = ROOT / "storage/step6/test-root.crt"
+gateway = json.loads(docker("inspect", f"rallysense-{STAGE}-edge-gateway-1"))[0]
+cert = ROOT / f"storage/{STAGE}/test-root.crt"
 docker("cp", f"{gateway['Id']}:/data/caddy/pki/authorities/local/root.crt", str(cert))
 context = ssl.create_default_context(cafile=str(cert))
 real_resolve = socket.getaddrinfo
@@ -119,7 +124,12 @@ for role, info in state["roles"].items():
         client.auth = ("lab", password)
         response = client.get("/api/v1/sessions")
         assert response.status_code == 200
-        assert {s["id"] for s in response.json()} == set(info["fixture_ids"])
+        expected_sessions = set(info["fixture_ids"])
+        if role == "workspace":
+            expected_sessions.update(state.get("workspace_acceptance_sessions", []))
+            if state.get("workspace_acceptance_session"):
+                expected_sessions.add(state["workspace_acceptance_session"])
+        assert {s["id"] for s in response.json()} == expected_sessions
         assert all(s["dataset_kind"] == "synthetic" for s in response.json())
         assert (
             client.get(
@@ -324,9 +334,7 @@ for role, info in state["roles"].items():
                     break
                 time.sleep(0.2)
             assert result["status"] == "succeeded", result
-            assert (
-                result["result"]["executor"]["build_id"] == state["source_checkpoint"]
-            )
+            assert result["result"]["executor"]["build_id"] == roles[role]["BUILD_ID"]
             assert result["result"]["evaluation"] is None
             raw_video = client.get(f"/api/v1/videos/{vid}/content").content
             imported = client.post(
@@ -398,10 +406,13 @@ record(
     cross_backend_connections_denied=True,
     demo_storage_read_only=True,
 )
+owned = set(state.get("workspace_acceptance_sessions", []))
+if state.get("workspace_acceptance_session"):
+    owned.add(state["workspace_acceptance_session"])
+owned.add(workspace_session)
+state["workspace_acceptance_sessions"] = sorted(owned)
 state["workspace_acceptance_session"] = workspace_session
-(ROOT / "storage/step6/local-release-state.json").write_text(
-    json.dumps(state, indent=2), encoding="utf-8"
-)
+STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 result = {
     "scope": "Real private-CA TLS on loopback; no public DNS/CA/listener",
     "checks": checks,

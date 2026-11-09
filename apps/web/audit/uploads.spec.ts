@@ -48,7 +48,7 @@ for (const kind of ["csv", "video"] as const) {
           provenance: "synthetic",
         }),
       };
-      const direct = await request.post(`http://127.0.0.1:8000${route}`, {
+      const direct = await request.post(`${process.env.TEST_API_URL || "http://127.0.0.1:8000"}${route}`, {
         headers: {
           "x-lab-token":
             process.env.LOCAL_TOKEN || "rallysense-local-development",

@@ -24,6 +24,8 @@ apps/web/next-env.d.ts
 runtime-audit.json
 docs/evidence/*.png
 docs/evidence/*.pdf
+docs/evidence/**/*.png
+docs/evidence/**/*.pdf
 certificates/
 *.key
 *.pem

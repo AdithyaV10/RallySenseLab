@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T07:15:14.188493+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-production-config.py",
+    "--stage",
+    "step6_5"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 5.997,
+  "output": "{\"production_render_passed\": true, \"checks\": [{\"role\": \"demo\", \"exact_host_origin\": true, \"no_host_ports\": true, \"health_and_resource_limits\": true, \"private_backend\": true, \"random_credentials\": true}, {\"role\": \"workspace\", \"exact_host_origin\": true, \"no_host_ports\": true, \"health_and_resource_limits\": true, \"private_backend\": true, \"random_credentials\": true}], \"caddy_offline_validation\": true, \"public_listeners_started\": false, \"cloud_dns_acme_verified\": false}\n"
+}

@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-11-09T07:18:42.816018+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "backup",
+    "--project",
+    "rallysense-step6_5-workspace",
+    "--env-file",
+    "storage/step6_5/workspace.env",
+    "--file",
+    "docker-compose.yml",
+    "--file",
+    "infrastructure/compose.release.yml",
+    "--file",
+    "infrastructure/compose.application.yml",
+    "--directory",
+    "storage/step6_5-workspace-backup-verified"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 188.547,
+  "output": "{\"backup_complete\": true, \"directory\": \"C:\\\\RallySenseLab\\\\storage\\\\step6_5-workspace-backup-verified\", \"artifact_files_verified\": 14}\n"
+}

@@ -1,0 +1,8 @@
+{
+  "single_mode_a_config_rendered": true,
+  "only_gateway_publishes": true,
+  "readonly_candidate_image": "rallysense-api-readonly:release-step6_5-rc1",
+  "gateway_candidate": "rallysense-caddy:release-step6_5-rc1",
+  "live_single_domain_stack_rehearsed": false,
+  "public_deployment_performed": false
+}

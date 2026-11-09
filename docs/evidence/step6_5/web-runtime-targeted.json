@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-09T06:40:18.524136+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--entrypoint",
+    "sh",
+    "rallysense-web:rc-step6_5",
+    "-c",
+    "node --version && test -f /app/server.js && test ! -e /usr/local/lib/node_modules/npm && test ! -e /usr/local/bin/npm && id"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.095,
+  "output": "v24.22.2\nuid=1000(node) gid=1000(node) groups=1000(node)\n"
+}

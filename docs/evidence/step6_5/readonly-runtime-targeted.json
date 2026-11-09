@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-09T06:52:17.565019+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--entrypoint",
+    "sh",
+    "rallysense-api-readonly:rc-step6_5",
+    "-c",
+    "test ! -e /usr/local/bin/uv && test ! -e /usr/local/bin/ffprobe && test ! -e /usr/local/bin/ffmpeg && id"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.751,
+  "output": "uid=1000(lab) gid=1000(lab) groups=1000(lab)\n"
+}

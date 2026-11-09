@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-09T07:29:26.633541+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-step6-local.py",
+    "stop",
+    "--stage",
+    "step6_5"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 313.054,
+  "output": "Isolated containers stopped; all test volumes and existing development data retained.\n"
+}

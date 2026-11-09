@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-09T06:26:56.103899+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-research-preservation.py",
+    "snapshot",
+    "--baseline",
+    "storage/step6_5-research-preservation.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.787,
+  "output": "{\"action\": \"snapshot\", \"preserved\": true, \"baseline_counts\": {\"sessions\": 108, \"sensor_recordings\": 34, \"video_assets\": 26, \"pose_tracks\": 39, \"inference_runs\": 45, \"predictions\": 129, \"event_annotations\": 8, \"annotation_sets\": 55, \"sync_configurations\": 96, \"reference_snapshots\": 22, \"experiments\": 155, \"artifacts\": 139}}\n"
+}

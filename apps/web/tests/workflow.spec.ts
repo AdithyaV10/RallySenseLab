@@ -11,7 +11,7 @@ test("synthetic session: computed events, seek, label edits, saved sync and relo
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Understand/ })).toBeVisible();
   await page.screenshot({
-    path: "../../docs/evidence/landing-desktop.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/landing-desktop.png`,
     fullPage: true,
   });
   await page.getByRole("button", { name: "Explore the demo" }).click();
@@ -87,12 +87,12 @@ test("synthetic session: computed events, seek, label edits, saved sync and relo
   await page.getByRole("button", { name: /Signal events/ }).click();
   await expect(page.getByRole("button", { name: /Gyro peak/ })).toHaveCount(5);
   await page.screenshot({
-    path: "../../docs/evidence/replay-desktop.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/replay-desktop.png`,
     fullPage: true,
   });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({
-    path: "../../docs/evidence/replay-mobile.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/replay-mobile.png`,
     fullPage: true,
   });
   expect(
@@ -213,7 +213,7 @@ test("real MediaPipe package processes uploaded official demonstration video", a
     )
     .toBeNull();
   await page.screenshot({
-    path: "../../docs/evidence/pose-extraction.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/pose-extraction.png`,
     fullPage: true,
   });
   const info = await page.getByRole("status").textContent();

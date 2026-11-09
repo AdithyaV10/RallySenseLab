@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-09T06:54:52.009366+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "scripts/prepare-step6-local.py",
+    "scripts/scan-release-images.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-upload-boundaries.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.256,
+  "output": "I001 [*] Import block is un-sorted or un-formatted\n  --> scripts\\scan-release-images.py:3:1\n   |\n 1 |   \"\"\"Scan exact local release archives with pinned Trivy; no registry push or Docker socket mount.\"\"\"\n 2 |\n 3 | / import hashlib\n 4 | | import argparse\n 5 | | import json\n 6 | | import subprocess\n 7 | | import time\n 8 | | import re\n 9 | | from pathlib import Path\n   | |________________________^\n10 |\n11 |   SCANNER = \"aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb\"\n   |\nhelp: Organize imports\n  |\n2 |\n3 + import argparse\n4 | import hashlib\n  - import argparse\n5 | import json\n6 + import re\n7 | import subprocess\n8 | import time\n  - import re\n9 | from pathlib import Path\n  |\n\nI001 [*] Import block is un-sorted or un-formatted\n  --> scripts\\verify-step6-release.py:3:1\n   |\n 1 |   \"\"\"Real TLS/auth/isolation/workspace checks against fresh Step 6 projects only.\"\"\"\n 2 |\n 3 | / import json\n 4 | | import argparse\n 5 | | import socket\n 6 | | import ssl\n 7 | | import subprocess\n 8 | | import time\n 9 | | from pathlib import Path\n10 | |\n11 | | import httpx\n   | |____________^\n12 |\n13 |   ROOT = Path.cwd()\n   |\nhelp: Organize imports\n  |\n2 |\n3 + import argparse\n4 | import json\n  - import argparse\n5 | import socket\n  |\n\nFound 2 errors.\n[*] 2 fixable with `--fix`.\n"
+}

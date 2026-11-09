@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-09T07:12:55.485497+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/web",
+    "run",
+    "test:e2e"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 108.958,
+  "output": "\n> rallysense-web@0.2.0 test:e2e\n> playwright test\n\n\nRunning 9 tests using 1 worker\n\n  ok 1 [chromium] \u203a tests\\capture.spec.ts:19:5 \u203a browser motion: synthetic event transport, real normalization and metadata (9.9s)\n  ok 2 [chromium] \u203a tests\\capture.spec.ts:119:5 \u203a motion permission denied and unsupported API expose actionable fallback (1.3s)\n  ok 3 [chromium] \u203a tests\\capture.spec.ts:148:5 \u203a browser camera encodes a synthetic device clip and real worker validates it (11.1s)\n  ok 4 [chromium] \u203a tests\\replay-alignment.spec.ts:5:5 \u203a alignment revisions immediately refetch positive, negative, partial and empty windows (5.7s)\n  ok 5 [chromium] \u203a tests\\research.spec.ts:3:5 \u203a paired synthetic research: freeze labels, three modes, corruption, comparison, export and replay (19.0s)\n  ok 6 [chromium] \u203a tests\\research.spec.ts:188:5 \u203a human reference set revisions and inference eligibility are exposed in the UI (1.6s)\n  ok 7 [chromium] \u203a tests\\workflow.spec.ts:5:5 \u203a synthetic session: computed events, seek, label edits, saved sync and reload (7.1s)\n  ok 8 [chromium] \u203a tests\\workflow.spec.ts:106:5 \u203a session creation, CSV mapping import, inference and deletion through the UI (7.5s)\n  ok 9 [chromium] \u203a tests\\workflow.spec.ts:134:5 \u203a real MediaPipe package processes uploaded official demonstration video (39.7s)\n\n  9 passed (1.8m)\n(node:16560) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+}

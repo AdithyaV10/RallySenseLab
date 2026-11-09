@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-09T06:51:10.620111+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/scan-release-images.py",
+    "--stage",
+    "step6_5",
+    "--revision",
+    "final",
+    "--only",
+    "postgres"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 175.349,
+  "output": "{\"image\": \"rallysense-postgres:rc-step6_5\", \"image_id\": \"sha256:c0ac57594a8888f7f7f4134315a6db5bbe495bf8a0c555180669bc66f10897e5\", \"exit_code\": 0, \"elapsed_s\": 153.542, \"archive_sha256\": \"3181a9c5eff2c9d1137db163520d032c86b72f1f537a15351acd61563893c0d5\", \"archive_bytes\": 162408448}\n[\n  {\n    \"image\": \"postgres\",\n    \"counts\": {\n      \"LOW\": 141,\n      \"HIGH\": 64,\n      \"MEDIUM\": 130,\n      \"CRITICAL\": 1,\n      \"UNKNOWN\": 1\n    }\n  }\n]\n"
+}

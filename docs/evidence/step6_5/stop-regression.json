@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-09T07:24:32.670768+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "-p",
+    "rallysense-step6_5-regression",
+    "-f",
+    "docker-compose.yml",
+    "-f",
+    "infrastructure/compose.security-test.yml",
+    "stop"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 6.043,
+  "output": " Container rallysense-step6_5-regression-web-1 Stopping \n Container rallysense-step6_5-regression-worker-1 Stopping \n Container rallysense-step6_5-regression-web-1 Stopped \n Container rallysense-step6_5-regression-worker-1 Stopped \n Container rallysense-step6_5-regression-api-1 Stopping \n Container rallysense-step6_5-regression-api-1 Stopped \n Container rallysense-step6_5-regression-db-1 Stopping \n Container rallysense-step6_5-regression-db-1 Stopped \n"
+}

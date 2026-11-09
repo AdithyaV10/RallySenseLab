@@ -1,0 +1,39 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "type": "application",
+      "name": "FFmpeg",
+      "version": "9.0.2",
+      "bom-ref": "ffmpeg-9.0.2-limited-rallysense",
+      "purl": "pkg:generic/ffmpeg@9.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
+        }
+      ],
+      "properties": [
+        {
+          "name": "rallysense:coverage",
+          "value": "Source component inventory; custom static FFmpeg is not covered by Debian package matching. See native-runtime.json, vendor advisory matrix and Dockerfile for binary hashes/features; this SBOM does not suppress findings."
+        }
+      ]
+    }
+  ]
+}

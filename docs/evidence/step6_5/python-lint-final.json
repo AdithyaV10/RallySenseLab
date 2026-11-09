@@ -1,0 +1,21 @@
+{
+  "at_utc": "2026-11-09T07:00:24.009404+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "scripts/prepare-step6-local.py",
+    "scripts/scan-release-images.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-upload-boundaries.py",
+    "scripts/verify-security-runtime-equivalence.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.161,
+  "output": "F401 [*] `hashlib` imported but unused\n --> scripts\\verify-security-runtime-equivalence.py:3:8\n  |\n1 | \"\"\"Compare deterministic generated scientific outputs in rollback and candidate containers.\"\"\"\n2 |\n3 | import hashlib\n  |        ^^^^^^^\n4 | import json\n5 | import subprocess\n  |\nhelp: Remove unused import: `hashlib`\n  |\n2 |\n  - import hashlib\n3 | import json\n  |\n\nFound 1 error.\n[*] 1 fixable with `--fix`.\n"
+}

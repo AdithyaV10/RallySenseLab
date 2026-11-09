@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-11-09T07:32:10.507800+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=C:/RallySenseLab/infrastructure/Caddyfile,target=/etc/caddy/Caddyfile,readonly",
+    "--env",
+    "RALLYSENSE_DOMAIN=demo.example.invalid",
+    "--entrypoint",
+    "caddy",
+    "rallysense-caddy:release-step6_5-rc1",
+    "validate",
+    "--config",
+    "/etc/caddy/Caddyfile",
+    "--adapter",
+    "caddyfile"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 2.247,
+  "output": "Valid configuration\n{\"level\":\"info\",\"ts\":1794209529.9357166,\"msg\":\"using config from file\",\"file\":\"/etc/caddy/Caddyfile\"}\n{\"level\":\"info\",\"ts\":1794209529.9718802,\"msg\":\"adapted config to JSON\",\"adapter\":\"caddyfile\"}\n{\"level\":\"warn\",\"ts\":1794209529.971961,\"msg\":\"Caddyfile input is not formatted; run 'caddy fmt --overwrite' to fix inconsistencies\",\"adapter\":\"caddyfile\",\"file\":\"/etc/caddy/Caddyfile\",\"line\":2}\n{\"level\":\"info\",\"ts\":1794209529.9959433,\"logger\":\"http.auto_https\",\"msg\":\"server is listening only on the HTTPS port but has no TLS connection policies; adding one to enable TLS\",\"server_name\":\"srv0\",\"https_port\":443}\n{\"level\":\"info\",\"ts\":1794209530.0009851,\"logger\":\"http.auto_https\",\"msg\":\"enabling automatic HTTP->HTTPS redirects\",\"server_name\":\"srv0\"}\n{\"level\":\"info\",\"ts\":1794209529.993411,\"logger\":\"tls.cache.maintenance\",\"msg\":\"started background certificate maintenance\",\"cache\":\"0xcf780563780\"}\n{\"level\":\"info\",\"ts\":1794209530.023616,\"logger\":\"tls.cache.maintenance\",\"msg\":\"stopped background certificate maintenance\",\"cache\":\"0xcf780563780\"}\n{\"level\":\"info\",\"ts\":1794209530.0238752,\"logger\":\"http\",\"msg\":\"servers shutting down with eternal grace period\"}\n"
+}

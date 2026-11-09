@@ -1,0 +1,138 @@
+{
+  "tag": "1.20",
+  "url": "https://github.com/tianon/gosu/releases/tag/1.20",
+  "assets": [
+    {
+      "name": "gosu-amd64",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-amd64",
+      "digest": "sha256:b1892636c281590f34bc63c1118f058cd9de66c4ea463772e3909672d8b302ac",
+      "size": 1774474
+    },
+    {
+      "name": "gosu-amd64.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-amd64.asc",
+      "digest": "sha256:cc08c8b99953396c88ea15955b489d378ad28da511c69ec0deccf137679ef827",
+      "size": 566
+    },
+    {
+      "name": "gosu-arm64",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-arm64",
+      "digest": "sha256:c216cb762520edb5ab0acb21cb9bc4bcc5f1544d365e8952a21514f04ea233ee",
+      "size": 1830902
+    },
+    {
+      "name": "gosu-arm64.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-arm64.asc",
+      "digest": "sha256:7604511547ed90ea565af1a4bcabd18ab705f2eb27c09e3db6fe0ef77eab51bc",
+      "size": 566
+    },
+    {
+      "name": "gosu-armel",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-armel",
+      "digest": "sha256:ca4f323a39e07fdd8acc3c2328aff0d7443926e29f0c9e8c377e98a1aae5f6a0",
+      "size": 1812461
+    },
+    {
+      "name": "gosu-armel.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-armel.asc",
+      "digest": "sha256:b7d855b9f936b71eb39c0e9b94bbb766ad4f37d126e8cb255c29fa7dea8801ee",
+      "size": 566
+    },
+    {
+      "name": "gosu-armhf",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-armhf",
+      "digest": "sha256:02f58cb01be8cbd981d4850c59ee3249b1039af3b2d43c44e950f90bf18ae0ac",
+      "size": 1812880
+    },
+    {
+      "name": "gosu-armhf.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-armhf.asc",
+      "digest": "sha256:d5bbf74d335b4aa2083be113b5269c57d94654c14e96b66c7235b51a0beff223",
+      "size": 566
+    },
+    {
+      "name": "gosu-i386",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-i386",
+      "digest": "sha256:b56e93908909dcf237007fa4fd8897f2e5234e37105a4de978919261d1078d64",
+      "size": 1664991
+    },
+    {
+      "name": "gosu-i386.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-i386.asc",
+      "digest": "sha256:6999a8c21c87339e33106ff7c2c58ecd6b1ad8c0c80aa22b7fe59d4254366234",
+      "size": 566
+    },
+    {
+      "name": "gosu-loong64",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-loong64",
+      "digest": "sha256:dbc6b7961d7324667147890a80525deac09d7ddf98b136c7709d89e4a414aff4",
+      "size": 1894654
+    },
+    {
+      "name": "gosu-loong64.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-loong64.asc",
+      "digest": "sha256:58ea1c39a0e5e5eb7f577f9795188f29a8bf29960cb37f9b61fca198aea42b43",
+      "size": 566
+    },
+    {
+      "name": "gosu-mips64el",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-mips64el",
+      "digest": "sha256:acd9c5580ddadf74359c9d02065648f05dc93b12a4f7b6e117aad86c320d9b4e",
+      "size": 2028089
+    },
+    {
+      "name": "gosu-mips64el.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-mips64el.asc",
+      "digest": "sha256:1b8b275f31638ce870d3c46c608f9ecd98ae541dde37eb41018f35fd88450198",
+      "size": 566
+    },
+    {
+      "name": "gosu-ppc64el",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-ppc64el",
+      "digest": "sha256:3f6eb5dc781486e68d2c0e9cad69fa3439960490b6952829fac9a407b0b46043",
+      "size": 1899291
+    },
+    {
+      "name": "gosu-ppc64el.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-ppc64el.asc",
+      "digest": "sha256:0118485cbc97afc66395b2d04bdf9ea40c37f66e17c2a096f3101deaf27a89d4",
+      "size": 566
+    },
+    {
+      "name": "gosu-riscv64",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-riscv64",
+      "digest": "sha256:3deb272b39c36ecfb27d3e374a97fa881f905a6b8f0569fa73f2794bad652998",
+      "size": 1764711
+    },
+    {
+      "name": "gosu-riscv64.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-riscv64.asc",
+      "digest": "sha256:e80ada04ab1055fba674e9da706b00eb07286a263a2a53bfc423869d4404abd8",
+      "size": 566
+    },
+    {
+      "name": "gosu-s390x",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-s390x",
+      "digest": "sha256:5a86697a2322a04d20e1e5cad5e785b43286e65bb5d74611be38acbc65bad8f4",
+      "size": 1962395
+    },
+    {
+      "name": "gosu-s390x.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/gosu-s390x.asc",
+      "digest": "sha256:9ef6fb8304a1e6e4bbc641d7ae1c5e2ab0d1f25293f468d2edbf2575edfeb1fa",
+      "size": 566
+    },
+    {
+      "name": "SHA256SUMS",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/SHA256SUMS",
+      "digest": "sha256:4f557ec22d1110c8a53e3edfa2295c87d3816cf4f06e0b3e78fadddedff08a52",
+      "size": 1596
+    },
+    {
+      "name": "SHA256SUMS.asc",
+      "browser_download_url": "https://github.com/tianon/gosu/releases/download/1.20/SHA256SUMS.asc",
+      "digest": "sha256:b873e514ad94c3564971054277f8a132830b15788c3c6d6b85361a4166344501",
+      "size": 566
+    }
+  ]
+}

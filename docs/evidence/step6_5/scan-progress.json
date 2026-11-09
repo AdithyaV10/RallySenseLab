@@ -1,0 +1,26 @@
+[
+  {
+    "image": "rallysense-caddy:rc-step6_5",
+    "image_id": "sha256:f7fa280c0954d072ee9287220878c63627b067888253454323bcf75980e55db6",
+    "exit_code": 0,
+    "elapsed_s": 21.111,
+    "archive_sha256": "87f662a98d906e1fe2855d5c6ff2b6f24a543ebdc4a49b5c75fcdb82da179b34",
+    "archive_bytes": 42955264
+  },
+  {
+    "image": "rallysense-postgres:rc-step6_5",
+    "image_id": "sha256:3be970eb9e01a6be61410371a96cea1989aad7ee2086e5de19749279134f5f52",
+    "exit_code": 0,
+    "elapsed_s": 143.523,
+    "archive_sha256": "166e4df430174ecc6b0bf3ffc10610d29393a14be80ccc47bb80c6bd96b69104",
+    "archive_bytes": 162337792
+  },
+  {
+    "image": "rallysense-web:rc-step6_5",
+    "image_id": "sha256:5c4f04a5589e453cd5983886ce633487d221dd90e3f27841cad80167cdd95260",
+    "exit_code": 0,
+    "elapsed_s": 69.055,
+    "archive_sha256": "d769f05178fb3ff54311189fbef52d77116029f794125c17d054b769113cd738",
+    "archive_bytes": 111510016
+  }
+]

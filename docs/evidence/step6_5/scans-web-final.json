@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-09T07:11:04.558298+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/scan-release-images.py",
+    "--stage",
+    "step6_5",
+    "--revision",
+    "final",
+    "--only",
+    "web"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 74.609,
+  "output": "{\"image\": \"rallysense-web:rc-step6_5\", \"image_id\": \"sha256:aa451a1a778c3eb3aaadb839986097413328cc21c4a2c9388ac579bc7d2e618e\", \"exit_code\": 0, \"elapsed_s\": 57.39, \"archive_sha256\": \"b13ce5a637ec9138ac0877b8b02aff309eef3024bc66d5ccd1cbf1a911e60571\", \"archive_bytes\": 113283072}\n[\n  {\n    \"image\": \"api\",\n    \"counts\": {\n      \"LOW\": 67,\n      \"HIGH\": 52,\n      \"MEDIUM\": 76\n    }\n  },\n  {\n    \"image\": \"api_readonly\",\n    \"counts\": {\n      \"LOW\": 66,\n      \"HIGH\": 52,\n      \"MEDIUM\": 76\n    }\n  },\n  {\n    \"image\": \"web\",\n    \"counts\": {\n      \"LOW\": 64,\n      \"HIGH\": 46,\n      \"MEDIUM\": 74\n    }\n  },\n  {\n    \"image\": \"postgres\",\n    \"counts\": {\n      \"LOW\": 141,\n      \"HIGH\": 64,\n      \"MEDIUM\": 130,\n      \"CRITICAL\": 1,\n      \"UNKNOWN\": 1\n    }\n  }\n]\n"
+}

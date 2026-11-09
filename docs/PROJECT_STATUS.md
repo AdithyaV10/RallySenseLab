@@ -1,5 +1,17 @@
 # Project status
 
+## Current Step 6.5 checkpoint — 2026-11-09
+
+**Targeted container remediation and review delivered. No image/public release is security-approved. Mode A is ready for human residual-risk review; Mode B remains blocked by native-media findings.** Starting checkpoint: `208e96dbe52d1a36670f16ae05656b6a5a700a23`. New frozen local RC aliases and OCI/archive identities are in [release manifest](../infrastructure/release-manifest.json); rollback images/manifests remain retained.
+
+The four-component scan comparison is **4 critical/371 high → 1 critical/163 high** package instances. Full API:0/52; readonly API variant:0/52; final web:0/46; PostgreSQL:1/64; Caddy:0/1. No broad ignore or security exception was approved. Custom static FFmpeg is reviewed separately from OS package counts: the actual MOV/PSSH path confirms bounded resource exhaustion (CVE-2026-107678), and HDR metadata serialization (CVE-2026-107676) remains unresolved. **Mode B must not be released merely because its package scan improved.** Mode A omits native media tools entirely.
+
+Verification:68 backend +15 frontend units,9 final standard browser cases,2 original upload +2 original runtime audit cases,14 large/adversarial probes,9 HTTPS groups,2 actual release-browser workflows and11 deterministic scientific equivalence conditions passed. A new hardened-workspace restore matched17 tables/14 artifacts. All original12 research inventories and139 artifact hashes were preserved. Scientific algorithms, numerical versions, locks and schema head remain unchanged. No public listeners/cloud/DNS/publication/push occurred.
+
+Read [remediation report](STEP6_5_SECURITY_REMEDIATION.md), [final image security review](FINAL_IMAGE_SECURITY_REVIEW.md), [final release candidate](FINAL_RELEASE_CANDIDATE.md) and [updated controlled deployment handoff](DEPLOYMENT_HANDOFF.md). Explicit shared PostgreSQL XML/Caddy JWK/OS/SBOM dispositions, content/model/access approval and external deployment verification remain pending. No next stage is started.
+
+Final post-interruption Docker Engine enumeration is unavailable: Desktop reports starting/already running but requests fail. Prior completed tests, preservation/recovery and successful stop evidence are retained; all five candidate archives were rehashed offline. Current live container/volume status is not freshly verified. No reset/prune/volume deletion was used. See [final local state](evidence/step6_5/final-local-state.json).
+
 ## Current Step 6 checkpoint — 2026-11-09
 
 **Local release preparation/rehearsal delivered; PUBLIC RELEASE BLOCKED pending image-security disposition and external acceptance. No deployment authorization was exercised.** Approved application checkpoint remains `ac75d818a168bfcf1b7f23a609121b18b0933e8e`. Existing application images were reused; scientific code, dependency locks, migrations and historical research records were not changed.

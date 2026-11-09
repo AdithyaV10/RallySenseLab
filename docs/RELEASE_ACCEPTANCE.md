@@ -1,5 +1,11 @@
 # Step 5.5 release acceptance
 
+## Step 6.5 update, 2026-11-09
+
+**Final candidate software verification passed; public/security acceptance remains unapproved.** [Remediation report](STEP6_5_SECURITY_REMEDIATION.md) records68 backend/15 frontend/9 browser/4 original-audit cases,14 boundary probes,9 HTTPS groups,2 release-browser workflows,11 scientific equivalence conditions and paired recovery. Historical failures remain recorded separately. All original research rows and139 artifact hashes were preserved.
+
+[Final image review](FINAL_IMAGE_SECURITY_REVIEW.md) records1 critical/163 high package instances for the four components, compared with4 critical/371 high before remediation. Raw scans are not clean. Mode A's smaller readonly runtime passed and is ready for human residual-risk review. **Mode B is not ready for release approval**: current native MOV/PSSH processing is susceptible to bounded DoS and HDR metadata applicability remains unresolved. These native findings supplement package scanning and are not counted as successful security acceptance. See [FINAL_RELEASE_CANDIDATE](FINAL_RELEASE_CANDIDATE.md); no deployment/push occurred.
+
 ## Step 6 update, 2026-11-09
 
 Software acceptance from Step 5.5 is retained. New release-shaped HTTPS, browser, isolation, readonly/protected workflow, production rendering and fresh backup/restore evidence is indexed in [STEP6_RELEASE_REPORT](STEP6_RELEASE_REPORT.md). **Image scanner execution passed; security acceptance did not pass:** four critical and 371 high package instances require patch/applicability decisions. See [VULNERABILITY_REVIEW](VULNERABILITY_REVIEW.md). No app rebuild, algorithm/lock/migration change, public deployment or push occurred.

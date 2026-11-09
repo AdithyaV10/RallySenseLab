@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-11-09T22:26:38.155731+00:00",
+  "docker_engine_reachable": false,
+  "docker_info_exit_code": 0,
+  "docker_info_output": "Error response from daemon: Docker Desktop is unable to start",
+  "last_completed_release_stop": "docs/evidence/step6_5/stop-isolated-release.json",
+  "last_completed_regression_stop": "docs/evidence/step6_5/stop-regression.json",
+  "verification_completed_before_interruption": true,
+  "volumes_reset_or_deleted": false,
+  "post_interruption_runtime_state_reverified": false,
+  "enumeration_error": "No valid Engine version in response",
+  "limitation": "Docker Desktop reports starting/already running but Engine API unavailable after intentional interruption. A non-destructive desktop start returned already running. No reset/restart/prune was performed. Last completed tests, data hashes, stops and recoveries are retained; current live container/volume enumeration is not reverified."
+}

@@ -1,0 +1,30 @@
+{
+  "at_utc": "2026-11-09T22:24:18.579489+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "scripts/backup-workspace.py",
+    "scripts/prepare-release-config.py",
+    "scripts/prepare-step6-local.py",
+    "scripts/scan-release-images.py",
+    "scripts/smoke-release.py",
+    "scripts/verify-production-config.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-upload-boundaries.py",
+    "scripts/verify-security-runtime-equivalence.py",
+    "scripts/verify-native-pssh-risk.py",
+    "scripts/collect-native-security-evidence.py",
+    "scripts/finalize-security-manifest.py",
+    "scripts/summarize-security-candidates.py",
+    "scripts/audit-tests/test_runtime_contract.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.081,
+  "output": "All checks passed!\n"
+}

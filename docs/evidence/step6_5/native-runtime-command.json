@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T07:08:32.696422+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/collect-native-security-evidence.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 6.679,
+  "output": "{\"native_features_verified\": true, \"libxml2_absent\": true, \"network_protocols_absent\": true, \"binary_hashes\": {\"ffmpeg\": \"8e1066b110f9178fe58c617f02ba09a950b04f7bc0e330d5c15f9330a728a846\", \"ffprobe\": \"4b619aaf6cd090ed27bb7dc759d1099ec9aecd249da056953e69b0c54bc44080\"}, \"runtime\": {\"dependency_lock_sha256\": \"685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e\", \"runtime\": {\"numpy\": \"2.5.4\", \"scipy\": \"1.18.1\", \"pyarrow\": \"26.0.0\", \"python\": \"3.13.18\"}, \"build_id\": \"local-source\"}}\n"
+}

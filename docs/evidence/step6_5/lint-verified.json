@@ -1,0 +1,21 @@
+{
+  "at_utc": "2026-11-09T07:01:42.081508+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "apps/api/src",
+    "apps/api/tests",
+    "scripts/prepare-step6-local.py",
+    "scripts/scan-release-images.py",
+    "scripts/verify-step6-release.py",
+    "scripts/verify-upload-boundaries.py",
+    "scripts/verify-security-runtime-equivalence.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.154,
+  "output": "All checks passed!\n"
+}

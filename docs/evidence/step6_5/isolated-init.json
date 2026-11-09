@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-11-09T06:54:09.469100+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-step6-local.py",
+    "init",
+    "--stage",
+    "step6_5"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 5.003,
+  "output": "Prepared isolated configuration and local release image aliases; secrets remain in ignored storage.\n"
+}

@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T07:15:53.420020+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/smoke-release.py",
+    "--local-stage",
+    "step6_5"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 6.281,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\smoke-release.py\", line 49, in <module>\n    assert client.get(\"/api/v1/sessions\").status_code == 401\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

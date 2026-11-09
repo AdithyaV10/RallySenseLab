@@ -1,0 +1,11 @@
+{
+  "staged_files_reviewed": 168,
+  "only_application_source_change": [
+    "apps/api/src/rallysense/media.py"
+  ],
+  "dependency_locks_unchanged": true,
+  "private_files_media_env_archives_staged": false,
+  "json_files_valid": true,
+  "trivy_ignores_added": false,
+  "security_approval_granted": false
+}

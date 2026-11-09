@@ -228,7 +228,7 @@ test("browser camera encodes a synthetic device clip and real worker validates i
       drift_corrected: false,
     });
     fs.writeFileSync(
-      "../../docs/evidence/step4-camera-verification.json",
+      `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/step4-camera-verification.json`,
       JSON.stringify(
         {
           session_id: sid,

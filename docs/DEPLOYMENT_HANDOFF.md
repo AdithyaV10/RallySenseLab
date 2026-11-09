@@ -1,5 +1,80 @@
 # Step 6 deployment handoff — authorization required
 
+## Current Step 6.5 handoff — 2026-11-09
+
+**Only a scoped Mode A deployment may proceed to human security review. Mode B is blocked; no public deployment is authorized.** Read [FINAL_RELEASE_CANDIDATE](FINAL_RELEASE_CANDIDATE.md), [FINAL_IMAGE_SECURITY_REVIEW](FINAL_IMAGE_SECURITY_REVIEW.md) and [remediation report](STEP6_5_SECURITY_REMEDIATION.md). Shared PostgreSQL XML/Caddy JWK/OS/SBOM exceptions, model/content/access approval and external operational acceptance remain pending. Native MOV/PSSH DoS and HDR serialization block the upload-enabled workspace. The historical two-domain start commands below must not be used to expose Mode B.
+
+Current immutable local aliases are `rallysense-{api,api-readonly,web,postgres,caddy}:release-step6_5-rc1`. The [manifest](../infrastructure/release-manifest.json) is authoritative for exact image IDs, OCI configuration/platform digests, archive hashes, build ID and source fingerprint. Rollback identities are retained in [previous manifest](evidence/step6_5/previous-release-manifest.json). Final archives: `storage/step6_5/scanner-inputs/caddy.tar` and `storage/step6_5/scanner-inputs/final/{api,api_readonly,web,postgres}.tar`. Root-level intermediate web/PostgreSQL archives are not final.
+
+After human security/content approval and **separate explicit cloud/DNS/transfer/public-listener authorization**, a Linux operator can load privately transferred archives without a public registry. Use the verified source archive and compare checksums first; do not transfer development DBs, artifacts, env files or private verification media. Example controlled loader, not executed here:
+
+```bash
+cd /opt/rallysense
+umask 077
+python3 - <<'PY'
+import hashlib,json,pathlib,subprocess
+manifest=json.loads(pathlib.Path('infrastructure/release-manifest.json').read_text())
+for image in manifest['images']:
+    archive=pathlib.Path('/secure-transfer')/(image['name']+'.tar')
+    with archive.open('rb') as stream:
+        assert hashlib.file_digest(stream,'sha256').hexdigest()==image['archive_sha256']
+    subprocess.run(['docker','load','-i',str(archive)],check=True)
+    actual=json.loads(subprocess.check_output(['docker','image','inspect',image['image']]))[0]
+    assert actual['Id'] in {image['image_id'],image['config_digest'],image['platform_manifest_digest']}
+    subprocess.run(['docker','tag',actual['Id'],image['release_tag']],check=True)
+PY
+uv run --frozen --project apps/api python scripts/prepare-release-config.py \
+  --demo-host demo.YOUR-DOMAIN --workspace-host research.YOUR-DOMAIN
+# Use actual lowercase domain names. Generator starts nothing, refuses existing secrets,
+# and reads all current image/build identities from the reviewed manifest.
+```
+
+For an initial **Mode A only** release, use the existing single-domain gateway chain, omitting `compose.application.yml` and `compose.gateway.yml`. This keeps the unreleased workspace out of gateway routing entirely. Independent later workspace data/secrets must remain separate. The generated workspace env may remain unused; a second public DNS record is unnecessary until that scope is approved. Review the actual single-domain Caddy configuration, target-host HTTPS monitoring and final cloud firewall before public start.
+
+```bash
+demo_seed() {
+  docker compose --project-directory "$PWD" --env-file storage/release/demo.env \
+    -p rallysense-release-demo -f docker-compose.yml -f infrastructure/compose.release.yml "$@"
+}
+demo_view() { demo_seed -f infrastructure/compose.readonly.yml "$@"; }
+# First creation only: STOP if this project has existing containers/volumes/data.
+docker volume ls --filter label=com.docker.compose.project=rallysense-release-demo
+demo_seed config --quiet
+# API_IMAGE initially points at the full reviewed image for trusted offline generation.
+# APP_MODE=local; no web/gateway or published DB/API port is started during seeding.
+demo_seed up -d --no-build --wait db
+demo_seed run --rm --no-deps -T \
+  -v "$PWD/scripts/prepare-demo-fixtures.py:/tmp/prepare-demo-fixtures.py:ro" \
+  -v "$PWD/scripts/prepare-curated-fixtures.py:/tmp/prepare-curated-fixtures.py:ro" \
+  api sh -c 'alembic upgrade head && python /tmp/prepare-curated-fixtures.py'
+# Inspect the generated content and final two session_ids. Edit demo.env privately:
+# APP_MODE=demo_readonly
+# DEMO_SESSION_IDS=<exact comma-separated inspected DEMO IDs>
+# API_IMAGE=rallysense-api-readonly:release-step6_5-rc1
+demo_view config --quiet
+demo_view up -d --no-build --wait --wait-timeout 120 db api worker web
+# STOP: verify all applicable human/external gates and explicit deployment authorization.
+# Only this next authorized command opens the reviewed public gateway:
+demo_view up -d --no-build gateway
+```
+
+This single-domain command path reuses the existing supported release configuration; **it has not been started publicly or newly rehearsed as a single-domain live stack in Step 6.5**. The final-image two-role HTTPS topology was rehearsed only on loopback, including strict certificate/auth/Host/Origin/readonly checks. The public single-domain smoke and monitoring are therefore explicit final-host verification gates, not invented evidence. Use `scripts/smoke-release.py --env-directory storage/release --role demo` after real public DNS/CA is ready; browser-check replay/research/report exports and denial of mutations. Do not start an upload-enabled workspace as part of this smoke.
+
+For future approved two-mode operation, the shared-gateway topology below remains the architectural plan, but update any historical tags/paths to the current manifest and remove the Mode B block only after its native findings are resolved and reviewed. On Linux, separate secret generation remains0700directory/0600files. Never regenerate a database password against an existing volume as an implicit credential rotation.
+
+For a Mode A paired backup, use the same single-domain runtime chain (omit `compose.application.yml`):
+
+```bash
+uv run --frozen --project apps/api python scripts/backup-workspace.py backup \
+  --project rallysense-release-demo --env-file storage/release/demo.env \
+  --file docker-compose.yml --file infrastructure/compose.release.yml \
+  --file infrastructure/compose.readonly.yml --directory storage/backups/demo-YYYYMMDD-HHMM
+```
+
+Use the unchanged fresh `rallysense-restore-*` recovery guard, matching paired archives and retained previous image/env identities for rollback. No live DB overwrite, `down -v`, pruning or private database import is authorized. The hardened workspace recovery rehearsal passed17tables/14files after an isolated timeout-headroom correction; off-host encryption/restore/retention still requires external verification. Host sizing, budget, DNS/firewall, monitoring and owner-account prerequisites below remain recommendations, not provisioned resources.
+
+## Historical Step 6 two-environment plan — Mode B start remains blocked
+
 2026-11-09. **Local preparation delivered. Public deployment NOT authorized and NOT complete.** Image security acceptance is blocked; see [vulnerability review](VULNERABILITY_REVIEW.md). Finish that local work, content/model approval and external gates before starting the public gateway. No cloud resources, DNS changes, public listeners, registry pushes or GitHub pushes were made during this stage.
 
 ## Recommendation and budget

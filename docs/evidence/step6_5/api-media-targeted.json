@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-11-09T06:47:13.920294+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=C:/RallySenseLab/apps/api/tests,target=/tmp/tests,readonly",
+    "--entrypoint",
+    "pytest",
+    "rallysense-api:rc-step6_5",
+    "-q",
+    "/tmp/tests/test_media_security.py",
+    "--tb=short",
+    "--basetemp=/tmp/media-security",
+    "-o",
+    "cache_dir=/tmp/pytest-cache"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 4.747,
+  "output": "..F                                                                      [100%]\n=================================== FAILURES ===================================\n_____________________ test_supported_vp9_remains_probeable _____________________\n/tmp/tests/test_media_security.py:46: in test_supported_vp9_remains_probeable\n    subprocess.run(\n/usr/local/lib/python3.13/subprocess.py:578: in run\n    raise CalledProcessError(retcode, process.args,\nE   subprocess.CalledProcessError: Command '['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=black:s=160x120:r=10', '-t', '0.5', '-c:v', 'libvpx-vp9', '-an', '/tmp/media-security/test_supported_vp9_remains_pro0/vp9.webm']' returned non-zero exit status 234.\n=========================== short test summary info ============================\nFAILED ../tmp/tests/test_media_security.py::test_supported_vp9_remains_probeable\n1 failed, 2 passed in 0.44s\n"
+}

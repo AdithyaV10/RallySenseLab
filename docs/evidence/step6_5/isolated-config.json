@@ -1,0 +1,24 @@
+{
+  "roles": [
+    {
+      "role": "demo",
+      "ports": [],
+      "mode": "demo_readonly",
+      "healthchecks": true,
+      "resource_limits": true,
+      "production_credentials": true,
+      "private_backend": true
+    },
+    {
+      "role": "workspace",
+      "ports": [],
+      "mode": "local",
+      "healthchecks": true,
+      "resource_limits": true,
+      "production_credentials": true,
+      "private_backend": true
+    }
+  ],
+  "credentials_distinct": true,
+  "gateway_loopback_only": true
+}

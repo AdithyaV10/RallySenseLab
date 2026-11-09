@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-09T07:09:49.670347+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--entrypoint",
+    "sh",
+    "rallysense-web:rc-step6_5",
+    "-c",
+    "node --version && dpkg-query -W zlib1g && test ! -e /usr/local/bin/npm && id"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.682,
+  "output": "v24.22.2\nzlib1g:amd64\t1:1.3.dfsg+really1.3.1-1+deb13u1\nuid=1000(node) gid=1000(node) groups=1000(node)\n"
+}

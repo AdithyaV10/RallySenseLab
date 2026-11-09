@@ -33,7 +33,7 @@ def run(*command, **kwargs):
             command,
             check=True,
             stderr=subprocess.PIPE,
-            timeout=180,
+            timeout=kwargs.pop("timeout", 180),
             stdout=kwargs.pop("stdout", subprocess.PIPE),
             **kwargs,
         )
@@ -111,7 +111,9 @@ if args.action == "backup":
                 "Queue did not drain; backup aborted without deleting data"
             )
         if "worker" in stopped:
-            service("stop", "worker")
+            # Docker allows this worker 150s to stop; leave control-plane headroom
+            # under build/CPU load instead of aborting an otherwise quiesced backup.
+            service("stop", "worker", timeout=300)
         recorded = inventory()
         with (root / "database.dump").open("wb") as output:
             service(

@@ -1,0 +1,278 @@
+{
+  "CVE-2026-58049": {
+    "Title": "FFmpeg: FFmpeg: Memory corruption via crafted RASC video stream",
+    "Description": "FFmpeg's RASC video decoder (decode_dlta in libavcodec/rasc.c) performs 32-bit reads and writes at the row cursor before the NEXT_LINE row-boundary check and validates the DLTA region in pixel rather than byte units, so a DLTA run on a PAL8 frame can access several bytes past the row allocation. A crafted media stream using the RASC FourCC, decoded by libavcodec, triggers a bitstream-controlled out-of-bounds heap write and adjacent out-of-bounds read, leading to memory corruption.",
+    "References": [
+      "https://access.redhat.com/errata/RHSA-2026:43711",
+      "https://access.redhat.com/errata/RHSA-2026:51180",
+      "https://access.redhat.com/errata/RHSA-2026:52832",
+      "https://access.redhat.com/errata/RHSA-2026:52833",
+      "https://access.redhat.com/errata/RHSA-2026:60520",
+      "https://access.redhat.com/errata/RHSA-2026:61627",
+      "https://access.redhat.com/errata/RHSA-2026:61628",
+      "https://access.redhat.com/errata/RHSA-2026:61629",
+      "https://access.redhat.com/security/cve/CVE-2026-58049",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2493952",
+      "https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/rasc.c",
+      "https://github.com/advisories/GHSA-mjxr-6gqf-w78h",
+      "https://github.com/bikini/exploitarium/tree/main/ffmpeg-rasc-dlta-calc-poc",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-58049",
+      "https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-58049.json",
+      "https://ubuntu.com/security/notices/USN-8750-1",
+      "https://www.cve.org/CVERecord?id=CVE-2026-58049",
+      "https://www.vulncheck.com/advisories/ffmpeg-out-of-bounds-write-in-rasc-decoder-decode-dlta"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-64830": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via heap buffer overflow in VobSub subtitle demuxer.",
+    "Description": "FFmpeg versions 2.1 through 8.1.2 contains a heap buffer overflow vulnerability in the VobSub subtitle demuxer that allows attackers to corrupt adjacent heap memory by supplying a malicious .sub/.idx subtitle file declaring more distinct stream IDs than the fixed-size array bounds in libavformat/mpeg.c. Attackers can craft a subtitle file with excessive distinct stream IDs to trigger unbounded writes beyond the vobsub->q[] array boundary via ff_subtitles_queue_insert(), potentially achieving arbitrary code execution in any application using FFmpeg's VobSub demuxer.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-64830",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/dbd495f066a85ba96b17433f4306582aa37c3951",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23657",
+      "https://github.com/advisories/GHSA-jphx-q7f7-4x8r",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-64830",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-64830",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-buffer-overflow-via-vobsub-subtitle-demuxer"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-64832": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted video file in NVDEC hardware decoder",
+    "Description": "FFmpeg versions 4.4 through 8.1.2 contain a double-free vulnerability in the NVIDIA NVDEC hardware decoder within libavcodec/nvdec.c that allows attackers to trigger memory corruption by supplying a crafted video file. When no decoder surfaces remain, the ff_nvdec_start_frame_sep_ref error path frees memory via nvdec_fdd_priv_free while the calling layer subsequently frees the same frame description data, resulting in a double-free of the underlying decoder context in any FFmpeg-based application using NVDEC hardware-accelerated decoding.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-64832",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/4c6217477fc64305055b37d9d1d0d76d30e37f97",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23664",
+      "https://github.com/advisories/GHSA-jc8j-9799-c943",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-64832",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-64832",
+      "https://www.vulncheck.com/advisories/ffmpeg-double-free-in-nvdec-hardware-decoder-via-nvdec-c"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-64833": {
+    "Title": "ffmpeg: FFmpeg: Information disclosure and denial of service via out-of-bounds read in S/PDIF muxer",
+    "Description": "FFmpeg versions 0.7.1 through 8.1.2 contain an out-of-bounds read vulnerability in the S/PDIF muxer that allows attackers to access memory beyond buffer boundaries by supplying a crafted DTS stream with a core_size value larger than the actual packet length. Attackers can exploit the missing bounds check in the spdif_header_dts4 function by providing a malicious DTS-HD audio stream during S/PDIF re-muxing to trigger unauthorized memory reads beyond the packet buffer.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-64833",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/6f80e2765492700622596af720534cef33dd31b4",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23661",
+      "https://github.com/advisories/GHSA-34g6-m4cp-w5c9",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-64833",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-64833",
+      "https://www.vulncheck.com/advisories/ffmpeg-out-of-bounds-read-via-s-pdif-muxer-spdifenc-c"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-64834": {
+    "Title": "FFmpeg: Denial of Service via crafted RTP/ASF stream",
+    "Description": "FFmpeg versions 0.6.3 through 8.1.2 contain an infinite loop vulnerability in the RTP/ASF demuxer within libavformat/rtpdec_asf.c that allows remote attackers to cause denial of service by sending a crafted RTP/ASF stream. The rtp_asf_fix_header function fails to validate a minimum chunksize when iterating over ASF objects, causing the loop pointer to never advance when a chunksize is smaller than the 24-byte minimum ASF object header size, resulting in CPU exhaustion that denies service to legitimate users.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-64834",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/11d5f475be95d22d5f0692220cc772b116abc632",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23663",
+      "https://github.com/advisories/GHSA-5xcx-3qx2-qv4x",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-64834",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-64834",
+      "https://www.vulncheck.com/advisories/ffmpeg-infinite-loop-dos-via-rtp-asf-demuxer"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-64835": {
+    "Title": "FFmpeg: FFmpeg: Arbitrary code execution, information disclosure, or denial of service via crafted ADX/AAX audio files",
+    "Description": "FFmpeg versions 4.4 through 8.1.2 contain an out-of-bounds memory access vulnerability in the ADX audio decoder within libavcodec/adxdec.c that allows attackers to trigger both out-of-bounds reads and writes by supplying a crafted ADX or AAX audio file with a mid-stream channel layout change. When AV_PKT_DATA_NEW_EXTRADATA side data is received mid-stream, the adx_decode_frame function re-parses the stream header but fails to update the internal channel state, causing subsequent decoding operations to access the prev[] state array using a stale channel count.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-64835",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/1836ef96846937a6cc2443698a693104f5c0b21e",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23659",
+      "https://github.com/advisories/GHSA-p2v8-4c4f-rwpq",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-64835",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-64835",
+      "https://www.vulncheck.com/advisories/ffmpeg-out-of-bounds-memory-access-in-adx-audio-decoder"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-66036": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted video in vf_hqdn3d filter",
+    "Description": "FFmpeg through 8.1.2, fixed in commit 5d7112c, contains a heap out-of-bounds write vulnerability in the vf_hqdn3d filter that allows attackers to corrupt heap memory by supplying a crafted video whose frame resolution increases between frames when filtergraph reinitialization is disabled via the -reinit_filter 0 option. Attackers can provide a malicious video input where vf_hqdn3d.config_input() allocates undersized per-plane line-history buffers based on the initial frame width, and subsequent larger frames cause denoise_spatial() to write beyond the allocation boundary, resulting in heap memory corruption.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-66036",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/5d7112c60e6f0f0742ce47d448e6da0718a70f4c",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23783",
+      "https://github.com/advisories/GHSA-575m-jfmw-q76c",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-66036",
+      "https://ubuntu.com/security/notices/USN-8671-1",
+      "https://ubuntu.com/security/notices/USN-8738-1",
+      "https://www.cve.org/CVERecord?id=CVE-2026-66036",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-out-of-bounds-write-in-vf-hqdn3d-filter"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-66039": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted CAF file",
+    "Description": "FFmpeg through 8.1.2, fixed in commit aafb5c6, contains a signed integer overflow vulnerability in the MACE6 audio decoder that allows attackers to corrupt heap memory by supplying a crafted CAF file with a malicious bytes_per_packet value. Attackers can craft a CAF file with oversized bytes_per_packet and frames_per_packet values in the desc chunk to trigger an integer overflow in mace_decode_frame() during output sample count computation, resulting in an undersized buffer allocation and heap out-of-bounds write that could enable code execution.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-66039",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/aafb5c655edc76a753275c383ebb139feb032718",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23631",
+      "https://github.com/advisories/GHSA-84qc-6h9r-4w33",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-66039",
+      "https://ubuntu.com/security/notices/USN-8671-1",
+      "https://ubuntu.com/security/notices/USN-8738-1",
+      "https://www.cve.org/CVERecord?id=CVE-2026-66039",
+      "https://www.vulncheck.com/advisories/ffmpeg-mace6-audio-decoder-heap-out-of-bounds-write-via-caf-file"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-66040": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted PNG image",
+    "Description": "FFmpeg through 8.1.2, fixed in commit b506faf, contains a heap out-of-bounds write vulnerability in the native PNG and APNG encoders that allows remote attackers to corrupt heap memory by supplying a crafted PNG image with a malicious eXIf chunk. Attackers can craft an eXIf chunk where multiple IFD entries reference the same large value payload, causing canonical serialization to expand the output far beyond the undersized allocation estimated by add_exif_profile_size(), resulting in png_write_chunk() writing tens of thousands of bytes past the buffer boundary, leading to deterministic heap corruption, process crash, and potentially arbitrary code execution.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-66040",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/b506fafec9a19fcbc2be5271875fd4a63d6615bc",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23786",
+      "https://github.com/advisories/GHSA-6vcg-882j-82v5",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-66040",
+      "https://www.cve.org/CVERecord?id=CVE-2026-66040",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-out-of-bounds-write-via-png-apng-exif-encoder"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-66041": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted PGS/SUP subtitle file",
+    "Description": "FFmpeg 7.0 through 8.1.2, fixed in commit 4da9812, contains a heap out-of-bounds write vulnerability in the vf_quirc filter that allows an attacker to corrupt heap memory by supplying a crafted PGS/SUP subtitle file with mismatched frame dimensions. Attackers can provide a subtitle file whose second presentation has larger dimensions than its first, causing av_image_copy_plane() to copy data exceeding the initial allocation size into the undersized libquirc grayscale image buffer, resulting in heap corruption and process crash with potential for code execution.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-66041",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/4da9812e25894fb51d62a8875cfa8eb39b5e20f5",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23625",
+      "https://github.com/advisories/GHSA-frhp-m687-9g3q",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-66041",
+      "https://www.cve.org/CVERecord?id=CVE-2026-66041",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-out-of-bounds-write-via-vf-quirc-filter"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-70628": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary code execution via crafted WTV file in DVB subtitle parser",
+    "Description": "FFmpeg versions from 0.5 up to, but not including, 9.0 contain a signed integer overflow vulnerability in the DVB subtitle parser in libavcodec/dvbsub_parser.c that allows attackers to trigger a heap buffer overflow by supplying a crafted WTV file. The overflow causes the bounds-check guard expression to wrap to INT_MIN, bypassing the PARSE_BUF_SIZE comparison and invoking memcpy() with attacker-controlled data into a heap buffer, resulting in an out-of-bounds heap write and potential memory corruption or code execution.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-70628",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/02fc47e13f903768b75f7985a2706a6223ab4506",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/93f2a525ec6c7b467bae68322720d10188fc6e30",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/c6ec28b18cd1eb7d39e6163137367f2d1c62aa7c",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23897",
+      "https://github.com/advisories/GHSA-qw9h-2hhv-hpfr",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-70628",
+      "https://ubuntu.com/security/notices/USN-8680-1",
+      "https://ubuntu.com/security/notices/USN-8738-1",
+      "https://www.cve.org/CVERecord?id=CVE-2026-70628",
+      "https://www.vulncheck.com/advisories/ffmpeg-dvb-subtitle-parser-heap-buffer-overflow-via-wtv-file"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-70632": {
+    "Title": "ffmpeg: FFmpeg: Arbitrary Code Execution in CFHD Decoder via Crafted AVI File",
+    "Description": "FFmpeg versions from 4.4 up to, but not including, 9.0 contain an out-of-bounds heap write vulnerability in the native GoPro CineForm HD (CFHD) decoder that allows remote attackers to corrupt heap memory by supplying a crafted AVI file during stream probing. The cfhd_decode() function fails to enforce the non-Bayer logical output-width invariant in the transform-type-2 reconstruction path, causing horiz_filter_clip() to write oversized 16-bit sample rows far beyond the allocated output frame buffer, which can be escalated to arbitrary code execution via overwrite of a live cleanup callback pointer.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-70632",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/1006a2151236f9235bf02822f263b3fb0532111e",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/16b2049d4d5222db6cd7c031409058571c94f6a9",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/db05df9d135fb56a4babb836d5e9f5c1d984e087",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/23898",
+      "https://github.com/advisories/GHSA-q24x-99v6-6hxc",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-70632",
+      "https://ubuntu.com/security/notices/USN-8680-1",
+      "https://ubuntu.com/security/notices/USN-8738-1",
+      "https://www.cve.org/CVERecord?id=CVE-2026-70632",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-out-of-bounds-write-in-cfhd-decoder-via-avi-demuxing"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-75141": {
+    "Title": "ffmpeg: FFmpeg: Heap buffer overflow via crafted HEVC input file during muxing",
+    "Description": "FFmpeg before commit acf5d7c contains a heap buffer overflow in the hvcC box writer. When writing an HEVC configuration record with more NAL units of a single type than the count field can represent, the NAL unit count overflows, causing a heap buffer overflow. A crafted HEVC input file triggers the overflow during muxing.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-75141",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/acf5d7cdc1f9ae8752c23e1ea8d7f355ed780781",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24088",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-75141",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-75141",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-buffer-overflow-in-hvcc-box-writer-via-hevc-muxing"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-75142": {
+    "Title": "ffmpeg: FFmpeg: Stack Buffer Overflow in MPEG-PS Muxer",
+    "Description": "FFmpeg before commit 9d786e4 contains a stack buffer overflow in the MPEG-PS muxer (libavformat/mpegenc.c). When muxing input with more streams than the muxer's fixed-size stack buffer accommodates, the buffer is overflowed. A crafted input with an excessive number of streams triggers the overflow during MPEG-PS muxing.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-75142",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/9d786e4b5e9b8482651928574de33772aeee7be1",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24087",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-75142",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-75142",
+      "https://www.vulncheck.com/advisories/ffmpeg-stack-buffer-overflow-in-mpeg-ps-muxer-via-mpegenc-c"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-75143": {
+    "Title": "ffmpeg: FFmpeg Heap Buffer Overflow via RIST Protocol Reader",
+    "Description": "FFmpeg before commit 1c10bcc contains a heap buffer overflow in the RIST protocol reader (libavformat/librist.c). librist_read() ignored its size argument and copied the full received payload length into the caller-provided destination buffer, overflowing it when the payload exceeds the destination size. This is reachable via the async:rist:// URL scheme, where the async wrapper supplies a smaller buffer than the received payload. A remote RIST sender can trigger the overflow by sending a packet whose payload exceeds the caller buffer size.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-75143",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/1c10bcc2e17255dacb717a25ab3db142ce390602",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24089",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-75143",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-75143",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-buffer-overflow-via-rist-protocol-reader"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-75144": {
+    "Title": "ffmpeg: FFmpeg: Memory corruption via crafted Dirac data unit",
+    "Description": "FFmpeg before commit 1cdeb3c contains a heap buffer overflow vulnerability in the VC-2/Dirac RTP packetizer (libavformat/rtpenc_vc2hq.c) that allows attackers to trigger memory corruption by supplying a crafted Dirac data unit. The packetizer copies an input-derived data unit or fragment size into a fixed-size buffer without an upper bound check, causing a heap buffer overflow when the crafted input is packetized for RTP output.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-75144",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/1cdeb3c4e7f1f8566d846b9b451e01c376398818",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24091",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-75144",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-75144",
+      "https://www.vulncheck.com/advisories/ffmpeg-heap-buffer-overflow-in-vc-2-dirac-rtp-packetizer"
+    ],
+    "FixedVersion": null
+  },
+  "CVE-2026-75146": {
+    "Title": "ffmpeg: FFmpeg: Information disclosure and denial of service via out-of-bounds read in DASH demuxer",
+    "Description": "FFmpeg before commit 65b0dab contains an out-of-bounds read in the DASH demuxer (libavformat/dashdec.c). When a live DASH manifest is refreshed with a startNumber that is lower than the previous value, the current sequence number is driven negative. The fragment retrieval function checked only the upper bound before indexing the fragments array, allowing a negative index to be used and causing an out-of-bounds read. A malicious or misconfigured DASH server can trigger this by serving a live manifest with a decreasing startNumber across a manifest refresh.",
+    "References": [
+      "https://access.redhat.com/security/cve/CVE-2026-75146",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/65b0dab903e5975e036b30ecc58f5935d4f151e0",
+      "https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24093",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-75146",
+      "https://ubuntu.com/security/notices/USN-8716-1",
+      "https://ubuntu.com/security/notices/USN-8716-2",
+      "https://www.cve.org/CVERecord?id=CVE-2026-75146",
+      "https://www.vulncheck.com/advisories/ffmpeg-out-of-bounds-read-in-dash-demuxer-via-dashdec-c"
+    ],
+    "FixedVersion": null
+  }
+}

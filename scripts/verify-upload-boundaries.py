@@ -3,21 +3,34 @@
 import asyncio
 import hashlib
 import json
+import os
 import subprocess
 import tempfile
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 
 import httpx
 
-BASE = "http://127.0.0.1:3000"
+BASE = os.getenv("TEST_BASE_URL", "http://127.0.0.1:3000")
+parsed = urlparse(BASE)
+assert parsed.scheme == "http" and parsed.hostname in {"127.0.0.1", "localhost"}, (
+    "Loopback-only test"
+)
+PORT = parsed.port or 80
+HOST = parsed.hostname
+API_CONTAINER = os.getenv("TEST_API_CONTAINER", "rallysense-api-1")
+WEB_CONTAINER = os.getenv("TEST_WEB_CONTAINER", "rallysense-web-1")
+EVIDENCE = Path(os.getenv("TEST_EVIDENCE_DIRECTORY", "docs/evidence/step5_5"))
+assert EVIDENCE.resolve().is_relative_to(Path("docs/evidence").resolve())
+EVIDENCE.mkdir(parents=True, exist_ok=True)
 HEADERS = {"x-lab-client": "rallysense"}
 
 
 class Journal(list):
     def append(self, item):
         super().append(item)
-        Path("docs/evidence/step5_5/upload-boundaries-progress.json").write_text(
+        (EVIDENCE / "upload-boundaries-progress.json").write_text(
             json.dumps({"completed_cases": self, "complete": False}, indent=2),
             encoding="utf-8",
         )
@@ -48,13 +61,13 @@ print(json.dumps(out))"""
         "web_process": command(
             "docker",
             "exec",
-            "rallysense-web-1",
+            WEB_CONTAINER,
             "sh",
             "-c",
             "cat /proc/1/status | sed -n '/^Name:/p;/^VmRSS:/p;/^VmHWM:/p'",
         ),
         "api_processes": json.loads(
-            command("docker", "exec", "rallysense-api-1", "python", "-c", code)
+            command("docker", "exec", API_CONTAINER, "python", "-c", code)
         ),
     }
 
@@ -73,7 +86,7 @@ with Session(engine) as db:
  with path_for(db,aid,job.session_id).open('rb') as f: actual=hashlib.file_digest(f,'sha256').hexdigest()
  print(json.dumps({'bytes':a.bytes,'stored_sha256':a.sha256,'actual_sha256':actual}))"""
     actual = json.loads(
-        command("docker", "exec", "rallysense-api-1", "python", "-c", code, job["id"])
+        command("docker", "exec", API_CONTAINER, "python", "-c", code, job["id"])
     )
     assert actual["actual_sha256"] == actual["stored_sha256"] == expected
     return actual
@@ -111,10 +124,10 @@ async def concurrent_abort_checks(sid):
     prefix = b'--step55\r\nContent-Disposition: form-data; name="file"; filename="partial.mp4"\r\n\r\n'
 
     async def opening():
-        reader, writer = await asyncio.open_connection("127.0.0.1", 3000)
+        reader, writer = await asyncio.open_connection(HOST, PORT)
         writer.write(
             (
-                f"POST {route} HTTP/1.1\r\nHost: 127.0.0.1:3000\r\nx-lab-client: rallysense\r\nContent-Type: multipart/form-data; boundary=step55\r\nTransfer-Encoding: chunked\r\n\r\n"
+                f"POST {route} HTTP/1.1\r\nHost: {HOST}:{PORT}\r\nx-lab-client: rallysense\r\nContent-Type: multipart/form-data; boundary=step55\r\nTransfer-Encoding: chunked\r\n\r\n"
             ).encode()
         )
         writer.write(f"{len(prefix):x}\r\n".encode() + prefix + b"\r\n")
@@ -315,7 +328,7 @@ with (
             if name == "multipart_request_content_length_over_limit":
                 import http.client
 
-                connection = http.client.HTTPConnection("127.0.0.1", 3000, timeout=10)
+                connection = http.client.HTTPConnection(HOST, PORT, timeout=10)
                 connection.putrequest("POST", route)
                 for key, value in headers.items():
                     connection.putheader(key, value)
@@ -347,10 +360,11 @@ result = {
     "memory_after": after_memory,
     "memory_note": "VmHWM is the kernel-observed process lifetime peak RSS, including earlier checks; not isolated upload-only RSS or a production capacity benchmark.",
 }
-Path("docs/evidence/step5_5/upload-boundaries-results.json").write_text(
+(EVIDENCE / "upload-boundaries-results.json").write_text(
     json.dumps(result, indent=2), encoding="utf-8"
 )
-Path("docs/evidence/step5_5/upload-boundaries-progress.json").write_text(
-    json.dumps({"completed_cases": results, "complete": True}, indent=2), encoding="utf-8"
+(EVIDENCE / "upload-boundaries-progress.json").write_text(
+    json.dumps({"completed_cases": results, "complete": True}, indent=2),
+    encoding="utf-8",
 )
 print(json.dumps(result, indent=2))

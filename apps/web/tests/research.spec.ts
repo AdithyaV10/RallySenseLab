@@ -105,7 +105,7 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
   expect(fusion.result.events[0].video_time_us).toBeGreaterThan(0);
   await expect(page.getByTestId("experiment-result")).toHaveCount(3);
   await page.screenshot({
-    path: "../../docs/evidence/research-comparison.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/research-comparison.png`,
     fullPage: true,
   });
   await page.getByLabel("Artificial condition").selectOption("sync");
@@ -123,7 +123,7 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
       .result.events,
   ).toHaveLength(2);
   await page.screenshot({
-    path: "../../docs/evidence/research-robustness.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/research-robustness.png`,
     fullPage: true,
   });
   const exported = await request.get(
@@ -142,7 +142,7 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
     reportPage.getByRole("button", { name: "Print / Save PDF" }),
   ).toBeHidden();
   await reportPage.pdf({
-    path: "../../docs/evidence/step4-synthetic-report.pdf",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/step4-synthetic-report.pdf`,
     format: "A4",
     printBackground: true,
   });
@@ -154,7 +154,7 @@ test("paired synthetic research: freeze labels, three modes, corruption, compari
     ),
   ).toBe(true);
   await page.screenshot({
-    path: "../../docs/evidence/research-mobile.png",
+    path: `${process.env.TEST_EVIDENCE_DIRECTORY || "../../docs/evidence"}/research-mobile.png`,
     fullPage: true,
   });
   await page.setViewportSize({ width: 1440, height: 1000 });

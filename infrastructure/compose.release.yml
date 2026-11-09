@@ -2,6 +2,7 @@
 # Use a NEW project/volumes for a public demo; never reuse the private local project.
 services:
   db:
+    image: ${POSTGRES_IMAGE:-postgres:17.11@sha256:3b0cda93be7c8dba2ed484d19393d93845dc3dafb88973e248ba8e6d99d784e1}
     networks: [backend]
     ports: !reset []
     healthcheck:
@@ -61,7 +62,7 @@ services:
     logging: *logs
   gateway:
     networks: [edge]
-    image: caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9
+    image: ${CADDY_IMAGE:-caddy:2-alpine@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9}
     restart: unless-stopped
     environment:
       RALLYSENSE_DOMAIN: ${RALLYSENSE_DOMAIN:?Reviewed public domain required}

@@ -1,0 +1,79 @@
+{
+  "completed_cases": [
+    {
+      "case": "csv_exact_file_limit_chunked",
+      "status": 202,
+      "elapsed_s": 5.083,
+      "bytes": 52428800,
+      "stored_sha256": "c9ac0d893ef8c510e7d6b1a466c16527384723d738282ad3692e39cdab0f4be7",
+      "actual_sha256": "c9ac0d893ef8c510e7d6b1a466c16527384723d738282ad3692e39cdab0f4be7"
+    },
+    {
+      "case": "csv_file_limit_plus_one",
+      "status": 413
+    },
+    {
+      "case": "video_exact_file_limit_chunked",
+      "status": 202,
+      "elapsed_s": 23.417,
+      "bytes": 524288000,
+      "stored_sha256": "f7db71500abfd4946f151acb277c35b2d732f6e72c16732aa0e2433c39ab28b4",
+      "actual_sha256": "f7db71500abfd4946f151acb277c35b2d732f6e72c16732aa0e2433c39ab28b4"
+    },
+    {
+      "case": "video_file_limit_plus_one",
+      "status": 413
+    },
+    {
+      "case": "chunked_total_body_over_51_mib",
+      "status": 413
+    },
+    {
+      "case": "multipart_request_content_length_over_limit",
+      "status": 413
+    },
+    {
+      "case": "malformed_multipart",
+      "status": 400
+    },
+    {
+      "case": "foreign_origin",
+      "status": 403
+    },
+    {
+      "case": "foreign_host",
+      "status": 403
+    },
+    {
+      "case": "missing_client_guard",
+      "status": 403
+    },
+    {
+      "case": "third_inflight_upload",
+      "status": 429,
+      "active_limit": 2
+    },
+    {
+      "case": "two_aborted_uploads",
+      "published_videos": 0
+    },
+    {
+      "case": "idle_upload_timeout",
+      "status": 408,
+      "elapsed_s": 30.15
+    },
+    {
+      "case": "two_concurrent_valid_uploads",
+      "statuses": [
+        202,
+        202
+      ],
+      "worker_results": [
+        "succeeded",
+        "succeeded"
+      ],
+      "hashes_verified": true
+    }
+  ],
+  "complete": true
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "check": "demo_tls_and_unauthenticated_boundary",
+    "paths": 5,
+    "forged_headers_denied": true,
+    "certificate_chain_and_hostname_verified": true
+  },
+  {
+    "check": "demo_routing_origin_and_credentials",
+    "wrong_host_status": 421,
+    "foreign_origin_status": 403,
+    "cross_environment_password_status": 401,
+    "cross_environment_session_status": 404,
+    "internal_header_spoof_overridden": true
+  },
+  {
+    "check": "demo_precomputed_replay_comparison_exports",
+    "experiments": 10,
+    "range_media": 206,
+    "graph_samples": true,
+    "pose_window": true,
+    "comparison": 200,
+    "markdown_export": 200,
+    "synthetic_software_only": true
+  },
+  {
+    "check": "demo_mutation_allowlist_and_worker",
+    "mutation_families_denied": 12,
+    "real_hidden_synthetic_row_denied": true,
+    "final_sessions": 2,
+    "worker_state": "readonly_idle"
+  },
+  {
+    "check": "workspace_tls_and_unauthenticated_boundary",
+    "paths": 5,
+    "forged_headers_denied": true,
+    "certificate_chain_and_hostname_verified": true
+  },
+  {
+    "check": "workspace_routing_origin_and_credentials",
+    "wrong_host_status": 421,
+    "foreign_origin_status": 403,
+    "cross_environment_password_status": 401,
+    "cross_environment_session_status": 404,
+    "internal_header_spoof_overridden": true
+  },
+  {
+    "check": "workspace_precomputed_replay_comparison_exports",
+    "experiments": 10,
+    "range_media": 206,
+    "graph_samples": true,
+    "pose_window": true,
+    "comparison": 200,
+    "markdown_export": 200,
+    "synthetic_software_only": true
+  },
+  {
+    "check": "workspace_writes_and_worker",
+    "csv_upload": 202,
+    "video_upload": 202,
+    "sync": 201,
+    "annotation_create": true,
+    "annotation_edit": 200,
+    "experiment": "succeeded",
+    "executor_build_verified": true,
+    "export": 200
+  },
+  {
+    "check": "runtime_isolation_and_health",
+    "services": 8,
+    "cross_backend_connections_denied": true,
+    "demo_storage_read_only": true
+  }
+]

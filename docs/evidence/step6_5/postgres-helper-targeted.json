@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-11-09T06:40:17.156879+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--entrypoint",
+    "sh",
+    "rallysense-postgres:rc-step6_5",
+    "-c",
+    "postgres --version && gosu --version && gosu nobody id"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.483,
+  "output": "postgres (PostgreSQL) 17.11 (Debian 17.11-1.pgdg13+2)\n1.20 (go1.24.6 on linux/amd64; gc)\nuid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)\n"
+}

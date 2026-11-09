@@ -1,6 +1,7 @@
 """Generate private production configuration only; never runs Docker, DNS or cloud actions."""
 
 import argparse
+import json
 import os
 import re
 import secrets
@@ -23,6 +24,8 @@ if not target.is_relative_to(Path.cwd().resolve() / "storage"):
 if target.exists():
     raise SystemExit("Destination exists; refusing to overwrite credentials")
 target.mkdir(parents=True, mode=0o700)
+manifest = json.loads(Path("infrastructure/release-manifest.json").read_text())
+images = {image["name"]: image["release_tag"] for image in manifest["images"]}
 for role, host in zip(["demo", "workspace"], hosts, strict=True):
     # Demo starts writable ONLY for private, port-free fixture preparation.
     # Add readonly override + inspected allowlist before starting its web service.
@@ -30,9 +33,12 @@ for role, host in zip(["demo", "workspace"], hosts, strict=True):
         "POSTGRES_PASSWORD": secrets.token_hex(32),
         "LOCAL_TOKEN": secrets.token_hex(32),
         "SITE_ACCESS_PASSWORD": secrets.token_hex(32),
-        "BUILD_ID": "ac75d818a168bfcf1b7f23a609121b18b0933e8e",
-        "API_IMAGE": "rallysense-api:release-ac75d818",
-        "WEB_IMAGE": "rallysense-web:release-ac75d818",
+        "BUILD_ID": manifest.get("build_id", manifest["source_checkpoint"]),
+        "API_IMAGE": images["api"],
+        "DEMO_API_IMAGE": images.get("api_readonly", images["api"]),
+        "WEB_IMAGE": images["web"],
+        "POSTGRES_IMAGE": images["postgres"],
+        "CADDY_IMAGE": images["caddy"],
         "APP_MODE": "local",
         "DEMO_SESSION_IDS": "",
         "RALLYSENSE_DOMAIN": host,
@@ -50,7 +56,8 @@ edge = target / "edge.env"
 edge.write_text(
     f"DEMO_HOST={hosts[0]}\nWORKSPACE_HOST={hosts[1]}\n"
     "DEMO_EDGE_NETWORK=rallysense-release-demo-edge\n"
-    "WORKSPACE_EDGE_NETWORK=rallysense-release-workspace-edge\nTLS_POLICY=\n",
+    "WORKSPACE_EDGE_NETWORK=rallysense-release-workspace-edge\nTLS_POLICY=\n"
+    f"CADDY_IMAGE={images['caddy']}\n",
     encoding="utf-8",
 )
 if os.name != "nt":

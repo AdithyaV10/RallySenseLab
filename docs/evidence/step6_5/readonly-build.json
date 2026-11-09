@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-09T06:46:40.361477+00:00",
+  "command": [
+    "docker",
+    "build",
+    "--progress",
+    "plain",
+    "-f",
+    "infrastructure/api.Dockerfile",
+    "--target",
+    "readonly",
+    "-t",
+    "rallysense-api-readonly:rc-step6_5",
+    "."
+  ],
+  "exit_code": 0,
+  "elapsed_s": 8.325,
+  "output": "#0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from api.Dockerfile\n#1 transferring dockerfile: 34B 0.0s\n#1 transferring dockerfile: 3.02kB 0.2s done\n#1 DONE 0.2s\n\n#2 [internal] load metadata for ghcr.io/astral-sh/uv:0.12.23@sha256:61d393e44e249f2e4b526b6c7ddcecce245946826e608e11c93ad4f5bba55b21\n#2 DONE 0.2s\n\n#3 [internal] load metadata for docker.io/library/python:3.13-slim-trixie@sha256:e48f59cdba69a3cbd9ed2cf0f348d90d45a8d350d98134cf1070bc106ee9ed90\n#3 DONE 0.3s\n\n#4 [internal] load .dockerignore\n#4 transferring context: 33B\n#4 transferring context: 225B 0.1s done\n#4 DONE 0.2s\n\n#5 [internal] load build context\n#5 DONE 0.0s\n\n#6 FROM ghcr.io/astral-sh/uv:0.12.23@sha256:61d393e44e249f2e4b526b6c7ddcecce245946826e608e11c93ad4f5bba55b21\n#6 resolve ghcr.io/astral-sh/uv:0.12.23@sha256:61d393e44e249f2e4b526b6c7ddcecce245946826e608e11c93ad4f5bba55b21 0.1s done\n#6 DONE 0.1s\n\n#7 [base 1/2] FROM docker.io/library/python:3.13-slim-trixie@sha256:e48f59cdba69a3cbd9ed2cf0f348d90d45a8d350d98134cf1070bc106ee9ed90\n#7 resolve docker.io/library/python:3.13-slim-trixie@sha256:e48f59cdba69a3cbd9ed2cf0f348d90d45a8d350d98134cf1070bc106ee9ed90 0.1s done\n#7 DONE 0.1s\n\n#5 [internal] load build context\n#5 transferring context: 2.45kB 0.7s done\n#5 DONE 0.9s\n\n#8 [dependencies 4/5] COPY apps/api/src ./src\n#8 CACHED\n\n#9 [runtime-base 3/7] COPY apps/api/pyproject.toml apps/api/uv.lock ./\n#9 CACHED\n\n#10 [dependencies 3/5] COPY apps/api/pyproject.toml apps/api/uv.lock ./\n#10 CACHED\n\n#11 [runtime-base 5/7] COPY apps/api/alembic.ini ./\n#11 CACHED\n\n#12 [runtime-base 6/7] COPY apps/api/migrations ./migrations\n#12 CACHED\n\n#13 [runtime-base 2/7] COPY --from=dependencies /app/.venv ./.venv\n#13 CACHED\n\n#14 [base 2/2] RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*\n#14 CACHED\n\n#15 [runtime-base 1/7] WORKDIR /app\n#15 CACHED\n\n#16 [dependencies 5/5] RUN uv sync --frozen --no-dev\n#16 CACHED\n\n#17 [runtime-base 4/7] COPY apps/api/src ./src\n#17 CACHED\n\n#18 [dependencies 1/5] COPY --from=ghcr.io/astral-sh/uv:0.12.23@sha256:61d393e44e249f2e4b526b6c7ddcecce245946826e608e11c93ad4f5bba55b21 /uv /usr/local/bin/uv\n#18 CACHED\n\n#19 [dependencies 2/5] WORKDIR /app\n#19 CACHED\n\n#20 [runtime-base 7/7] RUN /usr/sbin/useradd --create-home lab && mkdir -p /data/storage && chown lab:lab /data /data/storage\n#20 CACHED\n\n#21 exporting to image\n#21 exporting layers done\n#21 exporting manifest sha256:05fdfc7025bcff1122e9628135300bf6ae9829d49b10140d6474b6222e716d4c 0.1s done\n#21 exporting config sha256:f25f58212d0f7244a2d5ae3da0b35c20184d0ca6b24e2da7c3e3703eeb1d7599 0.0s done\n#21 exporting attestation manifest sha256:5a2865abe201dc7ae35a1e5886d22b29001973573a70511880b89430a50c392d 0.1s done\n#21 exporting manifest list sha256:729f07e91dfb46f61ae78d0f4563d9a543169f7f01de099528f5d66b6190b506\n#21 exporting manifest list sha256:729f07e91dfb46f61ae78d0f4563d9a543169f7f01de099528f5d66b6190b506 0.0s done\n#21 naming to docker.io/library/rallysense-api-readonly:rc-step6_5 done\n#21 unpacking to docker.io/library/rallysense-api-readonly:rc-step6_5 0.0s done\n#21 DONE 0.4s\nWARNING: current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree\n"
+}

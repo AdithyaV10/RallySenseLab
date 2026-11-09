@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T07:00:35.795624+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-step6-release.py",
+    "--stage",
+    "step6_5"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 25.406,
+  "output": "{\"checks_passed\": 9, \"services_healthy\": 8, \"tls_hostname_verified\": true, \"workspace_session\": \"c1ae7250-c742-4601-be50-09f0a663f9fb\"}\n"
+}

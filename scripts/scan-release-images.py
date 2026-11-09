@@ -1,7 +1,9 @@
 """Scan exact local release archives with pinned Trivy; no registry push or Docker socket mount."""
 
+import argparse
 import hashlib
 import json
+import re
 import subprocess
 import time
 from pathlib import Path
@@ -14,11 +16,42 @@ IMAGES = {
     "caddy": "caddy@sha256:78bd35025c7ba85961dd149ae670315129954e77abe2383ac47c89106b35ade9",
 }
 root = Path.cwd()
-inputs = root / "storage/step6/scanner-inputs"
-reports = root / "docs/evidence/step6"
+parser = argparse.ArgumentParser()
+parser.add_argument("--stage", choices=["step6", "step6_5"], default="step6")
+parser.add_argument(
+    "--only", nargs="+", choices=["api", "api_readonly", "web", "postgres", "caddy"]
+)
+parser.add_argument(
+    "--revision",
+    default="",
+    help="Separate evidence/archive directory for a modified candidate",
+)
+args = parser.parse_args()
+if args.revision and not re.fullmatch(r"[a-z0-9_-]+", args.revision):
+    raise SystemExit("Revision must be a simple safe directory name")
+if args.stage == "step6_5":
+    IMAGES = {
+        "api": "rallysense-api:rc-step6_5",
+        "api_readonly": "rallysense-api-readonly:rc-step6_5",
+        "web": "rallysense-web:rc-step6_5",
+        "postgres": "rallysense-postgres:rc-step6_5",
+        "caddy": "rallysense-caddy:rc-step6_5",
+    }
+all_images = IMAGES.copy()
+if args.only:
+    IMAGES = {name: IMAGES[name] for name in args.only}
+inputs = root / f"storage/{args.stage}/scanner-inputs"
+reports = root / f"docs/evidence/{args.stage}"
+if args.revision:
+    inputs = inputs / args.revision
+    reports = reports / args.revision
 inputs.mkdir(parents=True, exist_ok=True)
 reports.mkdir(parents=True, exist_ok=True)
-results = []
+results = (
+    json.loads((reports / "scan-progress.json").read_text())
+    if (reports / "scan-progress.json").exists()
+    else []
+)
 
 
 def run(command, timeout=900):
@@ -133,7 +166,9 @@ version = run(
     json.dumps(version, indent=2), encoding="utf-8"
 )
 summary = []
-for name in IMAGES:
+for name in all_images:
+    if not (reports / f"{name}.trivy.json").exists():
+        continue
     data = json.loads((reports / f"{name}.trivy.json").read_text())
     counts = {}
     high = []

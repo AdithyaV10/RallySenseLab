@@ -1,0 +1,24 @@
+# Disposable LOOPBACK-ONLY regression project. Never use this override for release.
+services:
+  db:
+    image: rallysense-postgres:rc-step6_5
+    ports: !reset []
+  api:
+    image: rallysense-api:rc-step6_5
+    ports: !override ["127.0.0.1:18000:8000"]
+    environment:
+      BUILD_ID: step6_5-rc1-208e96d
+      ALLOWED_ORIGINS: http://127.0.0.1:13000
+    volumes:
+      - artifact_data:/data/storage
+      - ./apps/api/tests:/app/tests:ro
+  worker:
+    image: rallysense-api:rc-step6_5
+    environment:
+      BUILD_ID: step6_5-rc1-208e96d
+  web:
+    image: rallysense-web:rc-step6_5
+    ports: !override ["127.0.0.1:13000:3000"]
+    environment:
+      WEB_ALLOWED_HOSTS: 127.0.0.1,localhost
+      WEB_ALLOWED_ORIGINS: http://127.0.0.1:13000

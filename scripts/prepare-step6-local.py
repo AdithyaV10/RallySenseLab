@@ -18,7 +18,17 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "action", choices=["init", "seed", "start", "stop", "verify-config"]
 )
+parser.add_argument("--stage", choices=["step6", "step6_5"], default="step6")
 args = parser.parse_args()
+STAGE = args.stage
+READONLY_API = API
+if STAGE == "step6_5":
+    STATE = ROOT / "storage/step6_5/local-release-state.json"
+    EVIDENCE = ROOT / "docs/evidence/step6_5"
+    CHECKPOINT = "208e96dbe52d1a36670f16ae05656b6a5a700a23"
+    API = "rallysense-api:rc-step6_5"
+    WEB = "rallysense-web:rc-step6_5"
+    READONLY_API = "rallysense-api-readonly:rc-step6_5"
 
 
 def run(command, env=None, timeout=180):
@@ -97,7 +107,7 @@ def edge_command():
         "--env-file",
         state["edge_env_file"],
         "-p",
-        "rallysense-step6-edge",
+        f"rallysense-{STAGE}-edge",
         "-f",
         "infrastructure/compose.gateway.yml",
         "-f",
@@ -120,18 +130,35 @@ if args.action == "init":
             "--exit-code",
             CHECKPOINT,
             "--",
-            "apps",
-            "packages",
-            "uv.lock",
-            "package-lock.json",
-            "infrastructure/api.Dockerfile",
-            "infrastructure/web.Dockerfile",
+            *(
+                [
+                    "apps/api/src",
+                    "apps/web/src",
+                    "packages",
+                    "apps/api/uv.lock",
+                    "apps/web/package-lock.json",
+                ]
+                if STAGE == "step6_5"
+                else [
+                    "apps",
+                    "packages",
+                    "uv.lock",
+                    "package-lock.json",
+                    "infrastructure/api.Dockerfile",
+                    "infrastructure/web.Dockerfile",
+                ]
+            ),
+            *(
+                [":(exclude)apps/api/src/rallysense/media.py"]
+                if STAGE == "step6_5"
+                else []
+            ),
         ]
     )
     state = {"source_checkpoint": CHECKPOINT, "roles": {}, "local_only": True}
     for name, source, tag in [
-        ("api", "rallysense-api:local", API),
-        ("web", "rallysense-web:latest", WEB),
+        ("api", API if STAGE == "step6_5" else "rallysense-api:local", API),
+        ("web", WEB if STAGE == "step6_5" else "rallysense-web:latest", WEB),
     ]:
         data = json.loads(run(["docker", "image", "inspect", source])[0])[0]
         run(["docker", "image", "tag", data["Id"], tag])
@@ -169,7 +196,7 @@ if args.action == "init":
     )
     state["api_source_files_verified"] = len(expected)
     for role in ["demo", "workspace"]:
-        project = f"rallysense-step6-{role}"
+        project = f"rallysense-{STAGE}-{role}"
         for kind in ["volume", "network"]:
             existing = run(
                 [
@@ -186,7 +213,7 @@ if args.action == "init":
                 "Refusing pre-existing project volumes/networks"
             )
         host = f"{role}.rallysense.test"
-        file = ROOT / f"storage/step6/{role}.env"
+        file = ROOT / f"storage/{STAGE}/{role}.env"
         assert not file.exists()
         values = {
             "POSTGRES_PASSWORD": secrets.token_hex(32),
@@ -194,7 +221,7 @@ if args.action == "init":
             "SITE_ACCESS_PASSWORD": secrets.token_hex(32),
             "APP_MODE": "local",
             "DEMO_SESSION_IDS": "",
-            "BUILD_ID": CHECKPOINT,
+            "BUILD_ID": "step6_5-rc1-208e96d" if STAGE == "step6_5" else CHECKPOINT,
             "API_IMAGE": API,
             "WEB_IMAGE": WEB,
             "RALLYSENSE_DOMAIN": host,
@@ -203,6 +230,9 @@ if args.action == "init":
             "EDGE_NETWORK": f"{project}-edge",
             "EDGE_WEB_ALIAS": f"{role}-web",
         }
+        if STAGE == "step6_5":
+            values["POSTGRES_IMAGE"] = "rallysense-postgres:rc-step6_5"
+            values["CADDY_IMAGE"] = "rallysense-caddy:rc-step6_5"
         save_env(file, values)
         state["roles"][role] = {
             "project": project,
@@ -210,14 +240,19 @@ if args.action == "init":
             "host": host,
             "seeded": False,
         }
-    file = ROOT / "storage/step6/edge.env"
+    file = ROOT / f"storage/{STAGE}/edge.env"
     save_env(
         file,
         {
             "DEMO_HOST": "demo.rallysense.test",
             "WORKSPACE_HOST": "workspace.rallysense.test",
-            "DEMO_EDGE_NETWORK": "rallysense-step6-demo-edge",
-            "WORKSPACE_EDGE_NETWORK": "rallysense-step6-workspace-edge",
+            "DEMO_EDGE_NETWORK": f"rallysense-{STAGE}-demo-edge",
+            "WORKSPACE_EDGE_NETWORK": f"rallysense-{STAGE}-workspace-edge",
+            **(
+                {"CADDY_IMAGE": "rallysense-caddy:rc-step6_5"}
+                if STAGE == "step6_5"
+                else {}
+            ),
         },
     )
     state["edge_env_file"] = str(file)
@@ -257,7 +292,10 @@ if args.action == "verify-config":
         # Compose filters inactive profiles out of rendered services.
         assert "gateway" not in services or not services["gateway"].get("ports")
         assert config["networks"]["backend"]["internal"]
-        assert services["api"]["image"] == services["worker"]["image"] == API
+        expected_image = (
+            READONLY_API if role == "demo" and state["roles"][role]["seeded"] else API
+        )
+        assert services["api"]["image"] == services["worker"]["image"] == expected_image
         assert services["web"]["environment"]["REQUIRE_WORKSPACE_AUTH"] == "true"
         assert services["api"]["environment"]["ENVIRONMENT"] == "production"
         assert all(
@@ -354,6 +392,7 @@ elif args.action == "seed":
             values.update(
                 APP_MODE="demo_readonly",
                 DEMO_SESSION_IDS=",".join(record["session_ids"]),
+                API_IMAGE=READONLY_API,
             )
             save_env(info["env_file"], values)
         info.update(

@@ -1,0 +1,46 @@
+{
+  "session_id": "7ca64f67-ada2-446d-a8c8-45d37e798ae0",
+  "video": {
+    "id": "a554729a-f2a9-4aa8-9ef7-5ccd2a0be57d",
+    "name": "camera.webm",
+    "status": "ready",
+    "duration_us": 2247000,
+    "width": 1280,
+    "height": 720,
+    "metadata_json": {
+      "codec": "vp8",
+      "width": 1280,
+      "format": "matroska,webm",
+      "height": 720,
+      "capture": {
+        "source": "browser_camera",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+        "stop_reason": "operator",
+        "axis_mapping": "unknown",
+        "device_model": "unknown",
+        "sample_count": 0,
+        "started_at_utc": "2026-11-09T07:11:23.166Z",
+        "time_origin_ms": null,
+        "timestamp_basis": "MediaRecorder encoded video timeline; UTC start is descriptive, not sensor synchronization",
+        "coordinate_frame": "device frame; no world-frame transformation",
+        "operator_cues_us": [],
+        "acceleration_kind": "unknown",
+        "discarded_timestamps": 0,
+        "source_rotation_unit": "unknown",
+        "orientation_angle_deg": null,
+        "original_first_timestamp_ms": null
+      },
+      "rotation": 0,
+      "time_base": "1/1000",
+      "frame_rate": "1000/1",
+      "media_type": "video/webm",
+      "provenance": "synthetic",
+      "start_time": "0.000000",
+      "duration_us": 2247000,
+      "original_sha256": "c8a74dae32068e4dbd033674219ae070bcf49ff3e61b0e06dd027273a5b5c83c",
+      "container_repair": "browser_webm_remux_v1; encoded video copied; original retained",
+      "original_artifact_id": "df4cb199-813d-483e-9915-5b2479b01c8d"
+    }
+  },
+  "scope": "Chromium synthetic camera; real MediaRecorder and FFprobe; no physical camera verification"
+}

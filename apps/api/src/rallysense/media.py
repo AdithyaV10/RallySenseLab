@@ -1,9 +1,19 @@
 import json
+import os
 import subprocess
 import tempfile
 from pathlib import Path
 from .errors import DomainError
 from .config import MAX_VIDEO_BYTES
+
+
+def native_environment():
+    """Native parsers do not need database, internal-token or workspace credentials."""
+    return {
+        key: os.environ[key]
+        for key in ["PATH", "LANG", "LC_ALL", "SYSTEMROOT"]
+        if key in os.environ
+    }
 
 
 def prepare_video(path: Path, browser_capture: bool = False) -> tuple[dict, bytes | None]:
@@ -28,6 +38,8 @@ def prepare_video(path: Path, browser_capture: bool = False) -> tuple[dict, byte
                     "-nostdin",
                     "-protocol_whitelist",
                     "file,crypto",
+                    "-format_whitelist",
+                    "matroska,webm",
                     "-copyts",
                     "-i",
                     str(path),
@@ -45,6 +57,7 @@ def prepare_video(path: Path, browser_capture: bool = False) -> tuple[dict, byte
                 capture_output=True,
                 timeout=60,
                 check=True,
+                env=native_environment(),
             )
             if output.stat().st_size > MAX_VIDEO_BYTES:
                 raise DomainError("Remuxed video exceeds storage limit", "RESOURCE_LIMIT", 413)
@@ -68,6 +81,8 @@ def probe_video(path: Path) -> dict:
                 "error",
                 "-protocol_whitelist",
                 "file,crypto",
+                "-format_whitelist",
+                "mov,matroska,webm",
                 "-show_entries",
                 "stream=codec_type,codec_name,width,height,time_base,start_time,avg_frame_rate:stream_side_data=rotation:format=duration,format_name",
                 "-of",
@@ -77,6 +92,7 @@ def probe_video(path: Path) -> dict:
             capture_output=True,
             timeout=20,
             check=True,
+            env=native_environment(),
         )
         if len(result.stdout) > 1_000_000:
             raise DomainError("Video metadata exceeds limit", "RESOURCE_LIMIT")

@@ -1,16 +1,25 @@
 """Render production configuration and validate Caddy offline. Starts no application/listener."""
 
+import argparse
 import json
 import subprocess
 from pathlib import Path
 
 root = Path.cwd()
-private = root / "storage/step6-production-render"
+parser = argparse.ArgumentParser()
+parser.add_argument("--stage", choices=["step6", "step6_5"], default="step6")
+stage = parser.parse_args().stage
+private = root / f"storage/{stage}-production-render"
 
 
 def run(command):
     result = subprocess.run(
-        command, check=False, capture_output=True, text=True, encoding="utf-8", timeout=60
+        command,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=60,
     )
     # Never include rendered Compose/secrets in a failure log.
     assert result.returncode == 0, (
@@ -48,6 +57,7 @@ for role, host in [
         values.update(
             APP_MODE="demo_readonly",
             DEMO_SESSION_IDS="00000000-0000-0000-0000-000000000001",
+            API_IMAGE=values.get("DEMO_API_IMAGE", values["API_IMAGE"]),
         )
         file.write_text(
             "".join(f"{key}={value}\n" for key, value in values.items()),
