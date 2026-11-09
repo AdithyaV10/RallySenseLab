@@ -1,0 +1,46 @@
+{
+  "all_match": true,
+  "images": [
+    {
+      "name": "api_readonly",
+      "release_tag": "rallysense-api-readonly:release-step6_5-rc1",
+      "image_id": "sha256:729f07e91dfb46f61ae78d0f4563d9a543169f7f01de099528f5d66b6190b506",
+      "config_digest": "sha256:f25f58212d0f7244a2d5ae3da0b35c20184d0ca6b24e2da7c3e3703eeb1d7599",
+      "platform_manifest_digest": "sha256:05fdfc7025bcff1122e9628135300bf6ae9829d49b10140d6474b6222e716d4c",
+      "archive": "storage/step6_5/scanner-inputs/final/api_readonly.tar",
+      "archive_sha256": "01831118da71b688ce4a8dc5570c9c1d4f3f04b7e835975ee1e02066be76cd86",
+      "archive_bytes": 176694272
+    },
+    {
+      "name": "web",
+      "release_tag": "rallysense-web:release-step6_5-rc1",
+      "image_id": "sha256:aa451a1a778c3eb3aaadb839986097413328cc21c4a2c9388ac579bc7d2e618e",
+      "config_digest": "sha256:3514e34fa478953b024f6238b6c1fae65540c01b648005d4c9d5c2b6450a47e5",
+      "platform_manifest_digest": "sha256:17a181f7b6006807a8ac407e6c6fa061eaacbb4c4f97902ae5d22c927ae80c65",
+      "archive": "storage/step6_5/scanner-inputs/final/web.tar",
+      "archive_sha256": "b13ce5a637ec9138ac0877b8b02aff309eef3024bc66d5ccd1cbf1a911e60571",
+      "archive_bytes": 113283072
+    },
+    {
+      "name": "postgres",
+      "release_tag": "rallysense-postgres:release-step6_5-rc1",
+      "image_id": "sha256:c0ac57594a8888f7f7f4134315a6db5bbe495bf8a0c555180669bc66f10897e5",
+      "config_digest": "sha256:b0160b9afb236c68163f1a9105e2cdb5d1cf1af5f3c8e4d4f03f559fd7872c04",
+      "platform_manifest_digest": "sha256:2afd1550ccf8f8a629ca5203cc87cdd9b413599d214bb27e6184cb43be8bfef1",
+      "archive": "storage/step6_5/scanner-inputs/final/postgres.tar",
+      "archive_sha256": "3181a9c5eff2c9d1137db163520d032c86b72f1f537a15351acd61563893c0d5",
+      "archive_bytes": 162408448
+    },
+    {
+      "name": "caddy",
+      "release_tag": "rallysense-caddy:release-step6_5-rc1",
+      "image_id": "sha256:f7fa280c0954d072ee9287220878c63627b067888253454323bcf75980e55db6",
+      "config_digest": "sha256:178705004e35a868b1fd52ba7da4dae9e7dde3a369155aa692e39195db7b8692",
+      "platform_manifest_digest": "sha256:cfc80d02f0f105ff29fa312f2c3fe036aa4c3459c979430ece2baf39f0489113",
+      "archive": "storage/step6_5/scanner-inputs/caddy.tar",
+      "archive_sha256": "87f662a98d906e1fe2855d5c6ff2b6f24a543ebdc4a49b5c75fcdb82da179b34",
+      "archive_bytes": 42955264
+    }
+  ],
+  "source_checkpoint": "6ec8a92ea03e9a58f4987d7a6f67309eefa4ac96"
+}

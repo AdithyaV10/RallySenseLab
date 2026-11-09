@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T22:54:01.403861+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/scan-release-images.py",
+    "--stage",
+    "step6_6"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 154.686,
+  "output": "{\"image\": \"rallysense-api-readonly:rc-step6_6\", \"image_id\": \"sha256:c0349546cfedd3ca10ee275c3be6bc6bc30189a5a678f225c68264a4eff848cf\", \"exit_code\": 0, \"elapsed_s\": 57.434, \"archive_sha256\": \"485a3ae7033d53ce8c086529fdba65da83dc6425a87a5292e30e4ac569dac4ad\", \"archive_bytes\": 176695808}\n{\"image\": \"rallysense-postgres-mode-a:rc-step6_6\", \"image_id\": \"sha256:6aa53bfa61609df46821e7783b7f479c51c2d8ea13ede0e82b404920f6057d6a\", \"exit_code\": 0, \"elapsed_s\": 64.443, \"archive_sha256\": \"9d462501d771c796699cfaaccd9ca24872bc2b909b2da2d9064ccf9822dfa2b1\", \"archive_bytes\": 117318144}\n{\"image\": \"rallysense-web:release-step6_5-rc1\", \"image_id\": \"sha256:aa451a1a778c3eb3aaadb839986097413328cc21c4a2c9388ac579bc7d2e618e\", \"exit_code\": 0, \"elapsed_s\": 8.788, \"archive_sha256\": \"3a360bb3db2122c0075cbd538451ada017ffa2029690a9799a927a720528e7ab\", \"archive_bytes\": 113283072}\n{\"image\": \"rallysense-caddy:release-step6_5-rc1\", \"image_id\": \"sha256:f7fa280c0954d072ee9287220878c63627b067888253454323bcf75980e55db6\", \"exit_code\": 0, \"elapsed_s\": 4.507, \"archive_sha256\": \"7dd4e3f1cd527089a650a75894776fafb193a458f3c971629d92f19d6ada7c7a\", \"archive_bytes\": 42955264}\n[\n  {\n    \"image\": \"api_readonly\",\n    \"counts\": {\n      \"LOW\": 65,\n      \"HIGH\": 47,\n      \"MEDIUM\": 74\n    }\n  },\n  {\n    \"image\": \"postgres\",\n    \"counts\": {\n      \"MEDIUM\": 31,\n      \"UNKNOWN\": 1,\n      \"CRITICAL\": 1,\n      \"HIGH\": 25,\n      \"LOW\": 3\n    }\n  },\n  {\n    \"image\": \"web\",\n    \"counts\": {\n      \"LOW\": 64,\n      \"HIGH\": 46,\n      \"MEDIUM\": 74\n    }\n  },\n  {\n    \"image\": \"caddy\",\n    \"counts\": {\n      \"MEDIUM\": 3,\n      \"HIGH\": 1,\n      \"UNKNOWN\": 1\n    }\n  }\n]\n"
+}

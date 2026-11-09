@@ -1,5 +1,7 @@
 # Deployment readiness decision
 
+**Current Step 6.6 Mode A-only status:** [Release decision](MODE_A_RELEASE_DECISION.md) is CONDITIONAL GO for human review, not approval/authorization. [Focused review](STEP6_6_MODE_A_REVIEW.md): 0 raw critical/94 raw high instances, plus seven manually unresolved XML advisories absent from Alpine feed; security/content/model/access and external operational gates remain pending. New PostgreSQL variant is only for fresh synthetic Mode A volumes. Mode B native blockers remain NO-GO and outside public scope. [Exact standalone procedure](MODE_A_DEPLOYMENT_CHECKLIST.md) supersedes historical dual-mode public instructions; prior evidence below is retained.
+
 ## Current Step 6.5 decision, 2026-11-09
 
 **Mode A: ready for human security review, conditional/unreleased. Mode B: blocked for release approval by native-media findings.** [Final security review](FINAL_IMAGE_SECURITY_REVIEW.md) supersedes the Step 6 image counts with1 critical/163 high package instances and a separate current native-component review. No image was declared clean/approved. [Final RC](FINAL_RELEASE_CANDIDATE.md) and [handoff](DEPLOYMENT_HANDOFF.md) identify frozen local artifacts, exact commands and pending human/external gates. All normal functional regressions and original data/hash preservation passed; none of this authorizes deployment.

@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-09T23:02:06.539319+00:00",
+  "command": [
+    "node",
+    "scripts/verify-mode-a-browser.mjs"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 11.325,
+  "output": "[\n  {\n    \"role\": \"demo\",\n    \"authenticated_navigation\": true,\n    \"video_decode_and_play\": true,\n    \"synchronized_seek\": true,\n    \"graph\": true,\n    \"stored_comparison\": true,\n    \"missed_reference_navigation\": true,\n    \"report\": true,\n    \"mobile_overflow\": false,\n    \"page_errors\": [],\n    \"mediapipe\": null\n  }\n]\n"
+}

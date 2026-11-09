@@ -17,7 +17,7 @@ IMAGES = {
 }
 root = Path.cwd()
 parser = argparse.ArgumentParser()
-parser.add_argument("--stage", choices=["step6", "step6_5"], default="step6")
+parser.add_argument("--stage", choices=["step6", "step6_5", "step6_6"], default="step6")
 parser.add_argument(
     "--only", nargs="+", choices=["api", "api_readonly", "web", "postgres", "caddy"]
 )
@@ -36,6 +36,14 @@ if args.stage == "step6_5":
         "web": "rallysense-web:rc-step6_5",
         "postgres": "rallysense-postgres:rc-step6_5",
         "caddy": "rallysense-caddy:rc-step6_5",
+    }
+elif args.stage == "step6_6":
+    # Mode A alone: never pull in or approve the upload-enabled API candidate.
+    IMAGES = {
+        "api_readonly": "rallysense-api-readonly:rc-step6_6",
+        "postgres": "rallysense-postgres-mode-a:rc-step6_6",
+        "web": "rallysense-web:release-step6_5-rc1",
+        "caddy": "rallysense-caddy:release-step6_5-rc1",
     }
 all_images = IMAGES.copy()
 if args.only:

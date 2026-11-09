@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T23:02:05.204532+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-security-runtime-equivalence.py",
+    "--stage",
+    "step6_6"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 10.094,
+  "output": "{\"equivalent\": true, \"results\": {\"rollback\": {\"runtime\": {\"numpy\": \"2.5.4\", \"scipy\": \"1.18.1\", \"pyarrow\": \"26.0.0\", \"python\": \"3.13.18\"}, \"dependency_lock_sha256\": \"685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e\", \"conditions\": 11, \"deterministic_output_sha256\": \"e4ecffda6b84fe3e8191c3d9cd549427d0b4fb65765dae771074332d7bb06690\", \"bytes\": 660752, \"scope\": \"Generated analytical software cases only; not tennis accuracy\"}, \"candidate\": {\"runtime\": {\"numpy\": \"2.5.4\", \"scipy\": \"1.18.1\", \"pyarrow\": \"26.0.0\", \"python\": \"3.13.18\"}, \"dependency_lock_sha256\": \"685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e\", \"conditions\": 11, \"deterministic_output_sha256\": \"e4ecffda6b84fe3e8191c3d9cd549427d0b4fb65765dae771074332d7bb06690\", \"bytes\": 660752, \"scope\": \"Generated analytical software cases only; not tennis accuracy\"}}}\n"
+}

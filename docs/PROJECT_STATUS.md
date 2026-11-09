@@ -1,5 +1,17 @@
 # Project status
 
+## Current Step 6.6 checkpoint ? 2026-11-09
+
+**Mode A local security/preflight review delivered: CONDITIONAL GO for human review, NOT security-approved or authorized for public deployment. Mode B remains NO-GO and out of public scope.** Starting checkpoint `6ec8a92ea03e9a58f4987d7a6f67309eefa4ac96` was clean. Final local commit contains the decision package; retrieve with `git log -1 --format=%H`. No cloud/DNS/public listener/registry/GitHub action occurred.
+
+Read [Mode A review](STEP6_6_MODE_A_REVIEW.md), [deployment checklist](MODE_A_DEPLOYMENT_CHECKLIST.md), [release decision](MODE_A_RELEASE_DECISION.md) and the separate [Mode A manifest](../infrastructure/mode-a-release-manifest.json). The original Step 6.5 manifest/images/evidence are preserved. Historical two-domain deployment commands must not expose Mode B.
+
+Docker Desktop connectivity was recovered non-destructively. Four original Mode A archive hashes matched. New readonly API removes unused pip/vendor/bootstrap code. A supported PostgreSQL 17.11 Alpine variant with the same stable helper rebuilt on Go 1.27.3 is for fresh generated Mode A volumes only. Scientific app source, locks and algorithms are unchanged. Final Mode A raw scans: **0 critical / 94 high instances (12 unique CVEs)**, plus **seven manual unresolved XML advisories missing from Alpine's feed**. Zero PostgreSQL scanner highs does not resolve that manual review. Caddy JOSE v3 and API/web OS findings require explicit human dispositions; none approved. Model-weight/content/branding/access sign-offs and public operational checks remain pending.
+
+Fresh standalone Mode A rehearsal: five healthy services; 8 live HTTP groups, all 22 registered mutations denied, hidden/private-source requests denied, 1 browser workflow and 1 private-CA release smoke passed. Targeted backend initial 25 passed/3 failed on TestClient Host; corrected test-only setup yielded 1 readonly worker + 2 trusted fixture guard passes. All failures are retained/explained; no new full-suite run is claimed. Eleven deterministic scientific conditions were identical. A generated paired backup/restore matched 17 table digests and 6 artifact hashes. Original 12 research row inventories and all 139 original artifact hashes remained intact.
+
+Initial Mode A sizing recommendation is 2 vCPU/4 GiB/80 GiB, about $24/month compute plus extras, based on small local readonly measurements; target Linux capacity/public DNS/CA/firewall/reboot/off-host recovery/alerts are unverified. Mandatory human decisions and explicit deployment authorization precede external work. No next stage started.
+
 ## Current Step 6.5 checkpoint — 2026-11-09
 
 **Targeted container remediation and review delivered. No image/public release is security-approved. Mode A is ready for human residual-risk review; Mode B remains blocked by native-media findings.** Starting checkpoint: `208e96dbe52d1a36670f16ae05656b6a5a700a23`. New frozen local RC aliases and OCI/archive identities are in [release manifest](../infrastructure/release-manifest.json); rollback images/manifests remain retained.

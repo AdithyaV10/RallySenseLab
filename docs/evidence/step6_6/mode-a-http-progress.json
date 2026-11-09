@@ -1,0 +1,66 @@
+[
+  {
+    "check": "tls_auth_host_origin",
+    "unauthenticated_requests_denied": 16,
+    "private_ca_and_hostname_verified": true,
+    "foreign_origins_denied": 3,
+    "wrong_host": 421,
+    "internal_header_spoof_overridden": true
+  },
+  {
+    "check": "replay_research_exports",
+    "video_range_status": 206,
+    "imu_samples": true,
+    "stored_pose_frames": true,
+    "experiments": 10,
+    "expected_failed_experiments": 1,
+    "clean_generated_tp": 2,
+    "corrupt_generated_fn": 2,
+    "comparison": true,
+    "reports": true,
+    "real_world_accuracy_claim": false
+  },
+  {
+    "check": "all_registered_mutations_denied",
+    "methods_and_routes": 22,
+    "status": 403
+  },
+  {
+    "check": "backend_allowlisting",
+    "real_hidden_synthetic_rows_denied": 2,
+    "sessions_visible": 2,
+    "private_database_mounted": false
+  },
+  {
+    "check": "private_sources_and_content_review",
+    "original_private_id_requests_denied": 5,
+    "filesystem_source_paths_denied": 4,
+    "synthetic_report_exports_reviewed": 10,
+    "private_ids_in_evidence": false
+  },
+  {
+    "check": "readonly_runtime_and_idle_worker",
+    "uid": 1000,
+    "worker_state": "readonly_idle",
+    "native_media_and_installers_absent": true,
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "pyarrow": "26.0.0",
+    "uv_lock_sha256": "685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e"
+  },
+  {
+    "check": "local_read_pressure",
+    "requests": 36,
+    "concurrency": 4,
+    "elapsed_s": 0.759,
+    "max_request_s": 0.207,
+    "target_host_capacity_unverified": true
+  },
+  {
+    "check": "sqlxml_reachability",
+    "sql_xml_function_confirmed": true,
+    "application_xml_columns": 0,
+    "arbitrary_sql_http_endpoint": false,
+    "indirect_exposure_requires_review": true
+  }
+]

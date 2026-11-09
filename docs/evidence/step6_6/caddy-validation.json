@@ -1,0 +1,7 @@
+{
+  "exit_code": 0,
+  "scope": "production adapt/validate, placeholder exact DNS hostname, network none, no listener started",
+  "admin_off": true,
+  "no_internal_ca_policy": true,
+  "output": "{\"level\":\"warn\",\"ts\":1794265780.4975696,\"logger\":\"caddyfile\",\"msg\":\"Caddyfile input is not formatted; run 'caddy fmt --overwrite' to fix inconsistencies\",\"file\":\"/etc/caddy/Caddyfile\",\"line\":2}\n{\"level\":\"info\",\"ts\":1794265780.4982574,\"logger\":\"http.auto_https\",\"msg\":\"server is listening only on the HTTPS port but has no TLS connection policies; adding one to enable TLS\",\"server_name\":\"srv1\",\"https_port\":443}\n{\"level\":\"info\",\"ts\":1794265780.498303,\"logger\":\"http.auto_https\",\"msg\":\"enabling automatic HTTP->HTTPS redirects\",\"server_name\":\"srv1\"}\n{\"level\":\"info\",\"ts\":1794265780.4984386,\"logger\":\"tls.cache.maintenance\",\"msg\":\"started background certificate maintenance\",\"cache\":\"0x1f88986ed080\"}\n{\"level\":\"info\",\"ts\":1794265780.4987133,\"logger\":\"http\",\"msg\":\"servers shutting down with eternal grace period\"}\n{\"level\":\"info\",\"ts\":1794265780.4987833,\"logger\":\"tls.cache.maintenance\",\"msg\":\"stopped background certificate maintenance\",\"cache\":\"0x1f88986ed080\"}\n"
+}

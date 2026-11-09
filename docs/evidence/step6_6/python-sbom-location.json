@@ -1,0 +1,10 @@
+{
+  "path": "usr/local/lib/python3.13/site-packages/pip/_vendor/bom.cdx.json",
+  "document_name": null,
+  "format": "CycloneDX",
+  "contains_target_names": {
+    "msgpack": true,
+    "setuptools": true,
+    "urllib3": true
+  }
+}

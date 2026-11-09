@@ -15,7 +15,7 @@ parser.add_argument(
     action="store_true",
     help="Only the isolated .test stacks, with their private CA",
 )
-parser.add_argument("--local-stage", choices=["step6", "step6_5"])
+parser.add_argument("--local-stage", choices=["step6", "step6_5", "step6_6"])
 parser.add_argument("--role", choices=["demo", "workspace", "both"], default="both")
 args = parser.parse_args()
 local_stage = args.local_stage or ("step6" if args.local_step6 else None)

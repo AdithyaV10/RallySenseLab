@@ -1,5 +1,9 @@
 # Step 6 deployment handoff — authorization required
 
+## Current Step 6.6 Mode A-only handoff ? 2026-11-09
+
+**The current controlled procedure is [MODE_A_DEPLOYMENT_CHECKLIST](MODE_A_DEPLOYMENT_CHECKLIST.md), with [release decision](MODE_A_RELEASE_DECISION.md) and [review](STEP6_6_MODE_A_REVIEW.md). CONDITIONAL GO for human review; no security/content/model approval or public deployment authorization.** Use the separate four-image [Mode A manifest](../infrastructure/mode-a-release-manifest.json) and standalone `compose.mode-a.yml`. New PostgreSQL variant is for fresh synthetic volumes only. Do not apply old two-domain commands below or expose Mode B. All historical instructions/evidence are retained for provenance, not current authorization.
+
 ## Current Step 6.5 handoff — 2026-11-09
 
 **Only a scoped Mode A deployment may proceed to human security review. Mode B is blocked; no public deployment is authorized.** Read [FINAL_RELEASE_CANDIDATE](FINAL_RELEASE_CANDIDATE.md), [FINAL_IMAGE_SECURITY_REVIEW](FINAL_IMAGE_SECURITY_REVIEW.md) and [remediation report](STEP6_5_SECURITY_REMEDIATION.md). Shared PostgreSQL XML/Caddy JWK/OS/SBOM exceptions, model/content/access approval and external operational acceptance remain pending. Native MOV/PSSH DoS and HDR serialization block the upload-enabled workspace. The historical two-domain start commands below must not be used to expose Mode B.

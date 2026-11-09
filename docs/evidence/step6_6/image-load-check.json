@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T23:21:07.996279+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/mode-a-images.py",
+    "load"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 35.357,
+  "output": "{\"action\": \"load\", \"images_verified\": 4, \"fixture_artifacts\": 6, \"public_release_authorized\": false}\n"
+}

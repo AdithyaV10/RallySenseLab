@@ -1,5 +1,7 @@
 # Final release candidate — Step 6.5
 
+**Step 6.6 update:** The current Mode A-only candidate and final recommendation are in [MODE_A_RELEASE_DECISION](MODE_A_RELEASE_DECISION.md) and [STEP6_6_MODE_A_REVIEW](STEP6_6_MODE_A_REVIEW.md). Separate [Mode A manifest](../infrastructure/mode-a-release-manifest.json): four images, no full API. Human risk/content/model approval and external deployment acceptance remain pending. The Step 6.5 Mode B native blockers and historical candidate below remain unchanged.
+
 2026-11-09. **Review candidate only. No image or public deployment is approved.**
 
 | Scope | Software result | Release decision |

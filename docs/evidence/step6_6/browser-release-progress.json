@@ -1,0 +1,15 @@
+[
+  {
+    "role": "demo",
+    "authenticated_navigation": true,
+    "video_decode_and_play": true,
+    "synchronized_seek": true,
+    "graph": true,
+    "stored_comparison": true,
+    "missed_reference_navigation": true,
+    "report": true,
+    "mobile_overflow": false,
+    "page_errors": [],
+    "mediapipe": null
+  }
+]

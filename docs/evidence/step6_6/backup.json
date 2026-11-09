@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-11-09T23:06:21.269452+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/backup-workspace.py",
+    "backup",
+    "--directory",
+    "storage/step6_6/generated-demo-pair",
+    "--project",
+    "rallysense-step6-6-mode-a",
+    "--env-file",
+    "storage/step6_6/demo.env",
+    "--file",
+    "infrastructure/compose.mode-a.yml",
+    "--file",
+    "infrastructure/compose.mode-a.local.yml"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 52.603,
+  "output": "{\"backup_complete\": true, \"directory\": \"C:\\\\RallySenseLab\\\\storage\\\\step6_6\\\\generated-demo-pair\", \"artifact_files_verified\": 6}\n"
+}

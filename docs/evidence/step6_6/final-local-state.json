@@ -1,0 +1,107 @@
+{
+  "engine_reachable": true,
+  "no_reset_prune_or_volume_deletion": true,
+  "public_actions": false,
+  "projects": {
+    "rallysense": [
+      {
+        "service": "worker",
+        "status": "running",
+        "health": "healthy",
+        "port_bindings": {}
+      },
+      {
+        "service": "api",
+        "status": "running",
+        "health": "healthy",
+        "port_bindings": {
+          "8000/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "8000"
+            }
+          ]
+        }
+      },
+      {
+        "service": "web",
+        "status": "running",
+        "health": null,
+        "port_bindings": {
+          "3000/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "3000"
+            }
+          ]
+        }
+      },
+      {
+        "service": "db",
+        "status": "running",
+        "health": "healthy",
+        "port_bindings": {
+          "5432/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "5433"
+            }
+          ]
+        }
+      }
+    ],
+    "rallysense-step6-6-mode-a": [
+      {
+        "service": "gateway",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {
+          "443/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "18443"
+            }
+          ],
+          "80/tcp": [
+            {
+              "HostIp": "127.0.0.1",
+              "HostPort": "18080"
+            }
+          ]
+        }
+      },
+      {
+        "service": "worker",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {}
+      },
+      {
+        "service": "web",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {}
+      },
+      {
+        "service": "api",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {}
+      },
+      {
+        "service": "db",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {}
+      }
+    ],
+    "rallysense-restore-step6-6-mode-a": [
+      {
+        "service": "db",
+        "status": "exited",
+        "health": "unhealthy",
+        "port_bindings": {}
+      }
+    ]
+  }
+}

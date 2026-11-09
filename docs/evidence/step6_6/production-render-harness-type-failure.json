@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T23:10:15.111364+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-mode-a-production.py",
+    "--env-file",
+    "storage/step6_6/production-render.env"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 0.677,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\check-mode-a-production.py\", line 39, in <module>\n    print(json.dumps({'production_render_passed':True,'source_hashes_verified':len(m['source_file_hashes']),'readonly_images_only':True,'unique_credentials':True,'private_backend':True,'total_container_memory_limit_bytes':sum(s[n]['mem_limit'] for n in s),'dns_domain_ownership_public_tls_firewall_unverified':True,'security_and_legal_approvals_not_granted':True,'public_listener_started':False}))\n                                                                                                                                                                                                                              ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: unsupported operand type(s) for +: 'int' and 'str'\n"
+}

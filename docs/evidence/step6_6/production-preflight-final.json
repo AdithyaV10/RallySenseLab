@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-09T23:20:33.483326+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/check-mode-a-production.py",
+    "--env-file",
+    "storage/step6_6/production-render.env"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.844,
+  "output": "{\"production_render_passed\": true, \"source_hashes_verified\": 85, \"readonly_images_only\": true, \"unique_credentials\": true, \"private_backend\": true, \"total_container_memory_limit_bytes\": 2281701376, \"dns_domain_ownership_public_tls_firewall_unverified\": true, \"security_and_legal_approvals_not_granted\": true, \"public_listener_started\": false}\n"
+}

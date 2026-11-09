@@ -1,0 +1,162 @@
+{
+  "admin": {
+    "disabled": true
+  },
+  "apps": {
+    "http": {
+      "servers": {
+        "srv0": {
+          "listen": [
+            "127.0.0.1:8081"
+          ],
+          "read_timeout": 30000000000,
+          "read_header_timeout": 10000000000,
+          "idle_timeout": 60000000000,
+          "max_header_bytes": 32000,
+          "routes": [
+            {
+              "match": [
+                {
+                  "host": [
+                    "127.0.0.1"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "static_response",
+                          "status_code": 200
+                        }
+                      ],
+                      "match": [
+                        {
+                          "path": [
+                            "/healthz"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ],
+          "automatic_https": {
+            "skip": [
+              "127.0.0.1"
+            ]
+          },
+          "strict_sni_host": true
+        },
+        "srv1": {
+          "listen": [
+            ":443"
+          ],
+          "read_timeout": 30000000000,
+          "read_header_timeout": 10000000000,
+          "idle_timeout": 60000000000,
+          "max_header_bytes": 32000,
+          "routes": [
+            {
+              "match": [
+                {
+                  "host": [
+                    "demo.rallysense.test"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "handle": [
+                        {
+                          "handler": "headers",
+                          "response": {
+                            "deferred": true,
+                            "delete": [
+                              "Server"
+                            ],
+                            "set": {
+                              "Referrer-Policy": [
+                                "same-origin"
+                              ],
+                              "Strict-Transport-Security": [
+                                "max-age=31536000"
+                              ],
+                              "X-Content-Type-Options": [
+                                "nosniff"
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "handler": "request_body",
+                          "max_size": 1048576
+                        },
+                        {
+                          "handler": "headers",
+                          "request": {
+                            "delete": [
+                              "X-Lab-Token"
+                            ]
+                          }
+                        },
+                        {
+                          "handler": "headers",
+                          "request": {
+                            "delete": [
+                              "X-Middleware-Subrequest"
+                            ]
+                          }
+                        },
+                        {
+                          "handler": "reverse_proxy",
+                          "transport": {
+                            "dial_timeout": 5000000000,
+                            "protocol": "http",
+                            "response_header_timeout": 30000000000
+                          },
+                          "upstreams": [
+                            {
+                              "dial": "web:3000"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "terminal": true
+            }
+          ],
+          "strict_sni_host": true
+        }
+      }
+    },
+    "tls": {
+      "automation": {
+        "policies": [
+          {
+            "subjects": [
+              "demo.rallysense.test"
+            ],
+            "issuers": [
+              {
+                "module": "internal"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

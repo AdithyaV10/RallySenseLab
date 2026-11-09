@@ -49,6 +49,14 @@ USER lab
 
 # Viewing precomputed fixtures needs no native media executables or libraries.
 FROM runtime-base AS readonly
+USER root
+# Mode A never installs packages. Remove pip's executable/vendor code, its SBOM,
+# and the ensurepip bootstrap wheel together, rather than suppressing its findings.
+RUN rm -rf /usr/local/lib/python3.13/site-packages/pip \
+           /usr/local/lib/python3.13/site-packages/pip-*.dist-info \
+           /usr/local/lib/python3.13/ensurepip \
+    && rm -f /usr/local/bin/pip /usr/local/bin/pip3 /usr/local/bin/pip3.13
+USER lab
 
 # Full workspace keeps native features required by supported MP4/WebM workflows.
 FROM runtime-base AS workspace

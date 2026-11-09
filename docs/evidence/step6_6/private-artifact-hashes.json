@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T23:09:15.243208+00:00",
+  "command": [
+    "docker",
+    "exec",
+    "rallysense-api-1",
+    "python",
+    "-c",
+    "\"\"\"Run as the nonroot API user; inspect real artifacts and only alter temporary permissions.\"\"\"\n\nimport hashlib\nimport json\nimport os\nimport tempfile\nfrom pathlib import Path\n\nfrom rallysense import main\nfrom rallysense import models as m\nfrom rallysense.db import engine\nfrom rallysense.errors import DomainError\nfrom rallysense.storage import path_for\nfrom sqlalchemy import select\nfrom sqlalchemy.orm import Session\n\nchecked = 0\nwith Session(engine) as db:\n    for artifact in db.scalars(select(m.Artifact)):\n        with path_for(db, artifact.id, artifact.session_id).open(\"rb\") as stream:\n            assert hashlib.file_digest(stream, \"sha256\").hexdigest() == artifact.sha256\n        checked += 1\nassert os.getuid() != 0, \"Permission regression must execute as a nonroot user\"\noriginal = main.STORAGE_ROOT\nwith tempfile.TemporaryDirectory(prefix=\"step55-readiness-\") as temp:\n    directory = Path(temp)\n    try:\n        os.chmod(directory, 0o555)\n        main.STORAGE_ROOT = directory\n        try:\n            main.ready()\n        except DomainError as error:\n            assert error.code == \"NOT_READY\" and error.status == 503\n            assert str(directory) not in error.message\n        else:\n            raise AssertionError(\"Unwritable storage falsely reported ready\")\n    finally:\n        main.STORAGE_ROOT = original\n        os.chmod(directory, 0o755)\nassert main.ready() == {\"status\": \"ready\"}\nassert not list(original.glob(\".ready-*\"))\nprint(\n    json.dumps(\n        {\n            \"artifact_files_checked\": checked,\n            \"missing\": 0,\n            \"mismatched\": 0,\n            \"nonroot_unwritable_storage_status\": 503,\n            \"writable_ready\": True,\n            \"probe_files_remaining\": 0,\n        }\n    )\n)\n"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 9.025,
+  "output": "{\"artifact_files_checked\": 139, \"missing\": 0, \"mismatched\": 0, \"nonroot_unwritable_storage_status\": 503, \"writable_ready\": true, \"probe_files_remaining\": 0}\n"
+}

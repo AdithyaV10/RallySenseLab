@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "modes": [
+    "production-render-only",
+    "loopback-rehearsal"
+  ],
+  "services": [
+    "api",
+    "db",
+    "gateway",
+    "web",
+    "worker"
+  ],
+  "private_backend": true,
+  "all_healthchecks_and_limits": true,
+  "distinct_generated_credentials": true,
+  "no_workspace": true
+}

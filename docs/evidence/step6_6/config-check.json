@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T22:57:39.435795+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-mode-a-local.py",
+    "verify-config"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.735,
+  "output": "Both Mode A configurations validated; no production listener started\n"
+}

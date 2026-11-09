@@ -1,0 +1,98 @@
+{
+  "sessions": [
+    {
+      "id": "8ee1be7b-5af2-450a-9aae-e660b4973276",
+      "title": "Baseline / synthetic motion",
+      "kind": "synthetic",
+      "demo_key": "synthetic-v1",
+      "notes": "Deterministic signal fixture. Animation is programmatic, not athlete footage or pose estimation.",
+      "participant_id": null
+    },
+    {
+      "id": "4a44fa84-aaf1-4072-a68e-7ba51c97b219",
+      "title": "Paired motion / synthetic research",
+      "kind": "synthetic",
+      "demo_key": "paired-research-v1",
+      "notes": "Generated stick figure, analytical landmarks and Gaussian IMU pulses on a shared clock. NOT MediaPipe extraction, athlete footage, or real-world tennis evidence.",
+      "participant_id": null
+    }
+  ],
+  "videos": [
+    {
+      "name": "Generated stick figure / NOT athlete footage.mp4",
+      "metadata": {
+        "rotation": 0,
+        "media_type": "video/mp4",
+        "provenance": "synthetic"
+      }
+    }
+  ],
+  "pose_configs": [
+    {
+      "generator": "paired_motion_fixture@1.0.0",
+      "provenance": "generated_analytical_landmarks",
+      "sample_target_hz": 30
+    }
+  ],
+  "references": [
+    {
+      "clock": "session_us",
+      "labeler": "built-in synthetic fixture generator",
+      "set_name": "Generated paired pulse centers",
+      "video_id": "db94e9cc-ba60-4255-b19f-6b1c4e4b4478",
+      "procedure": "Software-only generated reference clock; never interpreted as real tennis ground truth.",
+      "definition": "Analytical generated pulse centers at 2 and 5 seconds; not independently labeled athlete events.",
+      "event_type": "synthetic_reference",
+      "provenance": "synthetic",
+      "independent": false,
+      "video_sha256": "08e7bd2c06adb37d7118881f2987f618032dc96e3e27aeb4db7831821f222052"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "ba717274-03c4-4942-81ce-d4326ed9d0c9",
+      "session_id": "8ee1be7b-5af2-450a-9aae-e660b4973276",
+      "kind": "raw_csv",
+      "bytes": 233448,
+      "sha256": "923395fa992771b506c57af2e4b76856e420b3137cff9704a40d06041ea662fb"
+    },
+    {
+      "id": "f8482f65-b0b3-4b84-bcda-136d71add280",
+      "session_id": "8ee1be7b-5af2-450a-9aae-e660b4973276",
+      "kind": "sensor_parquet_v1",
+      "bytes": 95405,
+      "sha256": "adbb6c592c460b89923d50ef94c90c595cee3436de2deff46a71d368657a7c0f"
+    },
+    {
+      "id": "7651ffb1-01a1-4aec-96c9-d6091d97f113",
+      "session_id": "4a44fa84-aaf1-4072-a68e-7ba51c97b219",
+      "kind": "raw_csv",
+      "bytes": 34278,
+      "sha256": "932149dd3113cdab9607e31e4ee2e0a54d63707d017c4cce2855f599409b2845"
+    },
+    {
+      "id": "f8d5a227-7f1a-44e5-98f1-bcb0e915e684",
+      "session_id": "4a44fa84-aaf1-4072-a68e-7ba51c97b219",
+      "kind": "sensor_parquet_v1",
+      "bytes": 9468,
+      "sha256": "286db07885e4d5be35bc868e936168287c10e770be3afa9c1f4df16a64f6149e"
+    },
+    {
+      "id": "35aa2d3c-06ca-4f8d-86cd-989742aba068",
+      "session_id": "4a44fa84-aaf1-4072-a68e-7ba51c97b219",
+      "kind": "video_mp4",
+      "bytes": 15839,
+      "sha256": "08e7bd2c06adb37d7118881f2987f618032dc96e3e27aeb4db7831821f222052"
+    },
+    {
+      "id": "bcbf90c8-8d1d-4fa2-903e-7e1c03477423",
+      "session_id": "4a44fa84-aaf1-4072-a68e-7ba51c97b219",
+      "kind": "pose_parquet_v1",
+      "bytes": 7479,
+      "sha256": "5a3276bec2d26529a3da7edaaea3943d6826a24eb2ee4c9ebbc6ef31e84f9047"
+    }
+  ],
+  "private_session_ids_disjoint": true,
+  "owner_content_approval": false,
+  "model_redistribution_approval": false
+}

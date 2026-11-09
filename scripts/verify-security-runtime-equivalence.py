@@ -1,5 +1,6 @@
 """Compare deterministic generated scientific outputs in rollback and candidate containers."""
 
+import argparse
 import json
 import subprocess
 from pathlib import Path
@@ -35,10 +36,13 @@ for knobs in conditions:
 blob=json.dumps(outputs,sort_keys=True,allow_nan=False).encode()
 print(json.dumps({'runtime':execution_environment()['runtime'],'dependency_lock_sha256':execution_environment()['dependency_lock_sha256'],'conditions':len(conditions),'deterministic_output_sha256':hashlib.sha256(blob).hexdigest(),'bytes':len(blob),'scope':'Generated analytical software cases only; not tennis accuracy'}))
 """
+parser = argparse.ArgumentParser()
+parser.add_argument('--stage', choices=['step6_5', 'step6_6'], default='step6_5')
+stage = parser.parse_args().stage
 results = {}
 for name, image in [
-    ("rollback", "rallysense-api:release-ac75d818"),
-    ("candidate", "rallysense-api:rc-step6_5"),
+    ("rollback", "rallysense-api-readonly:release-step6_5-rc1" if stage == 'step6_6' else "rallysense-api:release-ac75d818"),
+    ("candidate", "rallysense-api-readonly:rc-step6_6" if stage == 'step6_6' else "rallysense-api:rc-step6_5"),
 ]:
     run = subprocess.run(
         [
@@ -69,7 +73,7 @@ assert (
     results["rollback"]["dependency_lock_sha256"]
     == results["candidate"]["dependency_lock_sha256"]
 )
-Path("docs/evidence/step6_5/runtime-equivalence.json").write_text(
+Path(f"docs/evidence/{stage}/runtime-equivalence.json").write_text(
     json.dumps(results, indent=2), encoding="utf-8"
 )
 print(json.dumps({"equivalent": True, "results": results}))

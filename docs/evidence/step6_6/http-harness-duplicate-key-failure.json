@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T23:01:47.546221+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-mode-a.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 13.513,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\verify-mode-a.py\", line 96, in <module>\n    guards = json.loads(py(\"from sqlalchemy.orm import Session\\nfrom rallysense.db import engine\\nfrom rallysense import models as m\\nimport json\\nwith Session(engine) as db, db.begin():\\n a=m.RecordingSession(title='Step6.6 ephemeral synthetic guard',dataset_kind='synthetic',demo_key='synthetic-v1'); b=m.RecordingSession(title='Step6.6 ephemeral synthetic guard',dataset_kind='synthetic',demo_key='unapproved-fixture'); db.add_all([a,b]); db.flush(); print(json.dumps([a.id,b.id]))\"))\n                        ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\RallySenseLab\\scripts\\verify-mode-a.py\", line 28, in py\n    return docker('exec', '-i', f'{project}-api-1', 'python', '-', input=code)\n  File \"C:\\RallySenseLab\\scripts\\verify-mode-a.py\", line 24, in docker\n    return subprocess.run(['docker', *args], input=input, capture_output=True, text=True, encoding='utf-8', check=True, timeout=90).stdout.strip()\n           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\subprocess.py\", line 577, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['docker', 'exec', '-i', 'rallysense-step6-6-mode-a-api-1', 'python', '-']' returned non-zero exit status 1.\n"
+}

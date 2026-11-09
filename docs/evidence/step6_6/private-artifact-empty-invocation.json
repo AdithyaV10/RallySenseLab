@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T23:08:51.571323+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "exec",
+    "-T",
+    "api",
+    "python",
+    "-"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.327,
+  "output": ""
+}

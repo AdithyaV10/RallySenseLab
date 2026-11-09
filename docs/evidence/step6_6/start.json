@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-09T23:00:00.801256+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/prepare-mode-a-local.py",
+    "start"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 84.433,
+  "output": "Five Mode A services healthy; gateway bound only to 127.0.0.1\n"
+}

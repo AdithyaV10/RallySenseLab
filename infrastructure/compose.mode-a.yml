@@ -1,0 +1,138 @@
+# Standalone Mode A ONLY. Never combine with docker-compose.yml or a workspace overlay.
+# Production ports require explicit deployment authorization; local tests MUST add
+# compose.mode-a.local.yml. Restore the approved generated pair before starting HTTP.
+services:
+  db:
+    image: ${POSTGRES_IMAGE:?Reviewed Mode A PostgreSQL identity required}
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rallysense
+      POSTGRES_DB: rallysense
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Unique database secret required}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    networks: [backend]
+    healthcheck:
+      test: [CMD-SHELL, 'PGPASSWORD="$$POSTGRES_PASSWORD" psql -h 127.0.0.1 -U rallysense -d rallysense -Atc "SELECT 1" >/dev/null']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 512m
+    cpus: 0.75
+    pids_limit: 128
+    logging: &logs
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  api:
+    image: ${READONLY_API_IMAGE:?Readonly image required; full API forbidden}
+    pull_policy: never
+    restart: unless-stopped
+    command: [sh, -c, 'alembic upgrade head && uvicorn rallysense.main:app --host 0.0.0.0 --port 8000 --no-access-log --limit-concurrency 32 --timeout-keep-alive 5']
+    environment: &api_env
+      DATABASE_URL: postgresql+psycopg://rallysense:${POSTGRES_PASSWORD:?Unique database secret required}@db:5432/rallysense
+      STORAGE_ROOT: /data/storage
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Unique internal token required}
+      APP_MODE: demo_readonly
+      DEMO_SESSION_IDS: ${DEMO_SESSION_IDS:?Explicit reviewed synthetic session allowlist required}
+      ENVIRONMENT: production
+      ALLOWED_HOSTS: api,localhost,127.0.0.1
+      ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:?Exact HTTPS origin required}
+      BUILD_ID: ${BUILD_ID:?Reviewed candidate identity required}
+      MAX_REQUESTS_PER_MINUTE: 600
+    volumes: [artifact_data:/data/storage:ro]
+    networks: [backend]
+    read_only: true
+    tmpfs: ["/tmp:size=64m,mode=1777,noexec,nosuid"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    logging: *logs
+  worker:
+    image: ${READONLY_API_IMAGE:?Readonly worker image required}
+    pull_policy: never
+    restart: unless-stopped
+    command: [python, -m, rallysense.worker]
+    environment: *api_env
+    volumes: [artifact_data:/data/storage:ro]
+    networks: [backend]
+    read_only: true
+    tmpfs: ["/tmp:size=64m,mode=1777,noexec,nosuid"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on: {api: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, python, -m, rallysense.check_worker]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    mem_limit: 384m
+    cpus: 0.5
+    pids_limit: 128
+    stop_grace_period: 30s
+    logging: *logs
+  web:
+    image: ${WEB_IMAGE:?Reviewed web identity required}
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      LOCAL_TOKEN: ${LOCAL_TOKEN:?Unique internal token required}
+      SITE_ACCESS_PASSWORD: ${SITE_ACCESS_PASSWORD:?Strong unique site password required}
+      REQUIRE_WORKSPACE_AUTH: "true"
+      WEB_ALLOWED_HOSTS: ${WEB_ALLOWED_HOSTS:?Exact hostname required}
+      WEB_ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS:?Exact HTTPS origin required}
+    networks: [backend, edge]
+    depends_on: {api: {condition: service_healthy}}
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, node, -e, "const h=require('node:http');const r=h.get({host:'127.0.0.1',port:3000,path:'/api/v1/health/ready',headers:{host:process.env.WEB_ALLOWED_HOSTS.split(',')[0],authorization:'Basic '+Buffer.from('lab:'+process.env.SITE_ACCESS_PASSWORD).toString('base64')}},s=>{s.resume();process.exit(s.statusCode===200?0:1)});r.setTimeout(2500,()=>{r.destroy();process.exit(1)});r.on('error',()=>process.exit(1));"]
+      interval: 15s
+      timeout: 4s
+      retries: 5
+      start_period: 10s
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    logging: *logs
+  gateway:
+    image: ${CADDY_IMAGE:?Reviewed gateway identity required}
+    pull_policy: never
+    restart: unless-stopped
+    environment:
+      RALLYSENSE_DOMAIN: ${RALLYSENSE_DOMAIN:?Exact public hostname required}
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile.mode-a:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge]
+    depends_on: {web: {condition: service_healthy}}
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8081/healthz]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    logging: *logs
+volumes:
+  postgres_data:
+  artifact_data:
+  caddy_data:
+  caddy_config:
+networks:
+  backend:
+    internal: true
+  edge:

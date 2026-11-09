@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-09T23:00:26.956826+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-mode-a.py"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 10.016,
+  "output": "Traceback (most recent call last):\n  File \"C:\\RallySenseLab\\scripts\\verify-mode-a.py\", line 90, in <module>\n    assert len(denied) >= 20\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

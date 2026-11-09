@@ -1,5 +1,7 @@
 # Final image security review — Step 6.5
 
+**Step 6.6 update:** Read the [focused Mode A review](STEP6_6_MODE_A_REVIEW.md) and [per-finding dispositions](evidence/step6_6/residual-security-dispositions.json). New Mode A raw total is 0 critical/94 high, plus seven manually retained XML advisories absent from the Alpine feed. No security exception is approved. The original Step 6.5 findings/images and Mode B native blockers below are preserved.
+
 2026-11-09. **Engineering review delivered; no image is security-approved.** Mode A is ready for a human security decision on its documented residual risks. **Mode B is blocked by reachable/unresolved native-media findings**, in addition to shared residual-risk decisions. No deployment, cloud provisioning, DNS change, image publication or push occurred.
 
 ## Before and after

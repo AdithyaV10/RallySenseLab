@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-11-09T23:13:37.877214+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "scripts/prepare-mode-a-local.py",
+    "scripts/verify-mode-a.py",
+    "scripts/mode-a-images.py",
+    "scripts/prepare-mode-a-env.py",
+    "scripts/check-mode-a-production.py",
+    "scripts/review-mode-a-evidence.py",
+    "scripts/scan-release-images.py",
+    "scripts/smoke-release.py",
+    "scripts/verify-security-runtime-equivalence.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.095,
+  "output": "All checks passed!\n"
+}

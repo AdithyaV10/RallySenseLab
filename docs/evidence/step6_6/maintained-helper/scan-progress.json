@@ -1,0 +1,10 @@
+[
+  {
+    "image": "rallysense-postgres-mode-a:rc-step6_6",
+    "image_id": "sha256:86d750c3d7ec1f522b14364fe86b7f0bfb6f8b428619c628a6c7d95e49ab975e",
+    "exit_code": 0,
+    "elapsed_s": 62.779,
+    "archive_sha256": "1067ea02dfff11d5177810eaf6885a36bebdef4d2439c36a7713d7d8db6bdebf",
+    "archive_bytes": 118176768
+  }
+]

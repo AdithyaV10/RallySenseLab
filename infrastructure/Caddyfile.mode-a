@@ -1,0 +1,38 @@
+{
+    admin off
+    servers {
+        strict_sni_host on
+        max_header_size 32KB
+        timeouts {
+            read_header 10s
+            read_body 30s
+            idle 60s
+        }
+    }
+}
+
+http://127.0.0.1:8081 {
+    bind 127.0.0.1
+    respond /healthz 200
+}
+
+{$RALLYSENSE_DOMAIN} {
+    {$TLS_POLICY}
+    request_body {
+        max_size 1MiB
+    }
+    request_header -X-Lab-Token
+    request_header -X-Middleware-Subrequest
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+        -Server
+    }
+    reverse_proxy web:3000 {
+        transport http {
+            dial_timeout 5s
+            response_header_timeout 30s
+        }
+    }
+}

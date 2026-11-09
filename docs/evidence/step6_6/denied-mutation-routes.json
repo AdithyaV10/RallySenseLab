@@ -1,0 +1,90 @@
+[
+  {
+    "path": "/api/v1/sessions",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/collection",
+    "method": "PATCH"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}",
+    "method": "DELETE"
+  },
+  {
+    "path": "/api/v1/demo-sessions",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/jobs/{job_id}/retry",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/research-demo-sessions",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/jobs/{job_id}/cancel",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/sensor-imports",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/sync-configurations",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/inference-runs",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/videos",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/annotations",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/annotations/{annotation_id}",
+    "method": "PATCH"
+  },
+  {
+    "path": "/api/v1/annotations/{annotation_id}",
+    "method": "DELETE"
+  },
+  {
+    "path": "/api/v1/videos/{video_id}/pose-tracks",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/pose-tracks/{track_id}/batches/{index}",
+    "method": "PUT"
+  },
+  {
+    "path": "/api/v1/pose-tracks/{track_id}/complete",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/pose-tracks/{track_id}/fail",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/annotation-sets",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/annotation-sets/{set_id}/freeze",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/sessions/{session_id}/experiments",
+    "method": "POST"
+  },
+  {
+    "path": "/api/v1/experiments/{experiment_id}/evaluate",
+    "method": "POST"
+  }
+]
