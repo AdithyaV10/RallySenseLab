@@ -1,0 +1,26 @@
+{
+  "status": "STATIC SHOWCASE READY - AWS ACTION REQUIRED",
+  "unit_tests_passed": 7,
+  "browser_tests_passed": 9,
+  "browser_tests_failed": 0,
+  "browser_tests_skipped": 0,
+  "static_files": 28,
+  "static_bytes": 2507048,
+  "dataset_sha256": "90a15516ad924837ac7531a8703d815090cac7a42ce5e7bd759513691ac05de0",
+  "package": {
+    "package": "storage\\static-showcase\\rallysense-showcase-release.zip",
+    "bytes": 361971,
+    "sha256": "a3024bb064e0a96892f6f7e9eb1aa12e2058ddac2e8bda388dcf7d7201e9996f",
+    "static_files_verified": 28,
+    "network_actions": false,
+    "aws_resources_created": []
+  },
+  "runtime_network_policy_verified": "same-origin static GET requests only",
+  "original_fullstack_hashes_preserved": 85,
+  "original_artifacts_preserved": 139,
+  "aws_resources_created": [],
+  "existing_printmatch_resources_changed": false,
+  "aws_free_plan_confirmed": false,
+  "live_url": null,
+  "public_deployment_verified": false
+}

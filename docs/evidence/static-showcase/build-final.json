@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T02:36:16.109952+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "run",
+    "build"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 4.597,
+  "output": "\n> rallysense-showcase@1.0.0 build\n> tsc --noEmit && vite build\n\nvite v8.3.7 building client environment for production...\ntransforming...\n\u2713 2050 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   1.05 kB \u2502 gzip:  0.58 kB\ndist/assets/index-B00YSgE_.css   35.94 kB \u2502 gzip:  8.18 kB\ndist/assets/index-DAmFWBxc.js   271.82 kB \u2502 gzip: 84.26 kB\n\n\u2713 built in 1.04s\n"
+}

@@ -1,5 +1,13 @@
 # Project status
 
+## Current final delivery ? static showcase (AWS action required)
+
+**Static application complete and locally verified; not publicly deployed.** Separate `apps/showcase` Vite/React/TypeScript app includes the premium landing, synchronized generated video/IMU/analytical-pose replay, ten stored scenarios, comparisons, failure navigation, provenance and accurate report exports. Build output is 28 files / 2,507,048 bytes; local checked ZIP is in ignored `storage/static-showcase/`. [Release notes, actual tests and AWS GUI handoff](STATIC_SHOWCASE_RELEASE.md).
+
+Production build, types, lint, 7 units and 9 final production-browser cases passed. All runtime requests stayed on same-origin static GET paths; no backend/model/credential/native assets. Original 85 full-stack source/release fingerprints, 12 research row inventories and 139 artifact hashes are unchanged. No research algorithm was modified. Original image/Mode B security findings remain preserved; this delivery excludes those server/model components.
+
+AWS is paused at the user's request: CLI sign-in and actual CloudFront Free $0 plan confirmation are pending, and S3 request-cost/credit coverage is unverified. No AWS resources were created, no PrintMatch resources were changed, no DNS/custom domain/paid service/push occurred, and no live URL is claimed. Continue only after the user confirms the account/plan/cost gate. Historical stage reports follow unchanged.
+
 ## Current Step 6.6 checkpoint ? 2026-11-09
 
 **Mode A local security/preflight review delivered: CONDITIONAL GO for human review, NOT security-approved or authorized for public deployment. Mode B remains NO-GO and out of public scope.** Starting checkpoint `6ec8a92ea03e9a58f4987d7a6f67309eefa4ac96` was clean. Final local commit contains the decision package; retrieve with `git log -1 --format=%H`. No cloud/DNS/public listener/registry/GitHub action occurred.

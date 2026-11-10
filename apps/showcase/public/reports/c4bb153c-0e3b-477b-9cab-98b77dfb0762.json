@@ -1,0 +1,140 @@
+{
+  "experiment": {
+    "algorithm": "video_wrist_speed@1.0.0",
+    "dependency_lock_sha256": "685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e",
+    "fingerprint": "98995d3f54ed268d44685d411e6ea54ed7e5199ad7bc0270cd7fa836d3a18683",
+    "id": "c4bb153c-0e3b-477b-9cab-98b77dfb0762",
+    "implementation_sha256": "7eef3d68402e7d993aa6480db558252dae6863f652e22c60edf5318f09e79cc7",
+    "mode": "video",
+    "name": "Full occlusion / expected inference failure",
+    "request": {
+      "alignment_note": "Known generated clock, not a physical tennis recording",
+      "association_tolerance_us": 150000,
+      "comparison": "synthetic_fixture",
+      "corruption": {
+        "acceleration_noise_sd": 0.0,
+        "dropout_fraction": 0.0,
+        "gyro_noise_sd": 0.0,
+        "imu_gap_duration_s": 0.0,
+        "imu_gap_start_s": 0.0,
+        "occluded_landmarks": [
+          15,
+          16
+        ],
+        "occlusion_duration_s": 8.0,
+        "occlusion_start_s": 0.0,
+        "seed": 42,
+        "sync_error_us": 0,
+        "timestamp_jitter_fraction": 0.0
+      },
+      "end_us": 8000000,
+      "hypothesis": "",
+      "imu": {
+        "adaptive_k": 3.0,
+        "cutoff_hz": 8.0,
+        "min_separation_s": 0.3,
+        "prominence_rad_s": 0.5,
+        "threshold_rad_s": 1.0
+      },
+      "mode": "video",
+      "name": "Full occlusion / expected inference failure",
+      "pairing": "synthetic_fixture",
+      "pose_id": "a843d7c6-87b2-415c-b918-d94bef83847e",
+      "reference_id": "b2a7b30a-118b-43d2-b65c-4fb799066ecc",
+      "research_question": "How do generated observation failures change this analytical software fixture?",
+      "sensor_id": null,
+      "start_us": 0,
+      "sync_id": null,
+      "tolerance_us": 150000,
+      "video": {
+        "adaptive_k": 3.0,
+        "max_gap_s": 0.15,
+        "min_separation_s": 0.3,
+        "prominence": 0.5,
+        "smooth_window_s": 0.15,
+        "threshold": 1.0,
+        "visibility": 0.5
+      }
+    },
+    "result": {
+      "executor": {
+        "build_id": "step6_6-mode-a-rc1",
+        "dependency_lock_sha256": "685e05ad65d2535a781b5d756d47d63ffb3787ba8cb9758ab57b124270e9a94e",
+        "runtime": {
+          "numpy": "2.5.4",
+          "pyarrow": "26.0.0",
+          "python": "3.13.18",
+          "scipy": "1.18.1"
+        }
+      },
+      "failure_code": "INSUFFICIENT_DATA",
+      "processing_ms": 57
+    },
+    "runtime": {
+      "numpy": "2.5.4",
+      "pyarrow": "26.0.0",
+      "python": "3.13.18",
+      "scipy": "1.18.1"
+    },
+    "status": "failed"
+  },
+  "notice": [
+    "Generated analytical observations, not athlete data or MediaPipe extraction.",
+    "Stored software results only. No uploads, new inference, or real tennis accuracy.",
+    "Angular-speed peaks and wrist-speed observations do not confirm swings, impacts or biomechanics."
+  ],
+  "reference": {
+    "events": [
+      {
+        "event_type": "synthetic_reference",
+        "id": "0a3e5fc3-fd5f-4736-947e-9c3edd5408dd",
+        "note": "Analytical generator center, not independent human ground truth",
+        "revision": 1,
+        "t_session_us": 2000000
+      },
+      {
+        "event_type": "synthetic_reference",
+        "id": "dbac7841-1d7b-4a37-a3de-d014ae661624",
+        "note": "Analytical generator center, not independent human ground truth",
+        "revision": 1,
+        "t_session_us": 5000000
+      }
+    ],
+    "fingerprint": "1122734840b7f30fdff06f94837c347e77938710dee2ce7c95082e51eb3fdc2b",
+    "manifest": {
+      "clock": "session_us",
+      "definition": "Analytical generated pulse centers at 2 and 5 seconds; not independently labeled athlete events.",
+      "event_type": "synthetic_reference",
+      "independent": false,
+      "labeler": "built-in synthetic fixture generator",
+      "procedure": "Software-only generated reference clock; never interpreted as real tennis ground truth.",
+      "provenance": "synthetic",
+      "set_name": "Generated paired pulse centers",
+      "video_id": "db94e9cc-ba60-4255-b19f-6b1c4e4b4478",
+      "video_sha256": "08e7bd2c06adb37d7118881f2987f618032dc96e3e27aeb4db7831821f222052"
+    }
+  },
+  "source_dataset_sha256": "90a15516ad924837ac7531a8703d815090cac7a42ce5e7bd759513691ac05de0",
+  "sources": [
+    {
+      "bytes": 34278,
+      "kind": "raw_csv",
+      "sha256": "932149dd3113cdab9607e31e4ee2e0a54d63707d017c4cce2855f599409b2845"
+    },
+    {
+      "bytes": 9468,
+      "kind": "sensor_parquet_v1",
+      "sha256": "286db07885e4d5be35bc868e936168287c10e770be3afa9c1f4df16a64f6149e"
+    },
+    {
+      "bytes": 15839,
+      "kind": "video_mp4",
+      "sha256": "08e7bd2c06adb37d7118881f2987f618032dc96e3e27aeb4db7831821f222052"
+    },
+    {
+      "bytes": 7479,
+      "kind": "pose_parquet_v1",
+      "sha256": "5a3276bec2d26529a3da7edaaea3943d6826a24eb2ee4c9ebbc6ef31e84f9047"
+    }
+  ]
+}

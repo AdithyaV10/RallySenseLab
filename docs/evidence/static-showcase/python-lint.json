@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-10T02:27:18.378586+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "ruff",
+    "check",
+    "scripts/export-showcase.py",
+    "scripts/verify-showcase-static.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.116,
+  "output": "All checks passed!\n"
+}

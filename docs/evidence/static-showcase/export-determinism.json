@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-10T02:27:18.038113+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/export-showcase.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 6.797,
+  "output": "{\"source_release\": \"253e407e2a8bbef5f2002e3c7e67b67c658341f8\", \"generated_only\": true, \"source_artifacts_verified\": 6, \"samples\": 801, \"pose_frames\": 241, \"experiments\": 10, \"failed_experiments\": 1, \"dataset_sha256\": \"90a15516ad924837ac7531a8703d815090cac7a42ce5e7bd759513691ac05de0\", \"video_sha256\": \"08e7bd2c06adb37d7118881f2987f618032dc96e3e27aeb4db7831821f222052\", \"video_bytes\": 15839, \"dataset_bytes\": 994680, \"private_source_used\": false}\n"
+}

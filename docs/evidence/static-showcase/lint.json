@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T02:18:23.890833+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "run",
+    "lint"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 4.072,
+  "output": "\n> rallysense-showcase@1.0.0 lint\n> eslint src\n\n"
+}

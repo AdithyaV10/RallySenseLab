@@ -1,0 +1,7 @@
+{
+  "fullstack_source_and_release_hashes_unchanged": 85,
+  "private_development_volumes_mounted_by_export": false,
+  "only_generated_mode_a_db_used": true,
+  "existing_git_history_preserved": true,
+  "aws_resources_created": []
+}

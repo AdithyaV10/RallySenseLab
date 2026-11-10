@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T02:25:26.095810+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "run",
+    "test"
+  ],
+  "exit_code": 1,
+  "elapsed_s": 2.557,
+  "output": "\n> rallysense-showcase@1.0.0 test\n> vitest run\n\n\n RUN  v5.1.0 C:/RallySenseLab/apps/showcase\n\n \u276f e2e/showcase.spec.ts (0 test)\n\n Test Files  1 failed | 1 passed (2)\n      Tests  7 passed (7)\n   Start at  21:25:25\n   Duration  1.01s (transform 57%, import 26%, worker 10%, tests 6%)\n\n\n\u23af\u23af\u23af\u23af\u23af\u23af Failed Suites 1 \u23af\u23af\u23af\u23af\u23af\u23af\u23af\n\n FAIL  e2e/showcase.spec.ts [ e2e/showcase.spec.ts ]\nError: Playwright Test did not expect test.beforeEach() to be called here.\nMost common reasons include:\n- You are calling test.beforeEach() in a configuration file.\n- You are calling test.beforeEach() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.\n- You are calling test.beforeEach() from an async test.describe() block. Only sync ones are supported.\n \u276f _TestTypeImpl._currentSuite node_modules/playwright/lib/common/index.js:2235:13\n \u276f _TestTypeImpl._hook node_modules/playwright/lib/common/index.js:2323:24\n \u276f Function.beforeEach node_modules/playwright/lib/common/index.js:1169:12\n \u276f e2e/showcase.spec.ts:18:6\n     16|   e.name.startsWith(\"Offset\"),\n     17| );\n     18| test.beforeEach(async ({ page }, testInfo) => {\n       |      ^\n     19|   const errors: string[] = [];\n     20|   const failed: string[] = [];\n\n\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af\u23af[1/1]\u23af\n\n"
+}

@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-10T02:24:52.471735+00:00",
+  "command": [
+    "uv",
+    "run",
+    "--project",
+    "apps/api",
+    "python",
+    "scripts/verify-showcase-static.py"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.798,
+  "output": "{\"production_files\": 28, \"total_bytes\": 2507065, \"dataset_sha256\": \"90a15516ad924837ac7531a8703d815090cac7a42ce5e7bd759513691ac05de0\", \"source_release\": \"253e407e2a8bbef5f2002e3c7e67b67c658341f8\", \"reviewed_artifact_hashes\": true, \"stored_experiments_verified\": 10, \"reports_verified\": 20, \"generated_only\": true, \"mediapipe_runtime_or_weights\": false, \"native_executables\": false, \"backend_or_credentials\": false, \"secret_values_checked\": 6, \"secret_matches\": 0, \"html_asset_paths_verified\": true, \"aws_resources_created\": [], \"public_deployment_verified\": false}\n"
+}

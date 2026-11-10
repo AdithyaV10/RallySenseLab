@@ -1,0 +1,479 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\showcase\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\showcase\\playwright.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/showcase/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/apps/showcase/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/RallySenseLab/apps/showcase/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\RallySenseLab\\apps\\showcase\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\RallySenseLab\\apps\\showcase\\e2e",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\showcase\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://127.0.0.1:14173",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../docs/evidence/static-showcase/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview",
+      "url": "http://127.0.0.1:14173",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "showcase.spec.ts",
+      "file": "showcase.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "premium landing and static navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2050,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:40.954Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-059f598d2bc050f6bd30",
+          "file": "showcase.spec.ts",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "actual video playback, seeking, synchronized pose and graph zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1601,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:43.200Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-2d5dd6616ebcff5e9adb",
+          "file": "showcase.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "clock corruption preserves undefined precision and missed-event navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:44.827Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-dde3e16b49067efb85b8",
+          "file": "showcase.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "all ten scenarios show their genuine stored state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:45.677Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-674df8aa6cf8379f9dce",
+          "file": "showcase.spec.ts",
+          "line": 139,
+          "column": 1
+        },
+        {
+          "title": "comparison uses selectable stored results and actual event markers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 718,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:47.080Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-bb0d09423be6a3ca8af7",
+          "file": "showcase.spec.ts",
+          "line": 163,
+          "column": 1
+        },
+        {
+          "title": "report, JSON and Markdown exports retain actual evaluations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1289,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:47.812Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-b625aef0997c4e7c5972",
+          "file": "showcase.spec.ts",
+          "line": 184,
+          "column": 1
+        },
+        {
+          "title": "hash deep links, refresh and unknown routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 682,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:49.115Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-f3f4d410271be952eada",
+          "file": "showcase.spec.ts",
+          "line": 212,
+          "column": 1
+        },
+        {
+          "title": "mobile navigation, all major layouts and video seek",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2453,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:49.811Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-21a4814a059610669b63",
+          "file": "showcase.spec.ts",
+          "line": 227,
+          "column": 1
+        },
+        {
+          "title": "loading failure offers a real retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 441,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T02:33:52.277Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2f1ae81d15afdf42afa9-1f15de46f3d45db5c6d1",
+          "file": "showcase.spec.ts",
+          "line": 263,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-10T02:33:40.271Z",
+    "duration": 13284.034,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

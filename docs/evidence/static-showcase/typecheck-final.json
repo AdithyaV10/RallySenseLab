@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T02:25:18.722216+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "run",
+    "typecheck"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 3.692,
+  "output": "\n> rallysense-showcase@1.0.0 typecheck\n> tsc --noEmit\n\n"
+}

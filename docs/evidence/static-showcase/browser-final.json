@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T02:33:53.603612+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "run",
+    "test:e2e"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 14.704,
+  "output": "\n> rallysense-showcase@1.0.0 test:e2e\n> playwright test\n\n\nRunning 9 tests using 1 worker\n\n  ok 1 e2e\\showcase.spec.ts:63:1 \u203a premium landing and static navigation (2.0s)\n  ok 2 e2e\\showcase.spec.ts:87:1 \u203a actual video playback, seeking, synchronized pose and graph zoom (1.6s)\n  ok 3 e2e\\showcase.spec.ts:122:1 \u203a clock corruption preserves undefined precision and missed-event navigation (827ms)\n  ok 4 e2e\\showcase.spec.ts:139:1 \u203a all ten scenarios show their genuine stored state (1.4s)\n  ok 5 e2e\\showcase.spec.ts:163:1 \u203a comparison uses selectable stored results and actual event markers (718ms)\n  ok 6 e2e\\showcase.spec.ts:184:1 \u203a report, JSON and Markdown exports retain actual evaluations (1.3s)\n  ok 7 e2e\\showcase.spec.ts:212:1 \u203a hash deep links, refresh and unknown routes (682ms)\n  ok 8 e2e\\showcase.spec.ts:227:1 \u203a mobile navigation, all major layouts and video seek (2.5s)\n  ok 9 e2e\\showcase.spec.ts:263:1 \u203a loading failure offers a real retry (441ms)\n\n  9 passed (13.3s)\n(node:23132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+}

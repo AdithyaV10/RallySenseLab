@@ -21,6 +21,7 @@ Thumbs.db
 apps/web/public/vendor/
 apps/web/tsconfig.tsbuildinfo
 apps/web/next-env.d.ts
+apps/showcase/dist/
 runtime-audit.json
 docs/evidence/*.png
 docs/evidence/*.pdf

@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowOnlyRallySenseCloudFrontRead",
+      "Effect": "Allow",
+      "Principal": { "Service": "cloudfront.amazonaws.com" },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::REPLACE_WITH_NEW_RALLYSENSE_BUCKET/*",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceArn": "arn:aws:cloudfront::REPLACE_WITH_ACCOUNT_ID:distribution/REPLACE_WITH_NEW_DISTRIBUTION_ID"
+        }
+      }
+    }
+  ]
+}
