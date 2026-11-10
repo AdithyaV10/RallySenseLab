@@ -1,0 +1,54 @@
+{
+  "status": "LOCAL PROPOSAL ONLY - NOT CREATED",
+  "required_cloudfront_plan": {
+    "tier": "FREE",
+    "monthly_usd": 0,
+    "account_availability_verified": false
+  },
+  "estimated_total_cost": "Unverified: S3 PUT/GET/LIST fees and account-wide storage credits must be checked",
+  "upload_source": "apps/showcase/dist",
+  "files": 28,
+  "bytes": 2507048,
+  "s3": {
+    "proposed_bucket_name": "rallysense-showcase-30aa4fb6986e",
+    "name_availability_verified": false,
+    "region": "us-east-1",
+    "storage_class": "STANDARD",
+    "block_public_access": {
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+    },
+    "object_ownership": "BucketOwnerEnforced",
+    "encryption": "AES256 (SSE-S3)",
+    "website_hosting": false,
+    "versioning": false,
+    "access_logs": false
+  },
+  "cloudfront": {
+    "proposed_name": "rallysense-showcase",
+    "distribution_type": "standard - single website or app",
+    "origin_type": "S3 REST, private",
+    "origin_path": "",
+    "origin_access_control": {
+      "type": "s3",
+      "signing_behavior": "always",
+      "signing_protocol": "sigv4"
+    },
+    "allowed_methods": [
+      "GET",
+      "HEAD"
+    ],
+    "default_root_object": "index.html",
+    "viewer_protocol": "redirect-to-https",
+    "compression": true,
+    "certificate": "default CloudFront certificate",
+    "custom_domain": null,
+    "edge_functions": [],
+    "logging_delivery_extras": false
+  },
+  "bucket_access": "Only cloudfront.amazonaws.com s3:GetObject, conditioned on the new exact distribution ARN",
+  "existing_resources_to_modify": [],
+  "resource_creation_performed": false
+}

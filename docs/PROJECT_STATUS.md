@@ -6,7 +6,7 @@
 
 Production build, types, lint, 7 units and 9 final production-browser cases passed. All runtime requests stayed on same-origin static GET paths; no backend/model/credential/native assets. Original 85 full-stack source/release fingerprints, 12 research row inventories and 139 artifact hashes are unchanged. No research algorithm was modified. Original image/Mode B security findings remain preserved; this delivery excludes those server/model components.
 
-AWS is paused at the user's request: CLI sign-in and actual CloudFront Free $0 plan confirmation are pending, and S3 request-cost/credit coverage is unverified. No AWS resources were created, no PrintMatch resources were changed, no DNS/custom domain/paid service/push occurred, and no live URL is claimed. Continue only after the user confirms the account/plan/cost gate. Historical stage reports follow unchanged.
+AWS resource creation is paused at the user's $0 gate: `rallysense-showcase` CLI authentication is now verified (root identity), but actual new-distribution CloudFront Free $0 plan availability and S3 request-cost/credit coverage remain unverified. Read-only queries returned zero existing flat-rate subscriptions and no S3 allowance records; neither proves new-plan eligibility or zero total cost. No AWS resources were created, no PrintMatch resources were changed, no DNS/custom domain/paid service/push occurred, and no live URL is claimed. Continue only after the user confirms the account/plan/cost gate. Historical stage reports follow unchanged.
 
 ## Current Step 6.6 checkpoint ? 2026-11-09
 

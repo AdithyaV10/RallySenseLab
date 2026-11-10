@@ -1,0 +1,18 @@
+{
+  "profile": "rallysense-showcase",
+  "authenticated": true,
+  "identity_kind": "root",
+  "verified_static_files": 28,
+  "verified_static_bytes": 2507048,
+  "read_only_subscription_query_completed": true,
+  "existing_flat_rate_subscriptions": 0,
+  "existing_free_subscriptions": 0,
+  "s3_allowances_returned": [],
+  "s3_allowance_absence_proves_ineligible": false,
+  "free_plan_for_new_distribution_verified": false,
+  "zero_total_cost_verified": false,
+  "resource_creation_authorized_under_cost_gate": false,
+  "resources_created": [],
+  "existing_printmatch_resources_modified": false,
+  "decision": "STOP before AWS writes; console Free-plan selection and S3 coverage unresolved"
+}

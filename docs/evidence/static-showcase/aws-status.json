@@ -1,11 +1,16 @@
 {
   "initial_default_cli_session": "expired",
-  "authenticated_aws_connection_verified": false,
+  "authenticated_aws_connection_verified": true,
   "console_free_plan_confirmed": false,
   "s3_request_cost_coverage_verified": false,
   "user_requested_no_resource_creation_until_confirmation": true,
   "resources_created": [],
   "existing_printmatch_resources_changed": false,
   "live_url": null,
-  "live_https_verified": false
+  "live_https_verified": false,
+  "authenticated_profile": "rallysense-showcase",
+  "identity_kind": "root",
+  "existing_flat_rate_subscriptions": 0,
+  "s3_allowances_returned": 0,
+  "zero_total_cost_verified": false
 }
