@@ -1,0 +1,68 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "repeated_seeks": [
+    {
+      "seek_seconds": 0,
+      "media_seconds": 0,
+      "stored_pose_seconds": 0,
+      "imu_cursor_svg_x": 42
+    },
+    {
+      "seek_seconds": 0.1,
+      "media_seconds": 0.1,
+      "stored_pose_seconds": 0.1,
+      "imu_cursor_svg_x": 52.5
+    },
+    {
+      "seek_seconds": 1.97,
+      "media_seconds": 1.97,
+      "stored_pose_seconds": 1.967,
+      "imu_cursor_svg_x": 248.85
+    },
+    {
+      "seek_seconds": 2,
+      "media_seconds": 2,
+      "stored_pose_seconds": 2,
+      "imu_cursor_svg_x": 252
+    },
+    {
+      "seek_seconds": 2.14,
+      "media_seconds": 2.14,
+      "stored_pose_seconds": 2.133,
+      "imu_cursor_svg_x": 266.70000000000005
+    },
+    {
+      "seek_seconds": 4.99,
+      "media_seconds": 4.99,
+      "stored_pose_seconds": 5,
+      "imu_cursor_svg_x": 565.95
+    },
+    {
+      "seek_seconds": 5,
+      "media_seconds": 5,
+      "stored_pose_seconds": 5,
+      "imu_cursor_svg_x": 567
+    },
+    {
+      "seek_seconds": 7.98,
+      "media_seconds": 7.98,
+      "stored_pose_seconds": 7.967,
+      "imu_cursor_svg_x": 879.9000000000001
+    },
+    {
+      "seek_seconds": 0.4,
+      "media_seconds": 0.4,
+      "stored_pose_seconds": 0.4,
+      "imu_cursor_svg_x": 84
+    },
+    {
+      "seek_seconds": 3,
+      "media_seconds": 3,
+      "stored_pose_seconds": 3,
+      "imu_cursor_svg_x": 357
+    }
+  ],
+  "half_speed_verified": true,
+  "play_and_pause_verified": true,
+  "event_marker_navigation": true
+}

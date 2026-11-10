@@ -1,0 +1,43 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "probes": [
+    {
+      "path": "/.env",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    },
+    {
+      "path": "/.git/config",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    },
+    {
+      "path": "/data/private/",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    },
+    {
+      "path": "/storage/",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    },
+    {
+      "path": "/api/v1/sessions",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    },
+    {
+      "path": "/vendor/pose_landmarker_lite.task",
+      "status": 404,
+      "same_static_html_fallback": false,
+      "denied": true
+    }
+  ],
+  "all_known_public_assets_match_allowlist": true,
+  "scope_limit": "Public endpoint checks cannot enumerate unlisted assets or inspect Worker/account configuration."
+}

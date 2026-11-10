@@ -1,5 +1,7 @@
 # Final replay timestamp correction
 
+> **Final update: READY TO SHARE WITH RECRUITER.** The user deployed this ZIP, and the full 19-test actual-public acceptance passed with zero failures/skips/retries. All 28 public asset hashes match. See [final live acceptance](FINAL_LIVE_ACCEPTANCE.md). The preparation-stage status below is historical.
+
 **Local fix verified; NOT READY to share until deployed and accepted at the public HTTPS URL.** No cloud update was performed: Cloudflare credentials and a verified authenticated account/Worker were unavailable. The public site still serves `assets/index-aEXiQm6p.js`; this correction builds `assets/index-EHsTvdm9.js`.
 
 ## Exact changes

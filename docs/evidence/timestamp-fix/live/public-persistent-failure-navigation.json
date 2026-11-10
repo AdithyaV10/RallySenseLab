@@ -1,0 +1,80 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "observations": [
+    {
+      "experiment": "Clean IMU / synthetic software verification",
+      "label": "Reference at 2.00 s\n0.000 ms",
+      "target": 2,
+      "stable": true
+    },
+    {
+      "experiment": "Clean IMU / synthetic software verification",
+      "label": "Reference at 5.00 s\n0.000 ms",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Clean fusion / synthetic software verification",
+      "label": "Reference at 2.00 s\n0.000 ms",
+      "target": 2,
+      "stable": true
+    },
+    {
+      "experiment": "Clean fusion / synthetic software verification",
+      "label": "Reference at 5.00 s\n0.000 ms",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Clean video / synthetic software verification",
+      "label": "Reference at 2.00 s\n16.666 ms",
+      "target": 2,
+      "stable": true
+    },
+    {
+      "experiment": "Clean video / synthetic software verification",
+      "label": "Reference at 5.00 s\n-16.667 ms",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Missing IMU window / synthetic failure case",
+      "label": "Reference at 5.00 s\n0.000 ms",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Missing IMU window / synthetic failure case",
+      "label": "Missed reference #1\n2.00 s",
+      "target": 2,
+      "stable": true
+    },
+    {
+      "experiment": "Offset +1 second / synthetic failure case",
+      "label": "Missed reference #1\n2.00 s",
+      "target": 2,
+      "stable": true
+    },
+    {
+      "experiment": "Offset +1 second / synthetic failure case",
+      "label": "Missed reference #2\n5.00 s",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Wrist occlusion / synthetic failure case",
+      "label": "Reference at 5.00 s\n0.000 ms",
+      "target": 5,
+      "stable": true
+    },
+    {
+      "experiment": "Wrist occlusion / synthetic failure case",
+      "label": "Missed reference #1\n2.00 s",
+      "target": 2,
+      "stable": true
+    }
+  ],
+  "deep_link_and_refresh_actual_media": true,
+  "all_three_modes": true,
+  "unmatched_predictions_scope": "Only fixture-provided output events; no fabricated cases"
+}
