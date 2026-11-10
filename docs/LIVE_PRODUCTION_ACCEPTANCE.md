@@ -1,5 +1,7 @@
 # Public showcase acceptance — 2026-11-09
 
+> Superseded by the [redeployed public acceptance](LIVE_REDEPLOYMENT_ACCEPTANCE.md): all original defects now pass on the actual public site, but one newly tested same-view timestamp-query defect remains. Final expanded suite: 15 passed / 1 failed. Historical first-deployment evidence below is preserved.
+
 **Verdict: NOT READY.** Tested the actual HTTPS website at https://lucky-band-a550.adithya-v1833.workers.dev/ with real Playwright Chromium, fresh isolated contexts, certificate validation enabled and no mocked responses. The static-only replacement is built and locally verified, but has NOT been deployed or accepted on the public URL.
 
 ## Public results

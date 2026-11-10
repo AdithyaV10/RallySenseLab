@@ -1,0 +1,275 @@
+{
+  "dataset_matches_approved": true,
+  "synthetic": true,
+  "independent": false,
+  "experiments": [
+    {
+      "id": "1c84caaa-1dbf-4bd5-afe9-14571635ff0e",
+      "name": "Clean IMU / synthetic software verification",
+      "status": "succeeded",
+      "mode": "imu",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 1,
+        "false_positives_per_minute": 0,
+        "fn": 0,
+        "fp": 0,
+        "matches": [
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 0,
+            "prediction_us": 2000000,
+            "reference_index": 0,
+            "reference_us": 2000000,
+            "signed_error_us": 0
+          },
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 1,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "reference_us": 5000000,
+            "signed_error_us": 0
+          }
+        ],
+        "mean_absolute_error_us": 0,
+        "mean_signed_error_us": 0,
+        "median_absolute_error_us": 0,
+        "missed_references": [],
+        "precision": 1,
+        "recall": 1,
+        "tolerance_us": 150000,
+        "tp": 2,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "name": "Clean fusion / synthetic software verification",
+      "status": "succeeded",
+      "mode": "fusion",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 1,
+        "false_positives_per_minute": 0,
+        "fn": 0,
+        "fp": 0,
+        "matches": [
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 0,
+            "prediction_us": 2000000,
+            "reference_index": 0,
+            "reference_us": 2000000,
+            "signed_error_us": 0
+          },
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 1,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "reference_us": 5000000,
+            "signed_error_us": 0
+          }
+        ],
+        "mean_absolute_error_us": 0,
+        "mean_signed_error_us": 0,
+        "median_absolute_error_us": 0,
+        "missed_references": [],
+        "precision": 1,
+        "recall": 1,
+        "tolerance_us": 150000,
+        "tp": 2,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "f3eeebe8-6ede-4315-821f-4e1f8059ed76",
+      "name": "Clean video / synthetic software verification",
+      "status": "succeeded",
+      "mode": "video",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 1,
+        "false_positives_per_minute": 0,
+        "fn": 0,
+        "fp": 0,
+        "matches": [
+          {
+            "absolute_error_us": 16666,
+            "prediction_index": 0,
+            "prediction_us": 2016666,
+            "reference_index": 0,
+            "reference_us": 2000000,
+            "signed_error_us": 16666
+          },
+          {
+            "absolute_error_us": 16667,
+            "prediction_index": 1,
+            "prediction_us": 4983333,
+            "reference_index": 1,
+            "reference_us": 5000000,
+            "signed_error_us": -16667
+          }
+        ],
+        "mean_absolute_error_us": 16666.5,
+        "mean_signed_error_us": -0.5,
+        "median_absolute_error_us": 16666.5,
+        "missed_references": [],
+        "precision": 1,
+        "recall": 1,
+        "tolerance_us": 150000,
+        "tp": 2,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "c4bb153c-0e3b-477b-9cab-98b77dfb0762",
+      "name": "Full occlusion / expected inference failure",
+      "status": "failed",
+      "mode": "video",
+      "evaluation": null,
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "17bf5399-159d-4224-8aa5-b9a0db2628eb",
+      "name": "Missing IMU window / synthetic failure case",
+      "status": "succeeded",
+      "mode": "imu",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 0.6666666666666666,
+        "false_positives_per_minute": 0,
+        "fn": 1,
+        "fp": 0,
+        "matches": [
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 0,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "reference_us": 5000000,
+            "signed_error_us": 0
+          }
+        ],
+        "mean_absolute_error_us": 0,
+        "mean_signed_error_us": 0,
+        "median_absolute_error_us": 0,
+        "missed_references": [
+          0
+        ],
+        "precision": 1,
+        "recall": 0.5,
+        "tolerance_us": 150000,
+        "tp": 1,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "db9c514a-5db5-4a03-8b21-edf4ab3dd434",
+      "name": "Offset +1 second / synthetic failure case",
+      "status": "succeeded",
+      "mode": "fusion",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 0,
+        "false_positives_per_minute": 0,
+        "fn": 2,
+        "fp": 0,
+        "matches": [],
+        "mean_absolute_error_us": null,
+        "mean_signed_error_us": null,
+        "median_absolute_error_us": null,
+        "missed_references": [
+          0,
+          1
+        ],
+        "precision": null,
+        "recall": 0,
+        "tolerance_us": 150000,
+        "tp": 0,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "4895b593-f28b-4301-989f-4ae96504ad99",
+      "name": "Precomputed synthetic fusion",
+      "status": "succeeded",
+      "mode": "fusion",
+      "evaluation": null,
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "bfd410c8-385d-4c63-9278-afea9fb4bd8c",
+      "name": "Precomputed synthetic imu",
+      "status": "succeeded",
+      "mode": "imu",
+      "evaluation": null,
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "5ee6634a-f751-4a70-a84e-8f9ad22983dc",
+      "name": "Precomputed synthetic video",
+      "status": "succeeded",
+      "mode": "video",
+      "evaluation": null,
+      "json_verified": true,
+      "markdown_verified": true
+    },
+    {
+      "id": "0d1499f4-2adb-44fc-923c-e078092e7220",
+      "name": "Wrist occlusion / synthetic failure case",
+      "status": "succeeded",
+      "mode": "fusion",
+      "evaluation": {
+        "evaluator": "ordered_cardinality_error_dp@1.0.0",
+        "f1": 0.6666666666666666,
+        "false_positives_per_minute": 0,
+        "fn": 1,
+        "fp": 0,
+        "matches": [
+          {
+            "absolute_error_us": 0,
+            "prediction_index": 0,
+            "prediction_us": 5000000,
+            "reference_index": 1,
+            "reference_us": 5000000,
+            "signed_error_us": 0
+          }
+        ],
+        "mean_absolute_error_us": 0,
+        "mean_signed_error_us": 0,
+        "median_absolute_error_us": 0,
+        "missed_references": [
+          0
+        ],
+        "precision": 1,
+        "recall": 0.5,
+        "tolerance_us": 150000,
+        "tp": 1,
+        "undefined_rule": "Precision needs predictions; recall needs references; F1 needs either; timing needs matches.",
+        "unmatched_predictions": []
+      },
+      "json_verified": true,
+      "markdown_verified": true
+    }
+  ]
+}

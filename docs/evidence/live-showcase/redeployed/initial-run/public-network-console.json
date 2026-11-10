@@ -1,0 +1,37 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "fresh_incognito_context": true,
+  "errors": [],
+  "consoleErrors": [],
+  "failed": [
+    "https://lucky-band-a550.adithya-v1833.workers.dev/data/generated-motion.mp4: net::ERR_ABORTED"
+  ],
+  "unexpected": [],
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://lucky-band-a550.adithya-v1833.workers.dev/",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://lucky-band-a550.adithya-v1833.workers.dev/assets/index-aEXiQm6p.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://lucky-band-a550.adithya-v1833.workers.dev/assets/index-CRrNUSTv.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://lucky-band-a550.adithya-v1833.workers.dev/data/showcase.json",
+      "type": "fetch"
+    },
+    {
+      "method": "GET",
+      "url": "https://lucky-band-a550.adithya-v1833.workers.dev/data/generated-motion.mp4",
+      "type": "fetch"
+    }
+  ]
+}

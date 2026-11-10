@@ -1,0 +1,758 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\showcase\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "playwright.live.config.ts"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\showcase\\playwright.live.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/showcase",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": {},
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/storage/live-showcase/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/RallySenseLab/apps/showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/showcase.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": {},
+        "outputDir": "C:\\RallySenseLab\\storage\\live-showcase\\playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\RallySenseLab\\apps\\showcase",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/showcase.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000,
+        "use": {
+          "baseURL": "https://lucky-band-a550.adithya-v1833.workers.dev",
+          "browserName": "chromium",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "ignoreHTTPSErrors": false,
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:/RallySenseLab/docs/evidence/live-showcase/redeployed/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "e2e\\showcase.spec.ts",
+      "file": "e2e/showcase.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "premium landing and static navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1672,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:01.559Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c847cae7c05bc611857b",
+          "file": "e2e/showcase.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "actual video playback, seeking, synchronized pose and graph zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1367,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:03.339Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-513b239c90afd2ab8fb7",
+          "file": "e2e/showcase.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "clock corruption preserves undefined precision and missed-event navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 650,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:04.725Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-bb936a7a06fcf28ebd2f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 129,
+          "column": 1
+        },
+        {
+          "title": "all ten scenarios show their genuine stored state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 833,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:05.389Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-1cfdbdcb5d8db5565633",
+          "file": "e2e/showcase.spec.ts",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "comparison uses selectable stored results and actual event markers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 647,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:06.230Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-0eb98216d8985621dfcf",
+          "file": "e2e/showcase.spec.ts",
+          "line": 170,
+          "column": 1
+        },
+        {
+          "title": "report, JSON and Markdown exports retain actual evaluations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1052,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:06.887Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-237e4e83ec2be52bf30f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 191,
+          "column": 1
+        },
+        {
+          "title": "hash deep links, refresh and unknown routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1001,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:07.953Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-a23c42a879fe1b4f0cb9",
+          "file": "e2e/showcase.spec.ts",
+          "line": 219,
+          "column": 1
+        },
+        {
+          "title": "mobile navigation, all major layouts and video seek",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2042,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:08.963Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c4d2a11e837b0bca4d6d",
+          "file": "e2e/showcase.spec.ts",
+          "line": 234,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "live-tests\\live.spec.ts",
+      "file": "live-tests/live.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "LIVE: persistent failure-explorer jumps, fresh timestamp refresh and all mode selectors",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:11.079Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-febeb6bcfe109410119a",
+          "file": "live-tests/live.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "LIVE: timestamp change while replay is already mounted seeks actual media",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5621,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nExpected precision:    2\nExpected difference: < \u001b[32m0.005\u001b[39m\nReceived difference:   \u001b[31m3\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nExpected precision:    2\nExpected difference: < \u001b[32m0.005\u001b[39m\nReceived difference:   \u001b[31m3\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at C:\\RallySenseLab\\apps\\showcase\\live-tests\\live.spec.ts:78:87",
+                    "location": {
+                      "file": "C:\\RallySenseLab\\apps\\showcase\\live-tests\\live.spec.ts",
+                      "column": 87,
+                      "line": 78
+                    },
+                    "snippet": "  76 |   const outcome = { origin, requested_seconds: 5, actual_seconds: await video.evaluate((v) => (v as HTMLVideoElement).currentTime), current_url: page.url() };\n  77 |   record(\"public-mounted-timestamp-change.json\", outcome);\n> 78 |   await expect.poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime)).toBeCloseTo(5, 2);\n     |                                                                                       ^\n  79 | });\n  80 |\n  81 | test(\"LIVE: all 28 public assets, MIME types, hashes and every report match approved evidence\", async ({"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\RallySenseLab\\apps\\showcase\\live-tests\\live.spec.ts",
+                        "column": 87,
+                        "line": 78
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeCloseTo\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m, \u001b[22mprecision\u001b[2m)\u001b[22m\n\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\n\nExpected precision:    2\nExpected difference: < \u001b[32m0.005\u001b[39m\nReceived difference:   \u001b[31m3\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  76 |   const outcome = { origin, requested_seconds: 5, actual_seconds: await video.evaluate((v) => (v as HTMLVideoElement).currentTime), current_url: page.url() };\n  77 |   record(\"public-mounted-timestamp-change.json\", outcome);\n> 78 |   await expect.poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime)).toBeCloseTo(5, 2);\n     |                                                                                       ^\n  79 | });\n  80 |\n  81 | test(\"LIVE: all 28 public assets, MIME types, hashes and every report match approved evidence\", async ({\n    at C:\\RallySenseLab\\apps\\showcase\\live-tests\\live.spec.ts:78:87"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:18.202Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\live-tests-live-LIVE-times-3a7fb--mounted-seeks-actual-media\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\live-tests-live-LIVE-times-3a7fb--mounted-seeks-actual-media\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\RallySenseLab\\apps\\showcase\\live-tests\\live.spec.ts",
+                    "column": 87,
+                    "line": 78
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-6081200dacd6eebc229c",
+          "file": "live-tests/live.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "LIVE: all 28 public assets, MIME types, hashes and every report match approved evidence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3137,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:25.751Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-f3cf7a4836b34e7683a9",
+          "file": "live-tests/live.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "LIVE: repeated video seeks maintain real media, cursor and stored-pose synchronization",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2211,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:29.016Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-e6f0f934ae5e864865dc",
+          "file": "live-tests/live.spec.ts",
+          "line": 163,
+          "column": 1
+        },
+        {
+          "title": "LIVE: keyboard controls, visible focus and browser history work",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 667,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:31.235Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-702828929d4471459600",
+          "file": "live-tests/live.spec.ts",
+          "line": 231,
+          "column": 1
+        },
+        {
+          "title": "LIVE: real Print button lifecycle and generated public report PDF",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 597,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:31.909Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-258a07bc96c903d1e8b3",
+          "file": "live-tests/live.spec.ts",
+          "line": 282,
+          "column": 1
+        },
+        {
+          "title": "LIVE: desktop, 390px phone and tablet layouts plus accessibility basics",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10764,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:32.512Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-eb68a4e43bda884b91c3",
+          "file": "live-tests/live.spec.ts",
+          "line": 315,
+          "column": 1
+        },
+        {
+          "title": "LIVE: network, console, privacy probes and visible action audit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1242,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:28:43.285Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-0c53fa4c320d1a5c423d",
+          "file": "live-tests/live.spec.ts",
+          "line": 382,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-10T03:28:00.748Z",
+    "duration": 45120.072,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

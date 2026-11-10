@@ -1,5 +1,9 @@
 # Project status
 
+## Redeployed Cloudflare acceptance
+
+**NOT READY: one remaining timestamp-query navigation defect.** Actual-public full Chromium suite: **15 passed / 1 failed / 0 skipped**. All 14 original acceptance tests pass after the user's redeployment; all 28 replacement asset hashes match, repeated seeks/failure-explorer navigation/fresh timestamp links and refresh pass, and all 18 accessibility scans are clean. Changing the timestamp query while replay is already mounted leaves actual media at the previous time (requested 5 s, actual 2 s). This acceptance rerun changed tests/evidence/documentation only; no application or cloud changes. [Exact results and remaining defect](LIVE_REDEPLOYMENT_ACCEPTANCE.md). Earlier audit records below are historical.
+
 ## Public Cloudflare acceptance — 2026-11-09
 
 **NOT READY to share.** The user deployed the separate static showcase to https://lucky-band-a550.adithya-v1833.workers.dev/. Actual-public Chromium acceptance returned **9 passed / 5 failed** across 14 cases. Three confirmed defects: video seeking resets to zero because the served MP4 has no usable byte-range seeking; hero accessible-name mismatch; comparison scroll region cannot receive keyboard focus. Public data, all 28 approved file hashes, ten scenarios, report exports, scientific labels, basic playback and responsive layouts verified.

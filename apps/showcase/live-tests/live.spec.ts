@@ -5,7 +5,9 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 
 const origin = "https://lucky-band-a550.adithya-v1833.workers.dev";
-const evidence = path.resolve("../../docs/evidence/live-showcase");
+const evidence = path.resolve(
+  process.env.SHOWCASE_EVIDENCE_DIR || "../../docs/evidence/live-showcase",
+);
 mkdirSync(evidence, { recursive: true });
 const approved = JSON.parse(
   readFileSync("../../docs/evidence/step6_6/demo-fixtures.json", "utf8"),
@@ -26,6 +28,108 @@ const record = (name: string, data: unknown) =>
     path.join(evidence, name),
     JSON.stringify(data, null, 2) + "\n",
   );
+
+test("LIVE: persistent failure-explorer jumps, fresh timestamp refresh and all mode selectors", async ({
+  page,
+}) => {
+  test.setTimeout(120000);
+  const observations = [];
+  for (const experiment of expected.experiments) {
+    await page.goto(origin + "/#/challenge");
+    await page.getByLabel("Choose the evidence").selectOption(experiment.id);
+    const links = page.locator(".failure-explorer .failure-grid button");
+    const count = await links.count();
+    for (let i = 0; i < count; i++) {
+      if (i) {
+        await page.goto(origin + "/#/challenge");
+        await page
+          .getByLabel("Choose the evidence")
+          .selectOption(experiment.id);
+      }
+      const button = page
+        .locator(".failure-explorer .failure-grid button")
+        .nth(i);
+      const label = await button.innerText();
+      const target = Number(label.match(/(\d+\.\d+)\s*s/)![1]);
+      await button.click();
+      await expect
+        .poll(() =>
+          page
+            .locator("video")
+            .evaluate((v) => (v as HTMLVideoElement).currentTime),
+        )
+        .toBeCloseTo(target, 2);
+      await page.waitForTimeout(250);
+      expect(
+        await page
+          .locator("video")
+          .evaluate((v) => (v as HTMLVideoElement).currentTime),
+      ).toBeCloseTo(target, 2);
+      await expect(page.getByTestId("shared-time")).toContainText(
+        target.toFixed(3) + " s",
+      );
+      observations.push({
+        experiment: experiment.name,
+        label,
+        target,
+        stable: true,
+      });
+    }
+  }
+  await page.goto(origin + "/#/methodology");
+  for (const reload of [false, true]) {
+    if (reload) await page.reload();
+    else await page.goto(origin + "/#/replay?t=5");
+    await expect
+      .poll(() =>
+        page
+          .locator("video")
+          .evaluate((v) => (v as HTMLVideoElement).currentTime),
+      )
+      .toBeCloseTo(5, 2);
+    await expect(page.getByTestId("shared-time")).toContainText("5.000 s");
+  }
+  await page.goto(origin + "/#/challenge");
+  for (const [button, name] of [
+    ["A / VISUAL", "Clean video"],
+    ["B / INERTIAL", "Clean IMU"],
+    ["C / ASSOCIATION", "Clean fusion"],
+  ]) {
+    await page.getByRole("button", { name: button }).click();
+    await expect(page.locator(".result-title h3")).toHaveText(name);
+  }
+  record("public-persistent-failure-navigation.json", {
+    origin,
+    observations,
+    deep_link_and_refresh_actual_media: true,
+    all_three_modes: true,
+    unmatched_predictions_scope:
+      "Only fixture-provided output events; no fabricated cases",
+  });
+});
+
+test("LIVE: timestamp change while replay is already mounted seeks actual media", async ({
+  page,
+}) => {
+  await page.goto(origin + "/#/replay?t=2");
+  const video = page.locator("video");
+  await expect
+    .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))
+    .toBeCloseTo(2, 2);
+  await page.goto(origin + "/#/replay?t=5");
+  const outcome = {
+    origin,
+    requested_seconds: 5,
+    actual_seconds: await video.evaluate(
+      (v) => (v as HTMLVideoElement).currentTime,
+    ),
+    current_url: page.url(),
+  };
+  record("public-mounted-timestamp-change.json", outcome);
+  await expect
+    .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))
+    .toBeCloseTo(5, 2);
+});
 
 test("LIVE: all 28 public assets, MIME types, hashes and every report match approved evidence", async ({
   page,
@@ -359,6 +463,17 @@ test("LIVE: network, console, privacy probes and visible action audit", async ({
     `/report/${clean.id}`,
   ]) {
     await page.goto(origin + "/#" + route, { waitUntil: "networkidle" });
+    // Hash-only goto may finish before React mounts/loads the replay. Observe
+    // actual media readiness before leaving, rather than cancelling its fetch.
+    if (route === "/replay") {
+      await expect
+        .poll(() =>
+          page
+            .locator("video")
+            .evaluate((v) => (v as HTMLVideoElement).readyState),
+        )
+        .toBeGreaterThanOrEqual(2);
+    }
     const routeActions = await page
       .locator("button,a,input,select,summary")
       .evaluateAll((nodes) =>

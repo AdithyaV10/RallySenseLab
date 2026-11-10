@@ -1,0 +1,12 @@
+{
+  "skip_link": true,
+  "visible_focus": {
+    "style": "solid",
+    "width": "2px",
+    "color": "rgb(115, 223, 187)"
+  },
+  "timeline_keyboard": true,
+  "keyboard_play_pause": true,
+  "back_forward": true,
+  "unknown_report_recovery": true
+}
