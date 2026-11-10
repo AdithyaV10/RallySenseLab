@@ -8,7 +8,9 @@ const data = JSON.parse(
     "utf8",
   ),
 );
-const output = path.resolve("../../docs/evidence/static-showcase");
+const output = path.resolve(
+  process.env.SHOWCASE_EVIDENCE_DIR || "../../docs/evidence/static-showcase",
+);
 const clean = data.experiments.find((e: { name: string }) =>
   e.name.startsWith("Clean fusion"),
 );
@@ -30,9 +32,14 @@ test.beforeEach(async ({ page }, testInfo) => {
     if (
       u.origin !== origin ||
       r.method() !== "GET" ||
-      !/^\/(?:$|assets\/|data\/|reports\/|favicon\.svg$|NOTICES\.txt$)/.test(
-        u.pathname,
-      )
+      (!(
+        u.protocol === "blob:" &&
+        u.origin === origin &&
+        r.resourceType() === "media"
+      ) &&
+        !/^\/(?:$|assets\/|data\/|reports\/|favicon\.svg$|NOTICES\.txt$)/.test(
+          u.pathname,
+        ))
     )
       unexpected.push(`${r.method()} ${u.origin}${u.pathname}`);
   });

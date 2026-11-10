@@ -1,0 +1,12 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "skip_focus": {
+    "focused": true,
+    "outline": "solid",
+    "width": "2px"
+  },
+  "play_pause_keyboard": true,
+  "half_speed": 0.5,
+  "zoom_toggle": true,
+  "seek_defect_still_present": true
+}

@@ -284,7 +284,7 @@ function Landing({ data }: { data: Dataset }) {
         <a
           className="hero-visual"
           href="#/replay"
-          aria-label="Explore the synchronized synthetic movement replay"
+          title="Open the synchronized synthetic movement replay"
         >
           <div className="visual-top">
             <span>
@@ -434,6 +434,40 @@ function Replay({
   const [zoom, setZoom] = useState(false);
   const [rate, setRate] = useState("1");
   const [mediaError, setMediaError] = useState(false);
+  const [videoSource, setVideoSource] = useState<string>();
+  useEffect(() => {
+    // Some static hosts ignore Range requests and Chromium then treats the MP4
+    // as unseekable. Decode this tiny immutable clip from a verified local Blob.
+    // The source bytes still come only from this site's HTTPS static asset.
+    const controller = new AbortController();
+    let objectUrl: string | undefined;
+    const load = async () => {
+      const response = await fetch(asset(`data/${data.video.file}`), {
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error("Generated video is unavailable");
+      const bytes = await response.arrayBuffer();
+      if (bytes.byteLength !== data.video.bytes)
+        throw new Error("Generated video size mismatch");
+      const digest = Array.from(
+        new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)),
+        (b) => b.toString(16).padStart(2, "0"),
+      ).join("");
+      if (digest !== data.video.sha256)
+        throw new Error("Generated video hash mismatch");
+      if (controller.signal.aborted) return;
+      objectUrl = URL.createObjectURL(new Blob([bytes], { type: "video/mp4" }));
+      setVideoSource(objectUrl);
+      setMediaError(false);
+    };
+    load().catch(() => {
+      if (!controller.signal.aborted) setMediaError(true);
+    });
+    return () => {
+      controller.abort();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [data.video.file, data.video.sha256, data.video.bytes]);
   const query = new URLSearchParams(window.location.hash.split("?")[1]);
   const initialTime = useRef(
     query.has("t")
@@ -506,7 +540,7 @@ function Replay({
           <div className="video-stage">
             <video
               ref={video}
-              src={asset(`data/${data.video.file}`)}
+              src={videoSource}
               muted
               playsInline
               preload="auto"
@@ -528,6 +562,11 @@ function Replay({
               }}
               onError={() => setMediaError(true)}
             />
+            {!videoSource && !mediaError && (
+              <span className="mini-note" role="status">
+                Loading verified generated video…
+              </span>
+            )}
             <span className="media-label">
               SYNTHETIC FIXTURE · NOT ATHLETE FOOTAGE
             </span>
@@ -563,6 +602,7 @@ function Replay({
           <button
             className="play-button"
             aria-label={playing ? "Pause replay" : "Play replay"}
+            disabled={!videoSource}
             onClick={toggle}
           >
             {playing ? <Pause size={19} /> : <Play size={19} />}
@@ -1042,7 +1082,12 @@ function Challenge({
         )}
         <details>
           <summary>Timing disagreements & unassociated observations</summary>
-          <div className="scroll-table">
+          <div
+            className="scroll-table"
+            tabIndex={0}
+            role="region"
+            aria-label="Modality timing disagreements"
+          >
             <table>
               <thead>
                 <tr>
@@ -1158,7 +1203,12 @@ function Comparison({ data }: { data: Dataset }) {
                 <div className="panel-title">
                   ACTUAL STORED EVALUATIONS <span>SYNTHETIC ONLY</span>
                 </div>
-                <div className="scroll-table">
+                <div
+                  className="scroll-table"
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Stored experiment comparison"
+                >
                   <table>
                     <thead>
                       <tr>
@@ -1358,7 +1408,12 @@ function Report({ data, id }: { data: Dataset; id: string }) {
             result or metrics are implied.
           </p>
         )}
-        <div className="scroll-table">
+        <div
+          className="scroll-table"
+          tabIndex={0}
+          role="region"
+          aria-label="Report event observations"
+        >
           <table>
             <thead>
               <tr>

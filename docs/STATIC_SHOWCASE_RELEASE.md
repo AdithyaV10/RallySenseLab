@@ -1,5 +1,7 @@
 # RallySense Lab — static showcase release
 
+> Current public acceptance: **NOT READY**. The user deployed to Cloudflare; live Chromium tests exposed media seeking and two accessibility defects. A locally verified static-only replacement awaits redeployment. See [public acceptance and replacement handoff](LIVE_PRODUCTION_ACCEPTANCE.md). The original AWS/local-only release record below is historical.
+
 **READY — AWS ACTION REQUIRED. No live URL or AWS resources created.** Final source checkpoint is the local commit containing this document (`git log -1 --format=%H`); source-data checkpoint is `253e407e2a8bbef5f2002e3c7e67b67c658341f8`. No GitHub push. The user has requested that AWS creation remain paused until authentication and the exact Free plan are confirmed.
 
 The separate [apps/showcase](../apps/showcase) application is Vite/React/TypeScript with hash routing. It preserves the charcoal/teal identity and provides landing, actual video replay/seek/playback speed, synchronized signal/pose/cursor, chart zoom, event navigation, ten stored Sensor Fusion Challenge cases, comparisons, timing disagreements, failure exploration, methodology and JSON/Markdown/print-to-PDF reports. No upload, capture, new inference, backend authentication or private research service is implied.

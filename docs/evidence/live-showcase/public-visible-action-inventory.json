@@ -1,0 +1,743 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "actions": [
+    {
+      "route": "/",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Explore Interactive Demo",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Read the methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Explore the synchronized synthetic movement replay",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Enter the Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Inspect the evidence",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Inspect the evidence",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Inspect the evidence",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "How the research works",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "/replay",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Synchronized replay",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Experiment comparison",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Challenge this observation",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Play replay",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Seek backward 0.1 seconds",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Seek forward 0.1 seconds",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "text": "Playback speed",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Zoom to 2 s",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "text": "Shared session timeline",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Seek to measured event 1 at 2.00 s",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Seek to measured event 2 at 5.00 s",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Inspect provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "/challenge",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Synchronized replay",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Experiment comparison",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "A / VISUALVideo onlyTorso-relative wrist speed from stored analytical landmarks.Open clean stored result",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "B / INERTIALIMU onlyAngular-speed peaks from the generated inertial signal.Open clean stored result",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "C / ASSOCIATIONTemporal associationOne-to-one temporal association, keeping both source times.Open clean stored result",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SELECT",
+          "text": "Clean IMU / synthetic software verification · IMU onlyClean fusion / synthetic software verification · Temporal associationClean video / synthetic software veri",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Open experiment report",
+          "href": "#/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "JSON",
+          "href": "./reports/208b567b-053f-4762-bfcb-f93d7ff627bc.json",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare stored results",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Reference at 2.00 s0.000 ms",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Reference at 5.00 s0.000 ms",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "SUMMARY",
+          "text": "Timing disagreements & unassociated observations",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "/compare",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Synchronized replay",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Experiment comparison",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Clean IMU / synthetic software verification",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Clean fusion / synthetic software verification",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Clean video / synthetic software verification",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Full occlusion / expected inference failure",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Missing IMU window / synthetic failure case",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Offset +1 second / synthetic failure case",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Precomputed synthetic fusion",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Precomputed synthetic imu",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Precomputed synthetic video",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "INPUT",
+          "text": "Compare Wrist occlusion / synthetic failure case",
+          "href": null,
+          "disabled": true
+        },
+        {
+          "tag": "A",
+          "text": "Clean IMU / synthetic software verification event at 2.00 s",
+          "href": "#/replay?t=2",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Clean IMU / synthetic software verification event at 5.00 s",
+          "href": "#/replay?t=5",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Clean fusion / synthetic software verification event at 2.00 s",
+          "href": "#/replay?t=2",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Clean fusion / synthetic software verification event at 5.00 s",
+          "href": "#/replay?t=5",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Clean IMUInspect immutable snapshot & export",
+          "href": "#/report/1c84caaa-1dbf-4bd5-afe9-14571635ff0e",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Clean fusionInspect immutable snapshot & export",
+          "href": "#/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Offset +1 secondInspect immutable snapshot & export",
+          "href": "#/report/db9c514a-5db5-4a03-8b21-edf4ab3dd434",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "/methodology",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Explore replay",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Challenge the evidence",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Download provenance",
+          "href": "./data/provenance.json",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Explore the evidence",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "controls": [
+        {
+          "tag": "A",
+          "text": "Skip to content",
+          "href": "#main",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Observatory",
+          "href": "#/replay",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Sensor Fusion Challenge",
+          "href": "#/challenge",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Compare",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Methodology",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Back to comparison",
+          "href": "#/compare",
+          "disabled": false
+        },
+        {
+          "tag": "BUTTON",
+          "text": "Print / Save PDF",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Download Markdown",
+          "href": "./reports/208b567b-053f-4762-bfcb-f93d7ff627bc.md",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "JSON",
+          "href": "./reports/208b567b-053f-4762-bfcb-f93d7ff627bc.json",
+          "disabled": false
+        },
+        {
+          "tag": "SUMMARY",
+          "text": "Inspect the frozen configuration and hashes",
+          "href": null,
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "RallySense Lab home",
+          "href": "#/",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Scope & provenance",
+          "href": "#/methodology",
+          "disabled": false
+        },
+        {
+          "tag": "A",
+          "text": "Third-party notices",
+          "href": "./NOTICES.txt",
+          "disabled": false
+        }
+      ]
+    }
+  ]
+}

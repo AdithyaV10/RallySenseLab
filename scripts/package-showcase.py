@@ -12,14 +12,20 @@ parser.add_argument(
     type=Path,
     default=Path("storage/static-showcase/rallysense-showcase.zip"),
 )
+parser.add_argument(
+    "--manifest",
+    type=Path,
+    default=Path("docs/evidence/static-showcase/static-build-manifest.json"),
+)
+parser.add_argument(
+    "--report", type=Path, default=Path("docs/evidence/static-showcase/package.json")
+)
 args = parser.parse_args()
 target = args.output.resolve()
 assert target.is_relative_to(Path("storage").resolve()) and not target.exists(), (
     "Use a new package path inside ignored storage/"
 )
-manifest = json.loads(
-    Path("docs/evidence/static-showcase/static-build-manifest.json").read_text()
-)
+manifest = json.loads(args.manifest.read_text())
 root = Path("apps/showcase/dist")
 assert len(manifest["files"]) == 28
 for row in manifest["files"]:
@@ -48,7 +54,6 @@ result = {
     "network_actions": False,
     "aws_resources_created": [],
 }
-Path("docs/evidence/static-showcase/package.json").write_text(
-    json.dumps(result, indent=2) + "\n"
-)
+args.report.parent.mkdir(parents=True, exist_ok=True)
+args.report.write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps(result))

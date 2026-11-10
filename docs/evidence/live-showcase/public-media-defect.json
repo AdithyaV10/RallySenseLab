@@ -1,0 +1,28 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "requested_seek_seconds": 5,
+  "media": {
+    "time": 0,
+    "duration": 8,
+    "seekable": [
+      [
+        0,
+        0
+      ]
+    ],
+    "buffered": [
+      [
+        0,
+        8
+      ]
+    ]
+  },
+  "range_request": "bytes=0-63",
+  "status": 200,
+  "content_type": "video/mp4",
+  "content_length": "15839",
+  "content_range": null,
+  "accept_ranges": null,
+  "returned_bytes": 15839,
+  "ui_time": "0.000 s / 8.0 s"
+}

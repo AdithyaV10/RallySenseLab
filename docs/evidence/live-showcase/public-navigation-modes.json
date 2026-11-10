@@ -1,0 +1,24 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "checks": [
+    {
+      "mode_button": "A / VISUAL",
+      "result": "Clean video"
+    },
+    {
+      "mode_button": "B / INERTIAL",
+      "result": "Clean IMU"
+    },
+    {
+      "mode_button": "C / ASSOCIATION",
+      "result": "Clean fusion"
+    },
+    {
+      "back_forward": true
+    },
+    {
+      "report_refresh": true,
+      "unknown_route_recovery": true
+    }
+  ]
+}

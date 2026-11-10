@@ -1,5 +1,11 @@
 # Project status
 
+## Public Cloudflare acceptance — 2026-11-09
+
+**NOT READY to share.** The user deployed the separate static showcase to https://lucky-band-a550.adithya-v1833.workers.dev/. Actual-public Chromium acceptance returned **9 passed / 5 failed** across 14 cases. Three confirmed defects: video seeking resets to zero because the served MP4 has no usable byte-range seeking; hero accessible-name mismatch; comparison scroll region cannot receive keyboard focus. Public data, all 28 approved file hashes, ten scenarios, report exports, scientific labels, basic playback and responsive layouts verified.
+
+A static-only replacement fixes all three defects and passes local build/types/lint, 7 units, 8 browser workflows, 10 repeated seeks and 18 accessibility/layout checks. **Replacement is not deployed; no public pass is claimed for these fixes.** Upload the complete checked replacement output to the existing Worker and rerun public acceptance. No full-stack algorithms, databases, private research artifacts, AWS resources or other Cloudflare resources changed. [Acceptance report, unresolved live status, package and exact handoff](LIVE_PRODUCTION_ACCEPTANCE.md). Earlier AWS/local-only status below is historical.
+
 ## Current final delivery ? static showcase (AWS action required)
 
 **Static application complete and locally verified; not publicly deployed.** Separate `apps/showcase` Vite/React/TypeScript app includes the premium landing, synchronized generated video/IMU/analytical-pose replay, ten stored scenarios, comparisons, failure navigation, provenance and accurate report exports. Build output is 28 files / 2,507,048 bytes; local checked ZIP is in ignored `storage/static-showcase/`. [Release notes, actual tests and AWS GUI handoff](STATIC_SHOWCASE_RELEASE.md).

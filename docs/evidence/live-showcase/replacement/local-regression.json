@@ -1,0 +1,160 @@
+{
+  "scope": "LOCAL REPLACEMENT ONLY - NOT LIVE ACCEPTANCE",
+  "loaded": {
+    "source_protocol": "blob:",
+    "seekable_end": 8
+  },
+  "seeks": [
+    {
+      "target": 0,
+      "pose": 0
+    },
+    {
+      "target": 0.1,
+      "pose": 0.1
+    },
+    {
+      "target": 1.97,
+      "pose": 1.967
+    },
+    {
+      "target": 2,
+      "pose": 2
+    },
+    {
+      "target": 2.14,
+      "pose": 2.133
+    },
+    {
+      "target": 4.99,
+      "pose": 5
+    },
+    {
+      "target": 5,
+      "pose": 5
+    },
+    {
+      "target": 7.98,
+      "pose": 7.967
+    },
+    {
+      "target": 0.4,
+      "pose": 0.4
+    },
+    {
+      "target": 3,
+      "pose": 3
+    }
+  ],
+  "layouts": [
+    {
+      "viewport": "desktop",
+      "route": "/",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/replay",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/challenge",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/compare",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/methodology",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/replay",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/challenge",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/compare",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/methodology",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/replay",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/challenge",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/compare",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/methodology",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "errors": []
+}

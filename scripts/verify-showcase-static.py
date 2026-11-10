@@ -1,11 +1,19 @@
 """Audit only the static build and reviewed synthetic exports. No cloud actions."""
 
+import argparse
 import hashlib
 import json
 import re
 from html.parser import HTMLParser
 from pathlib import Path
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--output",
+    type=Path,
+    default=Path("docs/evidence/static-showcase/static-build-manifest.json"),
+)
+args = parser.parse_args()
 app = Path("apps/showcase")
 dist = app / "dist"
 data = json.loads((dist / "data/showcase.json").read_text(encoding="utf-8"))
@@ -82,7 +90,7 @@ for p in sorted(dist.rglob("*")):
         f"Unapproved build file {name}"
     )
     raw = p.read_bytes()
-    if name in allow and name != 'index.html':
+    if name in allow and name != "index.html":
         assert (app / "public" / name).read_bytes() == raw, (
             f"Stale copied asset: {name}"
         )
@@ -134,7 +142,7 @@ result = {
     "aws_resources_created": [],
     "public_deployment_verified": False,
 }
-out = Path("docs/evidence/static-showcase/static-build-manifest.json")
+out = args.output
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(result, indent=2) + "\n")
 print(json.dumps({k: v for k, v in result.items() if k != "files"}))

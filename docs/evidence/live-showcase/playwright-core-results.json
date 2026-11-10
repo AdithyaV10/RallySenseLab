@@ -1,0 +1,511 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\showcase\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "playwright.live.config.ts"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\showcase\\playwright.live.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/showcase",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": {},
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/storage/live-showcase/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/RallySenseLab/apps/showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/showcase.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": {},
+        "outputDir": "C:\\RallySenseLab\\storage\\live-showcase\\playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\RallySenseLab\\apps\\showcase",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/showcase.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000,
+        "use": {
+          "baseURL": "https://lucky-band-a550.adithya-v1833.workers.dev",
+          "browserName": "chromium",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "ignoreHTTPSErrors": false,
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../docs/evidence/live-showcase/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "e2e\\showcase.spec.ts",
+      "file": "e2e/showcase.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "premium landing and static navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1876,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:34.257Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c847cae7c05bc611857b",
+          "file": "e2e/showcase.spec.ts",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "actual video playback, seeking, synchronized pose and graph zoom",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6158,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    14 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    14 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n\n    at C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts:101:49",
+                    "location": {
+                      "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                      "column": 49,
+                      "line": 101
+                    },
+                    "snippet": "   99 |   await page.getByRole(\"button\", { name: \"Pause replay\", exact: true }).click();\n  100 |   await page.getByLabel(\"Shared session timeline\").fill(\"5000000\");\n> 101 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n      |                                                 ^\n  102 |   await expect\n  103 |     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))\n  104 |     .toBeCloseTo(5, 1);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                        "column": 49,
+                        "line": 101
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    14 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n\n\n   99 |   await page.getByRole(\"button\", { name: \"Pause replay\", exact: true }).click();\n  100 |   await page.getByLabel(\"Shared session timeline\").fill(\"5000000\");\n> 101 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n      |                                                 ^\n  102 |   await expect\n  103 |     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))\n  104 |     .toBeCloseTo(5, 1);\n    at C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts:101:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:36.273Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\e2e-showcase-actual-video--ea7fd-ronized-pose-and-graph-zoom\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\e2e-showcase-actual-video--ea7fd-ronized-pose-and-graph-zoom\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                    "column": 49,
+                    "line": 101
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-513b239c90afd2ab8fb7",
+          "file": "e2e/showcase.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "clock corruption preserves undefined precision and missed-event navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 907,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:43.731Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-bb936a7a06fcf28ebd2f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "all ten scenarios show their genuine stored state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 883,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:44.760Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-1cfdbdcb5d8db5565633",
+          "file": "e2e/showcase.spec.ts",
+          "line": 139,
+          "column": 1
+        },
+        {
+          "title": "comparison uses selectable stored results and actual event markers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 739,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:45.654Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-0eb98216d8985621dfcf",
+          "file": "e2e/showcase.spec.ts",
+          "line": 163,
+          "column": 1
+        },
+        {
+          "title": "report, JSON and Markdown exports retain actual evaluations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1473,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:46.402Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-237e4e83ec2be52bf30f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 184,
+          "column": 1
+        },
+        {
+          "title": "hash deep links, refresh and unknown routes",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5361,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    11 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    11 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n\n    at C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts:214:49",
+                    "location": {
+                      "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                      "column": 49,
+                      "line": 214
+                    },
+                    "snippet": "  212 | test(\"hash deep links, refresh and unknown routes\", async ({ page }) => {\n  213 |   await page.goto(\"/#/replay?t=5\");\n> 214 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n      |                                                 ^\n  215 |   await page.reload();\n  216 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n  217 |   await page.goto(`/#/report/${clean.id}`);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                        "column": 49,
+                        "line": 214
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('shared-time')\nExpected substring: \u001b[32m\"\u001b[7m5\u001b[27m.000 s\"\u001b[39m\nReceived string:    \u001b[31m\"\u001b[7m0\u001b[27m.000 s\u001b[7m / 8.0 s\u001b[27m\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('shared-time') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('shared-time')\u001b[22m\n\u001b[2m    11 × locator resolved to <output class=\"time-output\" data-testid=\"shared-time\">…</output>\u001b[22m\n\u001b[2m       - unexpected value \"0.000 s / 8.0 s\"\u001b[22m\n\n\n  212 | test(\"hash deep links, refresh and unknown routes\", async ({ page }) => {\n  213 |   await page.goto(\"/#/replay?t=5\");\n> 214 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n      |                                                 ^\n  215 |   await page.reload();\n  216 |   await expect(page.getByTestId(\"shared-time\")).toContainText(\"5.000 s\");\n  217 |   await page.goto(`/#/report/${clean.id}`);\n    at C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts:214:49"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:47.884Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\e2e-showcase-hash-deep-links-refresh-and-unknown-routes\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\RallySenseLab\\storage\\live-showcase\\playwright\\e2e-showcase-hash-deep-links-refresh-and-unknown-routes\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\RallySenseLab\\apps\\showcase\\e2e\\showcase.spec.ts",
+                    "column": 49,
+                    "line": 214
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-a23c42a879fe1b4f0cb9",
+          "file": "e2e/showcase.spec.ts",
+          "line": 212,
+          "column": 1
+        },
+        {
+          "title": "mobile navigation, all major layouts and video seek",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2366,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-10T03:02:54.437Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "network-policy",
+                      "contentType": "text/plain",
+                      "body": "QWxsIGFwcCBydW50aW1lIHJlcXVlc3RzIG11c3QgYmUgR0VUcyB0byBzYW1lLW9yaWdpbiBzdGF0aWMgYXNzZXRzLg=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c4d2a11e837b0bca4d6d",
+          "file": "e2e/showcase.spec.ts",
+          "line": 227,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-10T03:02:33.679Z",
+    "duration": 23975.952,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

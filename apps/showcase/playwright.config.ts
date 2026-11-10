@@ -9,8 +9,9 @@ export default defineConfig({
     [
       "json",
       {
-        outputFile:
-          "../../docs/evidence/static-showcase/playwright-results.json",
+        outputFile: process.env.SHOWCASE_EVIDENCE_DIR
+          ? `${process.env.SHOWCASE_EVIDENCE_DIR}/playwright-results.json`
+          : "../../docs/evidence/static-showcase/playwright-results.json",
       },
     ],
   ],

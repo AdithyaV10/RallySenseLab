@@ -1,0 +1,8 @@
+{
+  "package": "storage\\live-showcase\\rallysense-cloudflare-fix-verified.zip",
+  "bytes": 362326,
+  "sha256": "ad3523a15a97d69cc14b4a0a1c1cc0122e7ea558e3e61658e9f8852929571e05",
+  "static_files_verified": 28,
+  "network_actions": false,
+  "aws_resources_created": []
+}

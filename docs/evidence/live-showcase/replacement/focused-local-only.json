@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-10T03:09:36.461791+00:00",
+  "command": [
+    "node",
+    "scripts/verify-showcase-fix.mjs"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 16.612,
+  "output": "{\"scope\":\"LOCAL REPLACEMENT ONLY\",\"deep_link\":true,\"seeks\":10,\"layout_accessibility_checks\":18,\"violations\":0,\"public_redeployment_verified\":false}\n"
+}

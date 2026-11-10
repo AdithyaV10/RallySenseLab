@@ -1,0 +1,238 @@
+{
+  "origin": "https://lucky-band-a550.adithya-v1833.workers.dev",
+  "scope": "Automated WCAG 2.1 A/AA basics; not full conformance certification",
+  "rows": [
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/",
+      "label": "landing",
+      "horizontal_overflow": false,
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                ".hero-visual"
+              ],
+              "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/replay",
+      "label": "replay",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/challenge",
+      "label": "challenge",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/compare",
+      "label": "comparison",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/methodology",
+      "label": "methodology",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "label": "report",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "label": "landing",
+      "horizontal_overflow": false,
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                ".hero-visual"
+              ],
+              "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/replay",
+      "label": "replay",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/challenge",
+      "label": "challenge",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/compare",
+      "label": "comparison",
+      "horizontal_overflow": false,
+      "violations": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
+          "nodes": [
+            {
+              "target": [
+                ".scroll-table"
+              ],
+              "summary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/methodology",
+      "label": "methodology",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "label": "report",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/",
+      "label": "landing",
+      "horizontal_overflow": false,
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+          "nodes": [
+            {
+              "target": [
+                ".hero-visual"
+              ],
+              "summary": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/replay",
+      "label": "replay",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/challenge",
+      "label": "challenge",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/compare",
+      "label": "comparison",
+      "horizontal_overflow": false,
+      "violations": [
+        {
+          "id": "scrollable-region-focusable",
+          "impact": "serious",
+          "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
+          "nodes": [
+            {
+              "target": [
+                ".scroll-table"
+              ],
+              "summary": "Fix any of the following:\n  Element should have focusable content\n  Element should be focusable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/methodology",
+      "label": "methodology",
+      "horizontal_overflow": false,
+      "violations": []
+    },
+    {
+      "viewport": "tablet",
+      "width": 820,
+      "height": 1180,
+      "route": "/report/208b567b-053f-4762-bfcb-f93d7ff627bc",
+      "label": "report",
+      "horizontal_overflow": false,
+      "violations": []
+    }
+  ]
+}
