@@ -1,0 +1,12 @@
+{
+  "at_utc": "2026-11-10T03:33:30.518561+00:00",
+  "command": [
+    "npm.cmd",
+    "--prefix",
+    "apps/showcase",
+    "test"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 1.397,
+  "output": "\n> rallysense-showcase@1.0.0 test\n> vitest run\n\n\n RUN  v5.1.0 C:/RallySenseLab/apps/showcase\n\n\n Test Files  1 passed (1)\n      Tests  7 passed (7)\n   Start at  22:33:30\n   Duration  300ms (import 44%, transform 29%, worker 14%, tests 12%)\n\n"
+}

@@ -1,0 +1,514 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\RallySenseLab\\apps\\showcase\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "playwright.live.config.ts",
+      "--list"
+    ],
+    "configFile": "C:\\RallySenseLab\\apps\\showcase\\playwright.live.config.ts",
+    "rootDir": "C:/RallySenseLab/apps/showcase",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": {},
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/RallySenseLab/storage/live-showcase/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "C:/RallySenseLab/apps/showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/*.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": {},
+        "outputDir": "C:\\RallySenseLab\\storage\\live-showcase\\playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "name": "",
+        "testDir": "C:\\RallySenseLab\\apps\\showcase",
+        "snapshotDir": "C:\\RallySenseLab\\apps\\showcase",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e/*.spec.ts",
+          "**/live-tests/live.spec.ts"
+        ],
+        "timeout": 45000,
+        "use": {
+          "baseURL": "https://lucky-band-a550.adithya-v1833.workers.dev",
+          "browserName": "chromium",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "ignoreHTTPSErrors": false,
+          "serviceWorkers": "block",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:/RallySenseLab/docs/evidence/timestamp-fix/live/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "e2e\\showcase.spec.ts",
+      "file": "e2e/showcase.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "premium landing and static navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c847cae7c05bc611857b",
+          "file": "e2e/showcase.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "actual video playback, seeking, synchronized pose and graph zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-513b239c90afd2ab8fb7",
+          "file": "e2e/showcase.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "clock corruption preserves undefined precision and missed-event navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-bb936a7a06fcf28ebd2f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 129,
+          "column": 1
+        },
+        {
+          "title": "all ten scenarios show their genuine stored state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-1cfdbdcb5d8db5565633",
+          "file": "e2e/showcase.spec.ts",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "comparison uses selectable stored results and actual event markers",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-0eb98216d8985621dfcf",
+          "file": "e2e/showcase.spec.ts",
+          "line": 170,
+          "column": 1
+        },
+        {
+          "title": "report, JSON and Markdown exports retain actual evaluations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-237e4e83ec2be52bf30f",
+          "file": "e2e/showcase.spec.ts",
+          "line": 191,
+          "column": 1
+        },
+        {
+          "title": "hash deep links, refresh and unknown routes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-a23c42a879fe1b4f0cb9",
+          "file": "e2e/showcase.spec.ts",
+          "line": 219,
+          "column": 1
+        },
+        {
+          "title": "mobile navigation, all major layouts and video seek",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1c8190c360b19bae85e0-c4d2a11e837b0bca4d6d",
+          "file": "e2e/showcase.spec.ts",
+          "line": 234,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "e2e\\timestamp.spec.ts",
+      "file": "e2e/timestamp.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mounted timestamp changes, history and manual controls synchronize actual video",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "546281840452600d1464-c60ccce61cfe1febcc86",
+          "file": "e2e/timestamp.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "latest timestamp requested before real video metadata is ready wins",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "546281840452600d1464-0cea2df2bb121ba52f2e",
+          "file": "e2e/timestamp.spec.ts",
+          "line": 127,
+          "column": 1
+        },
+        {
+          "title": "failure-explorer links still seek settled media after timestamp navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "546281840452600d1464-ee17a67e860e519cc28b",
+          "file": "e2e/timestamp.spec.ts",
+          "line": 160,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "live-tests\\live.spec.ts",
+      "file": "live-tests/live.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "LIVE: persistent failure-explorer jumps, fresh timestamp refresh and all mode selectors",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-febeb6bcfe109410119a",
+          "file": "live-tests/live.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "LIVE: timestamp change while replay is already mounted seeks actual media",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-6081200dacd6eebc229c",
+          "file": "live-tests/live.spec.ts",
+          "line": 111,
+          "column": 1
+        },
+        {
+          "title": "LIVE: all 28 public assets, MIME types, hashes and every report match approved evidence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-f3cf7a4836b34e7683a9",
+          "file": "live-tests/live.spec.ts",
+          "line": 134,
+          "column": 1
+        },
+        {
+          "title": "LIVE: repeated video seeks maintain real media, cursor and stored-pose synchronization",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-e6f0f934ae5e864865dc",
+          "file": "live-tests/live.spec.ts",
+          "line": 216,
+          "column": 1
+        },
+        {
+          "title": "LIVE: keyboard controls, visible focus and browser history work",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-702828929d4471459600",
+          "file": "live-tests/live.spec.ts",
+          "line": 284,
+          "column": 1
+        },
+        {
+          "title": "LIVE: real Print button lifecycle and generated public report PDF",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-258a07bc96c903d1e8b3",
+          "file": "live-tests/live.spec.ts",
+          "line": 335,
+          "column": 1
+        },
+        {
+          "title": "LIVE: desktop, 390px phone and tablet layouts plus accessibility basics",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-eb68a4e43bda884b91c3",
+          "file": "live-tests/live.spec.ts",
+          "line": 368,
+          "column": 1
+        },
+        {
+          "title": "LIVE: network, console, privacy probes and visible action audit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "04385a0c9da1bf1699ed-0c53fa4c320d1a5c423d",
+          "file": "live-tests/live.spec.ts",
+          "line": 435,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-10T03:35:57.440Z",
+    "duration": 189.59699999999998,
+    "expected": 0,
+    "skipped": 19,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

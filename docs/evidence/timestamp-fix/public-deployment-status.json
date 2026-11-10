@@ -1,0 +1,11 @@
+{
+  "url": "https://lucky-band-a550.adithya-v1833.workers.dev/",
+  "status": 200,
+  "actual_index_sha256": "9066bdde298615f1f342982eeba8a72a9825fdc7499263460b0b371529a19f92",
+  "expected_index_sha256": "0ddc62222eb084b61fb436e311f16ec3acfc15ecf627e495f42023c8b79b5e29",
+  "script": [
+    "assets/index-aEXiQm6p.js"
+  ],
+  "scope": "Deployment identity check only; not live browser acceptance",
+  "corrected_build_deployed": false
+}

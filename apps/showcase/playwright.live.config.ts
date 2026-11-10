@@ -7,7 +7,7 @@ if (process.env.SHOWCASE_URL !== url)
   );
 export default defineConfig({
   testDir: ".",
-  testMatch: ["**/e2e/showcase.spec.ts", "**/live-tests/live.spec.ts"],
+  testMatch: ["**/e2e/*.spec.ts", "**/live-tests/live.spec.ts"],
   grepInvert: /loading failure offers a real retry/,
   workers: 1,
   timeout: 45000,

@@ -1,5 +1,9 @@
 # Project status
 
+## Final targeted timestamp fix — awaiting manual Cloudflare update
+
+The remaining mounted-replay timestamp defect is fixed locally. Build/TypeScript/lint, 7 units, all 12 production-preview browser tests and the complete static/privacy verification pass. New tests exercise 2 → 5 → 3 → 7, back/forward, actual pre-metadata requests, manual/playback/zoom controls and failure links without mocking video. Scientific data/backend code are unchanged. The complete new 28-file ZIP is `storage/static-showcase/rallysense-cloudflare-timestamp-fix.zip`. Cloudflare authentication is unavailable, so it is **not deployed**; current public readiness remains **NOT READY**, pending manual upload and all 19 actual-public acceptance cases against the new manifest. [Exact files, evidence, package hash and deployment steps](FINAL_TIMESTAMP_FIX.md).
+
 ## Redeployed Cloudflare acceptance
 
 **NOT READY: one remaining timestamp-query navigation defect.** Actual-public full Chromium suite: **15 passed / 1 failed / 0 skipped**. All 14 original acceptance tests pass after the user's redeployment; all 28 replacement asset hashes match, repeated seeks/failure-explorer navigation/fresh timestamp links and refresh pass, and all 18 accessibility scans are clean. Changing the timestamp query while replay is already mounted leaves actual media at the previous time (requested 5 s, actual 2 s). This acceptance rerun changed tests/evidence/documentation only; no application or cloud changes. [Exact results and remaining defect](LIVE_REDEPLOYMENT_ACCEPTANCE.md). Earlier audit records below are historical.

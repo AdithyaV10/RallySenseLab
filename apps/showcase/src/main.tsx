@@ -202,7 +202,12 @@ function App() {
               <span>STORED RESULTS · NO LIVE INFERENCE</span>
             </div>
             {path === "/replay" ? (
-              <Replay data={data} time={time} setTime={setTime} />
+              <Replay
+                data={data}
+                time={time}
+                setTime={setTime}
+                timestamp={new URLSearchParams(hash.split("?")[1]).get("t")}
+              />
             ) : path === "/challenge" ? (
               <Challenge
                 data={data}
@@ -424,10 +429,12 @@ function Replay({
   data,
   time,
   setTime,
+  timestamp,
 }: {
   data: Dataset;
   time: number;
   setTime: (us: number) => void;
+  timestamp: string | null;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -468,18 +475,28 @@ function Replay({
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
   }, [data.video.file, data.video.sha256, data.video.bytes]);
-  const query = new URLSearchParams(window.location.hash.split("?")[1]);
-  const initialTime = useRef(
-    query.has("t")
-      ? clampTime(Number(query.get("t")) * 1e6, data.duration_us)
+  const pendingTime = useRef(
+    timestamp !== null
+      ? clampTime(Number(timestamp) * 1e6, data.duration_us)
       : time,
   );
+  useEffect(() => {
+    if (timestamp === null) return;
+    const target = clampTime(Number(timestamp) * 1e6, data.duration_us);
+    pendingTime.current = target;
+    setTime(target);
+    if (video.current && video.current.readyState >= 1)
+      video.current.currentTime = target / 1e6;
+    // URL changes request a seek; ordinary clock updates never rewrite the URL
+    // or reapply an old timestamp. Metadata uses the latest pending request.
+  }, [timestamp, data.duration_us, setTime]);
   const clean = data.experiments.find((e) =>
     e.name.startsWith("Clean fusion"),
   )!;
   const frame = nearestFrame(data.pose.frames, time);
   const seek = (us: number) => {
     const t = clampTime(us, data.duration_us);
+    pendingTime.current = t;
     setTime(t);
     if (video.current && video.current.readyState >= 1)
       video.current.currentTime = t / 1e6;
@@ -547,8 +564,8 @@ function Replay({
               aria-label="Generated stick figure movement video"
               onLoadedMetadata={() => {
                 if (video.current) {
-                  video.current.currentTime = initialTime.current / 1e6;
-                  setTime(initialTime.current);
+                  video.current.currentTime = pendingTime.current / 1e6;
+                  setTime(pendingTime.current);
                 }
               }}
               onPlay={() => setPlaying(true)}
